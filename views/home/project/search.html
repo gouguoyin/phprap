@@ -71,7 +71,9 @@
                                     <th width="60px">成员数</th>
                                     <th class="datetime">创建时间</th>
                                     <th class="datetime">更新时间</th>
+                                    {{if $model->count}}
                                     <th width="95px"></th>
+                                    {{/if}}
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -87,6 +89,7 @@
                                     <td class="text-center">{{$model->getMembers()->count()}}</td>
                                     <td >{{$model->created_at}}</td>
                                     <td >{{$model->updated_at}}</td>
+                                    {{if !$model->count}}
                                     <td >
                                         {{if $model->isCreater() || $model->isJoiner()}}
                                         <a class="btn btn-success btn-xs disabled mr-1">加入</a>
@@ -95,6 +98,7 @@
                                         {{/if}}
                                         <a target="_blank" href="{{$model->url}}" class="btn btn-warning btn-xs">查看</a>
                                     </td>
+                                    {{/if}}
                                 </tr>
                                 {{/foreach}}
 

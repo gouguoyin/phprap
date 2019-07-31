@@ -85,8 +85,9 @@
                                     <th class="datetime">注册时间</th>
 
                                     <th width="80px" class="text-center">用户状态</th>
-
+                                    {{if !$model->count}}
                                     <th width="95px"></th>
+                                    {{/if}}
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -106,11 +107,12 @@
                                         <span class="text-danger">{{$model->statusLabel}}</span>
                                         {{/if}}
                                     </td>
-
+                                    {{if !$model->count}}
                                     <td>
                                         <a type="button" class="btn btn-warning btn-xs  mr-1" data-modal="#js_popModal" data-height="200" data-src="{{url('admin/user/profile', ['id' => $model->id])}}" data-toggle="tooltip" data-placement="bottom" data-title="编辑账户">编辑</a>
                                         <a type="button" class="btn btn-danger btn-xs" data-modal="#js_popModal" data-height="210" data-src="{{url('admin/user/password', ['id' => $model->id])}}" data-toggle="tooltip" data-placement="bottom" data-title="重置密码">重置</a>
                                     </td>
+                                    {{/if}}
                                 </tr>
                                 {{/foreach}}
 

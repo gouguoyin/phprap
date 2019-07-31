@@ -41,7 +41,9 @@
                                     <th>审核/邀请者</th>
                                     <th class="datetime">加入时间</th>
                                     <th class="datetime">更新时间</th>
-                                    <th class="hidden-xs" width="100px"></th>
+                                    {{if !$member->count}}
+                                    <th class="hidden-xs" width="95px"></th>
+                                    {{/if}}
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -55,6 +57,7 @@
 
                                     <td>{{$member->created_at}}</td>
                                     <td>{{$member->updated_at}}</td>
+                                    {{if !$member->count}}
                                     <td class="hidden-xs">
 
                                         {{if $project->hasRule('member', 'update')}}
@@ -67,6 +70,7 @@
                                         <a type="button" class="btn btn-danger btn-xs" data-toggle="tooltip" data-placement="top" data-title="移出项目" data-modal="#js_popModal" data-height="270" data-src="{{url('home/member/remove', ['id' => $member->encode_id])}}">移出</a>
                                         {{/if}}
                                     </td>
+                                    {{/if}}
                                 </tr>
 
                                 {{/foreach}}
