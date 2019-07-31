@@ -1,0 +1,283 @@
+{{include_file name='home/public/header' title='接口字段'}}
+<link href="{{STATIC_URL}}/plugins/jsonview/json-view.css" rel="stylesheet" type="text/css">
+<style>
+    .table>thead>tr>th, .table>tbody>tr>th, .table>tfoot>tr>th, .table>thead>tr>td, .table>tbody>tr>td, .table>tfoot>tr>td {
+        padding: 8px 8px 8px 0;
+        line-height: 1.42857143;
+        vertical-align: top;
+        border-top: 1px solid #ddd;
+    }
+    .table>tbody>tr.level1>td, .table>tbody>tr.level1>th, .table>tbody>tr>td.level1, .table>tbody>tr>th.level1, .table>tfoot>tr.level1>td, .table>tfoot>tr.level1>th, .table>tfoot>tr>td.level1, .table>tfoot>tr>th.level1, .table>thead>tr.level1>td, .table>thead>tr.level1>th, .table>thead>tr>td.level1, .table>thead>tr>th.level1 {
+        background-color: #f5f5f5;
+    }
+    .table>tbody>tr.level2>td, .table>tbody>tr.level2>th, .table>tbody>tr>td.level2, .table>tbody>tr>th.level2, .table>tfoot>tr.level2>td, .table>tfoot>tr.level2>th, .table>tfoot>tr>td.level2, .table>tfoot>tr>th.level2, .table>thead>tr.level2>td, .table>thead>tr.level2>th, .table>thead>tr>td.level2, .table>thead>tr>th.level2 {
+        background-color: rgba(255,255,255,.15);
+    }
+</style>
+
+</head>
+
+<body>
+
+<div id="wrapper">
+
+    <!-- Navigation -->
+    {{include_file name='home/public/nav' sidebar='home/project/sidebar'}}
+    <div id="page-wrapper">
+
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="page-header">
+                    <h1>接口字段 </h1>
+                    <div class="opt-btn">
+
+                        {{if $project->hasRule('api', 'update')}}
+                        <a href="javascript:;" class="btn btn-sm hidden-xs btn-success js_editFormBtn" data-url="{{url('home/field/form', ['api_id' => $api->encode_id])}}"><i class="fa fa-fw fa-edit"></i>编辑</a>
+                        {{/if}}
+
+                    </div>
+                </div>
+            </div>
+            <!-- /.col-lg-12 -->
+        </div>
+
+        <!-- 接口详情 -->
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="panel panel-default">
+
+                    {{include_file name='home/api/tab' tab='field'}}
+
+                    <div class="panel-body">
+                        <!--header参数-->
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        Header参数
+                                    </div>
+                                    <!-- /.panel-heading -->
+                                    <div class="panel-body">
+                                        <div class="table-responsive">
+                                            <table class="table">
+                                                <thead>
+                                                <tr>
+                                                    <th width="200px">参数名</th>
+                                                    <th width="150px">参数类型</th>
+                                                    <th width="320px">参数值</th>
+                                                    <th>备注说明</th>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                {{foreach $api->headerAttributes as $header}}
+                                                <tr class="level{{$header->level}}">
+                                                    <td>
+                                                        {{if $header->level}}
+                                                        {{str_repeat('&nbsp;&nbsp;&nbsp;', $header->level)}}
+                                                        <i class="fa fa-fw fa-angle-right fa-1" aria-hidden="true"></i>
+                                                        {{/if}}
+                                                        {{$header->name}}
+                                                    </td>
+                                                    <td>{{$api->fieldTypeLabels[$header->type]}}</td>
+                                                    <td>{{$header->value}}</td>
+                                                    <td>{{$header->remark}}</td>
+                                                </tr>
+                                                {{/foreach}}
+
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                        <!-- /.table-responsive -->
+                                    </div>
+                                    <!-- /.panel-body -->
+                                </div>
+                                <!-- /.panel -->
+                            </div>
+                            <!-- /.col-lg-6 -->
+                        </div>
+                        <!--请求参数-->
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        请求参数
+                                    </div>
+                                    <!-- /.panel-heading -->
+                                    <div class="panel-body">
+                                        <div class="table-responsive">
+                                            <table class="table">
+                                                <thead>
+                                                <tr>
+                                                    <th width="200px">参数名</th>
+                                                    <th width="200px">参数标题</th>
+                                                    <th width="120px">参数类型</th>
+                                                    <th width="60px">必填</th>
+                                                    <th width="90px">默认值</th>
+                                                    <th>备注说明</th>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                {{foreach $api->requestAttributes as $request}}
+                                                <tr class="level{{$request->level}}">
+                                                    <td>
+                                                        {{if $request->level}}
+                                                        {{str_repeat('&nbsp;&nbsp;&nbsp;', $request->level)}}
+                                                        <i class="fa fa-fw fa-angle-right fa-1" aria-hidden="true"></i>
+                                                        {{/if}}
+                                                        {{$request->name}}
+                                                    </td>
+
+                                                    <td>{{$request->title}}</td>
+                                                    <td>{{$api->fieldTypeLabels[$request->type]}}</td>
+                                                    <td>{{$api->requiredLabels[$request->required]}}</td>
+                                                    <td>{{$request->default}}</td>
+                                                    <td>{{$request->remark}}</td>
+                                                </tr>
+                                                {{/foreach}}
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                        <!-- /.table-responsive -->
+                                    </div>
+                                    <!-- /.panel-body -->
+                                </div>
+                                <!-- /.panel -->
+                            </div>
+                            <!-- /.col-lg-6 -->
+                        </div>
+                        <!--响应参数-->
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        响应参数
+                                    </div>
+                                    <!-- /.panel-heading -->
+                                    <div class="panel-body">
+                                        <div class="table-responsive">
+                                            <table class="table">
+                                                <thead>
+                                                <tr>
+                                                    <th width="200px">参数名</th>
+                                                    <th width="200px">参数标题</th>
+                                                    <th width="120px">参数类型</th>
+                                                    <th>备注说明</th>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                {{foreach $api->responseAttributes as $response}}
+                                                <tr class="level{{$response->level}}">
+                                                    <td>
+                                                        {{if $response->level}}
+                                                        {{str_repeat('&nbsp;&nbsp;&nbsp;', $response->level)}}
+                                                        <i class="fa fa-fw fa-angle-right fa-1" aria-hidden="true"></i>
+                                                        {{/if}}
+                                                        {{$response->name}}
+                                                    </td>
+                                                    <td>{{$response->title}}</td>
+                                                    <td>{{$api->fieldTypeLabels[$response->type]}}</td>
+                                                    <td>{{$response->description}}</td>
+                                                </tr>
+                                                {{/foreach}}
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                        <!-- /.table-responsive -->
+                                    </div>
+                                    <!-- /.panel-body -->
+                                </div>
+                                <!-- /.panel -->
+                            </div>
+                            <!-- /.col-lg-6 -->
+                        </div>
+
+                        <div class="panel-json">
+
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="panel panel-default">
+                                        <div class="panel-heading">
+                                            返回成功示例
+                                        </div>
+                                        <div class="panel-body">
+                                            <div class="success-box">{{if !$api->success_example}}暂无示例{{/if}}</div>
+                                        </div>
+                                        <!-- /.panel-body -->
+                                    </div>
+                                    <!-- /.panel -->
+                                </div>
+                                <!-- /.col-lg-12 -->
+                            </div>
+
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="panel panel-default mb-0">
+                                        <div class="panel-heading">
+                                            返回失败示例
+                                        </div>
+                                        <div class="panel-body">
+                                            <div class="error-box">{{if !$api->error_example}}暂无示例{{/if}}</div>
+                                        </div>
+                                        <!-- /.panel-body -->
+                                    </div>
+                                    <!-- /.panel -->
+                                </div>
+                                <!-- /.col-lg-12 -->
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+    <!-- /#page-wrapper -->
+
+</div>
+
+<!-- /#wrapper -->
+<hr>
+<p class="text-center">{{config('copyright')}}</p>
+
+<script src="{{STATIC_URL}}/plugins/jsonview/json-view.js"></script>
+
+<script>
+    $(function () {
+
+        // 格式化json
+        {{if $api->success_example}}
+        $(".success-box").JSONView({{$api->success_example}});
+        {{/if}}
+
+        {{if $api->error_example}}
+        $(".error-box").JSONView({{$api->error_example}});
+        {{/if}}
+
+        // 编辑表单
+        $(".js_editFormBtn").on('click', function () {
+            var thisObj = $(this);
+            var url = thisObj.data('url');
+            thisObj.attr("disabled", "disabled");
+            $("body").load(url, function (response, status) {
+                thisObj.removeAttr("disabled");
+            });
+        });
+
+        // 编辑JSON
+        $(".js_editJsonBtn").on('click', function () {
+            var thisObj = $(this);
+            var url = thisObj.data('url');
+            thisObj.attr("disabled", "disabled");
+            $("body").load(url, function (response, status) {
+                thisObj.removeAttr("disabled");
+            });
+        });
+    });
+</script>
+
+{{include_file name='home/public/footer'}}

@@ -1,0 +1,28 @@
+<div class="navbar-default sidebar" role="navigation">
+    <div class="sidebar-nav navbar-collapse">
+
+        <ul class="nav" id="side-menu">
+
+            <li>
+                <a {{if $active == 'account'}}class="active"{{/if}} href="{{url('home/account/home')}}"><i class="fa fa-user fa-fw"></i> 个人主页</a>
+            </li>
+
+            <li>
+                <a {{if $active == 'search'}}class="active"{{/if}} href="{{url('home/project/search')}}"><i class="fa fa-search fa-fw"></i> 搜索项目</a>
+            </li>
+
+            <li>
+                <a {{if $active == 'apply'}}class="active"{{/if}}  href="{{url('home/apply/index')}}"><i class="fa fa-bell-o fa-fw"></i> 申请管理</a>
+            </li>
+
+            <li>
+                <a {{if $active == 'history'}}class="active"{{/if}} href="{{url('home/history/login')}}"><i class="fa fa-history fa-fw"></i> 登录历史</a>
+            </li>
+
+            <li><a target="_blank" href="http://www.phprap.com/doc/index.html"><i class="fa fa-file-text fa-fw"></i> 帮助文档</a>
+            </li>
+
+        </ul>
+    </div>
+    <!-- /.sidebar-collapse -->
+</div>

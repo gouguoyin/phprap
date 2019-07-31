@@ -1,0 +1,132 @@
+{{include_file name='install/public/header' title='管理员配置——安装步骤三'}}
+<link href="{{STATIC_URL}}/css/install.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-10 col-md-offset-1">
+            <div class="install-panel panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title text-center">安装步骤三</h3>
+                </div>
+                <div class="panel-body">
+
+                    {{include_file name='install/public/nav' step=3}}
+
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="panel panel-default">
+                                <div class="panel-heading">管理员信息</div>
+
+                                <div class="panel-body">
+
+                                    <form class="form-horizontal" id="js_step3Form" role="form" action="{{url('home/install/step3')}}" method="post">
+                                        <input type="hidden" name="csrf-phprap" value="{{csrf_token()}}" />
+
+                                        <div class="form-group">
+                                            <label class="col-sm-2 control-label">管理员邮箱</label>
+                                            <div class="col-sm-10">
+                                                <input type="email" name="Step3[email]" class="form-control" placeholder="登录邮箱" datatype="e" nullmsg="请输入登录邮箱" errormsg="请输入合法的邮箱地址">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-sm-2 control-label">管理员昵称</label>
+                                            <div class="col-sm-10">
+                                                <input type="text" name="Step3[name]" class="form-control" placeholder="建议写真实姓名以方便识别" datatype="*2-10" nullmsg="请输入用户昵称" errormsg="请输入2-10个由字母或汉字组成的字符">
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label class="col-sm-2 control-label">管理员密码</label>
+                                            <div class="col-sm-10">
+                                                <input type="password" name="Step3[password]" class="form-control" placeholder="密码不少于6位" datatype="*6-50" nullmsg="请输入登录密码" errormsg="请填写6-50个字符">
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label class="col-sm-2 control-label">确认密码</label>
+                                            <div class="col-sm-10">
+                                                <input type="password" class="form-control" placeholder="再次输入密码" datatype="*" recheck="Step3[password]" nullmsg="请输入重复密码" errormsg="重复密码与密码不一致">
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <div class="panel-button text-center">
+                                                <a href="javascript:history.go(-1);" class="btn btn-info">上一步</a>
+                                                <button type="button" class="btn btn-info js_submit">下一步</button>
+                                            </div>
+                                        </div>
+                                    </form>
+
+
+                                </div>
+
+
+
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+</div>
+
+<script>
+
+    $(function(){
+        //验证登录表单
+        var submitBtn = ".js_submit";
+        $("#js_step3Form").Validform({
+
+            tiptype:function(msg,o){
+
+                if(!o.obj.is("form")){
+
+                    if(3 == o.type){
+                        alert(msg, 'error');
+                    }
+
+                }
+            },
+
+            label:"label",
+
+            ajaxPost:true,
+
+            btnSubmit: submitBtn,
+
+            beforeSubmit: function () {
+
+                $(submitBtn).attr("disabled", "disabled");
+
+            },
+
+            callback:function(json){
+
+                if(json.status == 'success'){
+
+                    window.location.href = json.callback;
+
+                }else{
+
+                    $(submitBtn).removeAttr("disabled");
+                    alert(json.message, 'error');
+
+                }
+
+            }
+
+        });
+
+    })
+
+</script>
+{{include_file name='install/public/footer'}}

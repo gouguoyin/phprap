@@ -1,0 +1,139 @@
+{{include_file name='home/public/header' title='编辑JSON'}}
+<style>
+    .table>thead>tr>th, .table>tbody>tr>th, .table>tfoot>tr>th, .table>thead>tr>td, .table>tbody>tr>td, .table>tfoot>tr>td {
+        padding: 8px 8px 8px 0;
+        line-height: 1.42857143;
+        vertical-align: top;
+        border-top: 1px solid #ddd;
+    }
+</style>
+</head>
+
+<body>
+
+<div id="wrapper">
+
+    <!-- Navigation -->
+    {{include_file name='home/public/nav' sidebar='home/project/sidebar'}}
+    <div id="page-wrapper">
+
+        <form role="form" action="{{url()}}" method="post">
+            <input type="hidden" name="csrf-phprap" value="{{csrf_token()}}" />
+
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="page-header">
+                        <h1>接口字段</h1>
+                        <div class="opt-btn">
+                            <!--<a class="btn btn-sm btn-success js_submit" href="javascript:void(0);"><i class="fa fa-fw fa-save"></i>导入</a>-->
+                            <a class="btn btn-sm btn-warning js_cancel mr-2" href="javascript:;" onclick="cancelSave()"><i class="fa fa-fw fa-reply"></i>取消</a>
+                            <a class="btn btn-sm btn-success js_submit" href="javascript:void(0);"><i class="fa fa-fw fa-save"></i>保存</a>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+
+                <div class="col-lg-12">
+
+                    <div class="panel panel-default">
+
+                        {{include_file name='home/api/tab' tab='field'}}
+
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="panel panel-default">
+                                        <div class="panel-heading">
+                                            Header参数
+                                        </div>
+
+                                        <!-- /.panel-heading -->
+                                        <div class="panel-body">
+                                            <div class="table-responsive">
+                                                <textarea name="UpdateField[header_field]" class="form-control js_header_field" rows="5">{{$api->header_field}}</textarea>
+                                            </div>
+                                            <!-- /.table-responsive -->
+                                        </div>
+                                        <!-- /.panel-body -->
+                                    </div>
+                                    <!-- /.panel -->
+                                </div>
+                                <!-- /.col-lg-6 -->
+                            </div>
+
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="panel panel-default">
+                                        <div class="panel-heading">
+                                            请求参数
+                                        </div>
+                                        <!-- /.panel-heading -->
+                                        <div class="panel-body">
+                                            <div class="table-responsive">
+                                                <textarea name="UpdateField[request_field]" class="form-control js_request_field" rows="5">{{$api->request_field}}</textarea>
+                                            </div>
+                                            <!-- /.table-responsive -->
+                                        </div>
+                                        <!-- /.panel-body -->
+                                    </div>
+                                    <!-- /.panel -->
+                                </div>
+                                <!-- /.col-lg-6 -->
+                            </div>
+
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="panel panel-default mb-0">
+                                        <div class="panel-heading">
+                                            响应参数
+                                        </div>
+                                        <!-- /.panel-heading -->
+                                        <div class="panel-body">
+                                            <div class="table-responsive">
+                                                <textarea name="UpdateField[response_field]" class="form-control js_response_field" rows="5">{{$api->response_field}}</textarea>
+                                            </div>
+                                            <!-- /.table-responsive -->
+                                        </div>
+                                        <!-- /.panel-body -->
+                                    </div>
+                                    <!-- /.panel -->
+                                </div>
+                                <!-- /.col-lg-6 -->
+                            </div>
+
+                        </div>
+
+                        <!-- /.panel-body -->
+                    </div>
+
+                </div>
+
+            </div>
+        </form>
+
+    </div>
+
+    <!-- /#page-wrapper -->
+
+</div>
+
+<!-- /#wrapper -->
+<hr>
+<p class="text-center">{{config('copyright')}}</p>
+
+<script src="{{STATIC_URL}}/js/field.js?v={{STATIC_VERSION}}"></script>
+
+<script>
+
+    $(function(){
+
+        //提交表单
+        submitForm(".js_submit");
+        
+    });
+
+</script>
+{{include_file name='home/public/footer'}}

@@ -1,0 +1,64 @@
+{{include_file name='home/public/debug'}}
+
+<hr>
+<p class="text-center">{{config('copyright')}}  已运行<span class="pass-time"></span></p>
+
+<div class="modal fade" id="js_popModal" tabindex="1" role="dialog">
+    <div class="modal-dialog" role="document">
+
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">弹框标题</h4>
+            </div>
+            <div class="modal-body">
+                <iframe scrolling="no" src=""></iframe>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                <button type="submit" class="btn btn-primary js_submit">确认</button>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="{{STATIC_URL}}/plugins/bootstrap/js/bootstrap.min.js"></script>
+<script src="{{STATIC_URL}}/plugins/layer/layer.js"></script>
+<script src="{{STATIC_URL}}/plugins/metismenu/js/metisMenu.min.js"></script>
+
+<script src="{{STATIC_URL}}/plugins/artdialog/js/dialog.js"></script>
+
+<script src="{{STATIC_URL}}/plugins/validform/datatype.js?v={{STATIC_VERSION}}"></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="{{STATIC_URL}}/js/app.js?v={{STATIC_VERSION}}"></script>
+<script>
+    function get_pass_time(){
+        window.setTimeout("get_pass_time()", 1000);
+        BirthDay = new Date("{{$installed_at}}");//这个日期是可以修改的
+        today = new Date();
+        timeold = (today.getTime() - BirthDay.getTime());
+        sectimeold = timeold/1000
+        secondsold = Math.floor(sectimeold);
+        msPerDay = 24*60*60*1000
+        e_daysold = timeold/msPerDay
+        daysold = Math.floor(e_daysold);
+        e_hrsold = (e_daysold - daysold)*24;
+        hrsold = Math.floor(e_hrsold);
+        e_minsold = (e_hrsold - hrsold)*60;
+        minsold = Math.floor((e_hrsold - hrsold)*60);
+        seconds = Math.floor((e_minsold - minsold)*60);
+        var siteDate = daysold + "天" + hrsold + "小时" + minsold + "分" + seconds + "秒";
+//          console.log(siteDate);
+        $(".pass-time").text(siteDate);
+    }
+
+    get_pass_time();
+</script>
+</body>
+
+</html>

@@ -1,0 +1,260 @@
+{{include_file name='home/public/header' title='成员管理'}}
+<style>
+    body {
+        background-color: #ffffff;
+    }
+
+    table a{
+        margin-top: 10px;
+    }
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <!-- /.row -->
+    <div class="row">
+
+        <form role="form" action="{{url()}}" method="post">
+
+            <input type="hidden" name="csrf-phprap" value="{{csrf_token()}}" />
+
+            <div class="alert alert-dismissable alert-warning">
+                <i class="fa fa-fw fa-info-circle"></i>&nbsp;
+                成员隶属于项目，勾选权限后，该成员具有项目的勾选权限
+            </div>
+
+            <div class="form-group input-group">
+                {{if $project->notMembers}}
+                <input type="text" class="form-control js_selectMemberBtn" placeholder="输入昵称或邮箱，支持模糊查询" datatype="*1-250" nullmsg="请选择项目成员">
+                {{else}}
+                <input type="text" readonly class="form-control" placeholder="没有符合条件的会员" value="">
+                {{/if}}
+                <input class="js_userId" type="hidden" name='CreateMember[user_id]' datatype="n" nullmsg="请选择项目成员" value="">
+
+                <span class="input-group-btn">
+                    <button class="btn btn-default js_cleanMemberBtn" type="button" data-toggle="tooltip" data-title="清空"><i class="fa fa-times"></i>
+                    </button>
+                </span>
+            </div>
+
+            <div class="form-group">
+                <label>项目权限</label>
+                <input type="hidden" class="js_projectRule" name="CreateMember[project_rule]">
+                <label class="checkbox-inline">
+                    <input class="js_projectRule" onclick="return false;" checked type="checkbox" value="look">查看项目
+                </label>
+
+                <label class="checkbox-inline">
+                    <input class="js_projectRule" type="checkbox" value="update">编辑项目
+                </label>
+
+                <label class="checkbox-inline">
+                    <input class="js_projectRule" type="checkbox" value="export">导出项目
+                </label>
+
+                <label class="checkbox-inline">
+                    <input class="js_projectRule" type="checkbox" value="delete">删除项目
+                </label>
+            </div>
+
+            <div class="form-group">
+                <label>环境权限</label>
+                <input type="hidden" class="js_envRule" name="CreateMember[env_rule]">
+                <label class="checkbox-inline">
+                    <input class="js_envRule" onclick="return false;" checked type="checkbox" value="look">查看环境
+                </label>
+                <label class="checkbox-inline">
+                    <input class="js_envRule" type="checkbox">新增环境
+                </label>
+                <label class="checkbox-inline">
+                    <input class="js_envRule" type="checkbox">编辑环境
+                </label>
+                <label class="checkbox-inline">
+                    <input class="js_envRule" type="checkbox">删除环境
+                </label>
+            </div>
+
+            <div class="form-group">
+                <label>模块权限</label>
+                <input type="hidden" class="js_moduleRule" name="CreateMember[module_rule]">
+                <label class="checkbox-inline">
+                    <input class="js_moduleRule" onclick="return false;" checked type="checkbox" value="look">查看模块
+                </label>
+                <label class="checkbox-inline">
+                    <input class="js_moduleRule" type="checkbox" value="create">新增模块
+                </label>
+                <label class="checkbox-inline">
+                    <input class="js_moduleRule" type="checkbox" value="update">编辑模块
+                </label>
+                <label class="checkbox-inline">
+                    <input class="js_moduleRule" type="checkbox" value="delete">删除模块
+                </label>
+            </div>
+
+            <div class="form-group">
+                <label>接口权限</label>
+                <input type="hidden" class="js_apiRule" name="CreateMember[api_rule]">
+
+                <label class="checkbox-inline">
+                    <input class="js_apiRule" onclick="return false;" checked type="checkbox" value="look">查看接口
+                </label>
+                <label class="checkbox-inline">
+                    <input class="js_apiRule" type="checkbox" value="create">新增接口
+                </label>
+
+                <label class="checkbox-inline">
+                    <input class="js_apiRule" type="checkbox" value="update">编辑接口
+                </label>
+                <label class="checkbox-inline">
+                    <input class="js_apiRule" type="checkbox" value="field">导出接口
+                </label>
+                <label class="checkbox-inline">
+                    <input class="js_apiRule" type="checkbox" value="delete">删除接口
+                </label>
+            </div>
+
+            <div class="form-group">
+                <label>成员权限</label>
+                <input type="hidden" class="js_memberRule" name="CreateMember[member_rule]">
+                <label class="checkbox-inline">
+                    <input class="js_memberRule" onclick="return false;" checked type="checkbox" value="look">查看成员
+                </label>
+                <label class="checkbox-inline">
+                    <input class="js_memberRule" type="checkbox" value="create">添加成员
+                </label>
+
+                <label class="checkbox-inline">
+                    <input class="js_memberRule" type="checkbox" value="update">编辑成员
+                </label>
+                <label class="checkbox-inline">
+                    <input class="js_memberRule" type="checkbox" value="remove">移除成员
+                </label>
+            </div>
+
+            <input type="hidden" id="js_submit" value="提交">
+
+        </form>
+
+        <!-- /.col-lg-12 -->
+    </div>
+    <!-- /.row -->
+</div>
+<!-- /#wrapper -->
+<script src="{{STATIC_URL}}/plugins/bootstrap/js/typeahead.min.js"></script>
+
+<script>
+    $(function(){
+        var selectMemberBtn = $('.js_selectMemberBtn');
+        var userIdInput     = $(".js_userId");
+
+        //选择成员
+        selectMemberBtn.typeahead({
+            source: function (name, process) {
+
+                var url = "{{url('member/select', ['project_id' => $project->encode_id])}}";
+
+                $.get(url, { "name": name }, function (data) {
+                    return process(data);
+                });
+
+            },
+            afterSelect: function (item) {
+                userIdInput.val(item.id);
+                selectMemberBtn.attr("readonly","readonly");
+            },
+
+            items: 10, //显示8条
+            delay: 100, //延迟时间
+
+        });
+
+        // 清除已选
+        $('.js_cleanMemberBtn').click(function () {
+            userIdInput.val('');
+            selectMemberBtn.removeAttr("readonly").val('').focus();
+        });
+
+        // 添加项目表单验证
+        var modalObj  = $(window.parent.document).find('#js_addMemberModal');
+        var submitObj = modalObj.find(":submit");
+        $("form").Validform({
+
+            tiptype:function(msg,o){
+
+                if(!o.obj.is("form")){
+
+                    if(3 == o.type){
+                        alert(msg, 'error');
+                    }
+
+                }
+            },
+
+            label:"label",
+
+            btnSubmit: '#js_submit',
+
+            tipSweep:true,
+
+            ajaxPost:true,
+
+            beforeSubmit:function(){
+                submitObj.attr("disabled", "disabled");
+                // 项目权限
+                var projectRule =[];
+                $(".js_projectRule:checkbox:checked").each(function(){
+                    projectRule.push($(this).val());
+                });
+                $(".js_projectRule:hidden").val(projectRule.join(','));
+
+                // 环境权限
+                var envRule =[];
+                $(".js_envRule:checkbox:checked").each(function(){
+                    envRule.push($(this).val());
+                });
+                $(".js_envRule:hidden").val(envRule.join(','));
+
+                // 模块权限
+                var moduleRule =[];
+                $(".js_moduleRule:checkbox:checked").each(function(){
+                    moduleRule.push($(this).val());
+                });
+                $(".js_moduleRule:hidden").val(moduleRule.join(','));
+
+                // 接口权限
+                var apiRule =[];
+                $(".js_apiRule:checkbox:checked").each(function(){
+                    apiRule.push($(this).val());
+                });
+                $(".js_apiRule:hidden").val(apiRule.join(','));
+
+                // 成员权限
+                var memberRule =[];
+                $(".js_memberRule:checkbox:checked").each(function(){
+                    memberRule.push($(this).val());
+                });
+                $(".js_memberRule:hidden").val(memberRule.join(','));
+
+            },
+
+            callback:function(json){
+
+                if(json.status == 'success'){
+                    alert(json.message, 'success', function () {
+                        parent.location.reload();
+                    });
+                }else{
+                    $(".js_" + json.label).focus().addClass('Validform_error');
+                    submitObj.removeAttr("disabled");
+                    alert(json.message, 'error');
+                }
+
+            }
+        });
+
+    });
+</script>
+{{include_file name='home/public/footer'}}

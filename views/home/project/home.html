@@ -1,0 +1,116 @@
+{{include_file name='home/public/header' title='项目主页'}}
+
+</head>
+
+<body>
+
+<div id="wrapper">
+
+    <!-- Navigation -->
+    {{include_file name='home/public/nav' sidebar='home/project/sidebar'}}
+    <div id="page-wrapper">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="page-header">
+                    <h1>项目主页 </h1>
+                    <div class="opt-btn">
+
+                        {{if $project->hasRule('project', 'update')}}
+                        <a href="javascript:void(0);" class="btn hidden-xs btn-sm btn-success" data-toggle="tooltip" data-placement="bottom" data-modal="#js_popModal" data-title="编辑项目" data-height="350" data-src="{{url('home/project/update', ['id' => $project->encode_id])}}"><i class="fa fa-fw fa-edit"></i>编辑</a>
+                        {{/if}}
+
+                        <a href="javascript:void(0);" class="btn hidden-xs btn-sm btn-info js_copyUrl" data-clipboard-text="{{$project->getUrl(true)}}"  data-toggle="tooltip" data-title="复制项目地址" data-placement="bottom"><i class="fa fa-fw fa-link"></i>复制</a>
+
+                        {{if $project->hasRule('project', 'export')}}
+                        <a href="{{url('export',['id' => $project->encode_id])}}" class="btn hidden-xs btn-sm btn-warning" data-toggle="tooltip" data-title="导出项目" data-placement="bottom"><i class="fa fa-fw fa-download"></i>导出</a>
+                        {{/if}}
+
+                    </div>
+                </div>
+            </div>
+            <!-- /.col-lg-12 -->
+        </div>
+        <!-- /.row -->
+        <div class="row">
+
+            <div class="col-lg-12">
+
+                <div class="panel panel-default">
+
+                    {{include_file name='home/project/tab' tab='home'}}
+
+                    <div class="panel-body">
+                        <div class="row">
+
+                            <div class="col-lg-12">
+
+                                <!-- /.panel -->
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        <i class="fa fa-bar-chart-o fa-fw"></i> 项目信息
+
+                                    </div>
+                                    <!-- /.panel-heading -->
+                                    <div class="panel-body">
+                                        <div class="row">
+                                            <div class="col-lg-7">
+                                                <p class="text-muted"><label>项目名称：</label>{{$project->title}}</p>
+                                                <p class="text-muted"><label>项目创建人：</label>{{$project->creater->fullName}}</p>
+                                                <p class="text-muted"><label>项目类型：</label>{{$project->typeLabel}}</p>
+                                                <p class="text-muted"><label>创建时间：</label>{{$project->created_at}}</p>
+                                                <p class="text-muted"><label>更新时间：</label>{{$project->updated_at}}</p>
+                                                <p class="text-muted"><label>项目描述：</label><span style="word-break:break-all">{{$project->remark}}</span></p>
+                                            </div>
+                                            <!-- /.col-lg-4 (nested) -->
+                                            <div class="col-lg-5">
+                                                <div id="project-statistics" style="height:290px;margin: -50px -30px -35px 0"></div>
+                                            </div>
+                                            <!-- /.col-lg-8 (nested) -->
+                                        </div>
+                                        <!-- /.row -->
+                                    </div>
+                                    <!-- /.panel-body -->
+                                </div>
+                                <!-- /.panel -->
+
+                            </div>
+                        </div>
+
+
+                    </div>
+
+                    <!-- /.panel-body -->
+                </div>
+                <!-- /.panel -->
+            </div>
+            <!-- /.col-lg-12 -->
+        </div>
+
+        <!-- /.row -->
+
+    </div>
+    <!-- /#page-wrapper -->
+
+</div>
+<!-- /#wrapper -->
+
+<hr>
+<p class="text-center">{{config('copyright')}}</p>
+
+<script src="{{STATIC_URL}}/plugins/bootstrap/js/clipboard.min.js"></script>
+
+<script>
+
+    // 复制链接
+    var clipboard = new Clipboard('.js_copyUrl');
+    clipboard.on('success', function(e) {
+        alert('地址复制成功', 'success');
+        e.clearSelection();
+    });
+    clipboard.on('error', function() {
+        alert('地址复制失败，请手动复制', 'error');
+    });
+
+</script>
+
+{{include_file name='home/public/footer'}}

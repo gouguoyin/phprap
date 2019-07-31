@@ -1,0 +1,96 @@
+{{include_file name='home/public/header' title='删除模块'}}
+<style>
+    body {
+        background-color: #ffffff;
+    }
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <!-- /.row -->
+    <div class="row">
+        <form id="js_deleteModuleForm" role="form" action="{{url()}}" method="post">
+
+            <div class="alert alert-dismissable alert-warning">
+                <i class="fa fa-fw fa-info-circle"></i>&nbsp;
+                只会删除当前版本下的模块，删除后，该模块下所有接口将被立刻删除，不可恢复，请谨慎操作！
+            </div>
+
+            <div class="well">
+                <p class="text-muted"><label>删除的模块：</label>{{$module->title}}</p>
+                <p class="text-muted"><label>模块创建人：</label>{{$module->creater->name}}({{$module->creater->email}})</p>
+            </div>
+
+            <div class="form-group">
+                <input type="hidden" name="csrf-phprap" value="{{csrf_token()}}" />
+
+                <input name="DeleteModule[password]" type="password" class="form-control js_password" placeholder="重要操作，请输入登录密码" datatype="*" nullmsg="重要操作，请输入登录密码" errormsg="请输入正确的登录密码!">
+            </div>
+
+            <input type="hidden" id="js_submit" value="提交">
+
+        </form>
+        <!-- /.col-lg-12 -->
+    </div>
+    <!-- /.row -->
+</div>
+<!-- /#wrapper -->
+
+<script>
+
+$(function () {
+    // 删除表单验证
+    var modalObj  = $(window.parent.document).find('#js_popModal');
+    var submitObj = modalObj.find(":submit");
+    $("#js_deleteModuleForm").Validform({
+
+        tiptype:function(msg,o){
+
+            if(!o.obj.is("form")){
+
+                if(3 == o.type){
+                    alert(msg, 'error');
+                }
+
+            }
+        },
+
+        label:"label",
+
+        btnSubmit: '#js_submit',
+
+        tipSweep:true,
+
+        ajaxPost:true,
+
+        beforeSubmit: function () {
+
+            submitObj.attr("disabled", "disabled");
+        },
+
+        callback:function(json){
+
+            if(json.status == 'success'){
+
+                alert(json.message, 'success', function () {
+                    parent.location.reload();
+                });
+
+            }else{
+
+                $(".js_" + json.label).focus().addClass('Validform_error');
+                submitObj.removeAttr("disabled");
+                alert(json.message, 'error');
+
+            }
+
+        }
+    });
+});
+
+</script>
+
+{{include_file name='home/public/footer'}}

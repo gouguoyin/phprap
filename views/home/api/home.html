@@ -1,0 +1,147 @@
+{{include_file name='home/public/header' title='接口主页'}}
+
+</head>
+
+<body>
+
+<div id="wrapper">
+
+    <!-- Navigation -->
+    {{include_file name='home/public/nav' sidebar='home/project/sidebar'}}
+    <div id="page-wrapper">
+
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="page-header">
+                    <h1>接口主页 </h1>
+                    <div class="opt-btn">
+                        {{if $project->hasRule('api', 'update')}}
+                        <a href="javascript:void(0);" class="btn hidden-xs btn-sm btn-success js_editApiBtn" data-toggle="tooltip" data-placement="bottom" data-title="编辑接口" data-modal="#js_addApiModal" data-height="440" data-src="{{url('home/api/update', ['id' => $api->encode_id])}}"><i class="fa fa-fw fa-edit"></i>编辑</a>
+                        {{/if}}
+
+                        <a href="javascript:void(0);" class="btn hidden-xs btn-sm btn-info js_copyUrl" data-clipboard-text="{{$api->getUrl(true)}}"  data-toggle="tooltip" data-title="复制接口地址" data-placement="bottom"><i class="fa fa-fw fa-link"></i>复制</a>
+
+                        {{if $project->hasRule('api', 'export')}}
+                        <a href="{{url('export',['id' => $api->encode_id])}}" class="btn hidden-xs btn-sm btn-warning" data-toggle="tooltip" data-title="导出当前接口" data-placement="bottom"><i class="fa fa-fw fa-download"></i>导出</a>
+                        {{/if}}
+
+                    </div>
+                </div>
+            </div>
+            <!-- /.col-lg-12 -->
+        </div>
+
+        <!-- 接口详情 -->
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="panel panel-default">
+
+                    {{include_file name='home/api/tab' tab='home'}}
+
+                    <div class="panel-body">
+                        <!--接口信息-->
+                        <div class="row">
+
+                            <div class="col-lg-12">
+
+                                <!-- /.panel -->
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        接口信息
+                                    </div>
+                                    <!-- /.panel-heading -->
+                                    <div class="panel-body">
+                                        <div class="row">
+                                            <div class="col-lg-12">
+                                                <p class="text-muted"><label>接口名称：</label>{{$api->title}}</p>
+                                                <p class="text-muted"><label>请求方式：</label>{{$api->requestMethodLabel}}</p>
+                                                <p class="text-muted"><label>响应格式：</label>{{$api->responseFormatLabel}}</p>
+                                                <p class="text-muted"><label>接口创建人：</label>{{$api->creater->fullName}}</p>
+                                                <p class="text-muted"><label>创建时间：</label>{{$api->created_at}}</p>
+                                                <p class="text-muted"><label>更新时间：</label>{{$api->updated_at}}</p>
+
+                                                <p class="text-muted"><label>接口描述：</label><span style="word-break:break-all">{{$api->remark}}</span></p>
+                                            </div>
+                                            <!-- /.col-lg-4 (nested) -->
+
+                                            <!-- /.col-lg-8 (nested) -->
+                                        </div>
+                                        <!-- /.row -->
+                                    </div>
+                                    <!-- /.panel-body -->
+                                </div>
+                                <!-- /.panel -->
+
+                            </div>
+                        </div>
+                        <!-- 接口地址 -->
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="panel panel-default mb-0">
+                                    <div class="panel-heading">
+                                        接口地址
+                                    </div>
+                                    <!-- /.panel-heading -->
+                                    <div class="panel-body">
+                                        <div class="table-responsive">
+                                            <table class="table">
+
+                                                <tbody>
+                                                {{foreach $api->module->project->envs as $env}}
+                                                <tr>
+                                                    <td style="width: 150px;">{{$env->title}}({{$env->name}})</td>
+                                                    <td><code>{{$env->base_url}}{{$api->uri}}</code></td>
+                                                    <td style="width: 100px;">
+                                                        <button type="button" data-clipboard-text="{{$env->base_url}}{{$api->uri}}" class="btn btn-xs btn-success js_copyUrl"><i class="fa fa-fw fa-copy"></i>复制链接</button>
+                                                    </td>
+                                                </tr>
+                                                {{/foreach}}
+                                                
+                                                </tbody>
+                                            </table>
+
+                                        </div>
+                                        <!-- /.table-responsive -->
+                                    </div>
+                                    <!-- /.panel-body -->
+                                </div>
+                                <!-- /.panel -->
+                            </div>
+                            <!-- /.col-lg-6 -->
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+    <!-- /#page-wrapper -->
+
+</div>
+
+<!-- /#wrapper -->
+<hr>
+<p class="text-center">{{config('copyright')}}</p>
+
+<script src="{{STATIC_URL}}/plugins/bootstrap/js/clipboard.min.js"></script>
+
+<script>
+
+    $(function () {
+
+        // 复制链接
+        var clipboard = new Clipboard('.js_copyUrl');
+        clipboard.on('success', function(e) {
+            alert('地址复制成功', 'success');
+            e.clearSelection();
+        });
+        clipboard.on('error', function() {
+            alert('地址复制失败，请手动复制', 'error');
+        });
+    })
+</script>
+{{include_file name='home/public/footer'}}

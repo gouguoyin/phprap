@@ -1,0 +1,281 @@
+{{include_file name='home/public/header' title='管理中心'}}
+
+<style>
+    .huge {
+        font-size: 35px;
+    }
+
+    .last-item {
+        margin: 0;
+    }
+    .pro_name a{color: #4183c4;}
+    .ui.segment.osc_git_box {height: 260px;padding: 0px !important;border: 1px solid #E3E9ED;}
+    .osc_git_title{background-color: #fff;}
+    .osc_git_box{background-color: #fff;}
+    .osc_git_box{border-color: #E3E9ED;}
+    .osc_git_info{color: #666;}
+    .osc_git_main a{color: #9B9B9B;}
+    .osc_git_footer {display: none;}
+
+</style>
+</head>
+
+<body>
+
+<div id="wrapper">
+
+    <!-- Navigation -->
+    {{include_file name='home/public/nav' sidebar='admin/public/sidebar' active='home'}}
+    <div id="page-wrapper">
+        <div class="row">
+            <div class="col-lg-12">
+                <h1 class="page-header">管理中心</h1>
+            </div>
+            <!-- /.col-lg-12 -->
+        </div>
+        
+        <!-- /.row -->
+
+        <div class="row">
+            <div class="col-lg-3 col-md-6">
+                <div class="panel panel-primary">
+                    <div class="panel-heading">
+                        <div class="row text-center">
+                            <div class="col-xs-4">
+                                <i class="fa fa-user fa-4x"></i>
+                                <div>会员</div>
+                            </div>
+                            <div class="col-xs-8">
+                                <div class="huge">{{$tongji->getTotalAccount()->count}}</div>
+                                <div>今日新增 {{$tongji->getTodayAccount()->count}}</div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6">
+                <div class="panel panel-green">
+                    <div class="panel-heading">
+                        <div class="row text-center">
+                            <div class="col-xs-4">
+                                <i class="fa fa-th fa-4x"></i>
+                                <div>项目</div>
+                            </div>
+                            <div class="col-xs-8">
+                                <div class="huge">{{$tongji->getTotalProject()->count}}</div>
+                                <div>今日新增 {{$tongji->getTodayProject()->count}}</div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6">
+                <div class="panel panel-yellow">
+                    <div class="panel-heading">
+                        <div class="row text-center">
+                            <div class="col-xs-4">
+                                <i class="fa fa-folder-open fa-4x"></i>
+                                <div>模块</div>
+                            </div>
+                            <div class="col-xs-8">
+                                <div class="huge">{{$tongji->getTotalModule()->count}}</div>
+                                <div>今日新增 {{$tongji->getTodayModule()->count}}</div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6">
+                <div class="panel panel-red">
+                    <div class="panel-heading">
+                        <div class="row text-center">
+                            <div class="col-xs-4">
+                                <i class="fa fa-files-o fa-4x"></i>
+                                <div>接口</div>
+                            </div>
+                            <div class="col-xs-8">
+                                <div class="huge">{{$tongji->getTotalApi()->count}}</div>
+                                <div>今日新增 {{$tongji->getTodayApi()->count}}</div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-6">
+
+                <!-- /.panel -->
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <i class="fa fa-bar-chart-o fa-fw"></i> 我创建的项目
+                    </div>
+                    <!-- /.panel-heading -->
+                    <div class="panel-body">
+                        <div id="project1-chart" style="width: 100%;height:400px;"></div>
+                    </div>
+                    <!-- /.panel-body -->
+                </div>
+                <!-- /.panel -->
+            </div>
+            <div class="col-lg-6">
+
+                <!-- /.panel -->
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <i class="fa fa-bar-chart-o fa-fw"></i> 我参与的项目
+                    </div>
+                    <!-- /.panel-heading -->
+                    <div class="panel-body">
+                        <div id="project2-chart" style="width: 100%;height:400px;"></div>
+                    </div>
+                    <!-- /.panel-body -->
+                </div>
+                <!-- /.panel -->
+            </div>
+            <!-- /.col-lg-8 -->
+
+            <!-- /.col-lg-4 -->
+        </div>
+
+        <div class="row">
+            <div class="col-lg-6">
+
+                <!-- /.panel -->
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <i class="fa fa-dribbble fa-fw"></i> 系统信息
+                    </div>
+                    <!-- /.panel-heading -->
+                    <div class="panel-body">
+                        <p>程序版本：V{{$system->app_version}} <a target="_blank" href="https://github.com/gouguoyin/phprap/releases">最新版本</a></p>
+                        <p>安装时间：{{$system->installed_at}}</p>
+                        <p>系统环境：{{$system->app_os}}+PHP({{$system->php_version}})+MySQL({{$system->mysql_version}})</p>
+                        <p>使用技术：PHP+MySQL+Bootstrap+JQuery</p>
+                        <p>官方网站：<a target="_blank" href="http://www.phprap.com/">www.phprap.com</a></p>
+                        <p>演示网站：<a target="_blank" href="http://demo.phprap.com">demo.phprap.com</a></p>
+                        <p class="last-item">官方QQ群：<a target="_blank" href="//shang.qq.com/wpa/qunwpa?idkey=cf9440f673d6a29150bb8f033ed5fdf0e4e685f92350b7006778660bf8580f57"><img border="0" src="//pub.idqqimg.com/wpa/images/group.png" alt="GoPHP官方交流群" title="GoPHP官方交流群"></a></p>
+                    </div>
+                    <!-- /.panel-body -->
+                </div>
+                <!-- /.panel -->
+            </div>
+            <div class="col-lg-6">
+
+                <!-- /.panel -->
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <i class="fa fa-comments fa-fw"></i> 常见问题
+                    </div>
+                    <!-- /.panel-heading -->
+                    <div class="panel-body">
+
+                        <p><a target="_blank" href="http://www.phprap.com/doc/faq.html#faq1">安装时报错General error: 1366 Incorrect integer value: '' for column 'id' at row 1</a></p>
+                        <p><a target="_blank" href="http://www.phprap.com/doc/faq.html#faq2">虚拟主机不能绑定域名到public目录怎么办?</a></p>
+                        <p><a target="_blank" href="http://www.phprap.com/doc/faq.html#faq3">NGINX环境下安装时不断刷新页面</a></p>
+                        <p><a target="_blank" href="http://www.phprap.com/doc/faq.html#faq4">如何手动安装PHPRAP?</a></p>
+                        <p><a target="_blank" href="http://www.phprap.com/doc/faq.html#faq5">如何查看错误日志?</a></p>
+                        <p><a target="_blank" href="http://www.phprap.com/doc/faq.html#faq6">如何关闭异常提示页面?</a></p>
+
+                        <a href="#" class="btn btn-default btn-block">查看更多</a>
+                    </div>
+                    <!-- /.panel-body -->
+                </div>
+                <!-- /.panel -->
+            </div>
+            <!-- /.col-lg-8 -->
+
+            <!-- /.col-lg-4 -->
+        </div>
+        <!-- /#page-wrapper -->
+
+    </div>
+    <!-- /#wrapper -->
+    
+    <script src="{{STATIC_URL}}/plugins/bootstrap/js/echarts.min.js?v=1.0"></script>
+
+    <script type="text/javascript">
+
+        // 基于准备好的dom，初始化echarts实例
+        var myChart = echarts.init(document.getElementById('project2-chart'));
+
+        // 指定图表的配置项和数据
+        var option = {
+            tooltip : {
+                trigger: 'item',
+                // formatter: "{a} <br/>{b} : {c} ({d}%)"
+            },
+            legend: {
+                orient: 'vertical',
+                left: 'left',
+                data: ['公开项目','私有项目']
+            },
+            series : [
+                {
+                    name: '项目数量',
+                    type: 'pie',
+                    radius : '55%',
+                    center: ['50%', '60%'],
+                    data:[
+                        {value:335, name:'公开项目'},
+                        {value:310, name:'私有项目'},
+                    ],
+                    itemStyle: {
+                        emphasis: {
+                            shadowBlur: 10,
+                            shadowOffsetX: 0,
+                            shadowColor: 'rgba(0, 0, 0, 0.5)'
+                        }
+                    }
+                }
+            ]
+        };
+
+        // 使用刚指定的配置项和数据显示图表。
+        myChart.setOption(option);
+
+        // 基于准备好的dom，初始化echarts实例
+        var myChart = echarts.init(document.getElementById('project1-chart'));
+
+        // 指定图表的配置项和数据
+        var option = {
+
+            tooltip : {
+                trigger: 'item',
+                // formatter: "{a} <br/>{b} : {c} ({d}%)"
+            },
+            legend: {
+                orient: 'vertical',
+                left: 'left',
+                data: ['公开项目','私有项目']
+            },
+            series : [
+                {
+                    name: '项目数量',
+                    type: 'pie',
+                    radius : '55%',
+                    center: ['50%', '60%'],
+                    data:[
+                        {value:335, name:'公开项目'},
+                        {value:310, name:'私有项目'},
+                    ],
+                    itemStyle: {
+                        emphasis: {
+                            shadowBlur: 10,
+                            shadowOffsetX: 0,
+                            shadowColor: 'rgba(0, 0, 0, 0.5)'
+                        }
+                    }
+                }
+            ]
+        };
+
+        // 使用刚指定的配置项和数据显示图表。
+        myChart.setOption(option);
+    </script>
+    {{include_file name='admin/public/footer'}}

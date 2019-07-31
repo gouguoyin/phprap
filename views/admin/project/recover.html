@@ -1,0 +1,88 @@
+{{include_file name='home/public/header' title='恢复项目'}}
+<style>
+    body {
+        background-color: #ffffff;
+    }
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <!-- /.row -->
+    <div class="row">
+        <form role="form" action="{{url()}}" method="post">
+
+            <input type="hidden" name="csrf-phprap" value="{{csrf_token()}}" />
+
+            <div class="well">
+                <p class="text-muted"><label>项目名称：</label>{{$project->title}}</p>
+                <p class="text-muted"><label>项目创建人：</label>{{$project->creater->fullName}}</p>
+                <p class="text-muted"><label>项目删除时间：</label>{{$project->updated_at}}</p>
+            </div>
+
+            <div class="form-group">
+                <input name="RecoverProject[password]" type="password" class="form-control js_password" placeholder="重要操作，请输入登录密码" datatype="*" nullmsg="重要操作，请输入登录密码" errormsg="请输入正确的登录密码!">
+            </div>
+
+            <input type="hidden" id="js_submit" value="提交">
+
+        </form>
+        <!-- /.col-lg-12 -->
+    </div>
+    <!-- /.row -->
+</div>
+<!-- /#wrapper -->
+
+<script>
+
+$(function () {
+    // 删除项目表单验证
+    var modalObj  = $(window.parent.document).find('#js_popModal');
+    var submitObj = modalObj.find(":submit");
+    $("form").Validform({
+
+        tiptype:function(msg,o){
+
+            if(!o.obj.is("form")){
+
+                if(3 == o.type){
+                    alert(msg, 'error');
+                }
+
+            }
+        },
+
+        label:"label",
+
+        btnSubmit: '#js_submit',
+
+        tipSweep:true,
+
+        ajaxPost:true,
+
+        beforeSubmit: function () {
+
+            submitObj.attr("disabled", "disabled");
+        },
+
+        callback:function(json){
+
+            if(json.status == 'success'){
+                alert(json.message, 'success', function () {
+                    parent.location.reload();
+                });
+            }else{
+                $(".js_" + json.label).focus().addClass('Validform_error');
+                submitObj.removeAttr("disabled");
+                alert(json.message, 'error');
+            }
+
+        }
+    });
+});
+
+</script>
+
+{{include_file name='home/public/footer'}}

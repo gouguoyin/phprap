@@ -1,0 +1,138 @@
+{{include_file name='home/public/header' title='项目转让'}}
+<style>
+    body {
+        background-color: #ffffff;
+    }
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <!-- /.row -->
+    <div class="row">
+        <form id="js_transferProjectForm" role="form" action="{{url()}}" method="post">
+
+            <input type="hidden" name="csrf-phprap" value="{{csrf_token()}}" />
+
+            <div class="alert alert-dismissable alert-warning">
+                <i class="fa fa-fw fa-info-circle"></i>
+                只能转让给项目成员，转让后与该项目不再有任何关系，如果要加入需要重新申请，请谨慎操作!
+            </div>
+
+            <div class="form-group">
+                <label class="control-label">转让项目</label>
+                <input type="text" class="form-control" value="{{$project->title}}" readonly>
+            </div>
+
+            <div class="form-group">
+                <label class="control-label">转让给</label>
+
+                <div class="form-group input-group">
+
+                    {{if $project->members}}
+                    <input type="text" class="form-control js_selectMemberBtn" placeholder="输入昵称或邮箱，支持模糊查询" datatype="*1-250" nullmsg="请选择项目成员">
+                    {{else}}
+                    <input type="text" readonly class="form-control" placeholder="暂无成员" value="">
+                    {{/if}}
+                    <input class="js_userId" type="hidden" name='TransferProject[user_id]' datatype="n" nullmsg="请选择项目成员" value="">
+
+                    <span class="input-group-btn">
+                        <button class="btn btn-default js_cleanMemberBtn" type="button" data-toggle="tooltip" data-title="清空"><i class="fa fa-times"></i>
+                        </button>
+                    </span>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="control-label">登录密码</label>
+                <input type="password" class="form-control js_password" name="TransferProject[password]" value="" placeholder="重要操作，请输入登录密码" datatype="*" nullmsg="请输入登录密码">
+            </div>
+
+            <input type="hidden" id="js_submit" value="确认">
+
+        </form>
+        <!-- /.col-lg-12 -->
+    </div>
+    <!-- /.row -->
+</div>
+<!-- /#wrapper -->
+<script src="{{STATIC_URL}}/plugins/bootstrap/js/typeahead.min.js"></script>
+
+<script>
+
+    $(function () {
+
+        var selectMemberBtn = $('.js_selectMemberBtn');
+        var userIdInput     = $(".js_userId");
+
+        //选择成员
+        selectMemberBtn.typeahead({
+            source: function (name, process) {
+
+                var url = "{{url('member/select', ['project_id' => $project->encode_id])}}";
+
+                $.get(url, { "name": name }, function (data) {
+                    return process(data);
+                });
+
+            },
+            afterSelect: function (item) {
+                userIdInput.val(item.id);
+                selectMemberBtn.attr("readonly","readonly");
+            },
+
+            items: 10, //显示8条
+            delay: 100, //延迟时间
+
+        });
+
+        // 转让项目表单验证
+        var modalObj  = $(window.parent.document).find('#js_popModal');
+        var submitObj = modalObj.find(":submit");
+        $("form").Validform({
+
+            tiptype:function(msg,o){
+
+                if(!o.obj.is("form")){
+
+                    if(3 == o.type){
+                        alert(msg, 'error');
+                    }
+
+                }
+            },
+
+            label:"label",
+
+            btnSubmit: '#js_submit',
+
+            tipSweep:true,
+
+            ajaxPost:true,
+
+            beforeSubmit: function () {
+
+                submitObj.attr("disabled", "disabled");
+            },
+            callback:function(json){
+
+                if(json.status == 'success'){
+                    alert(json.message, 'success', function () {
+                        parent.location.reload();
+                    });
+                }else{
+                    $(".js_" + json.label).focus().addClass('Validform_error');
+                    submitObj.removeAttr("disabled");
+                    alert(json.message, 'error');
+                }
+
+            }
+
+        });
+    });
+
+</script>
+
+{{include_file name='home/public/footer'}}

@@ -1,0 +1,148 @@
+{{include_file name='home/public/header' title='接口管理'}}
+<style>
+    body {
+        background-color: #ffffff;
+    }
+    .container {
+        min-height: 200px;
+    }
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+    <!-- /.row -->
+    <div class="row">
+        <form id="js_addApiForm" role="form" action="{{url('')}}" method="post">
+
+            <input type="hidden" name="csrf-phprap" value="{{csrf_token()}}" />
+
+            <div class="form-group">
+                <label>所属模块</label>
+
+                <select name="CreateApi[module_id]" class="form-control">
+                    {{foreach $module->project->modules as $k => $v}}
+                    <option value="{{$v->encode_id}}" {{if $module->id == $v->id}}selected{{/if}}>{{$v->title}}</option>
+                    {{/foreach}}
+                </select>
+
+            </div>
+
+            <div class="form-group">
+                <label>接口名称</label>
+                <input class="form-control" name="CreateApi[title]" value="" placeholder="必填" datatype="*" nullmsg="请输入接口名称">
+            </div>
+
+            <div class="form-group">
+                <label class="control-label">请求方式</label>
+                <div class="form-group">
+                    {{foreach $api->requestMethodLabels as $k => $v}}
+                    <label class="radio-inline">
+                        <input type="radio" name="CreateApi[request_method]" {{if $k == 'post'}}checked{{/if}} value="{{$k}}"> {{$v}}
+                    </label>
+                    {{/foreach}}
+                </div>
+            </div>
+
+            <div class="form-group hidden">
+                <label class="control-label">响应格式</label>
+                <div class="form-group">
+                    {{foreach $api->responseFormatLabels as $k => $v}}
+                    <label class="radio-inline">
+                        {{if $k == 'json'}}
+                        <input type="radio" name="CreateApi[response_format]" checked value="{{$k}}"> {{$v}}
+                        {{else}}
+                        <input type="radio" name="CreateApi[response_format]" disabled value="{{$k}}"> {{$v}}(暂不支持)
+                        {{/if}}
+                    </label>
+                    {{/foreach}}
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>接口路径</label>
+                <input class="form-control" name="CreateApi[uri]" value="" placeholder="必填，不包含域名部分，rest参数请用{}，如/user/{id}" datatype="*2-250">
+            </div>
+
+            <div class="form-group">
+                <label class="control-label">接口描述</label>
+                <textarea class="form-control js_remark" name="CreateApi[remark]" placeholder="非必填，可以写接口加密规则等" ignore='ignore' datatype="*1-250" nullmsg="请输入模块描述"></textarea>
+            </div>
+
+            <div class="form-group">
+                <label class="control-label">接口排序
+                    <a data-toggle="tooltip" data-placement="right" title="排序数字越大越靠前，相同数字越先创建越靠前" class="btn-show-tips">
+                        <i class="fa fa-info-circle"></i>
+                    </a>
+                </label>
+                <input type="text" class="form-control js_sort" name="CreateApi[sort]" value="0" placeholder="排序数字越大越靠前" datatype="n" nullmsg="请输入排序数字" errormsg="必须是数字">
+            </div>
+
+            <input type="hidden" id="js_submit" value="提交">
+
+        </form>
+        <!-- /.col-lg-12 -->
+    </div>
+    <!-- /.row -->
+</div>
+<!-- /#wrapper -->
+
+<script>
+
+    $(function(){
+
+        // 添加表单验证
+        var modalObj  = $(window.parent.document).find('#js_addApiModal');
+        var submitObj = modalObj.find(":submit");
+        $("#js_addApiForm").Validform({
+
+            tiptype:function(msg,o){
+
+                if(!o.obj.is("form")){
+
+                    if(3 == o.type){
+                        alert(msg, 'error');
+                    }
+
+                }
+            },
+
+            label:"label",
+
+            btnSubmit: '#js_submit',
+
+            tipSweep:true,
+
+            ajaxPost:true,
+
+            beforeSubmit: function () {
+
+                submitObj.attr("disabled", "disabled");
+            },
+
+            callback:function(json){
+
+                if(json.status == 'success'){
+
+                    alert(json.message, 'success', function () {
+                        parent.location.href = json.callback;
+                    });
+
+                }else{
+
+                    $(".js_" + json.label).focus().addClass('Validform_error');
+                    submitObj.removeAttr("disabled");
+                    alert(json.message, 'error');
+
+                }
+
+            }
+        });
+
+    });
+
+</script>
+
+{{include_file name='home/public/footer'}}

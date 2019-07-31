@@ -1,0 +1,45 @@
+{
+    "name": "gouguoyin/phprap",
+    "description": "轻量级开源API接口文档管理系统",
+    "keywords": ["phprap", "api", "doc", "mock"],
+    "homepage": "http://www.phprap.com/",
+    "type": "project",
+    "license": "BSD-3-Clause",
+    "minimum-stability": "stable",
+    "require": {
+        "php": ">=5.4.0",
+        "fxp/composer-asset-plugin": "^1.2.0",
+        "yiisoft/yii2": "~2.0.5",
+        "yiisoft/yii2-swiftmailer": "~2.0.0",
+        "yiisoft/yii2-smarty": "^2.0",
+        "php-curl-class/php-curl-class": "^8.0",
+        "jenssegers/agent": "^2.6",
+        "itbdw/ip-database": "^2.0"
+    },
+    "replace": {
+        "fxp/composer-asset-plugin": ">=1.4.5",
+        "bower-asset/jquery": ">=1.11.0",
+        "bower-asset/inputmask": ">=3.2.0",
+        "bower-asset/punycode": ">=1.3.0",
+        "bower-asset/yii2-pjax": ">=2.0.0",
+        "bower-asset/bootstrap": ">=3.4.1",
+        "bower-asset/typeahead.js": ">=0.10",
+        "cebe/markdown": ">=1.2.1",
+        "phpspec/php-diff": ">=1.0.0",
+        "ezyang/htmlpurifier": ">=4.11.0",
+        "yiisoft/yii2-bootstrap": ">=2.0.10",
+        "yiisoft/yii2-debug": ">=2.0.14",
+        "yiisoft/yii2-gii": ">=2.0.8"
+    },
+    "config": {
+        "process-timeout": 1800
+    },
+
+    "repositories": [
+        {
+            "type": "composer",
+            "url": "https://mirrors.aliyun.com/composer/"
+        }
+    ]
+
+}

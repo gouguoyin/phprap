@@ -1,0 +1,101 @@
+{{include_file name='home/public/header' title='编辑个人资料'}}
+<style>
+    body {
+        background-color: #ffffff;
+    }
+    .container {
+        min-height: 200px;
+    }
+</style>
+</head>
+
+<body>
+
+<div class="container">
+    <!-- /.row -->
+    <div class="row">
+        <form role="form" action="{{url('')}}" method="post">
+
+            <input type="hidden" name="csrf-phprap" value="{{csrf_token()}}" />
+
+            <div class="form-group">
+                <label class="control-label">用户昵称</label>
+                <input type="text" class="form-control js_name" name="ProfileForm[name]" value="{{$account->name}}" placeholder="必填，建议写真实姓名以方便识别" datatype="*2-10" nullmsg="请输入用户昵称" errormsg="请输入2-10个由字母或汉字组成的字符">
+            </div>
+
+            <div class="form-group">
+                <label class="control-label">登录邮箱</label>
+                <input type="text" class="form-control js_email" name="ProfileForm[email]" value="{{$account->email}}" placeholder="必填，该邮箱用于登录和接收通知" datatype="e" nullmsg="请输入登录邮箱" errormsg="请输入合法的邮箱地址">
+            </div>
+
+            <div class="form-group">
+                <label class="control-label">登录密码</label>
+                <input type="password" class="form-control js_password" name="ProfileForm[password]" autocomplete="new-password" placeholder="重要操作，请输入登录密码" datatype="*" nullmsg="重要操作，请输入登录密码" errormsg="请输入正确的登录密码!">
+            </div>
+
+            <input type="hidden" id="js_submit" value="提交">
+
+        </form>
+        <!-- /.col-lg-12 -->
+    </div>
+    <!-- /.row -->
+</div>
+<!-- /#wrapper -->
+
+<script>
+
+    $(function(){
+
+        // 添加项目表单验证
+        var modalObj  = $(window.parent.document).find('#js_popModal');
+        var submitObj = modalObj.find(":submit");
+        $("form").Validform({
+
+            tiptype:function(msg,o){
+
+                if(!o.obj.is("form")){
+
+                    if(3 == o.type){
+                        alert(msg, 'error');
+                    }
+
+                }
+            },
+
+            label:"label",
+
+            btnSubmit: '#js_submit',
+
+            tipSweep:true,
+
+            ajaxPost:true,
+
+            beforeSubmit: function () {
+
+                submitObj.attr("disabled", "disabled");
+            },
+
+            callback:function(json){
+
+                if(json.status == 'success'){
+
+                    alert(json.message, 'success', function () {
+                        parent.location.reload();
+                    });
+
+                }else{
+
+                    $(".js_" + json.label).focus().addClass('Validform_error');
+                    submitObj.removeAttr("disabled");
+                    alert(json.message, 'error');
+
+                }
+
+            }
+        });
+
+    });
+
+</script>
+
+{{include_file name='home/public/footer'}}

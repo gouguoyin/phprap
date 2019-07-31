@@ -1,0 +1,53 @@
+{
+    "name": "yiisoft/yii2-smarty",
+    "description": "The Smarty integration for the Yii framework",
+    "keywords": [
+        "yii2",
+        "smarty",
+        "renderer"
+    ],
+    "type": "yii2-extension",
+    "license": "BSD-3-Clause",
+    "support": {
+        "issues": "https://github.com/yiisoft/yii2-smarty/issues",
+        "forum": "http://www.yiiframework.com/forum/",
+        "wiki": "http://www.yiiframework.com/wiki/",
+        "irc": "irc://irc.freenode.net/yii",
+        "source": "https://github.com/yiisoft/yii2-smarty"
+    },
+    "authors": [
+        {
+            "name": "Alexander Makarov",
+            "email": "sam@rmcreative.ru"
+        }
+    ],
+    "require": {
+        "yiisoft/yii2": "~2.0.0",
+        "smarty/smarty": "~3.1.0"
+    },
+    "require-dev": {
+        "yiisoft/yii2-coding-standards": "~2.0",
+        "phpunit/phpunit": "<7"
+    },
+    "repositories": [
+        {
+            "type": "composer",
+            "url": "https://asset-packagist.org"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "yii\\smarty\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "yiiunit\\smarty\\": "tests"
+        }
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "2.0.x-dev"
+        }
+    }
+}

@@ -1,0 +1,135 @@
+{{include_file name='home/public/header' title='用户管理'}}
+
+</head>
+
+<body>
+
+<div id="wrapper">
+
+    <!-- Navigation -->
+    {{include_file name='home/public/nav' sidebar='admin/public/sidebar' active='user'}}
+    <div id="page-wrapper">
+
+        <div class="row">
+            <div class="col-lg-12">
+                <h1 class="page-header">用户管理</h1>
+                <div class="search">
+                    <div class="row">
+                        <form action="{{url()}}" method="get" autocomplete="off">
+
+                            <div class="col-sm-4">
+
+                                <div class="form-group">
+                                    <input name="name" type="text" class="form-control" placeholder="用户昵称或邮箱，支持模糊查询" value="{{$model->params->name}}">
+                                </div>
+                            </div>
+
+                            <div class="col-sm-4">
+
+                                <div class="form-group">
+                                    <input name="ip" type="text" class="form-control" placeholder="注册IP，支持模糊查询" value="{{$model->params->ip}}">
+                                </div>
+                            </div>
+
+                            <div class="col-sm-4">
+
+                                <div class="form-group">
+                                    <select class="form-control" name="status">
+                                        <option disabled="" selected="" style="display:none;">用户状态</option>
+                                        <option value="">不限</option>
+                                        {{foreach $model->statusLabels as $k2 => $v2}}
+                                        {{if $k2 !== $model::DISABLE_STATUS}}
+                                        <option value="{{$k2}}" {{if $model->params->status == $k2}}selected{{/if}}>{{$v2}}</option>
+                                        {{/if}}
+                                        {{/foreach}}
+
+                                    </select>
+                                </div>
+
+                            </div>
+
+
+                            <div class="col-sm-12">
+
+                                <div class="form-group">
+                                    <button type="reset" class="btn btn-warning mr-1">重置</button>
+
+                                    <button type="submit" class="btn btn-primary">搜索</button>
+                                </div>
+                            </div>
+
+
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+            <!-- /.col-lg-12 -->
+        </div>
+        <!-- /.row -->
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="panel panel-default">
+
+                    <!-- /.panel-heading -->
+                    <div class="panel-body">
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead>
+                                <tr>
+                                    <th>登录昵称/账号</th>
+                                    <th>创建项目</th>
+                                    <th>参与项目</th>
+                                    <th>注册IP</th>
+                                    <th>注册地点</th>
+                                    <th class="datetime">注册时间</th>
+
+                                    <th width="80px" class="text-center">用户状态</th>
+
+                                    <th width="95px"></th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {{foreach $model->models as $model}}
+                                <tr>
+                                    <td>{{$model->fullName}}</td>
+                                    <td class="text-center"><a href="{{url('admin/project/index', ['creater_id' => $model->id])}}" data-toggle="tooltip" title="" data-original-title="点击查看创建项目">{{$model->getCreatedProjects()->count()}}</a></td>
+                                    <td class="text-center"><a href="{{url('admin/project/index', ['joiner_id' => $model->id])}}" data-toggle="tooltip" title="" data-original-title="点击查看参与项目">{{$account->getJoinedProjects()->count()}}</a></td>
+                                    <td>{{$model->ip}}</td>
+                                    <td>{{$model->location}}</td>
+                                    <td>{{$model->created_at}}</td>
+
+                                    <td class="text-center">
+                                        {{if $model->status == $model::ACTIVE_STATUS}}
+                                        <span class="text-success">{{$model->statusLabel}}</span>
+                                        {{else if $model->status == $model::DISABLE_STATUS}}
+                                        <span class="text-danger">{{$model->statusLabel}}</span>
+                                        {{/if}}
+                                    </td>
+
+                                    <td>
+                                        <a type="button" class="btn btn-warning btn-xs  mr-1" data-modal="#js_popModal" data-height="200" data-src="{{url('admin/user/profile', ['id' => $model->id])}}" data-toggle="tooltip" data-placement="bottom" data-title="编辑账户">编辑</a>
+                                        <a type="button" class="btn btn-danger btn-xs" data-modal="#js_popModal" data-height="210" data-src="{{url('admin/user/password', ['id' => $model->id])}}" data-toggle="tooltip" data-placement="bottom" data-title="重置密码">重置</a>
+                                    </td>
+                                </tr>
+                                {{/foreach}}
+
+                                </tbody>
+                            </table>
+                        </div>
+                        {{$model->pages}}
+                        <!-- /.table-responsive -->
+                    </div>
+                    <!-- /.panel-body -->
+                </div>
+                <!-- /.panel -->
+            </div>
+
+            <!-- /.col-lg-6 -->
+        </div>
+        <!-- /#page-wrapper -->
+
+    </div>
+    <!-- /#wrapper -->
+
+    {{include_file name='admin/public/footer'}}

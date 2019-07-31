@@ -1,0 +1,218 @@
+{{include_file name='home/public/header' title='安全设置'}}
+
+</head>
+
+<body>
+
+
+<div id="wrapper">
+
+    <!-- Navigation -->
+    {{include_file name='home/public/nav' sidebar='admin/public/sidebar' active='config'}}
+    <div id="page-wrapper">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="page-header">
+                    <h1>安全设置 </h1>
+                </div>
+            </div>
+            <!-- /.col-lg-12 -->
+        </div>
+        <!-- /.row -->
+        <div class="row">
+
+            <div class="col-lg-12">
+
+                <div class="panel panel-default">
+
+                    {{include_file name='admin/setting/tab' tab='safe'}}
+
+                    <div class="panel-body">
+                        <form role="form" action="{{url('')}}" method="post">
+                            <input type="hidden" name="csrf-phprap" value="{{csrf_token()}}" />
+
+                            <div class="form-group">
+                                <label>IP白名单
+                                    <a data-toggle="tooltip" data-placement="right" title="" class="btn-show-tips" data-original-title="填写后，只有填写的IP才允许访问">
+                                        <i class="fa fa-info-circle"></i>
+                                    </a>
+                                </label>
+                                <textarea class="form-control" name="Config[ip_white_list]" placeholder="IP白名单，非必填，每行一个" rows="3" ignore="ignore" datatype="*" >{{$config->getField('ip_white_list')}}</textarea>
+                            </div>
+
+                            <div class="form-group">
+                                <label>IP黑名单
+                                    <a data-toggle="tooltip" data-placement="right" title="" class="btn-show-tips" data-original-title="填写后，填写的IP将被禁止访问">
+                                        <i class="fa fa-info-circle"></i>
+                                    </a>
+                                </label>
+                                <textarea class="form-control" name="Config[ip_black_list]" placeholder="IP黑名单，非必填，每行一个" rows="3" ignore="ignore" datatype="*" >{{$config->getField('ip_black_list')}}</textarea>
+                            </div>
+
+                            <div class="form-group">
+                                <label>允许注册邮箱后缀
+                                    <a data-toggle="tooltip" data-placement="right" title="" class="btn-show-tips" data-original-title="填写后，只有填写的邮箱后缀才允许注册">
+                                        <i class="fa fa-info-circle"></i>
+                                    </a>
+                                </label>
+                                <textarea class="form-control" name="Config[email_white_list]" placeholder="邮箱后缀，如@163.com，非必填，每行一个" rows="3" ignore="ignore" datatype="*" >{{$config->getField('email_white_list')}}</textarea>
+                            </div>
+
+                            <div class="form-group">
+                                <label>禁止注册邮箱后缀
+                                    <a data-toggle="tooltip" data-placement="right" title="" class="btn-show-tips" data-original-title="填写后，只有填写的邮箱后缀才允许注册">
+                                        <i class="fa fa-info-circle"></i>
+                                    </a>
+                                </label>
+                                <textarea class="form-control" name="Config[email_black_list]" placeholder="邮箱后缀，如@163.com，非必填，每行一个" rows="3" ignore="ignore" datatype="*" >{{$config->getField('email_black_list')}}</textarea>
+                            </div>
+
+                            <div class="form-group">
+                                <label>注册口令
+                                    <a data-toggle="tooltip" data-placement="right" title="" class="btn-show-tips" data-original-title="如果不填写注册口令，那么注册页面不会有输入注册口令项">
+                                    <i class="fa fa-info-circle"></i>
+                                    </a>
+                                </label>
+                                <input class="form-control" name="Config[register_token]" value="{{$config->getField('register_token')}}" placeholder="非必填，4-10个字符，区分大小写" value="123456" ignore="ignore" datatype="*4-10" nullmsg="请输入注册口令！" errormsg="至少6位">
+                            </div>
+
+                            <div class="form-group">
+                                <label class="control-label">注册验证码 <a data-toggle="tooltip" data-placement="right" title="" class="btn-show-tips" data-original-title="开启后必须输入正确验证码才能注册">
+                                    <i class="fa fa-info-circle"></i>
+                                </a></label>
+                                <div class="form-group">
+                                    <label class="radio-inline">
+                                        <input type="radio" name="Config[register_captcha]" {{if $config->getField('register_captcha') == 1}}checked{{/if}} value=1 > 开启
+                                    </label>
+
+                                    <label class="radio-inline">
+                                        <input type="radio" name="Config[register_captcha]" {{if $config->getField('register_captcha') == 0}}checked{{/if}} value=0> 关闭
+                                    </label>
+
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="control-label">登录验证码 <a data-toggle="tooltip" data-placement="right" title="" class="btn-show-tips" data-original-title="开启后必须输入正确验证码才能登录">
+                                    <i class="fa fa-info-circle"></i>
+                                </a></label>
+                                <div class="form-group">
+                                    <label class="radio-inline">
+                                        <input type="radio" name="Config[login_captcha]" {{if $config->getField('login_captcha') == 1}}checked{{/if}} value=1 > 开启
+                                    </label>
+
+                                    <label class="radio-inline">
+                                        <input type="radio" name="Config[login_captcha]" {{if $config->getField('login_captcha') == 0}}checked{{/if}} value=0> 关闭
+                                    </label>
+
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label>登录有效期
+                                    <a data-toggle="tooltip" data-placement="right" title="" class="btn-show-tips" data-original-title="单位小时">
+                                        <i class="fa fa-info-circle"></i>
+                                    </a>
+                                </label>
+                                <input class="form-control" name="Config[login_keep_time]" value="{{$config->getField('login_keep_time')}}" placeholder="单位小时" value="123456" datatype="n" nullmsg="登录有效期" errormsg="必须是数字">
+                            </div>
+
+                            <button type="reset" class="btn btn-default mr-2">重置</button>
+                            <button type="button" class="btn btn-primary js_submit">确认</button>
+
+                        </form>
+
+                    </div>
+                    <!-- /.panel-body -->
+                </div>
+                <!-- /.panel -->
+            </div>
+            <!-- /.col-lg-12 -->
+        </div>
+
+    </div>
+    <!-- /#page-wrapper -->
+
+</div>
+<!-- /#wrapper -->
+
+<script>
+
+    //展示推送间隔信息
+    var pushTimeShow = function(){
+        var isPush = $("input[name='Config[is_push]']:checked").val();
+
+        if(isPush == 1){
+
+            $(".js_pushTime").removeClass("hidden");
+            $(".js_pushTime input").attr("ignore",'');
+
+        }else{
+
+            $(".js_pushTime").addClass("hidden");
+            $(".js_pushTime input").attr("ignore",'ignore');
+
+        }
+    }
+
+    pushTimeShow();
+
+    // 选择不时时推送时
+    $("input[name='Config[is_push]']").click(function(){
+        pushTimeShow();
+    });
+
+    $(function () {
+        var submitBtn = ".js_submit";
+        $("form").Validform({
+
+            tiptype:function(msg,o){
+
+                if(!o.obj.is("form")){
+
+                    if(3 == o.type){
+                        alert(msg, 'error');
+                    }
+
+                }
+
+            },
+
+            label:"label",
+
+            btnSubmit: submitBtn,
+
+            tipSweep:true,
+
+            ajaxPost:true,
+
+            beforeSubmit: function () {
+
+                $(submitBtn).attr("disabled", "disabled");
+            },
+
+            callback:function(json){
+
+                if(json.status == 'success'){
+
+                    alert(json.message, 'success', function () {
+                        window.location.reload();
+                    });
+
+                }else{
+
+                    $(".js_" + json.label).focus().addClass('Validform_error');
+                    $(submitBtn).removeAttr("disabled");
+                    alert(json.message, 'error');
+
+                }
+
+            }
+
+        });
+    });
+
+
+</script>
+
+{{include_file name='admin/public/footer'}}

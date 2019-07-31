@@ -1,0 +1,216 @@
+{{include_file name='home/public/header' title='字段模板'}}
+<style>
+    .table>thead>tr>th, .table>tbody>tr>th, .table>tfoot>tr>th, .table>thead>tr>td, .table>tbody>tr>td, .table>tfoot>tr>td {
+        padding: 8px 8px 8px 0;
+        line-height: 1.42857143;
+        vertical-align: top;
+        border-top: 1px solid #ddd;
+    }
+    .table>tbody>tr.level1>td, .table>tbody>tr.level1>th, .table>tbody>tr>td.level1, .table>tbody>tr>th.level1, .table>tfoot>tr.level1>td, .table>tfoot>tr.level1>th, .table>tfoot>tr>td.level1, .table>tfoot>tr>th.level1, .table>thead>tr.level1>td, .table>thead>tr.level1>th, .table>thead>tr>td.level1, .table>thead>tr>th.level1 {
+        background-color: #f5f5f5;
+    }
+    .table>tbody>tr.level2>td, .table>tbody>tr.level2>th, .table>tbody>tr>td.level2, .table>tbody>tr>th.level2, .table>tfoot>tr.level2>td, .table>tfoot>tr.level2>th, .table>tfoot>tr>td.level2, .table>tfoot>tr>th.level2, .table>thead>tr.level2>td, .table>thead>tr.level2>th, .table>thead>tr>td.level2, .table>thead>tr>th.level2 {
+        background-color: rgba(255,255,255,.15);
+    }
+</style>
+</head>
+
+<body>
+
+<div id="wrapper">
+
+    <!-- Navigation -->
+    {{include_file name='home/public/nav' sidebar='home/project/sidebar'}}
+    <div id="page-wrapper">
+
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="page-header">
+                    <h1>字段模板 </h1>
+                    <div class="opt-btn">
+
+                        <!--<a href="javascript:void(0);" class="btn hidden-xs btn-sm btn-warning" data-toggle="tooltip" title="" data-placement="bottom" data-original-title="导出HTML"><i class="fa fa-fw fa-download"></i>导出</a>-->
+                        {{if $project->hasRule('project', 'template')}}
+                        <a href="javascript:;" class="btn btn-sm btn-success js_editApiBtn" data-url="{{url('home/template/form', ['project_id' => $project->encode_id])}}"><i class="fa fa-fw fa-edit"></i>编辑</a>
+                        {{/if}}
+                    </div>
+                </div>
+            </div>
+            <!-- /.col-lg-12 -->
+        </div>
+
+        <!-- 接口详情 -->
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="panel panel-default">
+
+                    {{include_file name='home/project/tab' tab='template'}}
+
+                    <div class="panel-body">
+                        <div class="alert alert-warning alert-dismissable">
+                            <i class="fa fa-fw fa-info-circle"></i>
+                            字段模板里的参数会在新建接口时默认自动填充到接口字段里，可以减少公共参数的手工录入成本。
+                        </div>
+                        <!--header参数-->
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        Header参数
+                                    </div>
+                                    <!-- /.panel-heading -->
+                                    <div class="panel-body">
+                                        <div class="table-responsive">
+                                            <table class="table">
+                                                <thead>
+                                                <tr>
+                                                    <th width="200px">参数名</th>
+                                                    <th width="150px">参数类型</th>
+                                                    <th width="320px">参数值</th>
+                                                    <th>备注说明</th>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                {{foreach $api->headerAttributes as $header}}
+                                                <tr>
+                                                    <td>{{$header->name}}</td>
+                                                    <td>{{$api->field->typeLabels[$header->type]}}</td>
+                                                    <td>{{$header->value}}</td>
+                                                    <td>{{$header->remark}}</td>
+                                                </tr>
+                                                {{/foreach}}
+
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                        <!-- /.table-responsive -->
+                                    </div>
+                                    <!-- /.panel-body -->
+                                </div>
+                                <!-- /.panel -->
+                            </div>
+                            <!-- /.col-lg-6 -->
+                        </div>
+                        <!--请求参数-->
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        请求参数
+                                    </div>
+                                    <!-- /.panel-heading -->
+                                    <div class="panel-body">
+                                        <div class="table-responsive">
+                                            <table class="table">
+                                                <thead>
+                                                <tr>
+                                                    <th width="200px">参数名</th>
+                                                    <th width="200px">参数标题</th>
+                                                    <th width="120px">参数类型</th>
+                                                    <th width="60px">必填</th>
+                                                    <th width="90px">默认值</th>
+                                                    <th>备注说明</th>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                {{foreach $api->requestAttributes as $request}}
+                                                <tr class="">
+                                                    <td>{{$request->name}}</td>
+                                                    <td>{{$request->title}}</td>
+                                                    <td>{{$api->field->typeLabels[$request->type]}}</td>
+                                                    <td>{{$api->field->requiredLabels[$request->required]}}</td>
+                                                    <td>{{$request->default}}</td>
+                                                    <td>{{$request->remark}}</td>
+                                                </tr>
+                                                {{/foreach}}
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                        <!-- /.table-responsive -->
+                                    </div>
+                                    <!-- /.panel-body -->
+                                </div>
+                                <!-- /.panel -->
+                            </div>
+                            <!-- /.col-lg-6 -->
+                        </div>
+                        <!--响应参数-->
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        响应参数
+                                    </div>
+                                    <!-- /.panel-heading -->
+                                    <div class="panel-body">
+                                        <div class="table-responsive">
+                                            <table class="table">
+                                                <thead>
+                                                <tr>
+                                                    <th width="200px">参数名</th>
+                                                    <th width="200px">参数标题</th>
+                                                    <th width="120px">参数类型</th>
+                                                    <th width="200px">MOCK规则</th>
+                                                    <th>备注说明</th>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                {{foreach $api->responseAttributes as $response}}
+                                                <tr class="level{{$response->level}}">
+                                                    <td>
+                                                        {{if $response->level}}
+                                                        {{str_repeat('&nbsp;&nbsp;&nbsp;', $response->level)}}
+                                                        <i class="fa fa-fw fa-angle-right fa-1" aria-hidden="true"></i>
+                                                        {{/if}}
+                                                        {{$response->name}}
+                                                    </td>
+                                                    <td>{{$response->title}}</td>
+                                                    <td>{{$api->field->typeLabels[$response->type]}}</td>
+                                                    <td>{{$response->mock}}</td>
+                                                    <td>{{$response->description}}</td>
+                                                </tr>
+                                                {{/foreach}}
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                        <!-- /.table-responsive -->
+                                    </div>
+                                    <!-- /.panel-body -->
+                                </div>
+                                <!-- /.panel -->
+                            </div>
+                            <!-- /.col-lg-6 -->
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+    <!-- /#page-wrapper -->
+
+</div>
+
+<!-- /#wrapper -->
+<hr>
+<p class="text-center">{{config('copyright')}}</p>
+
+<script>
+    $(function () {
+        $(".js_editApiBtn").on('click', function () {
+            var thisObj = $(this);
+            var url = thisObj.data('url');
+            thisObj.attr("disabled", "disabled");
+            $("body").load(url, function (response, status) {
+                if (status == "success"){
+                    thisObj.removeAttr("disabled");
+                }
+            });
+        });
+    });
+</script>
+{{include_file name='home/public/footer'}}

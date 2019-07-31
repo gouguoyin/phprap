@@ -1,0 +1,331 @@
+{{include_file name='install/public/header' title='环境检测——安装步骤一'}}
+<link href="{{STATIC_URL}}/css/app.css" rel="stylesheet">
+<link href="{{STATIC_URL}}/css/install.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-10 col-md-offset-1">
+            <div class="install-panel panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title text-center">安装步骤一</h3>
+                </div>
+                <div class="panel-body">
+
+                    {{include_file name='install/public/nav' step=1}}
+                    <form id="js_step1Form" role="form" action="{{url('install/step1')}}" method="post">
+                        <input type="hidden" name="csrf-phprap" value="{{csrf_token()}}" />
+
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        系统环境检测
+                                    </div>
+                                    <div class="panel-body">
+                                        <div class="table-responsive">
+                                            <table class="table mb-0">
+                                                <thead>
+                                                <tr>
+                                                    <th>检查项目</th>
+                                                    <th>当前配置</th>
+                                                    <th>所需配置</th>
+                                                    <th>检测结果</th>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                <tr>
+                                                    <td>操作系统</td>
+                                                    <td>{{$smarty.const.PHP_OS}}</td>
+                                                    <td>Linux/Win</td>
+                                                    <td><i class="fa fa-check"></i></td>
+                                                </tr>
+
+                                                <tr>
+                                                    <td>PHP版本</td>
+                                                    <td>{{$smarty.const.PHP_VERSION}}</td>
+                                                    <td>>=5.4.0</td>
+                                                    <td>
+                                                        {{if version_compare($smarty.const.PHP_VERSION, '5.4.0', '>=' )}}
+                                                        <i class="fa fa-check"></i>
+                                                        {{else}}
+                                                        <i class="fa fa-times"></i>
+                                                        <input type="hidden" name="step1['php_version']" value="当前PHP版本不符合要求" >
+                                                        {{/if}}
+                                                    </td>
+                                                </tr>
+
+                                                </tbody>
+                                            </table>
+                                        </div>
+
+                                    </div>
+
+                                </div>
+                            </div>
+
+                            <div class="col-lg-12">
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        依赖性检测
+                                    </div>
+                                    <div class="panel-body">
+                                        <div class="table-responsive">
+                                            <table class="table mb-0">
+                                                <thead>
+                                                <tr>
+                                                    <th>检查项目</th>
+                                                    <th>当前配置</th>
+                                                    <th>所需配置</th>
+                                                    <th>检测结果</th>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+
+                                                <tr>
+                                                    <td>Reflection 扩展</td>
+                                                    <td>{{if extension_loaded('reflection')}}支持{{else}}不支持{{/if}}</td>
+                                                    <td>支持</td>
+                                                    <td>
+                                                        {{if extension_loaded('reflection')}}
+                                                        <i class="fa fa-check"></i>
+                                                        {{else}}
+                                                        <i class="fa fa-times"></i>
+                                                        <input type="hidden" datatype="*" nullmsg="必须安装reflection扩展" >
+                                                        {{/if}}
+                                                    </td>
+                                                </tr>
+
+                                                <tr>
+                                                    <td>MBString 扩展</td>
+                                                    <td>{{if extension_loaded('mbstring')}}支持{{else}}不支持{{/if}}</td>
+                                                    <td>支持</td>
+                                                    <td>
+                                                        {{if extension_loaded('mbstring')}}
+                                                        <i class="fa fa-check"></i>
+                                                        {{else}}
+                                                        <i class="fa fa-times"></i>
+                                                        <input type="hidden" datatype="*" nullmsg="必须安装mbstring扩展">
+                                                        {{/if}}
+                                                    </td>
+                                                </tr>
+
+                                                <tr>
+                                                    <td>SPL 扩展</td>
+                                                    <td>{{if extension_loaded('spl')}}支持{{else}}不支持{{/if}}</td>
+                                                    <td>支持</td>
+                                                    <td>
+                                                        {{if extension_loaded('spl')}}
+                                                        <i class="fa fa-check"></i>
+                                                        {{else}}
+                                                        <i class="fa fa-times"></i>
+                                                        <input type="hidden" datatype="*" nullmsg="必须安装spl扩展">
+                                                        {{/if}}
+                                                    </td>
+                                                </tr>
+
+                                                <tr>
+                                                    <td>PDO 扩展</td>
+                                                    <td>{{if extension_loaded('pdo')}}支持{{else}}不支持{{/if}}</td>
+                                                    <td>支持</td>
+                                                    <td>
+                                                        {{if extension_loaded('pdo')}}
+                                                        <i class="fa fa-check"></i>
+                                                        {{else}}
+                                                        <i class="fa fa-times"></i>
+                                                        <input type="hidden" datatype="*" nullmsg="必须安装pdo扩展">
+                                                        {{/if}}
+                                                    </td>
+                                                </tr>
+
+                                                <tr>
+                                                    <td>PDO MySQL 扩展</td>
+                                                    <td>{{if extension_loaded('pdo_mysql')}}支持{{else}}不支持{{/if}}</td>
+                                                    <td>支持</td>
+                                                    <td>
+                                                        {{if extension_loaded('pdo_mysql')}}
+                                                        <i class="fa fa-check"></i>
+                                                        {{else}}
+                                                        <i class="fa fa-times"></i>
+                                                        <input type="hidden" datatype="*" nullmsg="必须安装pdo_mysql扩展">
+                                                        {{/if}}
+                                                    </td>
+                                                </tr>
+
+                                                <tr>
+                                                    <td>GD 扩展</td>
+                                                    <td>
+                                                        {{if extension_loaded('gd')}}
+                                                        支持
+                                                        {{else}}
+                                                        不支持
+                                                        {{/if}}
+                                                    </td>
+                                                    <td>支持</td>
+                                                    <td>
+                                                        {{if extension_loaded('gd')}}
+                                                        <i class="fa fa-check"></i>
+                                                        {{else}}
+                                                        <i class="fa fa-times"></i>
+                                                        <input type="hidden" datatype="*" nullmsg="必须安装gd扩展" >
+                                                        {{/if}}
+                                                    </td>
+                                                </tr>
+
+                                                <tr>
+                                                    <td>OpenSSL 扩展</td>
+                                                    <td>
+                                                        {{if extension_loaded('openssl')}}
+                                                        支持
+                                                        {{else}}
+                                                        不支持
+                                                        {{/if}}
+                                                    </td>
+                                                    <td>支持</td>
+                                                    <td>
+                                                        {{if extension_loaded('openssl')}}
+                                                        <i class="fa fa-check"></i>
+                                                        {{else}}
+                                                        <i class="fa fa-times"></i>
+                                                        <input type="hidden" datatype="*" nullmsg="必须安装openssl扩展" >
+                                                        {{/if}}
+                                                    </td>
+                                                </tr>
+
+                                                <tr>
+                                                    <td>CURL 扩展</td>
+                                                    <td>
+                                                        {{if extension_loaded('curl')}}
+                                                        支持
+                                                        {{else}}
+                                                        不支持
+                                                        {{/if}}
+                                                    </td>
+                                                    <td>支持</td>
+                                                    <td>
+                                                        {{if extension_loaded('curl')}}
+                                                        <i class="fa fa-check"></i>
+                                                        {{else}}
+                                                        <i class="fa fa-times"></i>
+                                                        <input type="hidden" datatype="*" nullmsg="必须安装curl扩展" >
+                                                        {{/if}}
+                                                    </td>
+                                                </tr>
+
+                                                </tbody>
+                                            </table>
+                                        </div>
+
+                                    </div>
+
+                                </div>
+                            </div>
+
+                            <div class="col-lg-12">
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        目录权限检测
+                                    </div>
+                                    <div class="panel-body">
+                                        <div class="table-responsive">
+                                            <table class="table mb-3">
+                                                <thead>
+                                                <tr>
+                                                    <th>检查项目</th>
+                                                    <th>当前权限</th>
+                                                    <th>所需权限</th>
+                                                    <th>检测结果</th>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                
+                                                {{foreach $step1 as $k => $v}}
+                                                <tr>
+                                                    <td>{{$k}}</td>
+                                                    <td>{{$v.have_chmods}}</td>
+                                                    <td>{{$v.require_chmods}}</td>
+                                                    <td>
+                                                        {{if $v.check_chmod}}
+                                                        <i class="fa fa-check"></i>
+                                                        {{else}}
+                                                        <i class="fa fa-times"></i>
+                                                        <input type="hidden" datatype="*" nullmsg="{{$k}}必须可写" >
+                                                        {{/if}}
+                                                    </td>
+                                                </tr>
+                                                {{/foreach}}
+
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                        <div class="panel-button form-group text-center">
+                                            <button type="button" class="btn btn-info js_submit">下一步</button>
+                                        </div>
+
+                                    </div>
+
+                                </div>
+                            </div>
+
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+</div>
+<script>
+
+    $(function(){
+
+        //验证登录表单
+        var submitObj = $(".js_submit");
+        $("#js_step1Form").Validform({
+
+            tiptype:function(msg,o){
+
+                if(!o.obj.is("form")){
+
+                    if(3 == o.type){
+                        alert(msg, 'error');
+                    }
+
+                }
+            },
+
+            label:"label",
+
+            ajaxPost:true,
+
+            btnSubmit: '.js_submit',
+
+            beforeSubmit: function () {
+
+                submitObj.attr("disabled", "disabled");
+            },
+
+            callback:function(json){
+
+                if(json.status == 'success'){
+
+                    window.location.href = json.callback;
+
+                }else{
+                    submitObj.removeAttr("disabled");
+                    alert(json.message, 'error');
+
+                }
+
+            }
+
+        });
+
+})
+
+</script>
+{{include_file name='install/public/footer'}}
