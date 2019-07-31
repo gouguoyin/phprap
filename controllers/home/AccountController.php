@@ -172,7 +172,7 @@ class AccountController extends PublicController
 
         }
 
-        return $this->display('profile', ['account' => $model]);
+        return $this->display('profile');
 
     }
 

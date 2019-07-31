@@ -72,13 +72,6 @@ class RegisterForm extends Account
     public function register()
     {
 
-        if (!$this->validate()) {
-            return false;
-        }
-
-        // 开启事务
-        $transaction = Yii::$app->db->beginTransaction();
-
         $config = Config::findOne(['type' => 'safe']);
 
         $token   = $config->getField('register_token');
@@ -91,6 +84,13 @@ class RegisterForm extends Account
         if($captcha){
             $this->scenario = 'verifyCode';
         }
+
+        if (!$this->validate()) {
+            return false;
+        }
+
+        // 开启事务
+        $transaction = Yii::$app->db->beginTransaction();
 
         $account = new Account();
 
@@ -105,8 +105,7 @@ class RegisterForm extends Account
         $account->setPassword($this->password);
         $account->generateAuthKey();
 
-        if(!$account->save())
-        {
+        if(!$account->save()) {
             $this->addError($account->getErrorLabel(), $account->getErrorMessage());
             $transaction->rollBack();
             return false;
@@ -119,7 +118,7 @@ class RegisterForm extends Account
         $loginLog->user_name  = $account->name;
         $loginLog->user_email = $account->email;
 
-        if(!$loginLog->store()){
+        if(!$loginLog->store()) {
             $this->addError($loginLog->getErrorLabel(), $loginLog->getErrorMessage());
             $transaction->rollBack();
             return false;
