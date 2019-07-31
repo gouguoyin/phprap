@@ -48,7 +48,8 @@ class LoginForm extends Account
     public function login()
     {
 
-        $captcha = config('login_captcha', 'safe');
+        $config  = Config::findOne(['type' => 'safe']);
+        $captcha = $config->getField('login_captcha');
 
         if($captcha){
             $this->scenario = 'verifyCode';
@@ -72,7 +73,7 @@ class LoginForm extends Account
             return false;
         }
 
-        $login_keep_time = config('login_keep_time', 'safe');
+        $login_keep_time = $config->getField('login_keep_time');
 
         return Yii::$app->user->login($account, 60*60*$login_keep_time);
 
