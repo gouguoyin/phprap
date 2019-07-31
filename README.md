@@ -232,9 +232,6 @@
     - 登录历史
     ![](http://gouguoyin.qiniudn.com/admin_login_history.png)
     
-    - 数据备份
-    ![](http://gouguoyin.qiniudn.com/data_bak.png)
-
     - 系统设置
     ![](http://gouguoyin.qiniudn.com/admin_setting.png)
     
