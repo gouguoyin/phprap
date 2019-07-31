@@ -70,7 +70,7 @@
                                     <th class="datetime">申请时间</th>
                                     <th >申请IP</th>
                                     <th >申请地点</th>
-                                    {{if !$model->count}}
+                                    {{if $model->count}}
                                     <th width="95px"></th>
                                     {{/if}}
                                 </tr>
@@ -87,7 +87,7 @@
                                     <td >{{$model->created_at}}</td>
                                     <td >{{$model->ip}}</td>
                                     <td >{{$model->location}}</td>
-                                    {{if !$model->count}}
+                                    {{if $model->count}}
                                     <td >
                                         {{if $model->status == $model::CHECK_STATUS}}
                                         <a class="btn btn-success btn-xs mr-1" data-modal="#js_popModal" data-height="190" data-title="通过申请" data-src="{{url('home/apply/pass', ['id' => $model->id])}}">通过</a>

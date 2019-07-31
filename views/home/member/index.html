@@ -41,7 +41,7 @@
                                     <th>审核/邀请者</th>
                                     <th class="datetime">加入时间</th>
                                     <th class="datetime">更新时间</th>
-                                    {{if !$member->count}}
+                                    {{if $member->count}}
                                     <th class="hidden-xs" width="95px"></th>
                                     {{/if}}
                                 </tr>
@@ -57,7 +57,7 @@
 
                                     <td>{{$member->created_at}}</td>
                                     <td>{{$member->updated_at}}</td>
-                                    {{if !$member->count}}
+                                    {{if $member->count}}
                                     <td class="hidden-xs">
 
                                         {{if $project->hasRule('member', 'update')}}

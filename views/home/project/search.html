@@ -89,7 +89,7 @@
                                     <td class="text-center">{{$model->getMembers()->count()}}</td>
                                     <td >{{$model->created_at}}</td>
                                     <td >{{$model->updated_at}}</td>
-                                    {{if !$model->count}}
+                                    {{if $model->count}}
                                     <td >
                                         {{if $model->isCreater() || $model->isJoiner()}}
                                         <a class="btn btn-success btn-xs disabled mr-1">加入</a>
