@@ -139,6 +139,11 @@ class AccountController extends PublicController
      */
     public function actionProfile()
     {
+
+        if(Yii::$app->user->isGuest) {
+            return $this->redirect(['home/account/login','callback' => Url::current()]);
+        }
+
         $request = Yii::$app->request;
 
         $model = ProfileForm::findModel(Yii::$app->user->identity->id);
@@ -177,6 +182,10 @@ class AccountController extends PublicController
      */
     public function actionPassword()
     {
+
+        if(Yii::$app->user->isGuest) {
+            return $this->redirect(['home/account/login','callback' => Url::current()]);
+        }
 
         $request = Yii::$app->request;
 

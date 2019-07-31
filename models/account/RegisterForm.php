@@ -45,8 +45,11 @@ class RegisterForm extends Account
         }
     }
 
-    public function validateEmail($attribute)
-    {
+    /**
+     * 验证邮箱是否合法
+     * @param $attribute
+     */
+    public function validateEmail($attribute){
 
         $config = Config::findOne(['type' => 'safe'])->getField();
 
