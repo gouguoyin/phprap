@@ -68,6 +68,7 @@ class LoginForm extends Account
         $loginLog->user_email = $account->email;
 
         if(!$loginLog->store()){
+            $this->addError($loginLog->getErrorLabel(), $loginLog->getErrorMessage());
             return false;
         }
 
