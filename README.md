@@ -243,11 +243,10 @@
 - 如果您在使用过程中有任何疑问，或有好的意见和想法，请通过以下途径联系我或者新建 [Issue](https://github.com/gouguoyin/phprap/issues)  讨论新特性或者变更。
 - 官方网站：[www.phprap.com](http://www.phprap.com)
 - 演示网站：[demo.phprap.com](http://demo.phprap.com)
-- 作者博客：[www.gouguoyin.cn](http://www.gouguoyin.cn/about.html)
 - 官方QQ群：421537504 <a style="margin-left:10px" target="_blank" href="http://shang.qq.com/wpa/qunwpa?idkey=d49826b55d1759513ce5d68253b3f0589b227587edf87059aa08125e620b73c0"><img border="0" src="http://pub.idqqimg.com/wpa/images/group.png" alt="GoPHP官方交流群" title="GoPHP官方交流群"></a>
 
 ## 捐献
 - 如果觉得还不错，请作者喝杯咖啡吧，开源不易，您的支持是我前进的动力！
 
-![微信](http://gouguoyin.qiniudn.com/wepay.jpg)
-![支付宝](http://gouguoyin.qiniudn.com/alipay.jpg)
+![微信](http://www.phprap.com/static/images/wxpay.jpg)
+![支付宝](http://www.phprap.com/static/images/alipay.jpg)
