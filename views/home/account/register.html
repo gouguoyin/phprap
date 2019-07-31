@@ -19,24 +19,24 @@
                                 <input type="hidden" name="csrf-phprap" value="{{csrf_token()}}" />
 
                                 <div class="form-group">
-                                    <input autocomplete="off" type="text" class="form-control js_email" placeholder="登录邮箱，必填" name="RegisterAccount[email]" datatype="e" nullmsg="请输入登录邮箱" errormsg="请输入合法的邮箱地址" >
+                                    <input autocomplete="off" type="text" class="form-control js_email" placeholder="登录邮箱，必填" name="RegisterForm[email]" datatype="e" nullmsg="请输入登录邮箱" errormsg="请输入合法的邮箱地址" >
                                 </div>
 
                                 <div class="form-group">
-                                    <input autocomplete="off" type="text" class="form-control js_name" placeholder="用户昵称，必填，建议写真实姓名以方便识别" name="RegisterAccount[name]" datatype="*2-10" nullmsg="请输入用户昵称" errormsg="请输入2-10个由字母或汉字组成的字符">
+                                    <input autocomplete="off" type="text" class="form-control js_name" placeholder="用户昵称，必填，建议写真实姓名以方便识别" name="RegisterForm[name]" datatype="*2-10" nullmsg="请输入用户昵称" errormsg="请输入2-10个由字母或汉字组成的字符">
                                 </div>
 
                                 <div class="form-group">
-                                    <input autocomplete="off" type="password" class="form-control js_password" placeholder="登录密码，必填，不少于6位" name="RegisterAccount[password]" datatype="*6-20" nullmsg="请输入登录密码" errormsg="请填写6-20个字符">
+                                    <input autocomplete="off" type="password" class="form-control js_password" placeholder="登录密码，必填，不少于6位" name="RegisterForm[password]" datatype="*6-20" nullmsg="请输入登录密码" errormsg="请填写6-20个字符">
                                 </div>
 
                                 <div class="form-group">
-                                    <input autocomplete="off" type="password" class="form-control" placeholder="请再次输入确认密码" datatype="*" recheck="RegisterAccount[password]" nullmsg="请输入重复密码" errormsg="两次密码输入不一致">
+                                    <input autocomplete="off" type="password" class="form-control" placeholder="请再次输入确认密码" datatype="*" recheck="RegisterForm[password]" nullmsg="请输入重复密码" errormsg="两次密码输入不一致">
                                 </div>
 
                                 {{if $config->register_token}}
                                 <div class="form-group">
-                                    <input autocomplete="off" type="text" class="form-control js_registerToken" placeholder="注册口令，必填，区分大小写" datatype="*" nullmsg="请输入注册口令" name="RegisterAccount[registerToken]" datatype="*">
+                                    <input autocomplete="off" type="text" class="form-control js_registerToken" placeholder="注册口令，必填，区分大小写" datatype="*" nullmsg="请输入注册口令" name="RegisterForm[registerToken]" datatype="*">
                                 </div>
                                 {{/if}}
 
@@ -44,7 +44,7 @@
                                 <div class="form-group">
                                     <div class="input-group">
 
-                                        <input autocomplete="off" class="form-control js_verifyCode" type="text" name="RegisterAccount[verifyCode]" datatype="*" nullmsg="请输入验证码" placeholder="验证码，不区分大小写">
+                                        <input autocomplete="off" class="form-control js_verifyCode" type="text" name="RegisterForm[verifyCode]" datatype="*" nullmsg="请输入验证码" placeholder="验证码，不区分大小写">
 
                                         <a class="input-group-btn verify-code">
 

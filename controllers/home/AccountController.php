@@ -1,16 +1,14 @@
 <?php
 namespace app\controllers\home;
 
-use app\models\account\LoginForm;
-use app\models\account\PasswordForm;
-use app\models\account\ProfileForm;
-use app\models\account\RegisterAccount;
-use app\models\account\UpdateAccount;
 use Yii;
 use yii\helpers\Url;
 use yii\web\Response;
 use app\models\Config;
-use app\models\account\LoginAccount;
+use app\models\account\LoginForm;
+use app\models\account\PasswordForm;
+use app\models\account\ProfileForm;
+use app\models\account\RegisterForm;
 
 class AccountController extends PublicController
 {
@@ -30,7 +28,7 @@ class AccountController extends PublicController
 
             Yii::$app->response->format = Response::FORMAT_JSON;
 
-            $model = new RegisterAccount();
+            $model = new RegisterForm();
 
             if(!$model->load($request->post())){
 

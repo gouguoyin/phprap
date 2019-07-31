@@ -2,12 +2,12 @@
 
 namespace app\models\account;
 
+use Yii;
 use app\models\Config;
 use app\models\Account;
-use app\models\loginLog\StoreLog;
-use Yii;
+use app\models\loginLog\CreateLog;
 
-class RegisterAccount extends Account
+class RegisterForm extends Account
 {
 
     public $name;
@@ -69,6 +69,13 @@ class RegisterAccount extends Account
     public function register()
     {
 
+        if (!$this->validate()) {
+            return false;
+        }
+
+        // 开启事务
+        $transaction = Yii::$app->db->beginTransaction();
+
         $config = Config::findOne(['type' => 'safe']);
 
         $token   = $config->getField('register_token');
@@ -82,42 +89,46 @@ class RegisterAccount extends Account
             $this->scenario = 'verifyCode';
         }
 
-        if (!$this->validate()) {
-            return false;
-        }
-
         $account = new Account();
 
         $account->name   = $this->name;
         $account->email  = $this->email;
         $account->ip     = Yii::$app->request->userIP;
         $account->location = $this->getLocation();
-        $account->status = Account::ACTIVE_STATUS;
+        $account->status   = Account::ACTIVE_STATUS;
+        $account->type   = Account::USER_TYPE;
         $account->created_at = date('Y-m-d H:i:s');
 
         $account->setPassword($this->password);
         $account->generateAuthKey();
 
-        if($account->save()){
-
-            // 记录日志
-            $loginLog = new StoreLog();
-
-            $loginLog->user_id = $account->id;
-            $loginLog->user_name = $account->name;
-            $loginLog->user_email = $account->email;
-
-            if(!$loginLog->store()){
-                return false;
-            }
-
-            $login_keep_time = config('login_keep_time', 'safe');
-
-            return Yii::$app->user->login($account, 60*60*$login_keep_time);
-
+        if(!$account->save())
+        {
+            $this->addError($account->getErrorLabel(), $account->getErrorMessage());
+            $transaction->rollBack();
+            return false;
         }
 
-        return null;
+        // 记录日志
+        $loginLog = new CreateLog();
+
+        $loginLog->user_id    = $account->id;
+        $loginLog->user_name  = $account->name;
+        $loginLog->user_email = $account->email;
+
+        if(!$loginLog->store()){
+            $this->addError($loginLog->getErrorLabel(), $loginLog->getErrorMessage());
+            $transaction->rollBack();
+            return false;
+        }
+
+        // 事务提交
+        $transaction->commit();
+
+        $login_keep_time = $config->getField('login_keep_time');
+
+        return Yii::$app->user->login($account, 60*60*$login_keep_time);
+
     }
 
 }
