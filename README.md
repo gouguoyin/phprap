@@ -1,9 +1,8 @@
 [PHPRAP，是一个PHP轻量级开源API接口文档管理系统，致力于减少前后端沟通成本，提高团队协作开发效率，打造PHP版的RAP。](http://www.phprap.com)
 
  >版本说明
- - master：在线版本，可能会有致命错误，请不要下载安装 
+ - master：稳定版本，建议下载安装，下载[源码](https://gitee.com/gouguoyin/phprap/repository/archive/master.zip)
  - develop：开发版本，功能最新，但不稳定，不建议下载安装 
- - stable：稳定版本，建议下载安装，下载[源码](https://gitee.com/gouguoyin/phprap/repository/archive/stable.zip)
  
 ## 相关
  - 官方网站：[www.phprap.com](http://www.phprap.com)
