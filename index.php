@@ -1,6 +1,6 @@
 <?php
 
-error_reporting(1);
+error_reporting(0);
 error_reporting(E_ERROR | E_WARNING | E_PARSE);
 
 $runtime_dir = __DIR__ . '/runtime';
