@@ -30,7 +30,7 @@ class UserController extends PublicController
 
         $model = Account::findModel()->search($params);
 
-        return $this->display('index', ['model' => $model]);
+        return $this->display('index', ['user' => $model]);
 
     }
 
@@ -66,7 +66,7 @@ class UserController extends PublicController
 
         }
 
-        return $this->display('profile', ['model' => $model]);
+        return $this->display('profile', ['user' => $model]);
 
     }
 
@@ -103,7 +103,7 @@ class UserController extends PublicController
 
         }
 
-        return $this->display('password', ['model' => $model]);
+        return $this->display('password', ['user' => $model]);
     }
 
 }

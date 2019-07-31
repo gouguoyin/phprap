@@ -85,13 +85,13 @@
                                     <th class="datetime">注册时间</th>
 
                                     <th width="80px" class="text-center">用户状态</th>
-                                    {{if $model->count}}
+                                    {{if $user->count}}
                                     <th width="95px"></th>
                                     {{/if}}
                                 </tr>
                                 </thead>
                                 <tbody>
-                                {{foreach $model->models as $model}}
+                                {{foreach $user->models as $model}}
                                 <tr>
                                     <td>{{$model->fullName}}</td>
                                     <td class="text-center"><a href="{{url('admin/project/index', ['creater_id' => $model->id])}}" data-toggle="tooltip" title="" data-original-title="点击查看创建项目">{{$model->getCreatedProjects()->count()}}</a></td>
@@ -107,7 +107,7 @@
                                         <span class="text-danger">{{$model->statusLabel}}</span>
                                         {{/if}}
                                     </td>
-                                    {{if $model->count}}
+                                    {{if $user->count}}
                                     <td>
                                         <a type="button" class="btn btn-warning btn-xs  mr-1" data-modal="#js_popModal" data-height="200" data-src="{{url('admin/user/profile', ['id' => $model->id])}}" data-toggle="tooltip" data-placement="bottom" data-title="编辑账户">编辑</a>
                                         <a type="button" class="btn btn-danger btn-xs" data-modal="#js_popModal" data-height="210" data-src="{{url('admin/user/password', ['id' => $model->id])}}" data-toggle="tooltip" data-placement="bottom" data-title="重置密码">重置</a>
@@ -119,7 +119,7 @@
                                 </tbody>
                             </table>
                         </div>
-                        {{$model->pages}}
+                        {{$user->pages}}
                         <!-- /.table-responsive -->
                     </div>
                     <!-- /.panel-body -->

@@ -84,13 +84,13 @@
                                     <th width="60px">接口数</th>
                                     <th class="text-center" width="80px">项目状态</th>
                                     <th class="datetime">创建时间</th>
-                                    {{if $model->count}}
+                                    {{if $project->count}}
                                     <th width="95px"></th>
                                     {{/if}}
                                 </tr>
                                 </thead>
                                 <tbody>
-                                {{foreach $model->models as $model}}
+                                {{foreach $project->models as $model}}
 
                                 <tr>
                                     <td >{{$model->title}}</td>
@@ -110,7 +110,7 @@
                                     </td>
 
                                     <td >{{$model->created_at}}</td>
-                                    {{if $model->count}}
+                                    {{if $project->count}}
                                     <td >
                                         <a type="button" class="btn btn-danger btn-xs  mr-1" data-modal="#js_popModal" data-height="200" data-src="{{url('admin/project/delete', ['id' => $model->encode_id])}}" data-toggle="tooltip" data-placement="bottom" data-title="删除项目">删除</a>
                                         <a class="btn btn-success btn-xs" target="_blank" href="{{url('home/project/show', ['id' => $model->encode_id])}}">查看</a>
@@ -122,7 +122,7 @@
                                 </tbody>
                             </table>
                         </div>
-                        {{$model->pages}}
+                        {{$project->pages}}
                         <!-- /.table-responsive -->
                     </div>
                     <!-- /.panel-body -->

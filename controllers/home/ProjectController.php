@@ -50,7 +50,7 @@ class ProjectController extends PublicController
 
         $model  = Project::findModel()->search($params);
 
-        return $this->display('search', ['model' => $model]);
+        return $this->display('search', ['project' => $model]);
 
     }
 

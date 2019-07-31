@@ -38,7 +38,7 @@ class ProjectController extends PublicController
 
         $model = Project::findModel()->search($params);
 
-        return $this->display('index', ['model' => $model]);
+        return $this->display('index', ['project' => $model]);
 
     }
 
@@ -56,7 +56,7 @@ class ProjectController extends PublicController
 
         $model = Project::findModel()->search($params);
 
-        return $this->display('recycle', ['model' => $model]);
+        return $this->display('recycle', ['project' => $model]);
 
     }
 

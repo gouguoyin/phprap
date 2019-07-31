@@ -22,7 +22,7 @@ class ApplyController extends PublicController
 
         $model = Apply::findModel()->search($params);
 
-        return $this->display('index', ['model' => $model]);
+        return $this->display('index', ['apply' => $model]);
     }
 
     /**

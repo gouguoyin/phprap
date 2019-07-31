@@ -20,12 +20,12 @@
 
             <div class="form-group">
                 <label class="control-label">用户昵称</label>
-                <input type="text" class="form-control js_name" name="ProfileForm[name]" value="{{$model->name}}" placeholder="必填，建议写真实姓名以方便识别" datatype="*2-10" nullmsg="请输入用户昵称" errormsg="请输入2-10个由字母或汉字组成的字符">
+                <input type="text" class="form-control js_name" name="ProfileForm[name]" value="{{$user->name}}" placeholder="必填，建议写真实姓名以方便识别" datatype="*2-10" nullmsg="请输入用户昵称" errormsg="请输入2-10个由字母或汉字组成的字符">
             </div>
 
             <div class="form-group">
                 <label class="control-label">登录邮箱</label>
-                <input type="text" class="form-control js_email" name="ProfileForm[email]" value="{{$model->email}}" placeholder="必填，该邮箱用于登录和接收通知" datatype="e" nullmsg="请输入登录邮箱" errormsg="请输入合法的邮箱地址">
+                <input type="text" class="form-control js_email" name="ProfileForm[email]" value="{{$user->email}}" placeholder="必填，该邮箱用于登录和接收通知" datatype="e" nullmsg="请输入登录邮箱" errormsg="请输入合法的邮箱地址">
             </div>
 
             <div class="form-group">
@@ -33,10 +33,10 @@
                     <i class="fa fa-info-circle"></i>
                 </a></label>
                 <div class="form-group">
-                    {{foreach $model->statusLabels as $k2 => $v2}}
-                    {{if $k2 !== $model::DELETED_STATUS}}
+                    {{foreach $user->statusLabels as $k2 => $v2}}
+                    {{if $k2 !== $user::DELETED_STATUS}}
                     <label class="radio-inline">
-                        <input type="radio" name="ProfileForm[status]" {{if $model->status == $k2}}checked{{/if}} value="{{$k2}}" > {{$v2}}
+                        <input type="radio" name="ProfileForm[status]" {{if $user->status == $k2}}checked{{/if}} value="{{$k2}}" > {{$v2}}
                     </label>
                     {{/if}}
                     {{/foreach}}
