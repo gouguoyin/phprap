@@ -262,7 +262,7 @@
                                             </table>
                                         </div>
                                         <div class="panel-button form-group text-center">
-                                            <button type="button" class="btn btn-info js_submit">下一步</button>
+                                            <button type="button" class="btn btn-info" id="js_submit">下一步</button>
                                         </div>
 
                                     </div>
@@ -283,49 +283,14 @@
 
     $(function(){
 
-        //验证登录表单
-        var submitObj = $(".js_submit");
-        $("#js_step1Form").Validform({
-
-            tiptype:function(msg,o){
-
-                if(!o.obj.is("form")){
-
-                    if(3 == o.type){
-                        alert(msg, 'error');
-                    }
-
-                }
-            },
-
-            label:"label",
-
-            ajaxPost:true,
-
-            btnSubmit: '.js_submit',
-
-            beforeSubmit: function () {
-
-                submitObj.attr("disabled", "disabled");
-            },
-
-            callback:function(json){
-
-                if(json.status == 'success'){
-
-                    window.location.href = json.callback;
-
-                }else{
-                    submitObj.removeAttr("disabled");
-                    alert(json.message, 'error');
-
-                }
-
+        // 表单验证
+        $("form").validateForm({
+            'success':function (json) {
+                window.location.href = json.callback;
             }
-
         });
 
-})
+    })
 
 </script>
 {{include_file name='install/public/footer'}}

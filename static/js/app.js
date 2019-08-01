@@ -174,26 +174,25 @@ $(":reset").on('click', function (e) {
     });
 
 })(jQuery);
+
 /**
  * 表单验证
  */
 (function($){
     $.fn.validateForm = function(options){
 
-        var modalObj  = $(window.parent.document).find('#js_popModal');
-        var submitObj = modalObj.find(":submit");
-
         var defaults = {
+            submitBtn: '#js_submit',
             before: '',
             success: function (json) {
                 parent.location.reload();
             },
             error: ''
-
         };
 
         var thisObj = $(this);
         var config  = $.extend(defaults, options);
+        var submitBtn  = config.submitBtn;
         var before  = config.before;
         var success = config.success;
         var error   = config.error;
@@ -213,13 +212,11 @@ $(":reset").on('click', function (e) {
 
             label:"label",
 
-            btnSubmit: '#js_submit',
+            btnSubmit: submitBtn,
 
             ajaxPost:true,
 
             beforeSubmit: function () {
-
-                submitObj.attr("disabled", "disabled");
 
                 if(before && before() === false){
 
@@ -239,7 +236,6 @@ $(":reset").on('click', function (e) {
                     error(json);
 
                     $(".js_" + json.label).focus().addClass('Validform_error');
-                    submitObj.removeAttr("disabled");
                     alert(json.message, 'error');
                 }
 

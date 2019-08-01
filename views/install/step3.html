@@ -56,7 +56,7 @@
                                         <div class="form-group">
                                             <div class="panel-button text-center">
                                                 <a href="javascript:history.go(-1);" class="btn btn-info">上一步</a>
-                                                <button type="button" class="btn btn-info js_submit">下一步</button>
+                                                <button type="button" class="btn btn-info" id="js_submit">下一步</button>
                                             </div>
                                         </div>
                                     </form>
@@ -82,48 +82,12 @@
 <script>
 
     $(function(){
-        //验证登录表单
-        var submitBtn = ".js_submit";
-        $("#js_step3Form").Validform({
 
-            tiptype:function(msg,o){
-
-                if(!o.obj.is("form")){
-
-                    if(3 == o.type){
-                        alert(msg, 'error');
-                    }
-
-                }
-            },
-
-            label:"label",
-
-            ajaxPost:true,
-
-            btnSubmit: submitBtn,
-
-            beforeSubmit: function () {
-
-                $(submitBtn).attr("disabled", "disabled");
-
-            },
-
-            callback:function(json){
-
-                if(json.status == 'success'){
-
-                    window.location.href = json.callback;
-
-                }else{
-
-                    $(submitBtn).removeAttr("disabled");
-                    alert(json.message, 'error');
-
-                }
-
+        // 表单验证
+        $("form").validateForm({
+            'success':function (json) {
+                window.location.href = json.callback;
             }
-
         });
 
     })
