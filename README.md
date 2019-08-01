@@ -50,15 +50,11 @@
   
   下载[源码](https://github.com/gouguoyin/phprap/archive/stable.zip)，上传到服务器上后解压
     
-- 绑定域名
 
-    ```php
-    将域名绑定到`web`目录上
-    ```
-    
 - 设置目录权限
 
     `runtime`目录及子目录给予可读可写权限
+    `configs/db.php`文件给予可读可写权限
     
     
 - 隐藏入口文件index.php
