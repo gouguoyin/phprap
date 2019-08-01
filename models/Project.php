@@ -276,11 +276,6 @@ class Project extends Model
             return true;
         }
 
-        // 非项目参与者没有权限
-        if(!$this->isJoiner($user_id)){
-            return false;
-        }
-
         $member = Member::findOne(['project_id' => $this->id, 'user_id' => $user_id]);
 
         if(!$member->id){

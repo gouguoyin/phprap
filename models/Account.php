@@ -34,17 +34,6 @@ class Account extends User
     }
 
     /**
-     * 关联member表
-     * @return \yii\db\ActiveQuery
-     */
-    public function getMember()
-    {
-
-        return $this->hasOne(Member::className(),['user_id'=>'id']);
-
-    }
-
-    /**
      * 获取最近登录
      * @return array|null|\yii\db\ActiveRecord
      */

@@ -117,8 +117,8 @@
                                 <input class="form-control" name="Config[login_keep_time]" value="{{$config->getField('login_keep_time')}}" placeholder="单位小时" value="123456" datatype="n" nullmsg="登录有效期" errormsg="必须是数字">
                             </div>
 
-                            <button type="reset" class="btn btn-default mr-2">重置</button>
-                            <button type="button" class="btn btn-primary js_submit">确认</button>
+                            <button type="reset" class="btn btn-default mr-1">重置</button>
+                            <button type="button" class="btn btn-primary" id="js_submit">确认</button>
 
                         </form>
 
@@ -163,53 +163,7 @@
     });
 
     $(function () {
-        var submitBtn = ".js_submit";
-        $("form").Validform({
-
-            tiptype:function(msg,o){
-
-                if(!o.obj.is("form")){
-
-                    if(3 == o.type){
-                        alert(msg, 'error');
-                    }
-
-                }
-
-            },
-
-            label:"label",
-
-            btnSubmit: submitBtn,
-
-            tipSweep:true,
-
-            ajaxPost:true,
-
-            beforeSubmit: function () {
-
-                $(submitBtn).attr("disabled", "disabled");
-            },
-
-            callback:function(json){
-
-                if(json.status == 'success'){
-
-                    alert(json.message, 'success', function () {
-                        window.location.reload();
-                    });
-
-                }else{
-
-                    $(".js_" + json.label).focus().addClass('Validform_error');
-                    $(submitBtn).removeAttr("disabled");
-                    alert(json.message, 'error');
-
-                }
-
-            }
-
-        });
+        $("form").validateForm();
     });
 
 

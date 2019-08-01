@@ -6,6 +6,7 @@ use app\models\api\CreateApi;
 use app\models\api\DeleteApi;
 use app\models\api\UpdateApi;
 use app\models\Module;
+use app\models\Project;
 use app\models\Template;
 use itbdw\Ip\IpLocation;
 use Jenssegers\Agent\Agent;
@@ -22,6 +23,13 @@ class DemoController extends PublicController
 
     public function actionIndex()
     {
+
+        $account = Yii::$app->user->identity;
+        $project = Project::findModel(11);
+
+        $a = $project->isJoiner();
+
+        dump($account->id,$a);exit;
 
         exit( "没有可写权限<br>");
         $ip = Yii::$app->request->userIP;
