@@ -16,8 +16,14 @@ class UpdateMember extends Member
     public function rules()
     {
         return [
+            [['project_id', 'user_id'], 'required'],
+
+            [['project_id', 'user_id'], 'integer'],
+            [['project_rule', 'module_rule', 'api_rule', 'member_rule', 'env_rule'], 'string', 'max' => 100],
+
             ['id', 'validateProject'],
         ];
+
     }
 
     /**
