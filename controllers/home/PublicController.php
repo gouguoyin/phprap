@@ -70,7 +70,6 @@ class PublicController extends Controller
         
         $account = Yii::$app->user->identity;
 
-        $params['creater_id'] = $account->id;
         $params['check_status'] = Apply::CHECK_STATUS;
         $params['order_by'] = 'id desc';
 

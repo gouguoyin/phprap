@@ -29,13 +29,11 @@ class SettingController extends PublicController
 
             if ($config->save()) {
 
-                return ['code' => 200, 'msg' => '保存成功'];
-
-            } else {
-
-                return ['code' => 300, 'msg' => $config->getError()];
+                return ['status' => 'success', 'message' => '保存成功'];
 
             }
+
+            return ['status' => 'error', 'message' => $config->getErrorMessage(), 'label' => $config->getErrorLabel()];
 
         }
 
@@ -61,13 +59,11 @@ class SettingController extends PublicController
 
             if ($config->save()) {
 
-                return ['code' => 200, 'msg' => '保存成功'];
-
-            } else {
-
-                return ['code' => 300, 'msg' => $config->getError()];
+                return ['status' => 'success', 'message' => '保存成功'];
 
             }
+
+            return ['status' => 'error', 'message' => $config->getErrorMessage(), 'label' => $config->getErrorLabel()];
 
         }
 
@@ -119,11 +115,9 @@ class SettingController extends PublicController
 
                 return ['status' => 'success', 'message' => '保存成功'];
 
-            } else {
-
-                return ['status' => 'error', 'message' => $config->getErrorMessage(), 'label' => $config->getErrorLabel()];
-
             }
+
+            return ['status' => 'error', 'message' => $config->getErrorMessage(), 'label' => $config->getErrorLabel()];
 
         }
 

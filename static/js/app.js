@@ -229,11 +229,11 @@ $(":reset").on('click', function (e) {
                 if(json.status == 'success'){
 
                     alert(json.message, 'success', function () {
-                        success(json);
+                        success && success(json);
                     });
                 }else{
 
-                    error(json);
+                    error && error(json);
 
                     $(".js_" + json.label).focus().addClass('Validform_error');
                     alert(json.message, 'error');

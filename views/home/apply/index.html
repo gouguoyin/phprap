@@ -76,10 +76,10 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                {{foreach $model->models as $model}}
+                                {{foreach $apply->models as $model}}
                                 <tr>
                                     <td >
-                                        {{$apply->applier->fullName}}
+                                        {{$model->applier->fullName}}
                                     </td>
 
                                     <td >{{$model->project->title}}</td>

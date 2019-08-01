@@ -16,7 +16,6 @@ class ApplyController extends PublicController
     {
         $params = Yii::$app->request->queryParams;
 
-        $params['creater_id'] = Yii::$app->user->identity->id;
         $params['check_status'] = Apply::CHECK_STATUS;
         $params['order_by'] = 'id desc';
 
