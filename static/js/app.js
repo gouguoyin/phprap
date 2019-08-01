@@ -174,3 +174,78 @@ $(":reset").on('click', function (e) {
     });
 
 })(jQuery);
+/**
+ * 表单验证
+ */
+(function($){
+    $.fn.validateForm = function(options){
+
+        var modalObj  = $(window.parent.document).find('#js_popModal');
+        var submitObj = modalObj.find(":submit");
+
+        var defaults = {
+            before: '',
+            success: function (json) {
+                parent.location.reload();
+            },
+            error: ''
+
+        };
+
+        var thisObj = $(this);
+        var config  = $.extend(defaults, options);
+        var before  = config.before;
+        var success = config.success;
+        var error   = config.error;
+
+        thisObj.Validform({
+
+            tiptype:function(msg,o){
+
+                if(!o.obj.is("form")){
+
+                    if(3 == o.type){
+                        alert(msg, 'error');
+                    }
+
+                }
+            },
+
+            label:"label",
+
+            btnSubmit: '#js_submit',
+
+            ajaxPost:true,
+
+            beforeSubmit: function () {
+
+                submitObj.attr("disabled", "disabled");
+
+                if(before && before() === false){
+
+                    return false;
+                }
+
+            },
+            callback:function(json){
+
+                if(json.status == 'success'){
+
+                    alert(json.message, 'success', function () {
+                        success(json);
+                    });
+                }else{
+
+                    error(json);
+
+                    $(".js_" + json.label).focus().addClass('Validform_error');
+                    submitObj.removeAttr("disabled");
+                    alert(json.message, 'error');
+                }
+
+            }
+
+        });
+
+    };
+})(jQuery);

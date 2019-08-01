@@ -38,49 +38,8 @@
 <script>
 
 $(function () {
-    // 删除项目表单验证
-    var modalObj  = $(window.parent.document).find('#js_popModal');
-    var submitObj = modalObj.find(":submit");
-    $("form").Validform({
-
-        tiptype:function(msg,o){
-
-            if(!o.obj.is("form")){
-
-                if(3 == o.type){
-                    alert(msg, 'error');
-                }
-
-            }
-        },
-
-        label:"label",
-
-        btnSubmit: '#js_submit',
-
-        tipSweep:true,
-
-        ajaxPost:true,
-
-        beforeSubmit: function () {
-
-            submitObj.attr("disabled", "disabled");
-        },
-
-        callback:function(json){
-
-            if(json.status == 'success'){
-                alert(json.message, 'success', function () {
-                    parent.location.reload();
-                });
-            }else{
-                $(".js_" + json.label).focus().addClass('Validform_error');
-                submitObj.removeAttr("disabled");
-                alert(json.message, 'error');
-            }
-
-        }
-    });
+    // 表单验证
+    $("form").validateForm();
 });
 
 </script>
