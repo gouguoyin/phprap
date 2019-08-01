@@ -48,7 +48,7 @@
                 </label>
 
                 <label class="checkbox-inline">
-                    <input class="js_projectRule" type="checkbox" value="delete" {{if $member->hasRule('project', 'create')}}checked{{/if}} >删除项目
+                    <input class="js_projectRule" type="checkbox" value="delete" {{if $member->hasRule('project', 'delete')}}checked{{/if}} >删除项目
                 </label>
             </div>
 
@@ -101,7 +101,7 @@
                     <input class="js_apiRule" type="checkbox" {{if $member->hasRule('api', 'update')}}checked{{/if}} value="update">编辑接口
                 </label>
                 <label class="checkbox-inline">
-                    <input class="js_apiRule" type="checkbox" {{if $member->hasRule('api', 'export')}}checked{{/if}} value="field">导出接口
+                    <input class="js_apiRule" type="checkbox" {{if $member->hasRule('api', 'export')}}checked{{/if}} value="export">导出接口
                 </label>
                 <label class="checkbox-inline">
                     <input class="js_apiRule" type="checkbox" {{if $member->hasRule('api', 'delete')}}checked{{/if}} value="delete">删除接口
