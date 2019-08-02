@@ -67,13 +67,13 @@
                     <input class="js_envRule" onclick="return false;" checked type="checkbox" value="look">查看环境
                 </label>
                 <label class="checkbox-inline">
-                    <input class="js_envRule" type="checkbox">新增环境
+                    <input class="js_envRule" type="checkbox" value="create">新增环境
                 </label>
                 <label class="checkbox-inline">
-                    <input class="js_envRule" type="checkbox">编辑环境
+                    <input class="js_envRule" type="checkbox" value="update">编辑环境
                 </label>
                 <label class="checkbox-inline">
-                    <input class="js_envRule" type="checkbox">删除环境
+                    <input class="js_envRule" type="checkbox" value="delete">删除环境
                 </label>
             </div>
 
@@ -109,7 +109,7 @@
                     <input class="js_apiRule" type="checkbox" value="update">编辑接口
                 </label>
                 <label class="checkbox-inline">
-                    <input class="js_apiRule" type="checkbox" value="field">导出接口
+                    <input class="js_apiRule" type="checkbox" value="export">导出接口
                 </label>
                 <label class="checkbox-inline">
                     <input class="js_apiRule" type="checkbox" value="delete">删除接口
@@ -146,115 +146,46 @@
 <script src="{{STATIC_URL}}/plugins/bootstrap/js/typeahead.min.js"></script>
 
 <script>
-    $(function(){
-        var selectMemberBtn = $('.js_selectMemberBtn');
-        var userIdInput     = $(".js_userId");
+$(function(){
+    // 表单验证
+    $("form").validateForm({
+        'before':function (json) {
+            // 项目权限
+            var projectRule =[];
+            $(".js_projectRule:checkbox:checked").each(function(){
+                projectRule.push($(this).val());
+            });
+            $(".js_projectRule:hidden").val(projectRule.join(','));
 
-        //选择成员
-        selectMemberBtn.typeahead({
-            source: function (name, process) {
+            // 环境权限
+            var envRule =[];
+            $(".js_envRule:checkbox:checked").each(function(){
+                envRule.push($(this).val());
+            });
+            $(".js_envRule:hidden").val(envRule.join(','));
 
-                var url = "{{url('member/select', ['project_id' => $project->encode_id])}}";
+            // 模块权限
+            var moduleRule =[];
+            $(".js_moduleRule:checkbox:checked").each(function(){
+                moduleRule.push($(this).val());
+            });
+            $(".js_moduleRule:hidden").val(moduleRule.join(','));
 
-                $.get(url, { "name": name }, function (data) {
-                    return process(data);
-                });
+            // 接口权限
+            var apiRule =[];
+            $(".js_apiRule:checkbox:checked").each(function(){
+                apiRule.push($(this).val());
+            });
+            $(".js_apiRule:hidden").val(apiRule.join(','));
 
-            },
-            afterSelect: function (item) {
-                userIdInput.val(item.id);
-                selectMemberBtn.attr("readonly","readonly");
-            },
-
-            items: 10, //显示8条
-            delay: 100, //延迟时间
-
-        });
-
-        // 清除已选
-        $('.js_cleanMemberBtn').click(function () {
-            userIdInput.val('');
-            selectMemberBtn.removeAttr("readonly").val('').focus();
-        });
-
-        // 添加项目表单验证
-        var modalObj  = $(window.parent.document).find('#js_addMemberModal');
-        var submitObj = modalObj.find(":submit");
-        $("form").Validform({
-
-            tiptype:function(msg,o){
-
-                if(!o.obj.is("form")){
-
-                    if(3 == o.type){
-                        alert(msg, 'error');
-                    }
-
-                }
-            },
-
-            label:"label",
-
-            btnSubmit: '#js_submit',
-
-            tipSweep:true,
-
-            ajaxPost:true,
-
-            beforeSubmit:function(){
-                submitObj.attr("disabled", "disabled");
-                // 项目权限
-                var projectRule =[];
-                $(".js_projectRule:checkbox:checked").each(function(){
-                    projectRule.push($(this).val());
-                });
-                $(".js_projectRule:hidden").val(projectRule.join(','));
-
-                // 环境权限
-                var envRule =[];
-                $(".js_envRule:checkbox:checked").each(function(){
-                    envRule.push($(this).val());
-                });
-                $(".js_envRule:hidden").val(envRule.join(','));
-
-                // 模块权限
-                var moduleRule =[];
-                $(".js_moduleRule:checkbox:checked").each(function(){
-                    moduleRule.push($(this).val());
-                });
-                $(".js_moduleRule:hidden").val(moduleRule.join(','));
-
-                // 接口权限
-                var apiRule =[];
-                $(".js_apiRule:checkbox:checked").each(function(){
-                    apiRule.push($(this).val());
-                });
-                $(".js_apiRule:hidden").val(apiRule.join(','));
-
-                // 成员权限
-                var memberRule =[];
-                $(".js_memberRule:checkbox:checked").each(function(){
-                    memberRule.push($(this).val());
-                });
-                $(".js_memberRule:hidden").val(memberRule.join(','));
-
-            },
-
-            callback:function(json){
-
-                if(json.status == 'success'){
-                    alert(json.message, 'success', function () {
-                        parent.location.reload();
-                    });
-                }else{
-                    $(".js_" + json.label).focus().addClass('Validform_error');
-                    submitObj.removeAttr("disabled");
-                    alert(json.message, 'error');
-                }
-
-            }
-        });
-
+            // 成员权限
+            var memberRule =[];
+            $(".js_memberRule:checkbox:checked").each(function(){
+                memberRule.push($(this).val());
+            });
+            $(".js_memberRule:hidden").val(memberRule.join(','));
+        },
     });
+});
 </script>
 {{include_file name='home/public/footer'}}

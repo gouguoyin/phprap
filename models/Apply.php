@@ -120,8 +120,16 @@ class Apply extends Model
             '{{%apply}}.status' => $this->params->status,
         ]);
 
+        // 获取我创建的项目
+        $account = Yii::$app->user->identity;
+
+        $project_ids = $account->getCreatedProjects(Project::ACTIVE_STATUS)->select('id')->column();
+        $project_ids = $project_ids ? : [-1];
+
+        $query->andFilterWhere(['in', '{{%apply}}.project_id', $project_ids]);
+
         // 申请人搜索
-        if($this->params->user){
+        if($this->params->user->name){
 
             $user_ids = Account::find()
                 ->andFilterWhere([
@@ -131,9 +139,8 @@ class Apply extends Model
                 ])
                 ->select('id')->column();
 
-            if(!$user_ids){
-                $user_ids = [0];
-            }
+            $user_ids = $user_ids ? : [-1];
+
             $query->andFilterWhere(['in', '{{%apply}}.user_id', $user_ids]);
         }
 

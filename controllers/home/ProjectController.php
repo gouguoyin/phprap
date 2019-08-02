@@ -30,9 +30,7 @@ class ProjectController extends PublicController
             return $this->redirect(['home/account/login','callback' => Url::current()]);
         }
 
-        $account = Yii::$app->user->identity;
-
-        return $this->display('select', ['account' => $account]);
+        return $this->display('select');
 
     }
 

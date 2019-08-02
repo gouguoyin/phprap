@@ -49,11 +49,11 @@
                                     </label>
                                 </div>
                                 <!-- Change this to a button or input when using this as a form -->
-                                <a href="javascript:void(0);" class="btn btn-lg btn-success btn-block js_submit">立即登录</a>
+                                <a href="javascript:void(0);" class="btn btn-lg btn-success btn-block" id="js_submit">立即登录</a>
 
                                 <hr>
 
-                                <a href="register.html" class="btn btn-default btn-block">还没有账号？免费注册</a>
+                                <a href="{{url('home/account/register')}}" class="btn btn-default btn-block">还没有账号？免费注册</a>
 
                             </fieldset>
                         </form>
@@ -103,57 +103,19 @@
 
             });
 
-            // 登录框验证
-            var submitObj = $(".js_submit");
-            $("form").Validform({
-
-                tiptype:function(msg,o){
-
-                    if(!o.obj.is("form")){
-
-                        if(3 == o.type){
-                            alert(msg, 'error');
-                        }
-
-                    }
-
-                },
-
-                label:"label",
-
-                btnSubmit: '.js_submit',
-
-                tipSweep:true,
-
-                ajaxPost:true,
-
-                beforeSubmit: function () {
-
-                    submitObj.attr("disabled", "disabled");
-                },
-                callback:function(json){
-
-                    if(json.status == 'success'){
-
-                        alert(json.message, 'success', function () {
-                            if(json.callback){
-                                window.location.href = json.callback;
-                            }else{
-                                window.location.reload();
-                            }
-
-                        });
-
+            // 表单验证
+            $("form").validateForm({
+                'success':function (json) {
+                    if(json.callback){
+                        window.location.href = json.callback;
                     }else{
-                        reloadCode();
-                        $(".js_" + json.label).focus().addClass('Validform_error');
-                        submitObj.removeAttr("disabled");
-                        alert(json.message, 'error');
+                        window.location.reload();
                     }
-
+                },
+                'error':function (json) {
+                    reloadCode();
                 }
             });
-
 
         })
 
