@@ -58,12 +58,12 @@ class Api extends Model
      * @var array
      */
     public $fieldTypeLabels = [
-        'string' => '字符串(string)',
-        'integer' => '整数(integer)',
-        'float'   => '小数(float)',
-        'boolean' => '布尔(boolean)',
-        'object'  => '对象(object)',
-        'array'   => '数组(array)',
+        'string' => '字符串',
+        'integer' => '整数',
+        'float'   => '小数',
+        'boolean' => '布尔',
+        'object'  => '对象',
+        'array'   => '数组',
     ];
 
     /**

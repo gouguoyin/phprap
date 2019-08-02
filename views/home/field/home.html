@@ -63,8 +63,10 @@
                                                 <thead>
                                                 <tr>
                                                     <th width="200px">参数名</th>
-                                                    <th width="150px">参数类型</th>
-                                                    <th width="320px">参数值</th>
+                                                    <th width="200px">参数值</th>
+                                                    <th width="100px">参数类型</th>
+                                                    <th width="60px">必填</th>
+                                                    <th width="90px">示例值</th>
                                                     <th>备注说明</th>
                                                 </tr>
                                                 </thead>
@@ -78,8 +80,12 @@
                                                         {{/if}}
                                                         {{$header->name}}
                                                     </td>
-                                                    <td>{{$api->fieldTypeLabels[$header->type]}}</td>
                                                     <td>{{$header->value}}</td>
+
+                                                    <td>{{$api->fieldTypeLabels[$header->type]}}</td>
+                                                    <td>{{$api->requiredLabels[$header->required]}}</td>
+
+                                                    <td>{{$header->example_value}}</td>
                                                     <td>{{$header->remark}}</td>
                                                 </tr>
                                                 {{/foreach}}
@@ -110,9 +116,9 @@
                                                 <tr>
                                                     <th width="200px">参数名</th>
                                                     <th width="200px">参数标题</th>
-                                                    <th width="120px">参数类型</th>
+                                                    <th width="100px">参数类型</th>
                                                     <th width="60px">必填</th>
-                                                    <th width="90px">默认值</th>
+                                                    <th width="90px">示例值</th>
                                                     <th>备注说明</th>
                                                 </tr>
                                                 </thead>
@@ -130,7 +136,7 @@
                                                     <td>{{$request->title}}</td>
                                                     <td>{{$api->fieldTypeLabels[$request->type]}}</td>
                                                     <td>{{$api->requiredLabels[$request->required]}}</td>
-                                                    <td>{{$request->default}}</td>
+                                                    <td>{{$request->example_value}}</td>
                                                     <td>{{$request->remark}}</td>
                                                 </tr>
                                                 {{/foreach}}
@@ -160,7 +166,8 @@
                                                 <tr>
                                                     <th width="200px">参数名</th>
                                                     <th width="200px">参数标题</th>
-                                                    <th width="120px">参数类型</th>
+                                                    <th width="100px">参数类型</th>
+                                                    <th width="150px">示例值</th>
                                                     <th>备注说明</th>
                                                 </tr>
                                                 </thead>
@@ -176,7 +183,8 @@
                                                     </td>
                                                     <td>{{$response->title}}</td>
                                                     <td>{{$api->fieldTypeLabels[$response->type]}}</td>
-                                                    <td>{{$response->description}}</td>
+                                                    <td>{{$response->example_value}}</td>
+                                                    <td>{{$response->remark}}</td>
                                                 </tr>
                                                 {{/foreach}}
                                                 </tbody>
