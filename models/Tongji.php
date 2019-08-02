@@ -13,7 +13,7 @@ class Tongji
      */
     public function getTotalAccount()
     {
-        return Account::findModel()->search(['status' => Account::ACTIVE_STATUS]);
+        return Account::findModel()->search(['status' => Account::ACTIVE_STATUS, 'type' => Account::USER_TYPE]);
     }
 
     /**
@@ -23,6 +23,7 @@ class Tongji
     public function getTodayAccount()
     {
         return Account::findModel()->search([
+            'type' => Account::USER_TYPE,
             'status' => Account::ACTIVE_STATUS,
             'start_date' => date('Y-m-d'),
             'end_date'   => date('Y-m-d'),
