@@ -228,15 +228,23 @@ $(":reset").on('click', function (e) {
 
                 if(json.status == 'success'){
 
-                    alert(json.message, 'success', function () {
+                    if(json.message){
+                        alert(json.message, 'success', function () {
+                            success && success(json);
+                        });
+                    }else{
                         success && success(json);
-                    });
+                    }
+
                 }else{
 
                     error && error(json);
 
                     $(".js_" + json.label).focus().addClass('Validform_error');
-                    alert(json.message, 'error');
+                    if(json.message){
+                        alert(json.message, 'error');
+                    }
+
                 }
 
             }
