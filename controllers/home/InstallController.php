@@ -118,7 +118,7 @@ class InstallController extends PublicController
             $sql = "CREATE DATABASE IF NOT EXISTS {$step2['dbname']} CHARACTER SET 'utf8' COLLATE 'utf8_general_ci';";
 
             if(!$connection->createCommand($sql)->execute()){
-                return ['status' => 'error', 'message' => "数据库 {$step2['dbname']} 创建失败，请确认是否有创建数据库权限"];
+                return ['status' => 'error', 'message' => "数据库 {$step2['dbname']} 创建失败，没有创建数据库权限，请手动创建数据库"];
             }
 
             $db['dsn'] = "mysql:host={$step2['host']};port={$step2['port']};dbname={$step2['dbname']}";
