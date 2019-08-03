@@ -70,13 +70,15 @@ class PublicController extends Controller
         
         $account = Yii::$app->user->identity;
 
-        $params['check_status'] = Apply::CHECK_STATUS;
-        $params['order_by'] = 'id desc';
+        if($account->id){
+            $params['check_status'] = Apply::CHECK_STATUS;
+            $params['order_by'] = 'id desc';
 
-        $notify = Apply::findModel()->search($params);
+            $notify = Apply::findModel()->search($params);
 
-        $params['notify']  = $notify;
-        $params['account'] = $account;
+            $params['notify']  = $notify;
+            $params['account'] = $account;
+        }
         
         exit($this->render($view . '.html', $params));
     }
