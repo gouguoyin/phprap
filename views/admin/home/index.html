@@ -43,11 +43,11 @@
                         <div class="row text-center">
                             <div class="col-xs-4">
                                 <i class="fa fa-user fa-4x"></i>
-                                <div>会员</div>
+                                <div>用户</div>
                             </div>
                             <div class="col-xs-8">
-                                <div class="huge">{{$tongji->getTotalAccount()->count}}</div>
-                                <div>今日新增 {{$tongji->getTodayAccount()->count}}</div>
+                                <div class="huge">{{$tongji->getTotalAccount(null, 10)->count}}</div>
+                                <div>今日新增 {{$tongji->getTodayAccount(null, 10)->count}}</div>
                             </div>
                         </div>
                     </div>
@@ -63,8 +63,8 @@
                                 <div>项目</div>
                             </div>
                             <div class="col-xs-8">
-                                <div class="huge">{{$tongji->getTotalProject()->count}}</div>
-                                <div>今日新增 {{$tongji->getTodayProject()->count}}</div>
+                                <div class="huge">{{$tongji->getTotalProject(10)->count}}</div>
+                                <div>今日新增 {{$tongji->getTodayProject(10)->count}}</div>
                             </div>
                         </div>
                     </div>
@@ -80,8 +80,8 @@
                                 <div>模块</div>
                             </div>
                             <div class="col-xs-8">
-                                <div class="huge">{{$tongji->getTotalModule()->count}}</div>
-                                <div>今日新增 {{$tongji->getTodayModule()->count}}</div>
+                                <div class="huge">{{$tongji->getTotalModule(10)->count}}</div>
+                                <div>今日新增 {{$tongji->getTodayModule(10)->count}}</div>
                             </div>
                         </div>
                     </div>
@@ -97,8 +97,8 @@
                                 <div>接口</div>
                             </div>
                             <div class="col-xs-8">
-                                <div class="huge">{{$tongji->getTotalApi()->count}}</div>
-                                <div>今日新增 {{$tongji->getTodayApi()->count}}</div>
+                                <div class="huge">{{$tongji->getTotalApi(10)->count}}</div>
+                                <div>今日新增 {{$tongji->getTodayApi(10)->count}}</div>
                             </div>
                         </div>
                     </div>
@@ -113,7 +113,7 @@
                 <!-- /.panel -->
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        <i class="fa fa-bar-chart-o fa-fw"></i> 我创建的项目
+                        <i class="fa fa-bar-chart-o fa-fw"></i> 用户
                     </div>
                     <!-- /.panel-heading -->
                     <div class="panel-body">
@@ -128,7 +128,7 @@
                 <!-- /.panel -->
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        <i class="fa fa-bar-chart-o fa-fw"></i> 我参与的项目
+                        <i class="fa fa-bar-chart-o fa-fw"></i> 项目
                     </div>
                     <!-- /.panel-heading -->
                     <div class="panel-body">
@@ -176,13 +176,12 @@
                     <div class="panel-body">
 
                         <p><a target="_blank" href="http://www.phprap.com/doc/faq.html#faq1">安装时报错General error: 1366 Incorrect integer value: '' for column 'id' at row 1</a></p>
-                        <p><a target="_blank" href="http://www.phprap.com/doc/faq.html#faq2">虚拟主机不能绑定域名到public目录怎么办?</a></p>
                         <p><a target="_blank" href="http://www.phprap.com/doc/faq.html#faq3">NGINX环境下安装时不断刷新页面</a></p>
                         <p><a target="_blank" href="http://www.phprap.com/doc/faq.html#faq4">如何手动安装PHPRAP?</a></p>
                         <p><a target="_blank" href="http://www.phprap.com/doc/faq.html#faq5">如何查看错误日志?</a></p>
                         <p><a target="_blank" href="http://www.phprap.com/doc/faq.html#faq6">如何关闭异常提示页面?</a></p>
 
-                        <a href="#" class="btn btn-default btn-block">查看更多</a>
+                        <a target="_blank" href="http://www.phprap.com/doc/index.html" class="btn btn-default btn-block">查看更多</a>
                     </div>
                     <!-- /.panel-body -->
                 </div>
@@ -202,7 +201,7 @@
     <script type="text/javascript">
 
         // 基于准备好的dom，初始化echarts实例
-        var myChart = echarts.init(document.getElementById('project2-chart'));
+        var myChart = echarts.init(document.getElementById('project1-chart'));
 
         // 指定图表的配置项和数据
         var option = {
@@ -213,17 +212,17 @@
             legend: {
                 orient: 'vertical',
                 left: 'left',
-                data: ['公开项目','私有项目']
+                data: ['有效用户','禁用用户']
             },
             series : [
                 {
-                    name: '项目数量',
+                    name: '用户数量',
                     type: 'pie',
                     radius : '55%',
                     center: ['50%', '60%'],
                     data:[
-                        {value:335, name:'公开项目'},
-                        {value:310, name:'私有项目'},
+                        {value:{{$tongji->getTotalAccount(10, 10)->count}}, name:'有效用户'},
+                        {value:{{$tongji->getTotalAccount(20, 10)->count}}, name:'禁用用户'},
                     ],
                     itemStyle: {
                         emphasis: {
@@ -240,7 +239,7 @@
         myChart.setOption(option);
 
         // 基于准备好的dom，初始化echarts实例
-        var myChart = echarts.init(document.getElementById('project1-chart'));
+        var myChart = echarts.init(document.getElementById('project2-chart'));
 
         // 指定图表的配置项和数据
         var option = {
@@ -252,7 +251,7 @@
             legend: {
                 orient: 'vertical',
                 left: 'left',
-                data: ['公开项目','私有项目']
+                data: ['有效项目','禁用项目']
             },
             series : [
                 {
@@ -261,8 +260,8 @@
                     radius : '55%',
                     center: ['50%', '60%'],
                     data:[
-                        {value:335, name:'公开项目'},
-                        {value:310, name:'私有项目'},
+                        {value:{{$tongji->getTotalProject(10)->count}}, name:'有效项目'},
+                        {value:{{$tongji->getTodayProject(10)->count}}, name:'禁用项目'},
                     ],
                     itemStyle: {
                         emphasis: {
