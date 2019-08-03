@@ -1,6 +1,8 @@
 <?php
 namespace app\models\apply;
 
+use app\models\Member;
+use app\models\Project;
 use Yii;
 use app\models\Apply;
 
@@ -70,6 +72,9 @@ class UpdateApply extends Apply
             $this->addError($attribute, '抱歉，您没有操作权限');
         }
 
+        if($this->project->isJoiner($this->user_id)){
+            $this->addError($attribute, '抱歉，该会员已是项目成员');
+        }
     }
 
     /**

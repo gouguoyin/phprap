@@ -4,6 +4,7 @@
  */
 namespace app\models\member;
 
+use app\models\Apply;
 use Yii;
 use app\models\Member;
 
@@ -89,6 +90,18 @@ class CreateMember extends Member
             return false;
         }
 
+        // 如果有加入申请，将申请状态设为审核通过
+        $apply = Apply::find()->where(['user_id' => $this->user_id, 'project_id' => $this->project_id])->orderBy(['id' => SORT_DESC])->one();
+        if($apply->id){
+
+            $apply->status = Apply::PASS_STATUS;
+
+            if(!$apply->save()){
+                $this->addError($apply->getErrorLabel(), $apply->getErrorMessage());
+                $transaction->rollBack();
+                return false;
+            }
+        }
         // 事务提交
         $transaction->commit();
 
