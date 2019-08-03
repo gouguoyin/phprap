@@ -34,6 +34,24 @@
 <!-- Custom Theme JavaScript -->
 <script src="{{STATIC_URL}}/js/app.js?v={{STATIC_VERSION}}"></script>
 
+<script>
+    $(function () {
+        {{if $account->id && config('is_push', 'app')}}
+
+        var url  = "{{url('home/apply/notify')}}";
+        var time = "{{config('push_time', 'app')}}";
+        setInterval(function(){
+
+            $.get(url, function (json) {
+                $("#notify-count").text(json.count);
+            });
+
+        }, time*1000);
+
+
+        {{/if}}
+        });
+</script>
 </body>
 
 </html>
