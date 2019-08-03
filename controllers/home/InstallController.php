@@ -58,7 +58,7 @@ class InstallController extends PublicController
             'runtime/logs' => [
                 'have_chmods' => $this->getChmodsLabel(Yii::getAlias("@runtime") . '/logs'),
                 'require_chmods' => '可读、可写',
-                'check_chmod' => is_writable(Yii::getAlias("@runtime") . '/install'),
+                'check_chmod' => is_writable(Yii::getAlias("@runtime") . '/logs'),
             ],
             'configs/db.php' => [
                 'have_chmods' => $this->getChmodsLabel(Yii::getAlias("@app") . '/configs/db.php'),
