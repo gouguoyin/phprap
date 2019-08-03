@@ -147,6 +147,30 @@
 
 <script>
 $(function(){
+
+    //选择成员
+    var selectMemberBtn = $('.js_selectMemberBtn');
+    var userIdInput     = $(".js_userId");
+
+    selectMemberBtn.typeahead({
+        source: function (name, process) {
+
+            var url = "{{url('member/select', ['project_id' => $project->encode_id])}}";
+
+            $.get(url, { "name": name }, function (data) {
+                return process(data);
+            });
+
+        },
+        afterSelect: function (item) {
+            userIdInput.val(item.id);
+            selectMemberBtn.attr("readonly","readonly");
+        },
+
+        items: 10, //显示8条
+        delay: 100, //延迟时间
+
+    });
     // 表单验证
     $("form").validateForm({
         'before':function (json) {
