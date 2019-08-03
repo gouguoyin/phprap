@@ -148,4 +148,18 @@ class ApplyController extends PublicController
 
     }
 
+    /**
+     * 获取申请数量
+     * @return array
+     * @throws \Exception
+     */
+    public function actionNotify()
+    {
+        Yii::$app->response->format = Response::FORMAT_JSON;
+
+        $apply = Apply::findModel()->search(['check_status' => Apply::CHECK_STATUS]);
+
+        return ['count' => $apply->count];
+    }
+
 }
