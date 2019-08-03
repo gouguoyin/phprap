@@ -125,11 +125,6 @@ class AccountController extends PublicController
             return $this->redirect(['home/account/login','callback' => Url::current()]);
         }
 
-        $tongji['my_created_public_project'] = '';
-        $tongji['my_created_private_project'] = '';
-        $tongji['my_joined_public_project'] = '';
-        $tongji['my_joined_private_project'] = '';
-
         return $this->display('home');
     }
 

@@ -11,20 +11,20 @@ class Tongji
      * 获取全部会员
      * @return Account|null
      */
-    public function getTotalAccount()
+    public function getTotalAccount($status = null, $type = null)
     {
-        return Account::findModel()->search(['status' => Account::ACTIVE_STATUS, 'type' => Account::USER_TYPE]);
+        return Account::findModel()->search(['status' => $status, 'type' => $type]);
     }
 
     /**
      * 获取当天新增会员
      * @return Account|null
      */
-    public function getTodayAccount()
+    public function getTodayAccount($status = null, $type = null)
     {
         return Account::findModel()->search([
-            'type'       => Account::USER_TYPE,
-            'status'     => Account::ACTIVE_STATUS,
+            'type'       => $type,
+            'status'     => $status,
             'start_date' => date('Y-m-d'),
             'end_date'   => date('Y-m-d'),
         ]);
@@ -36,9 +36,9 @@ class Tongji
      * @return Project|null
      * @throws \Exception
      */
-    public function getTotalProject($type = null)
+    public function getTotalProject($status = null, $type = null)
     {
-        return Project::findModel()->search(['type' => $type, 'status' => Project::ACTIVE_STATUS]);
+        return Project::findModel()->search(['type' => $type, 'status' => $status]);
     }
 
     /**
@@ -47,11 +47,11 @@ class Tongji
      * @return Project|null
      * @throws \Exception
      */
-    public function getTodayProject($type = null)
+    public function getTodayProject($status = null, $type = null)
     {
         return Project::findModel()->search([
             'type'       => $type,
-            'status'     => Project::ACTIVE_STATUS,
+            'status'     => $status,
             'start_date' => date('Y-m-d'),
             'end_date'   => date('Y-m-d'),
         ]);
@@ -61,9 +61,9 @@ class Tongji
      * 获取全部模块
      * @return mixed
      */
-    public function getTotalModule()
+    public function getTotalModule($status = null)
     {
-        return Module::findModel()->search(['status' => Module::ACTIVE_STATUS]);
+        return Module::findModel()->search(['status' => $status]);
     }
 
     /**
@@ -71,10 +71,10 @@ class Tongji
      * @return Project|null
      * @throws \Exception
      */
-    public function getTodayModule()
+    public function getTodayModule($status = null)
     {
         return Module::findModel()->search([
-            'status'     => Module::ACTIVE_STATUS,
+            'status'     => $status,
             'start_date' => date('Y-m-d'),
             'end_date'   => date('Y-m-d'),
         ]);
@@ -84,19 +84,19 @@ class Tongji
      * 获取全部接口
      * @return mixed
      */
-    public function getTotalApi()
+    public function getTotalApi($status = null)
     {
-        return Api::findModel()->search(['status' => Api::ACTIVE_STATUS]);
+        return Api::findModel()->search(['status' => $status]);
     }
 
     /**
      * 获取当天新增接口
      * @return mixed
      */
-    public function getTodayApi()
+    public function getTodayApi($status = null)
     {
         return Api::findModel()->search([
-            'status'     => Api::ACTIVE_STATUS,
+            'status'     => $status,
             'start_date' => date('Y-m-d'),
             'end_date'   => date('Y-m-d'),
         ]);
