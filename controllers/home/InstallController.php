@@ -328,7 +328,6 @@ class InstallController extends PublicController
      */
     public function display($view, $params = [])
     {
-
         exit($this->render($view . '.html', $params));
     }
 
