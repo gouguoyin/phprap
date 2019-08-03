@@ -101,5 +101,4 @@ class Tongji
             'end_date'   => date('Y-m-d'),
         ]);
     }
-
 }
