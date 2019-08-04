@@ -95,7 +95,7 @@
                                 <tr>
                                     <td>{{$model->fullName}}</td>
                                     <td class="text-center"><a href="{{url('admin/project/index', ['creater_id' => $model->id])}}" data-toggle="tooltip" title="" data-original-title="点击查看创建项目">{{$model->getCreatedProjects()->count()}}</a></td>
-                                    <td class="text-center"><a href="{{url('admin/project/index', ['joiner_id' => $model->id])}}" data-toggle="tooltip" title="" data-original-title="点击查看参与项目">{{$account->getJoinedProjects()->count()}}</a></td>
+                                    <td class="text-center"><a href="{{url('admin/project/index', ['joiner_id' => $model->id])}}" data-toggle="tooltip" title="" data-original-title="点击查看参与项目">{{$model->getJoinedProjects()->count()}}</a></td>
                                     <td>{{$model->ip}}</td>
                                     <td>{{$model->location}}</td>
                                     <td>{{$model->created_at}}</td>
