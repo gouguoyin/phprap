@@ -9,10 +9,11 @@
             {{foreach $project->modules as $module}}
             <li class="module-item {{if $module->id == $api->module->id}}active{{/if}}">
                 <a href="javascript:void(0);" aria-expanded="false">
+                    <i class="fa fa-fw arrow 1"></i>
                     <i class="fa fa-fw fa-folder-open"></i>
                     {{$module->title}}
 
-                    <i class="fa fa-fw arrow"></i>
+
                     {{if $project->hasRule('api', 'create')}}
                     <i class="fa hidden-xs fa-fw fa-plus option-btn pull-right mt-0 js_addApiBtn" data-toggle="tooltip" data-placement="bottom" data-modal="#js_popModal" data-title="添加接口" data-height="440" data-src="{{url('home/api/create', ['module_id' => $module->encode_id])}}"></i>
                     {{/if}}
