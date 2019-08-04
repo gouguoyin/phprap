@@ -24,19 +24,13 @@ class DemoController extends PublicController
     public function actionIndex()
     {
 
-        $account = Yii::$app->user->identity;
-        $project = Project::findModel(11);
+        $data['status'] = 'error';
+        $data['code'] = 401;
+        $data['message'] = '缺少必要参数token';
+        $data['data'] = [];
 
-        $a = $project->isJoiner();
 
-        dump($account->id,$a);exit;
-
-        exit( "没有可写权限<br>");
-        $ip = Yii::$app->request->userIP;
-        
-        $a = IpLocation::getLocation($ip);
-        dump($a);
-        return $this->display('index');
+        echo json_encode($data, JSON_UNESCAPED_UNICODE);
 
     }
 

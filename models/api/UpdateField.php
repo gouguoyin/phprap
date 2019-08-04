@@ -65,8 +65,8 @@ class UpdateField extends Api
         // 保存接口
         $api = &$this;
 
-        $api->creater_id = Yii::$app->user->identity->id;
-        $api->created_at = date('Y-m-d H:i:s');
+        $api->updater_id = Yii::$app->user->identity->id;
+        $api->updated_at = date('Y-m-d H:i:s');
 
         if(!$api->save()){
             $this->addError($api->getErrorLabel(), $api->getErrorMessage());

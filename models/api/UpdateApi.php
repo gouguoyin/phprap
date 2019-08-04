@@ -57,8 +57,8 @@ class UpdateApi extends Api
         $module = Module::findModel(['encode_id' => $this->module_id]);
 
         $api->module_id  = $module->id;
-        $api->creater_id = Yii::$app->user->identity->id;
-        $api->created_at = date('Y-m-d H:i:s');
+        $api->updater_id = Yii::$app->user->identity->id;
+        $api->updated_at = date('Y-m-d H:i:s');
 
         if(!$api->save()){
             $this->addError($api->getErrorLabel(), $api->getErrorMessage());
