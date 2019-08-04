@@ -706,7 +706,11 @@ a.btn-show-tips {
 .datetime {
     width: 160px;
 }
-
+.overhidden{
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
 .pagination{margin: 20px 0 0 0}
 
 a.option-btn{margin-top: 8px}

@@ -76,10 +76,14 @@ if (!function_exists('dump'))
 if (!function_exists('config')){
     function config($name, $type='app')
     {
-        $name  = trim($name);
+        $name = trim($name);
+        if(strpos($name, '.') !== false){
+            list($type, $field) = explode('.', $name);
+        }else{
+            $field = $name;
+        }
 
-        return \app\models\Config::findModel(['type' => $type])->getField($name);
-
+        return \app\models\Config::findModel(['type' => $type])->getField($field);
     }
 }
 
