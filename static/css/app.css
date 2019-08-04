@@ -456,10 +456,10 @@ textarea {resize: none;} /*禁止拖拽*/
         margin-top: 51px;
     }
     #page-wrapper {
-        min-height: 600px;
+        min-height: 500px;
         position: inherit;
         margin: 0 0 0 250px;
-        padding: 0 30px;
+        /*padding: 0 30px;*/
         border-bottom: 1px solid #e7e7e7;
         border-left: 1px solid #e7e7e7;
     }
