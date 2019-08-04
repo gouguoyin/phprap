@@ -418,11 +418,11 @@ textarea {resize: none;} /*禁止拖拽*/
 
 
 .sidebar .arrow {
-    float: right;
+    /*float: right;*/
 }
 
 .sidebar .fa.arrow:before {
-    content: "\f104";
+    content: "\f105";
 }
 
 .sidebar .active>a>.fa.arrow:before {
