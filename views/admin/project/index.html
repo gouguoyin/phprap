@@ -115,7 +115,7 @@
                                     {{if $project->count}}
                                     <td >
                                         <a type="button" class="btn btn-danger btn-xs hidden-xs mr-1" data-modal="#js_popModal" data-height="200" data-src="{{url('admin/project/delete', ['id' => $model->encode_id])}}" data-toggle="tooltip" data-placement="bottom" data-title="删除项目">删除</a>
-                                        <a class="btn btn-success btn-xs" target="_blank" href="{{url('home/project/show', ['id' => $model->encode_id])}}">查看</a>
+                                        <a class="btn btn-success btn-xs" target="_blank" data-toggle="tooltip" data-placement="bottom" data-title="查看项目" href="{{url('home/project/show', ['id' => $model->encode_id])}}">查看</a>
                                     </td>
                                     {{/if}}
                                 </tr>
