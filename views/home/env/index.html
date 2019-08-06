@@ -12,7 +12,10 @@
         <div class="row">
             <div class="col-lg-12">
                 <div class="page-header">
-                    <h1>项目环境 </h1>
+                    <h1>项目环境
+                        <small>({{$project->getEnvs()->count()}})</small>
+
+                    </h1>
                     <div class="opt-btn">
                         {{if $project->hasRule('env', 'create')}}
                         <a href="javascript:void(0);" class="btn hidden-xs btn-sm btn-success js_addEnvBtn" data-modal="#js_popModal" data-height="210" data-title='添加环境' data-src="{{url('home/env/create', ['project_id' => $project->encode_id])}}"><i class="fa fa-fw fa-plus"></i>添加</a>

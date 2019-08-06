@@ -12,7 +12,9 @@
         <div class="row">
             <div class="col-lg-12">
                 <div class="page-header">
-                    <h1>项目成员 </h1>
+                    <h1>项目成员
+                        <small>({{$member->count}})</small>
+                    </h1>
                     <div class="opt-btn">
                         {{if $project->hasRule('member', 'create')}}
                         <a href="javascript:void(0);" class="btn hidden-xs btn-sm btn-success" data-title='添加成员' data-modal="#js_popModal" data-height="300" data-src="{{url('member/create', ['project_id' => $project->encode_id])}}"><i class="fa fa-fw fa-plus"></i>添加</a>
