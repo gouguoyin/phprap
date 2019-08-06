@@ -238,8 +238,8 @@ class ProjectController extends PublicController
 
         $file_name = $project->title . '接口离线文档.html';
 
-//        header ("Content-Type: application/force-download");
-//        header ("Content-Disposition: attachment;filename=$file_name");
+        header ("Content-Type: application/force-download");
+        header ("Content-Disposition: attachment;filename=$file_name");
 
         return $this->display('export', ['project' => $project]);
 

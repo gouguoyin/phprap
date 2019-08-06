@@ -6,7 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content="" />
     <title>项目文档导出——{{config('name')}}</title>
-    <link href="{{STATIC_URL}}/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+    <link href="https://cdn.bootcss.com/bootstrap/3.3.1/css/bootstrap.min.css" rel="stylesheet">
 
     <style type="text/css">
         body {
@@ -204,10 +205,10 @@
                                             <thead>
                                             <tr>
                                                 <th width="200px">参数名</th>
-                                                <th width="200px">参数值</th>
+                                                <th width="200px">参数标题</th>
                                                 <th width="100px">参数类型</th>
                                                 <th width="60px">必填</th>
-                                                <th width="90px">示例值</th>
+                                                <th width="90px">参数值</th>
                                                 <th>备注说明</th>
                                             </tr>
                                             </thead>
@@ -221,12 +222,12 @@
                                                     {{/if}}
                                                     {{$header->name}}
                                                 </td>
-                                                <td>{{$header->value}}</td>
+                                                <td>{{$header->title}}</td>
 
                                                 <td>{{$api->fieldTypeLabels[$header->type]}}</td>
                                                 <td>{{$api->requiredLabels[$header->required]}}</td>
 
-                                                <td>{{$header->example_value}}</td>
+                                                <td>{{$header->value}}</td>
                                                 <td>{{$header->remark}}</td>
                                             </tr>
                                             {{/foreach}}
@@ -342,8 +343,8 @@
 
 </div>
 <!-- /container -->
-<script src="{{STATIC_URL}}/js/jquery2.1.0.min.js"></script>
-<script src="{{STATIC_URL}}/plugins/bootstrap/js/bootstrap.min.js"></script>
+<script src="https://cdn.staticfile.org/jquery/2.1.0-rc1/jquery.min.js"></script>
+<script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.1/js/bootstrap.min.js"></script>
 
 <script type="text/javascript">
 
