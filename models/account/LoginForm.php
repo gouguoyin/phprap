@@ -38,10 +38,12 @@ class LoginForm extends Account
 
         if (!$account->id || !$account->validatePassword($this->password)) {
             $this->addError($attribute, '登录邮箱或密码错误');
+            return false;
         }
 
         if ($account->status != $account::ACTIVE_STATUS) {
             $this->addError($attribute, '抱歉，该账号已被禁用，请联系管理员处理');
+            return false;
         }
     }
 

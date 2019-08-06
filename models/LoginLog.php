@@ -65,6 +65,11 @@ class LoginLog extends Model
         ];
     }
 
+    public function getAccount()
+    {
+        return $this->hasOne(Account::className(),['id'=>'user_id']);
+    }
+
     public function search($params = [])
     {
 

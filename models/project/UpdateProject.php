@@ -64,6 +64,7 @@ class UpdateProject extends Project
 
         if($query->exists()){
             $this->addError($attribute, '抱歉，该项目名称已存在');
+            return false;
         }
 
     }

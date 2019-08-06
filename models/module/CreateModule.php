@@ -37,6 +37,7 @@ class CreateModule extends Module
 
         if(!$project->hasRule('module', 'create')){
             $this->addError($attribute, '抱歉，您没有操作权限');
+            return false;
         }
 
     }

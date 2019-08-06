@@ -36,9 +36,9 @@ class CreateProject extends Project
             'title'  => $this->title,
         ]);
 
-        if($query->exists())
-        {
+        if($query->exists()) {
             $this->addError($attribute, '抱歉，该项目名称已存在');
+            return false;
         }
     }
 

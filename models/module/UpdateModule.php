@@ -47,6 +47,7 @@ class UpdateModule extends Module
     {
         if(!$this->project->hasRule('module', 'update')){
             $this->addError($attribute, '抱歉，您没有操作权限');
+            return false;
         }
     }
 

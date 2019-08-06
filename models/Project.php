@@ -320,6 +320,15 @@ class Project extends Model
         $this->params->start_date && $query->andFilterWhere(['>=', '{{%project}}.created_at', $this->params->start_date . ' 00:00:00']);
         $this->params->end_date && $query->andFilterWhere(['<=', '{{%project}}.created_at', $this->params->end_date . ' 23:59:59']);
 
+        if($this->params->joiner_id){
+            $project_ids = Member::find()->where(['user_id' => $this->params->joiner_id])->select('project_id')->column();
+
+            if(!$project_ids){
+                $project_ids = [-1];
+            }
+            $query->andFilterWhere(['in', '{{%project}}.id', $project_ids]);
+        }
+
         $query->andFilterWhere([
             'or',
             ['like','{{%user}}.name', $this->params->user->name],

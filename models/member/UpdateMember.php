@@ -34,6 +34,7 @@ class UpdateMember extends Member
     {
         if(!$this->project->hasRule('member', 'update')){
             $this->addError($attribute, '抱歉，您没有操作权限');
+            return false;
         }
     }
 

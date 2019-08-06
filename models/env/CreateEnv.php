@@ -47,6 +47,7 @@ class CreateEnv extends Env
 
         if($query->exists()){
             $this->addError($attribute, '抱歉，该环境已存在');
+            return false;
         }
 
     }

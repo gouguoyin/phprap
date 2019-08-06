@@ -37,10 +37,12 @@ class CreateApply extends Apply
 
         if($project->status != Project::ACTIVE_STATUS){
             $this->addError($attribute, '该项目已禁用或删除，无法提交加入申请');
+            return false;
         }
 
         if($project->isJoiner()){
             $this->addError($attribute, '您已是该项目成员，请不要重复申请');
+            return false;
         }
 
         $apply = Apply::find()->where([
@@ -50,6 +52,7 @@ class CreateApply extends Apply
 
         if($apply->status == Apply::CHECK_STATUS){
             $this->addError($attribute, '正在审核中，请耐心等待审核结果');
+            return false;
         }
 
     }

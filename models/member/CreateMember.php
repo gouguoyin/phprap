@@ -53,6 +53,7 @@ class CreateMember extends Member
     {
         if(!$this->project->hasRule('member', 'create')){
             $this->addError($attribute, '抱歉，您没有操作权限');
+            return false;
         }
     }
     
@@ -93,7 +94,7 @@ class CreateMember extends Member
         // 如果有加入申请，将申请状态设为审核通过
         $apply = Apply::find()->where(['user_id' => $this->user_id, 'project_id' => $this->project_id])->orderBy(['id' => SORT_DESC])->one();
         if($apply->id){
-
+            
             $apply->status = Apply::PASS_STATUS;
 
             if(!$apply->save()){

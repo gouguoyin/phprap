@@ -49,8 +49,8 @@ class QuitProject extends Project
         $account = Yii::$app->user->identity;
 
         if(!$account->id || !$account->validatePassword($this->password)) {
-
             $this->addError($attribute, '登录密码验证失败');
+            return false;
         }
     }
 

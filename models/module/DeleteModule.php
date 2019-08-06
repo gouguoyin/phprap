@@ -44,11 +44,12 @@ class DeleteModule extends Module
      */
     public function validatePassword($attribute)
     {
-        $user = Yii::$app->user->identity;
+        $account = Yii::$app->user->identity;
 
-        if (!$user->id || !$user->validatePassword($this->password)) {
+        if (!$account->id || !$account->validatePassword($this->password)) {
 
             $this->addError($attribute, '登录密码验证失败');
+            return false;
         }
     }
 

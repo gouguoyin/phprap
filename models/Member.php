@@ -88,8 +88,8 @@ class Member extends Model
     public function getJoinTypeLabels()
     {
         return [
-            self::INITIATIVE_JOIN_TYPE  => '主动加入',
-            self::PASSIVE_JOIN_TYPE => '邀请加入',
+            self::INITIATIVE_JOIN_TYPE  => '申请加入',
+            self::PASSIVE_JOIN_TYPE => '添加加入',
         ];
     }
 

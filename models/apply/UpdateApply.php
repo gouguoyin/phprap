@@ -55,10 +55,10 @@ class UpdateApply extends Apply
     {
         $user = Yii::$app->user->identity;
 
-        if(!$user->id || !$user->validatePassword($this->password))
-        {
+        if(!$user->id || !$user->validatePassword($this->password)) {
 
             $this->addError($attribute, '登录密码验证失败');
+            return false;
         }
     }
 
@@ -70,10 +70,12 @@ class UpdateApply extends Apply
     {
         if(!$this->project->isCreater()){
             $this->addError($attribute, '抱歉，您没有操作权限');
+            return false;
         }
 
         if($this->project->isJoiner($this->user_id)){
             $this->addError($attribute, '抱歉，该会员已是项目成员');
+            return false;
         }
     }
 

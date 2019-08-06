@@ -59,6 +59,7 @@ class ProfileForm extends Account
 
         if($query->exists()){
             $this->addError($attribute, '抱歉，该邮箱已被注册');
+            return false;
         }
     }
 
@@ -73,6 +74,7 @@ class ProfileForm extends Account
         if(!$account->id || !$account->validatePassword($this->password)) {
 
             $this->addError($attribute, '登录密码验证失败');
+            return false;
         }
     }
 

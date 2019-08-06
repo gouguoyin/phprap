@@ -46,10 +46,9 @@ class RemoveMember extends Member
     {
         $user = Yii::$app->user->identity;
 
-        if(!$user->id || !$user->validatePassword($this->password))
-        {
-
+        if(!$user->id || !$user->validatePassword($this->password)) {
             $this->addError($attribute, '登录密码验证失败');
+            return false;
         }
     }
     
