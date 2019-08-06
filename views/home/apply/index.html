@@ -12,26 +12,28 @@
 
         <div class="row">
             <div class="col-lg-12">
-                <h1 class="page-header">申请管理</h1>
+                <h1 class="page-header">申请管理
+                    <small>({{$apply->count}})</small>
+                </h1>
                 <div class="search">
                     <div class="row">
                         <form action="" method="get" autocomplete="off">
 
                             <div class="col-sm-4">
                                 <div class="form-group">
-                                    <input name="user[name]" type="text" class="form-control" placeholder="创建人昵称或邮箱，支持模糊查询" value="{{$model->params->user->name}}">
+                                    <input name="user[name]" type="text" class="form-control" placeholder="创建人昵称或邮箱，支持模糊查询" value="{{$apply->params->user->name}}">
                                 </div>
                             </div>
 
                             <div class="col-sm-4">
                                 <div class="form-group">
-                                    <input name="title" type="text" class="form-control" placeholder="项目名称，支持模糊查询" value="{{$model->params->title}}">
+                                    <input name="title" type="text" class="form-control" placeholder="项目名称，支持模糊查询" value="{{$apply->params->title}}">
                                 </div>
                             </div>
 
                             <div class="col-sm-4">
                                 <div class="form-group">
-                                    <input name="user[ip]" type="text" class="form-control" placeholder="IP，支持模糊查询" value="{{$model->params->ip}}">
+                                    <input name="user[ip]" type="text" class="form-control" placeholder="IP，支持模糊查询" value="{{$apply->params->ip}}">
                                 </div>
                             </div>
 

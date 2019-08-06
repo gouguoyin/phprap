@@ -20,10 +20,10 @@
 
                             <fieldset>
                                 <div class="form-group">
-                                    <input class="form-control js_email" placeholder="登录邮箱" name="LoginForm[email]" type="email"  autocomplete="off" datatype="e" nullmsg="请输入登录邮箱" errormsg="请输入合法的邮箱地址！">
+                                    <input class="form-control js_email" placeholder="登录邮箱" name="LoginForm[email]" type="email" autocomplete="new-password" datatype="e" nullmsg="请输入登录邮箱" errormsg="请输入合法的邮箱地址！">
                                 </div>
                                 <div class="form-group">
-                                    <input autocomplete="off" class="form-control js_password" placeholder="登录密码" name="LoginForm[password]" type="password" value="" autocomplete="off" datatype="*6-20" nullmsg="请输入登录密码" errormsg="请填写6-20个字符">
+                                    <input autocomplete="off" class="form-control js_password" placeholder="登录密码" name="LoginForm[password]" type="password" value="" autocomplete="new-password" datatype="*6-20" nullmsg="请输入登录密码" errormsg="请填写6-20个字符">
                                 </div>
 
                                 {{if $config->login_captcha}}

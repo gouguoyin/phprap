@@ -147,10 +147,10 @@
 
 <script>
 $(function(){
-    //选择成员
     var selectMemberBtn = $('.js_selectMemberBtn');
     var userIdInput     = $(".js_userId");
 
+    //选择成员
     selectMemberBtn.typeahead({
         source: function (name, process) {
 
@@ -170,6 +170,7 @@ $(function(){
         delay: 100, //延迟时间
 
     });
+    
     // 表单验证
     $("form").validateForm({
         'before':function (json) {
@@ -211,5 +212,4 @@ $(function(){
     });
 });
 </script>
-
 {{include_file name='home/public/footer'}}

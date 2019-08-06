@@ -16,10 +16,10 @@
                     <h1>接口主页 </h1>
                     <div class="opt-btn">
                         {{if $project->hasRule('api', 'update')}}
-                        <a href="javascript:void(0);" class="btn hidden-xs btn-sm btn-success js_editApiBtn" data-toggle="tooltip" data-placement="bottom" data-title="编辑接口" data-modal="#js_addApiModal" data-height="440" data-src="{{url('home/api/update', ['id' => $api->encode_id])}}"><i class="fa fa-fw fa-edit"></i>编辑</a>
+                        <a href="javascript:void(0);" class="btn hidden-xs btn-sm btn-success mr-1" data-toggle="tooltip" data-placement="bottom" data-title="编辑接口" data-modal="#js_addApiModal" data-height="440" data-src="{{url('home/api/update', ['id' => $api->encode_id])}}"><i class="fa fa-fw fa-edit"></i>编辑</a>
                         {{/if}}
 
-                        <a href="javascript:void(0);" class="btn hidden-xs btn-sm btn-info js_copyUrl" data-clipboard-text="{{$api->getUrl(true)}}"  data-toggle="tooltip" data-title="复制接口地址" data-placement="bottom"><i class="fa fa-fw fa-link"></i>复制</a>
+                        <a href="javascript:void(0);" class="btn hidden-xs btn-sm btn-info mr-1 js_copyUrl" data-clipboard-text="{{$api->getUrl(true)}}"  data-toggle="tooltip" data-title="复制接口地址" data-placement="bottom"><i class="fa fa-fw fa-link"></i>复制</a>
 
                         {{if $project->hasRule('api', 'export')}}
                         <a href="{{url('export',['id' => $api->encode_id])}}" class="btn hidden-xs btn-sm btn-warning" data-toggle="tooltip" data-title="导出当前接口" data-placement="bottom"><i class="fa fa-fw fa-download"></i>导出</a>
@@ -92,7 +92,7 @@
                                                     <td style="width: 150px;">{{$env->title}}({{$env->name}})</td>
                                                     <td><code>{{$env->base_url}}{{$api->uri}}</code></td>
                                                     <td style="width: 100px;">
-                                                        <button type="button" data-clipboard-text="{{$env->base_url}}{{$api->uri}}" class="btn btn-xs btn-success js_copyUrl"><i class="fa fa-fw fa-copy"></i>复制链接</button>
+                                                        <button type="button" data-clipboard-text="{{$env->base_url}}{{$api->uri}}" class="btn btn-xs btn-success hidden-xs js_copyUrl"><i class="fa fa-fw fa-copy"></i>复制链接</button>
                                                     </td>
                                                 </tr>
                                                 {{/foreach}}
@@ -142,6 +142,16 @@
         clipboard.on('error', function() {
             alert('地址复制失败，请手动复制', 'error');
         });
+
+        // 未设置环境弹框提示
+        {{if $project->getEnvs()->count() == 0}}
+        confirm('项目至少需要设置一个环境，请立即设置', function(){
+
+            window.location.href = "{{url('project/show', ['id' => $project->encode_id, 'tab' => 'env'])}}";
+
+        });
+        {{/if}}
+        
     })
 </script>
 {{include_file name='home/public/footer'}}

@@ -22,7 +22,7 @@
         <table class="clone-table hidden">
             <tr class="js_headerClone">
                 <td><input name="name" class="form-control js_name" placeholder="必填" datatype="*1-20" nullmsg="请填写参数名" value=""></td>
-                <td><input name="value" class="form-control js_value" placeholder="必填" datatype="*1-50" nullmsg="请填写参数值" value=""></td>
+                <td><input name="title" class="form-control js_title" placeholder="非必填" ignore="ignore" datatype="*1-50" nullmsg="请填写参数标题" value=""></td>
                 <td>
                     <select onchange="selectType(this)" name="type" class="form-control js_type">
                         {{foreach $api->fieldTypeLabels as $k => $v}}
@@ -37,7 +37,7 @@
                         {{/foreach}}
                     </select>
                 </td>
-                <td><input name="example_value" class="form-control js_example_value" placeholder="非必填" value=""></td>
+                <td><input name="value" class="form-control js_value" placeholder="非必填" value=""></td>
                 <td><input name="remark" class="form-control js_remark" placeholder="非必填" value=""></td>
                 <td>
                     <a onclick="deleteField(this)" href="javascript:;" class="btn btn-xs hidden-xs fa fa-fw fa-trash-o option-btn" title="删除参数"></a>
@@ -109,7 +109,7 @@
                     <div class="page-header">
                         <h1>接口字段</h1>
                         <div class="opt-btn">
-                            <a class="btn btn-sm btn-warning js_cancel mr-2" href="javascript:;" onclick="cancelSave()"><i class="fa fa-fw fa-reply"></i>取消</a>
+                            <a class="btn btn-sm btn-warning js_cancel mr-1" href="javascript:;" onclick="cancelSave()"><i class="fa fa-fw fa-reply"></i>取消</a>
                             <a class="btn btn-sm btn-success js_submit" href="javascript:void(0);"><i class="fa fa-fw fa-save"></i>保存</a>
                         </div>
                     </div>
@@ -141,10 +141,10 @@
                                                     <thead>
                                                     <tr>
                                                         <th width="150px">参数名</th>
-                                                        <th width="150px">参数值</th>
+                                                        <th width="150px">参数标题</th>
                                                         <th width="80px">参数类型</th>
                                                         <th width="50px">必填</th>
-                                                        <th width="150px">示例值</th>
+                                                        <th width="150px">参数值</th>
                                                         <th>备注说明</th>
                                                         <th width="50px"></th>
                                                     </tr>
@@ -160,7 +160,7 @@
                                                             <input autocomplete="off" name="name" class="form-control js_name" placeholder="必填" datatype="*1-20" nullmsg="请填写参数名"  value="{{$header->name}}">
                                                             {{/if}}
                                                         </td>
-                                                        <td><input name="value" class="form-control js_value" placeholder="必填" datatype="*1-50" nullmsg="请填写参数值" value="{{$header->value}}"></td>
+                                                        <td><input name="title" class="form-control js_title" placeholder="非必填" ignore="ignore" datatype="*1-50" nullmsg="请填写参数标题" value="{{$header->title}}"></td>
                                                         <td>
                                                             <select onchange="selectType(this)" name="type" class="form-control js_type">
                                                                 {{foreach $api->fieldTypeLabels as $k => $v}}
@@ -177,7 +177,7 @@
                                                             </select>
                                                         </td>
 
-                                                        <td><input autocomplete="off" name="example_value" class="form-control js_example_value" placeholder="非必填" value="{{$header->example_value}}"></td>
+                                                        <td><input autocomplete="off" name="value" class="form-control js_value" placeholder="非必填" value="{{$header->value}}"></td>
                                                         <td><input name="remark" class="form-control js_remark" placeholder="非必填" value="{{$header->remark}}"></td>
                                                         <td>
                                                             <a onclick="deleteField(this)" href="javascript:;" class="btn btn-xs hidden-xs fa fa-fw fa-trash-o option-btn" data-toggle="tooltip" data-placement="bottom" data-title="删除参数"></a>
@@ -343,7 +343,7 @@
                                 <!-- /.col-lg-6 -->
                             </div>
 
-                            <div class="row">
+                            <div class="row hidden">
                                 <div class="col-lg-12">
                                     <div class="panel panel-default mb-0">
                                         <div class="panel-heading">
@@ -363,7 +363,7 @@
                                 <!-- /.col-lg-6 -->
                             </div>
 
-                            <div class="row">
+                            <div class="row hidden">
                                 <div class="col-lg-12">
                                     <div class="panel panel-default mb-0">
                                         <div class="panel-heading">

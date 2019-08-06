@@ -112,7 +112,7 @@
                                     <td >{{$model->updated_at}}</td>
                                     {{if $project->count}}
                                     <td >
-                                        <a type="button" class="btn btn-warning btn-xs  mr-1" data-modal="#js_popModal" data-height="200" data-src="{{url('admin/project/recover', ['id' => $model->encode_id])}}" data-toggle="tooltip" data-placement="bottom" data-title="恢复项目">恢复</a>
+                                        <a type="button" class="btn btn-warning btn-xs hidden-xs mr-1" data-modal="#js_popModal" data-height="200" data-src="{{url('admin/project/recover', ['id' => $model->encode_id])}}" data-toggle="tooltip" data-placement="bottom" data-title="恢复项目">恢复</a>
                                         <a class="btn btn-success btn-xs" target="_blank" href="{{url('home/project/show', ['id' => $model->encode_id])}}">查看</a>
                                     </td>
                                     {{/if}}

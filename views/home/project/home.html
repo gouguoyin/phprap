@@ -16,10 +16,10 @@
                     <div class="opt-btn">
 
                         {{if $project->hasRule('project', 'update')}}
-                        <a href="javascript:void(0);" class="btn hidden-xs btn-sm btn-success" data-toggle="tooltip" data-placement="bottom" data-modal="#js_popModal" data-title="编辑项目" data-height="350" data-src="{{url('home/project/update', ['id' => $project->encode_id])}}"><i class="fa fa-fw fa-edit"></i>编辑</a>
+                        <a href="javascript:void(0);" class="btn hidden-xs btn-sm btn-success mr-1" data-toggle="tooltip" data-placement="bottom" data-modal="#js_popModal" data-title="编辑项目" data-height="350" data-src="{{url('home/project/update', ['id' => $project->encode_id])}}"><i class="fa fa-fw fa-edit"></i>编辑</a>
                         {{/if}}
 
-                        <a href="javascript:void(0);" class="btn hidden-xs btn-sm btn-info js_copyUrl" data-clipboard-text="{{$project->getUrl(true)}}"  data-toggle="tooltip" data-title="复制项目地址" data-placement="bottom"><i class="fa fa-fw fa-link"></i>复制</a>
+                        <a href="javascript:void(0);" class="btn hidden-xs btn-sm btn-info mr-1 js_copyUrl" data-clipboard-text="{{$project->getUrl(true)}}"  data-toggle="tooltip" data-title="复制项目地址" data-placement="bottom"><i class="fa fa-fw fa-link"></i>复制</a>
 
                         {{if $project->hasRule('project', 'export')}}
                         <a href="{{url('export',['id' => $project->encode_id])}}" class="btn hidden-xs btn-sm btn-warning" data-toggle="tooltip" data-title="导出项目" data-placement="bottom"><i class="fa fa-fw fa-download"></i>导出</a>
@@ -101,15 +101,26 @@
 
 <script>
 
-    // 复制链接
-    var clipboard = new Clipboard('.js_copyUrl');
-    clipboard.on('success', function(e) {
-        alert('地址复制成功', 'success');
-        e.clearSelection();
-    });
-    clipboard.on('error', function() {
-        alert('地址复制失败，请手动复制', 'error');
-    });
+    $(function () {
+        // 复制链接
+        var clipboard = new Clipboard('.js_copyUrl');
+        clipboard.on('success', function(e) {
+            alert('地址复制成功', 'success');
+            e.clearSelection();
+        });
+        clipboard.on('error', function() {
+            alert('地址复制失败，请手动复制', 'error');
+        });
+
+        // 未设置环境弹框提示
+        {{if $project->getEnvs()->count() == 0}}
+        confirm('项目至少需要设置一个环境，请立即设置', function(){
+
+            window.location.href = "{{url('project/show', ['id' => $project->encode_id, 'tab' => 'env'])}}";
+
+        });
+        {{/if}}
+        });
 
 </script>
 
