@@ -32,7 +32,31 @@
                     <div class="opt-btn">
 
                         {{if $project->hasRule('api', 'update')}}
-                        <a href="javascript:;" class="btn btn-sm hidden-xs btn-success js_editFormBtn" data-url="{{url('home/field/form', ['api_id' => $api->encode_id])}}"><i class="fa fa-fw fa-edit"></i>编辑</a>
+                        <div class="btn-group hidden">
+                            <button type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown" data-original-title="" title="" aria-expanded="false">
+                                <i class="fa fa-th-large" aria-hidden="true"></i>
+                                编辑字段 <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu dropdown-menu-right" role="menu">
+
+
+                                <li>
+                                    <a href="javascript:;" class="hidden-xs js_editFormBtn mr-1" data-url="{{url('home/field/form', ['api_id' => $api->encode_id])}}"><i class="fa fa-fw fa-edit"></i>表单模式</a>
+
+                                </li>
+
+                                <li>
+                                    <a href="javascript:;" class="hidden-xs js_editJsonBtn" data-url="{{url('home/field/json', ['api_id' => $api->encode_id])}}"><i class="fa fa-fw fa-edit"></i>JSON模式</a>
+
+                                </li>
+
+                            </ul>
+                        </div>
+                        {{/if}}
+
+                        {{if $project->hasRule('api', 'update')}}
+                        <a href="javascript:;" class="btn btn-sm hidden-xs btn-success js_editFormBtn mr-1" data-url="{{url('home/field/form', ['api_id' => $api->encode_id])}}"><i class="fa fa-fw fa-edit"></i>编辑</a>
+                        <a href="javascript:;" class="btn btn-sm hidden-xs btn-warning js_editJsonBtn" data-url="{{url('home/field/json', ['api_id' => $api->encode_id])}}"><i class="fa fa-fw fa-upload"></i>导入</a>
                         {{/if}}
 
                     </div>
@@ -63,10 +87,10 @@
                                                 <thead>
                                                 <tr>
                                                     <th width="200px">参数名</th>
-                                                    <th width="200px">参数值</th>
+                                                    <th width="200px">参数标题</th>
                                                     <th width="100px">参数类型</th>
                                                     <th width="60px">必填</th>
-                                                    <th width="90px">示例值</th>
+                                                    <th width="90px">参数值</th>
                                                     <th>备注说明</th>
                                                 </tr>
                                                 </thead>
@@ -80,12 +104,12 @@
                                                         {{/if}}
                                                         {{$header->name}}
                                                     </td>
-                                                    <td>{{$header->value}}</td>
+                                                    <td>{{$header->title}}</td>
 
                                                     <td>{{$api->fieldTypeLabels[$header->type]}}</td>
                                                     <td>{{$api->requiredLabels[$header->required]}}</td>
 
-                                                    <td>{{$header->example_value}}</td>
+                                                    <td>{{$header->value}}</td>
                                                     <td>{{$header->remark}}</td>
                                                 </tr>
                                                 {{/foreach}}
@@ -199,7 +223,7 @@
                             <!-- /.col-lg-6 -->
                         </div>
 
-                        <div class="panel-json">
+                        <div class="panel-json hidden">
 
                             <div class="row">
                                 <div class="col-lg-12">
@@ -285,6 +309,16 @@
                 thisObj.removeAttr("disabled");
             });
         });
+
+        // 未设置环境弹框提示
+        {{if $project->getEnvs()->count() == 0}}
+        confirm('项目至少需要设置一个环境，请立即设置', function(){
+
+            window.location.href = "{{url('project/show', ['id' => $project->encode_id, 'tab' => 'env'])}}";
+
+        });
+        {{/if}}
+
     });
 </script>
 
