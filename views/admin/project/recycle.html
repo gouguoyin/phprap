@@ -12,7 +12,10 @@
 
         <div class="row">
             <div class="col-lg-12">
-                <h1 class="page-header">回收站</h1>
+                <h1 class="page-header">回收站
+                    <small>({{$project->count}})</small>
+
+                </h1>
 
                 <div class="search">
                     <div class="row">
@@ -38,8 +41,8 @@
                                     <select class="form-control" name="type">
                                         <option disabled="" selected="" style="display:none;">项目类型</option>
                                         <option value="">不限</option>
-                                        {{foreach $model->typeLabels as $k => $v}}
-                                        <option value="{{$k}}" {{if $model->params->type == $k}}selected{{/if}}>{{$v}}</option>
+                                        {{foreach $project->typeLabels as $k => $v}}
+                                        <option value="{{$k}}" {{if $project->params->type == $k}}selected{{/if}}>{{$v}}</option>
                                         {{/foreach}}
                                     </select>
                                 </div>
