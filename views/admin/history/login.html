@@ -71,8 +71,7 @@
                                     <th>登录时间</th>
                                     <th>登录IP</th>
                                     <th>登录地点</th>
-                                    <th>操作系统</th>
-                                    <th>浏览器</th>
+                                    <th>登录设备</th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -83,8 +82,7 @@
                                     <td class="datetime">{{$model->created_at}}</td>
                                     <td>{{$model->ip}}</td>
                                     <td>{{$model->location}}</td>
-                                    <td>{{$model->os}}</td>
-                                    <td>{{$model->browser}}</td>
+                                    <td>{{$model->os}} {{$model->browser}}</td>
                                 </tr>
                                 {{/foreach}}
 

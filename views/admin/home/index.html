@@ -251,7 +251,7 @@
             legend: {
                 orient: 'vertical',
                 left: 'left',
-                data: ['有效项目','禁用项目']
+                data: ['有效项目','删除项目']
             },
             series : [
                 {
@@ -261,7 +261,7 @@
                     center: ['50%', '60%'],
                     data:[
                         {value:{{$tongji->getTotalProject(10)->count}}, name:'有效项目'},
-                        {value:{{$tongji->getTodayProject(20)->count}}, name:'禁用项目'},
+                        {value:{{$tongji->getTotalProject(30)->count}}, name:'删除项目'},
                     ],
                     itemStyle: {
                         emphasis: {

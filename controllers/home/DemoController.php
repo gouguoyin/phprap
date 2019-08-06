@@ -24,13 +24,8 @@ class DemoController extends PublicController
     public function actionIndex()
     {
 
-        $data['status'] = 'error';
-        $data['code'] = 401;
-        $data['message'] = '缺少必要参数token';
-        $data['data'] = [];
-
-
-        echo json_encode($data, JSON_UNESCAPED_UNICODE);
+        $a = config('push_time');
+        var_dump($a,'oooo');
 
     }
 
