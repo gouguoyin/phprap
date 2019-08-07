@@ -121,6 +121,7 @@
                     }
                 },
                 'error':function (json) {
+                    $(".js_verifyCode").val('');
                     reloadCode();
                 }
             });

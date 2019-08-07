@@ -2,6 +2,7 @@
 
 namespace app\controllers\home;
 
+use app\models\Member;
 use Yii;
 use yii\db\Exception;
 use yii\web\Response;
@@ -180,11 +181,11 @@ class InstallController extends PublicController
                 $account = new Account();
 
                 $account->status = $account::ACTIVE_STATUS;
-                $account->type = $account::ADMIN_TYPE;
-                $account->name = $step3['name'];
-                $account->email = $step3['email'];
-                $account->ip = Yii::$app->request->userIP;
-                $account->location = $account->getLocation();
+                $account->type   = $account::ADMIN_TYPE;
+                $account->name   = $step3['name'];
+                $account->email  = $step3['email'];
+                $account->ip     = $account->getIp();
+                $account->location   = $account->getLocation();
                 $account->created_at = date('Y-m-d H:i:s');
 
                 $account->setPassword($step3['password']);
@@ -195,6 +196,25 @@ class InstallController extends PublicController
                     return ['status' => 'error', 'message' => $account->getErrorMessage(), 'label' => $account->getErrorLabel()];
                 }
 
+                // 默认加入测试项目
+                $member = new Member();
+                $member->encode_id  = $member->createEncodeId();
+                $member->project_id = 1;
+                $member->user_id   = $account->id;
+                $member->join_type = $member::PASSIVE_JOIN_TYPE;
+                $member->project_rule = 'look,export';
+                $member->env_rule     = 'look';
+                $member->module_rule  = 'look';
+                $member->api_rule     = 'look,export';
+                $member->member_rule  = 'look';
+                $member->creater_id   = 1;
+                $member->created_at   = date('Y-m-d H:i:s');
+
+                if(!$member->save()){
+                    $transaction->rollBack();
+                    return ['status' => 'error', 'message' => $member->getErrorMessage(), 'label' => $member->getErrorLabel()];
+                }
+
                 // 记录日志
                 $loginLog = new CreateLog();
 
@@ -203,7 +223,8 @@ class InstallController extends PublicController
                 $loginLog->user_email = $account->email;
 
                 if(!$loginLog->store()){
-                    return false;
+                    $transaction->rollBack();
+                    return ['status' => 'error', 'message' => $loginLog->getErrorMessage(), 'label' => $loginLog->getErrorLabel()];
                 }
 
                 // 事务提交
