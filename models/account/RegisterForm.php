@@ -1,10 +1,8 @@
 <?php
-
 namespace app\models\account;
 
-use app\models\Member;
-use app\models\member\CreateMember;
 use Yii;
+use app\models\Member;
 use app\models\Config;
 use app\models\Account;
 use app\models\loginLog\CreateLog;
