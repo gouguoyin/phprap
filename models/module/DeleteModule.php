@@ -47,7 +47,6 @@ class DeleteModule extends Module
         $account = Yii::$app->user->identity;
 
         if (!$account->id || !$account->validatePassword($this->password)) {
-
             $this->addError($attribute, '登录密码验证失败');
             return false;
         }
@@ -62,6 +61,7 @@ class DeleteModule extends Module
 
         if(!$this->project->hasRule('module', 'delete')){
             $this->addError($attribute, '抱歉，您没有操作权限');
+            return false;
         }
     }
 

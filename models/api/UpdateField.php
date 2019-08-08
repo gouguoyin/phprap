@@ -32,6 +32,7 @@ class UpdateField extends Api
     {
         if(!$this->project->hasRule('field', 'update')){
             $this->addError($attribute, '抱歉，您没有操作权限');
+            return false;
         }
     }
 
@@ -45,6 +46,7 @@ class UpdateField extends Api
 
         if(json_last_error() != JSON_ERROR_NONE){
             $this->addError($attribute,'非法JSON格式');
+            return false;
         }
     }
 

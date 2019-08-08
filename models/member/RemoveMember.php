@@ -44,9 +44,9 @@ class RemoveMember extends Member
      */
     public function validatePassword($attribute)
     {
-        $user = Yii::$app->user->identity;
+        $account = Yii::$app->user->identity;
 
-        if(!$user->id || !$user->validatePassword($this->password)) {
+        if(!$account->id || !$account->validatePassword($this->password)) {
             $this->addError($attribute, '登录密码验证失败');
             return false;
         }
@@ -61,9 +61,17 @@ class RemoveMember extends Member
 
         if(!$this->project->hasRule('member', 'remove')){
             $this->addError($attribute, '抱歉，您没有操作权限');
+            return false;
         }
     }
 
+    /**
+     * 移除成员
+     * @return bool
+     * @throws \Throwable
+     * @throws \yii\db\Exception
+     * @throws \yii\db\StaleObjectException
+     */
     public function remove()
     {
         if(!$this->validate()){

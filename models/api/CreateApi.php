@@ -37,6 +37,7 @@ class CreateApi extends Api
 
         if(!$module->project->hasRule('api', 'create')){
             $this->addError($attribute, '抱歉，您没有操作权限');
+            return false;
         }
     }
 
