@@ -130,15 +130,13 @@
 <hr>
 <p class="text-center">{{config('copyright')}}</p>
 
-<script src="{{STATIC_URL}}/js/field.js?v={{STATIC_VERSION}}"></script>
-
 <script>
 
     $(function(){
 
         //提交表单
-        submitForm(".js_submit");
-        
+        $("form").validateForm();
+
     });
 
 </script>
