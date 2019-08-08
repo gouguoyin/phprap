@@ -1,5 +1,4 @@
 <?php
-
 namespace app\models;
 
 use Yii;
@@ -29,7 +28,6 @@ class Model extends \yii\db\ActiveRecord
 
     public static function findModel($condition = null)
     {
-
         if(!$condition){
             return new static();
         }
@@ -59,9 +57,7 @@ class Model extends \yii\db\ActiveRecord
      */
     public function getErrorMessage()
     {
-
         return current($this->getFirstErrors());
-
     }
 
     /**
@@ -132,7 +128,6 @@ class Model extends \yii\db\ActiveRecord
      */
     public function getUpdateContent($oldAttributes, $dirtyAttributes, $preText = '')
     {
-
         $content = '';
 
         foreach ($dirtyAttributes as $name => $value) {
@@ -167,7 +162,6 @@ class Model extends \yii\db\ActiveRecord
      */
     public function getLocation($ip = null)
     {
-
         $ip = $ip ? : $this->getIp();
 
         $location = IpLocation::getLocation($ip);
@@ -177,7 +171,6 @@ class Model extends \yii\db\ActiveRecord
         $city     = $location['city'] ? : $province;
 
         return $country . ' ' . $province . ' ' . $city;
-
     }
 
     /**

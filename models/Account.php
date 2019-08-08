@@ -19,9 +19,7 @@ class Account extends User
      */
     public static function findByEmail($email)
     {
-
         return self::findOne(['email' => $email]);
-
     }
 
     /**

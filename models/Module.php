@@ -1,9 +1,8 @@
 <?php
-
 namespace app\models;
 
-use app\widgets\LinkPager;
 use Yii;
+use app\widgets\LinkPager;
 use yii\data\Pagination;
 
 /**

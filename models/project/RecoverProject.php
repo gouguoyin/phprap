@@ -1,15 +1,9 @@
 <?php
-
 namespace app\models\project;
 
 use Yii;
 use app\models\Project;
 
-/**
- * This is the model class for form "RecoverProject".
- *
- * @property string $password 登录密码
- */
 class RecoverProject extends Project
 {
 
@@ -34,7 +28,6 @@ class RecoverProject extends Project
      */
     public function attributeLabels()
     {
-
         return [
             'password' => '登录密码',
         ];

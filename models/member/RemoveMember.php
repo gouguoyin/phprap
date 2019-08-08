@@ -1,7 +1,4 @@
 <?php
-/**
- * 移除成员模型
- */
 namespace app\models\member;
 
 use Yii;
@@ -31,7 +28,6 @@ class RemoveMember extends Member
      */
     public function attributeLabels()
     {
-
         return [
             'password' => '登录密码',
         ];

@@ -1,19 +1,15 @@
 <?php
 namespace app\controllers\home;
 
-use app\models\Module;
-
 use Yii;
 use yii\helpers\Url;
 use yii\web\Response;
+use app\models\Module;
 use app\models\Api;
 use app\models\api\CreateApi;
 use app\models\api\UpdateApi;
 use app\models\api\DeleteApi;
 
-/**
- * Site controller
- */
 class ApiController extends PublicController
 {
 

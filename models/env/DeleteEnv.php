@@ -4,11 +4,6 @@ namespace app\models\env;
 use Yii;
 use app\models\Env;
 
-/**
- * This is the model class for form "DeleteEnv".
- *
- * @property string $password 登录密码
- */
 class DeleteEnv extends Env
 {
 
@@ -33,7 +28,6 @@ class DeleteEnv extends Env
      */
     public function attributeLabels()
     {
-
         return [
             'password' => '登录密码',
         ];

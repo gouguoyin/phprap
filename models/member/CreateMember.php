@@ -1,11 +1,8 @@
 <?php
-/**
- * 添加成员模型
- */
 namespace app\models\member;
 
-use app\models\Apply;
 use Yii;
+use app\models\Apply;
 use app\models\Member;
 
 class CreateMember extends Member
@@ -33,7 +30,6 @@ class CreateMember extends Member
      */
     public function attributeLabels()
     {
-
         return [
             'project_id' => '项目ID',
             'user_id' => '用户ID',

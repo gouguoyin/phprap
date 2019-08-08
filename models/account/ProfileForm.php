@@ -1,9 +1,8 @@
 <?php
-
 namespace app\models\account;
 
-use app\models\Account;
 use Yii;
+use app\models\Account;
 
 class ProfileForm extends Account
 {
@@ -35,7 +34,6 @@ class ProfileForm extends Account
      */
     public function attributeLabels()
     {
-
         return [
             'password' => '登录密码',
         ];

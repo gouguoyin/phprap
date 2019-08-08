@@ -1,23 +1,18 @@
 <?php
 namespace app\controllers\admin;
 
-use app\models\Api;
-use app\models\Module;
-use app\models\Project;
-use app\models\Tongji;
 use Yii;
 use yii\helpers\Url;
+use app\models\Project;
+use app\models\Tongji;
 
-/**
- * Site controller
- */
 class HomeController extends PublicController
 {
 
     /**
-     * Displays homepage.
-     *
-     * @return string
+     * 后台主页
+     * @return string|\yii\web\Response
+     * @throws \yii\db\Exception
      */
     public function actionIndex()
     {
@@ -27,10 +22,10 @@ class HomeController extends PublicController
         }
 
         // 系统信息
-        $system['installed_at'] = Project::findModel()->getInstallTime();
-        $system['app_os'] = PHP_OS;
-        $system['app_version'] = Yii::$app->params['app_version'];
-        $system['php_version'] = PHP_VERSION;
+        $system['installed_at']  = Project::findModel()->getInstallTime();
+        $system['app_os']        = PHP_OS;
+        $system['app_version']   = Yii::$app->params['app_version'];
+        $system['php_version']   = PHP_VERSION;
         $system['mysql_version'] = Yii::$app->db->createCommand('select version()')->queryScalar();
 
         // 统计信息

@@ -1,28 +1,12 @@
 <?php
 namespace app\controllers\admin;
 
-use app\models\project\RecoverProject;
 use Yii;
-use yii\filters\VerbFilter;
-use yii\filters\AccessControl;
-
-use app\models\Project;
-use app\models\Version;
-use app\models\Template;
-
-use app\models\member\SearchMember;
-use app\models\template\StoreTemplate;
-use app\models\version\SearchVersion;
-use app\models\version\StoreVersion;
-use app\models\project\DeleteProject;
-use app\models\project\StoreProject;
-use app\models\project\SearchProject;
-use app\models\project\TransferProject;
 use yii\web\Response;
+use app\models\Project;
+use app\models\project\DeleteProject;
+use app\models\project\RecoverProject;
 
-/**
- * Project controller
- */
 class ProjectController extends PublicController
 {
 

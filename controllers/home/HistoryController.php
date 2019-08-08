@@ -1,8 +1,8 @@
 <?php
 namespace app\controllers\home;
 
-use app\models\Apply;
 use Yii;
+use app\models\Apply;
 use app\models\LoginLog;
 
 class HistoryController extends PublicController

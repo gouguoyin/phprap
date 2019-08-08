@@ -1,5 +1,4 @@
 <?php
-
 namespace app\models;
 
 use Yii;
@@ -66,7 +65,6 @@ class Env extends Model
 
             [['encode_id', 'title', 'name', 'base_url', 'project_id', 'creater_id'], 'required'],
         ];
-
     }
 
     /**
@@ -105,7 +103,6 @@ class Env extends Model
      */
     public function getNextEnv()
     {
-
         $query = self::find();
 
         $filter = [
@@ -129,6 +126,5 @@ class Env extends Model
         if(!$query->where($filter)->exists()){
             return $this->defaultEnvs[3];
         }
-
     }
 }

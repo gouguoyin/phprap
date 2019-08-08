@@ -1,10 +1,9 @@
 <?php
-
 namespace app\models\api;
 
+use Yii;
 use app\models\Module;
 use app\models\Api;
-use Yii;
 
 class CreateApi extends Api
 {
@@ -13,7 +12,6 @@ class CreateApi extends Api
      */
     public function rules()
     {
-
         return [
             [['module_id', 'title', 'uri', 'sort'], 'required'],
 
@@ -24,7 +22,6 @@ class CreateApi extends Api
 
             ['id', 'validateProject'],
         ];
-
     }
 
     /**

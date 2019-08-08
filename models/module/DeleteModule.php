@@ -4,11 +4,6 @@ namespace app\models\module;
 use Yii;
 use app\models\Module;
 
-/**
- * This is the model class for form "DeleteModule".
- *
- * @property string $password 登录密码
- */
 class DeleteModule extends Module
 {
 

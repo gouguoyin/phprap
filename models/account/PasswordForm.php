@@ -1,9 +1,8 @@
 <?php
-
 namespace app\models\account;
 
-use app\models\Account;
 use Yii;
+use app\models\Account;
 
 class PasswordForm extends Account
 {
@@ -13,14 +12,11 @@ class PasswordForm extends Account
 
     public function rules()
     {
-
         return [
-
             ['old_password', 'required', 'message' => '原始密码不能为空', 'on' => 'home'],
             ['old_password', 'validatePassword', 'on' => 'home'],
 
             ['new_password', 'required', 'message' => '登录密码不能为空'],
-
         ];
     }
 

@@ -69,7 +69,6 @@ class User extends Model implements IdentityInterface
      */
     public static function findIdentity($id)
     {
-
         if(file_exists(Yii::getAlias("@runtime") . '/install/install.lock')){
 
             return static::findOne(['id' => $id, 'status' => self::ACTIVE_STATUS]);
@@ -77,7 +76,6 @@ class User extends Model implements IdentityInterface
         }
 
         return null;
-
     }
 
     /**
@@ -86,9 +84,7 @@ class User extends Model implements IdentityInterface
      */
     public static function getIdentity()
     {
-
         return Yii::$app->account->identity;
-
     }
 
     /**
@@ -107,9 +103,7 @@ class User extends Model implements IdentityInterface
      */
     public static function findByEmail($email)
     {
-
         return static::findOne(['email' => $email]);
-
     }
 
     /**

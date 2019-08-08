@@ -1,5 +1,4 @@
 <?php
-
 namespace app\models;
 
 use Yii;
@@ -45,7 +44,6 @@ class Template extends Module
      */
     public static function tableName()
     {
-
         return '{{%template}}';
     }
 
@@ -54,7 +52,6 @@ class Template extends Module
      */
     public function rules()
     {
-
         return [
             [['project_id', 'status', 'creater_id'], 'integer'],
             [['header_field', 'request_field', 'response_field'], 'string'],
@@ -125,11 +122,6 @@ class Template extends Module
     public function getProject()
     {
         return $this->hasOne(Project::className(),['id'=>'project_id'])->where(['status' => self::ACTIVE_STATUS])->orderBy(['sort' => SORT_DESC,'id' => SORT_DESC]);
-    }
-
-    public function getField()
-    {
-        return Field::findModel();
     }
 
 }

@@ -1,20 +1,16 @@
 <?php
-
 namespace app\controllers\admin;
 
-use app\models\Apply;
-use app\models\Model;
 use Yii;
-use yii\debug\Module;
 use yii\helpers\Url;
 use yii\web\Controller;
+use app\models\Apply;
+use app\models\Model;
 
 class PublicController extends Controller
 {
 
     public $layout = false;
-
-    public $debugTags;
 
     public $beforeAction = true;
     public $checkLogin = true;
@@ -104,35 +100,6 @@ class PublicController extends Controller
     public function isInstalled()
     {
         return file_exists(Yii::getAlias("@runtime") . '/install/install.lock');
-    }
-
-    private function getDebugTags($forceReload = false)
-    {
-        if ($this->debugTags === null || $forceReload) {
-            if ($forceReload) {
-                clearstatcache();
-            }
-
-            $indexFile = Module::getInstance()->dataPath . '/index.data';
-
-            $content = '';
-            $fp = @fopen($indexFile, 'r');
-            if ($fp !== false) {
-                @flock($fp, LOCK_SH);
-                $content = fread($fp, filesize($indexFile));
-                @flock($fp, LOCK_UN);
-                fclose($fp);
-            }
-
-            if ($content !== '') {
-                $this->debugTags = array_reverse(unserialize($content), true);
-            } else {
-                $this->debugTags = [];
-            }
-        }
-
-        return $this->debugTags;
-
     }
 
 }

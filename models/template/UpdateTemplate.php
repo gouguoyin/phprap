@@ -1,19 +1,14 @@
 <?php
-
 namespace app\models\template;
 
-use app\models\Template;
 use Yii;
+use app\models\Template;
 
 class UpdateTemplate extends Template
 {
 
     /**
      * 保存模板
-     * @return bool
-     */
-    /**
-     * 保存接口
      * @return bool
      */
     public function store()
