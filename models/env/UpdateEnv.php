@@ -49,9 +49,6 @@ class UpdateEnv extends Env
             '<>','id', $this->id,
         ]);
 
-//        $sql = $query->createCommand()->getRawSql();
-//        echo $sql;
-
         if($query->exists()){
             $this->addError($attribute, '抱歉，该环境已存在');
             return false;
@@ -68,6 +65,7 @@ class UpdateEnv extends Env
 
         if(!$this->project->hasRule('env', 'update')){
             $this->addError($attribute, '抱歉，您没有操作权限');
+            return false;
         }
     }
 

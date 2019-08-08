@@ -49,6 +49,7 @@ class TransferProject extends Project
 
         if(!$this->isJoiner($this->user_id)){
             $this->addError($attribute, '抱歉，该用户不是该项目成员，无法转让');
+            return false;
         }
     }
 

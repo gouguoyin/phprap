@@ -63,6 +63,7 @@ class QuitProject extends Project
 
         if(!$this->isJoiner()){
             $this->addError($attribute, '抱歉，您没有操作权限');
+            return false;
         }
     }
 

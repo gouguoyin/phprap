@@ -61,9 +61,9 @@ class RecoverProject extends Project
     public function validateProject($attribute)
     {
 
-        if(!$this->hasRule('project', 'recover'))
-        {
+        if(!$this->hasRule('project', 'recover')) {
             $this->addError($attribute, '抱歉，您没有操作权限');
+            return false;
         }
     }
 
@@ -74,8 +74,7 @@ class RecoverProject extends Project
     public function delete()
     {
 
-        if(!$this->validate())
-        {
+        if(!$this->validate()) {
             return false;
         }
 
@@ -88,8 +87,7 @@ class RecoverProject extends Project
         $project->updater_id = Yii::$app->user->identity->id;
         $project->updated_at = date('Y-m-d H:i:s');
 
-        if(!$project->save())
-        {
+        if(!$project->save()) {
             $this->addError($project->getErrorLabel(), $project->getErrorMessage());
             $transaction->rollBack();
             return false;

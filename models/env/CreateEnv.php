@@ -62,6 +62,7 @@ class CreateEnv extends Env
 
         if(!$project->hasRule('env', 'create')){
             $this->addError($attribute, '抱歉，您没有操作权限');
+            return false;
         }
     }
 

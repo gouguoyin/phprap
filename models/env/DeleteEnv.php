@@ -62,6 +62,7 @@ class DeleteEnv extends Env
 
         if(!$this->project->hasRule('env', 'delete')){
             $this->addError($attribute, '抱歉，您没有操作权限');
+            return false;
         }
     }
 
