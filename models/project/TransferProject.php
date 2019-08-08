@@ -1,5 +1,4 @@
 <?php
-
 namespace app\models\project;
 
 use Yii;
@@ -46,7 +45,6 @@ class TransferProject extends Project
      */
     public function validateJoiner($attribute)
     {
-
         if(!$this->isJoiner($this->user_id)){
             $this->addError($attribute, '抱歉，该用户不是该项目成员，无法转让');
             return false;
@@ -59,7 +57,6 @@ class TransferProject extends Project
      */
     public function transfer()
     {
-
         if(!$this->validate()){
             return false;
         }

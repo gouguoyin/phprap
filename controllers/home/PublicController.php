@@ -2,15 +2,11 @@
 
 namespace app\controllers\home;
 
-use app\models\Apply;
-use app\models\Config;
-use app\models\Model;
-use app\models\Notify;
 use Yii;
-use yii\debug\Module;
 use yii\helpers\Url;
 use yii\web\Controller;
-use yii\web\Response;
+use app\models\Apply;
+use app\models\Config;
 
 class PublicController extends Controller
 {
@@ -26,8 +22,6 @@ class PublicController extends Controller
      * @var bool
      */
     public $checkLogin = true;
-
-    public $debugTags;
 
     public function beforeAction($action)
     {
@@ -72,7 +66,7 @@ class PublicController extends Controller
 
         if($account->id){
             $params['check_status'] = Apply::CHECK_STATUS;
-            $params['order_by'] = 'id desc';
+            $params['order_by']     = 'id desc';
 
             $notify = Apply::findModel()->search($params);
 
@@ -121,35 +115,6 @@ class PublicController extends Controller
     public function isInstalled()
     {
         return file_exists(Yii::getAlias("@runtime") . '/install/install.lock');
-    }
-
-    private function getDebugTags($forceReload = false)
-    {
-        if ($this->debugTags === null || $forceReload) {
-            if ($forceReload) {
-                clearstatcache();
-            }
-
-            $indexFile = Module::getInstance()->dataPath . '/index.data';
-
-            $content = '';
-            $fp = @fopen($indexFile, 'r');
-            if ($fp !== false) {
-                @flock($fp, LOCK_SH);
-                $content = fread($fp, filesize($indexFile));
-                @flock($fp, LOCK_UN);
-                fclose($fp);
-            }
-
-            if ($content !== '') {
-                $this->debugTags = array_reverse(unserialize($content), true);
-            } else {
-                $this->debugTags = [];
-            }
-        }
-
-        return $this->debugTags;
-
     }
 
 }

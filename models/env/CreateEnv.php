@@ -1,15 +1,10 @@
 <?php
 namespace app\models\env;
 
-use app\models\Project;
 use Yii;
+use app\models\Project;
 use app\models\Env;
 
-/**
- * This is the model class for form "CreateEnv".
- *
- * @property string $project_id 项目ID
- */
 class CreateEnv extends Env
 {
 
@@ -36,7 +31,6 @@ class CreateEnv extends Env
      */
     public function validateName($attribute)
     {
-
         $query = Env::find();
 
         $query->andFilterWhere([
@@ -49,7 +43,6 @@ class CreateEnv extends Env
             $this->addError($attribute, '抱歉，该环境已存在');
             return false;
         }
-
     }
 
     /**

@@ -4,10 +4,6 @@ namespace app\models\env;
 use Yii;
 use app\models\Env;
 
-/**
- * This is the model class for form "UpdateEnv".
- *
- */
 class UpdateEnv extends Env
 {
 
@@ -16,7 +12,6 @@ class UpdateEnv extends Env
      */
     public function rules()
     {
-
         return [
             [['title', 'name', 'base_url'], 'required'],
 
@@ -27,7 +22,6 @@ class UpdateEnv extends Env
             ['name', 'validateName'],
             ['id', 'validateProject'],
         ];
-
     }
 
     /**

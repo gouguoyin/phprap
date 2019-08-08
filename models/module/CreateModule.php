@@ -1,14 +1,10 @@
 <?php
 namespace app\models\module;
 
-use app\models\Project;
 use Yii;
+use app\models\Project;
 use app\models\Module;
 
-/**
- * This is the model class for form "CreateModule".
- *
- */
 class CreateModule extends Module
 {
 
@@ -39,7 +35,6 @@ class CreateModule extends Module
             $this->addError($attribute, '抱歉，您没有操作权限');
             return false;
         }
-
     }
 
     /**

@@ -5,11 +5,6 @@ use Yii;
 use app\models\Project;
 use app\models\Member;
 
-/**
- * This is the model class for form "QuitProject".
- *
- * @property string $password 登录密码
- */
 class QuitProject extends Project
 {
 
@@ -34,7 +29,6 @@ class QuitProject extends Project
      */
     public function attributeLabels()
     {
-
         return [
             'password' => '登录密码',
         ];

@@ -1,9 +1,8 @@
 <?php
-
 namespace app\models\api;
 
-use app\models\Module;
 use Yii;
+use app\models\Module;
 use app\models\Api;
 
 class UpdateApi extends Api
@@ -14,7 +13,6 @@ class UpdateApi extends Api
      */
     public function rules()
     {
-
         return [
             [['title', 'uri', 'sort','project_id','module_id','request_method'], 'required'],
             [['request_method', 'response_format'], 'string', 'max' => 20],
@@ -23,7 +21,6 @@ class UpdateApi extends Api
 
             ['id', 'validateProject'],
         ];
-
     }
 
     /**

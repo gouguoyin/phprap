@@ -1,7 +1,6 @@
 <?php
 namespace app\controllers\home;
 
-use app\models\Account;
 use Yii;
 use yii\helpers\Url;
 use yii\web\Response;

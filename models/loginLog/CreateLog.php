@@ -1,5 +1,4 @@
 <?php
-
 namespace app\models\loginLog;
 
 use Yii;

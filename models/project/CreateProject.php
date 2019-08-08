@@ -48,8 +48,7 @@ class CreateProject extends Project
      */
     public function store()
     {
-        if(!$this->validate())
-        {
+        if(!$this->validate()) {
             return false;
         }
 

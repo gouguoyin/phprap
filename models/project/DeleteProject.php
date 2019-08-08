@@ -1,15 +1,9 @@
 <?php
-
 namespace app\models\project;
 
 use Yii;
 use app\models\Project;
 
-/**
- * This is the model class for form "DeleteProject".
- *
- * @property string $password 登录密码
- */
 class DeleteProject extends Project
 {
 
@@ -34,7 +28,6 @@ class DeleteProject extends Project
      */
     public function attributeLabels()
     {
-
         return [
             'password' => '登录密码',
         ];

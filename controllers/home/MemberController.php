@@ -1,9 +1,9 @@
 <?php
 namespace app\controllers\home;
 
-use app\models\Member;
 use Yii;
 use yii\web\Response;
+use app\models\Member;
 use app\models\Project;
 use app\models\member\CreateMember;
 use app\models\member\UpdateMember;

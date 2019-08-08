@@ -1,5 +1,4 @@
 <?php
-
 namespace app\models\account;
 
 use Yii;
@@ -37,7 +36,6 @@ class RegisterForm extends Account
 
     public function validateToken($attribute)
     {
-
         $token = config('safe', 'register_token');
 
         if (!$token || $token != $this->registerToken) {

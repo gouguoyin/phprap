@@ -1,20 +1,12 @@
 <?php
 namespace app\controllers\admin;
 
+use Yii;
+use yii\web\Response;
 use app\models\Account;
 use app\models\account\PasswordForm;
 use app\models\account\ProfileForm;
-use app\models\account\RegisterForm;
-use app\models\account\SearchForm;
-use app\models\account\UpdateForm;
-use app\models\User;
-use Yii;
-use yii\filters\AccessControl;
-use yii\web\Response;
 
-/**
- * Site controller
- */
 class UserController extends PublicController
 {
 

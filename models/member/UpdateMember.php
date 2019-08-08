@@ -1,7 +1,4 @@
 <?php
-/**
- * 添加成员模型
- */
 namespace app\models\member;
 
 use Yii;
@@ -23,7 +20,6 @@ class UpdateMember extends Member
 
             ['id', 'validateProject'],
         ];
-
     }
 
     /**

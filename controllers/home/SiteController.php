@@ -7,9 +7,8 @@ class SiteController extends PublicController
 {
 
     /**
-     * Displays homepage.
-     *
-     * @return string
+     * 前台主页
+     * @return \yii\web\Response
      */
     public function actionIndex()
     {

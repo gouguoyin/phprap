@@ -1,16 +1,9 @@
 <?php
 namespace app\models\apply;
 
-use app\models\Member;
-use app\models\Project;
 use Yii;
 use app\models\Apply;
 
-/**
- * This is the model class for form "UpdateApply".
- *
- * @property string $password 登录密码
- */
 class UpdateApply extends Apply
 {
 
@@ -21,7 +14,6 @@ class UpdateApply extends Apply
      */
     public function rules()
     {
-
         return [
             [['status'], 'required'],
 
@@ -33,7 +25,6 @@ class UpdateApply extends Apply
             ['password', 'validatePassword'],
             ['project_id', 'validateProject'],
         ];
-
     }
 
     /**
@@ -41,7 +32,6 @@ class UpdateApply extends Apply
      */
     public function attributeLabels()
     {
-
         return [
             'password' => '登录密码',
         ];

@@ -5,9 +5,6 @@ use Yii;
 use yii\web\Response;
 use app\models\api\UpdateField;
 
-/**
- * Site controller
- */
 class FieldController extends PublicController
 {
 

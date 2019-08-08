@@ -13,7 +13,6 @@ class CreateApply extends Apply
      */
     public function rules()
     {
-
         return [
             [['project_id'], 'required'],
 
@@ -23,7 +22,6 @@ class CreateApply extends Apply
             ['project_id', 'validateProject'],
             [['ip', 'location'], 'string', 'max' => 250],
         ];
-
     }
 
     /**

@@ -4,10 +4,6 @@ namespace app\models\module;
 use Yii;
 use app\models\Module;
 
-/**
- * This is the model class for form "UpdateModule".
- *
- */
 class UpdateModule extends Module
 {
 
@@ -31,7 +27,6 @@ class UpdateModule extends Module
      */
     public function attributeLabels()
     {
-
         return [
             'title' => '模块名称',
             'remark' => '模块描述',

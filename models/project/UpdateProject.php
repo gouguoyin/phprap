@@ -4,10 +4,6 @@ namespace app\models\project;
 use Yii;
 use app\models\Project;
 
-/**
- * This is the model class for form "UpdateProject".
- *
- */
 class UpdateProject extends Project
 {
 
@@ -16,7 +12,6 @@ class UpdateProject extends Project
      */
     public function rules()
     {
-
         return [
             [['title', 'sort', 'type'], 'required'],
 
@@ -26,7 +21,6 @@ class UpdateProject extends Project
             ['title', 'validateTitle'],
             ['id', 'validateProject'],
         ];
-
     }
 
     /**
@@ -34,7 +28,6 @@ class UpdateProject extends Project
      */
     public function attributeLabels()
     {
-
         return [
             'project_id' => '项目ID',
             'title' => '项目名称',

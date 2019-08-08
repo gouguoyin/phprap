@@ -1,11 +1,10 @@
 <?php
-
 namespace app\controllers\home;
 
-use app\models\Member;
 use Yii;
 use yii\db\Exception;
 use yii\web\Response;
+use app\models\Member;
 use app\models\Account;
 use app\models\loginLog\CreateLog;
 
@@ -14,7 +13,6 @@ class InstallController extends PublicController
 
     public function beforeAction($action)
     {
-
         if($this->isInstalled()){
             exit('PHPRAP已安装过，请不要重复安装，如果需要重新安装，请先删除runtime/install/install.lock');
         }

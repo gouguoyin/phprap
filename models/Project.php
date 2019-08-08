@@ -1,9 +1,8 @@
 <?php
-
 namespace app\models;
 
-use app\widgets\LinkPager;
 use Yii;
+use app\widgets\LinkPager;
 use yii\data\Pagination;
 
 /**
@@ -40,7 +39,6 @@ class Project extends Model
      */
     public function rules()
     {
-
         return [
             [['encode_id', 'title', 'status', 'creater_id'], 'required'],
 
@@ -51,7 +49,6 @@ class Project extends Model
 
             [['created_at', 'updated_at'], 'safe'],
         ];
-
     }
 
     /**
@@ -59,7 +56,6 @@ class Project extends Model
      */
     public function attributeLabels()
     {
-
         return [
             'id' => 'ID',
             'encode_id' => '加密id',
@@ -126,7 +122,6 @@ class Project extends Model
         ];
 
         return $this->hasMany(Module::className(), ['project_id' => 'id'])->where($filter)->orderBy($order);
-
     }
 
     /**
@@ -144,7 +139,6 @@ class Project extends Model
         ];
 
         return $this->hasMany(Api::className(), ['project_id' => 'id'])->where($filter)->orderBy($order);
-
     }
 
     /**
@@ -164,7 +158,6 @@ class Project extends Model
      */
     public function getNotMembers($param = [])
     {
-
         $member_ids = $this->getMembers()->select('user_id')->column();
 
         $query = Account::find();
@@ -180,8 +173,6 @@ class Project extends Model
             ['like','email', $param['name']],
         ]);
 
-        $sql = $query->createCommand()->getRawSql();
-
         return $query->all();
     }
 
@@ -191,7 +182,6 @@ class Project extends Model
      */
     public function isCreater($user_id = 0)
     {
-
         $user_id = (int)$user_id ? $user_id : Yii::$app->user->identity->id;
 
         return $this->creater_id == $user_id ? true : false;
@@ -203,7 +193,6 @@ class Project extends Model
      */
     public function isJoiner($user_id = 0)
     {
-
         $user_id = (int)$user_id ? $user_id : Yii::$app->user->identity->id;
 
         $query = Member::find()->where(['project_id' => $this->id, 'user_id' => $user_id]);
@@ -261,7 +250,6 @@ class Project extends Model
      */
     public function hasRule($type, $rule, $user_id = 0)
     {
-
         $user_id = (int)$user_id ? $user_id : Yii::$app->user->identity->id;
 
         $account = Account::findModel($user_id);

@@ -1,5 +1,4 @@
 <?php
-
 namespace app\models\api;
 
 use Yii;
@@ -14,13 +13,11 @@ class UpdateField extends Api
     public function rules()
     {
         return [
-
             [['header_field', 'request_field', 'response_field', 'success_example', 'error_example'], 'string'],
             [['request_method', 'response_format'], 'string', 'max' => 20],
 
             ['id', 'validateProject'],
             [['success_example', 'error_example'], 'validateJson'],
-
         ];
     }
 

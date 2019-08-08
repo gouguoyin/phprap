@@ -17,7 +17,7 @@ class ApplyController extends PublicController
         $params = Yii::$app->request->queryParams;
 
         $params['check_status'] = Apply::CHECK_STATUS;
-        $params['order_by'] = 'id desc';
+        $params['order_by']     = 'id desc';
 
         $model = Apply::findModel()->search($params);
 

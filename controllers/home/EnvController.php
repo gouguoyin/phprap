@@ -8,9 +8,6 @@ use app\models\env\CreateEnv;
 use app\models\env\DeleteEnv;
 use app\models\env\UpdateEnv;
 
-/**
- * Site controller
- */
 class EnvController extends PublicController
 {
 

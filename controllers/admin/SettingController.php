@@ -1,13 +1,12 @@
 <?php
 namespace app\controllers\admin;
 
-use app\models\Config;
 use Yii;
 use yii\web\Response;
+use app\models\Config;
 
 class SettingController extends PublicController
 {
-
 
     /**
      * 基础设置
