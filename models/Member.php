@@ -48,7 +48,7 @@ class Member extends Model
     public function rules()
     {
         return [
-            [['encode_id', 'project_id', 'user_id', 'join_type', 'env_rule', 'creater_id', 'updater_id'], 'required'],
+            [['encode_id', 'project_id', 'user_id', 'join_type', 'env_rule', 'creater_id'], 'required'],
             [['project_id', 'user_id', 'join_type', 'creater_id', 'updater_id'], 'integer'],
             [['created_at', 'updated_at'], 'safe'],
             [['encode_id'], 'string', 'max' => 50],
