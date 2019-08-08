@@ -66,7 +66,6 @@ class Account extends User
      */
     public function getJoinedProjects($type = null)
     {
-
         return $this->hasMany(Project::className(), ['id' => 'project_id'])
             ->viaTable('{{%member}}', ['user_id' => 'id'])
             ->where(['status' => self::ACTIVE_STATUS])
@@ -85,7 +84,6 @@ class Account extends User
 
     public function search($params = [])
     {
-
         $this->params = array2object($params);
 
         $query = self::find();
@@ -137,8 +135,6 @@ class Account extends User
 
         $this->sql = $query->createCommand()->getRawSql();
 
-//        dump($this->sql);
-
         $this->pages = LinkPager::widget([
             'pagination' => $pagination,
             'nextPageLabel' => '下一页',
@@ -150,7 +146,6 @@ class Account extends User
         ]);
 
         return $this;
-
     }
 
 }

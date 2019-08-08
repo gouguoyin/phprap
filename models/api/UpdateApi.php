@@ -41,7 +41,6 @@ class UpdateApi extends Api
      */
     public function store()
     {
-
         if(!$this->validate()){
             return false;
         }
@@ -68,7 +67,6 @@ class UpdateApi extends Api
         $transaction->commit();
 
         return true;
-
     }
 
 }

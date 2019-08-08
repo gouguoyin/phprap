@@ -67,8 +67,7 @@ class CreateProject extends Project
         $project->creater_id = Yii::$app->user->identity->id;
         $project->created_at = date('Y-m-d H:i:s');
 
-        if(!$project->save())
-        {
+        if(!$project->save()) {
             $this->addError($project->getErrorLabel(), $project->getErrorMessage());
             $transaction->rollBack();
             return false;

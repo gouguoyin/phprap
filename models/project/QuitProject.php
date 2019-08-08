@@ -54,7 +54,6 @@ class QuitProject extends Project
      */
     public function validateProject($attribute)
     {
-
         if(!$this->isJoiner()){
             $this->addError($attribute, '抱歉，您没有操作权限');
             return false;
@@ -67,7 +66,6 @@ class QuitProject extends Project
      */
     public function quit()
     {
-
         if(!$this->validate()){
             return false;
         }
@@ -87,7 +85,6 @@ class QuitProject extends Project
         $transaction->commit();
 
         return true;
-
     }
 
 }

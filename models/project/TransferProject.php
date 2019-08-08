@@ -62,7 +62,7 @@ class TransferProject extends Project
         }
 
         // 开启事务
-        $transaction  = Yii::$app->db->beginTransaction();
+        $transaction = Yii::$app->db->beginTransaction();
 
         $user = User::findModel($this->user_id);
 
@@ -77,7 +77,6 @@ class TransferProject extends Project
         $transaction->commit();
 
         return true;
-
     }
 
 }

@@ -13,7 +13,6 @@ class UpdateTemplate extends Template
      */
     public function store()
     {
-
         if(!$this->validate()){
             return false;
         }

@@ -127,7 +127,6 @@ class Member extends Model
      */
     public function hasRule($type, $rule)
     {
-
         $type = $type . '_rule';
 
         if(in_array($rule, explode(',', $this->$type))){
@@ -136,7 +135,6 @@ class Member extends Model
         }
 
         return false;
-
     }
 
     /**
@@ -146,7 +144,6 @@ class Member extends Model
      */
     public function getRuleLabel($type)
     {
-
         $type = $type . '_rule';
 
         $title   = $this->$type ? str_replace($this->find, $this->replace, $this->$type . ',') : '';
@@ -154,9 +151,13 @@ class Member extends Model
         return trim($title, '、');
     }
 
+    /** 成员搜索
+     * @param array $params
+     * @return $this
+     * @throws \Exception
+     */
     public function search($params = [])
     {
-
         $this->params = $params;
 
         $query = static::find()->joinWith('account');
@@ -182,8 +183,6 @@ class Member extends Model
 
         $this->sql = $query->createCommand()->getRawSql();
 
-//        dump($this->sql);
-
         $this->pages = LinkPager::widget([
             'pagination' => $pagination,
             'nextPageLabel' => '下一页',
@@ -195,7 +194,6 @@ class Member extends Model
         ]);
 
         return $this;
-
     }
 
 }

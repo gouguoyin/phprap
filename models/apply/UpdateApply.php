@@ -74,7 +74,6 @@ class UpdateApply extends Apply
      */
     public function store()
     {
-
         // 开启事务
         $transaction = Yii::$app->db->beginTransaction();
 
@@ -97,7 +96,6 @@ class UpdateApply extends Apply
         $transaction->commit();
 
         return true;
-
     }
 
 }

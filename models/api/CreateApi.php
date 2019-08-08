@@ -44,7 +44,6 @@ class CreateApi extends Api
      */
     public function store()
     {
-
         if(!$this->validate()){
             return false;
         }
@@ -75,7 +74,6 @@ class CreateApi extends Api
         $transaction->commit();
 
         return true;
-
     }
 
 }

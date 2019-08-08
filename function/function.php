@@ -8,15 +8,11 @@
 if (!function_exists('url')){
     function url($route = '', $param = [], $scheme = false)
     {
-
         if(!$route){
             return \yii\helpers\Url::current($param, $scheme);
         }
-
         $param[] = $route;
-
         return  \yii\helpers\Url::toRoute($param, $scheme);
-
     }
 }
 
@@ -25,47 +21,27 @@ if (!function_exists('url')){
  */
 if (!function_exists('dump'))
 {
-
     function dump()
     {
-
         if(func_num_args() < 1){
-
             var_dump(null);
-
         }
-
         //获取参数列表
         $args_list = func_get_args();
-
         echo '<pre>';
-
         foreach ($args_list as $arg) {
-
             $type = gettype($arg);
-
             if(!$arg){
-
                 var_dump($arg);
-
             }elseif($type == 'array'){
-
                 print_r($arg);
-
             }elseif(in_array($type, ['object', 'resource', 'boolean', 'NULL', 'unknown type'])){
-
                 var_dump($arg);
-
             }else{
-
                 echo $arg . '<br>';
-
             }
-
         }
-
         echo "</pre>";
-
     }
 
 }
@@ -82,7 +58,6 @@ if (!function_exists('config')){
         }else{
             $field = $name;
         }
-
         return \app\models\Config::findModel(['type' => $type])->getField($field);
     }
 }
@@ -93,9 +68,7 @@ if (!function_exists('config')){
 if (!function_exists('csrf_token')){
     function csrf_token()
     {
-
         return Yii::$app->request->csrfToken;
-
     }
 }
 
@@ -104,11 +77,9 @@ if (!function_exists('csrf_token')){
  */
 if (!function_exists('array2object')){
     function array2object($array) {
-
         if(!is_array($array)){
             return null;
         }
-
         return json_decode(json_encode($array, JSON_UNESCAPED_UNICODE));
     }
 }

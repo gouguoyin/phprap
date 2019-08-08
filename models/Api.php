@@ -221,7 +221,6 @@ class Api extends Model
     public function isCompositeType($type)
     {
         return in_array($type, ['array', 'object']) ? true : false;
-
     }
 
     /**
@@ -262,8 +261,6 @@ class Api extends Model
 
         $this->sql = $query->createCommand()->getRawSql();
 
-//        dump($this->sql);
-
         $this->pages = LinkPager::widget([
             'pagination' => $pagination,
             'nextPageLabel' => '下一页',
@@ -275,6 +272,5 @@ class Api extends Model
         ]);
 
         return $this;
-
     }
 }

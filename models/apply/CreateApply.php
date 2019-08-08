@@ -30,7 +30,6 @@ class CreateApply extends Apply
      */
     public function validateProject($attribute)
     {
-
         $project = Project::findModel($this->project_id);
 
         if($project->status != Project::ACTIVE_STATUS){
@@ -61,7 +60,6 @@ class CreateApply extends Apply
      */
     public function store()
     {
-
         // 开启事务
         $transaction = Yii::$app->db->beginTransaction();
 
@@ -88,7 +86,6 @@ class CreateApply extends Apply
         $transaction->commit();
 
         return true;
-
     }
 
 }
