@@ -48,7 +48,7 @@ class AccountController extends PublicController
 
         }
 
-        $config = Config::findOne(['type' => 'safe'])->getField();
+        $config = Config::findOne(['type' => 'safe']);
 
         return $this->display('register', ['config' => $config]);
 
@@ -95,7 +95,7 @@ class AccountController extends PublicController
 
         }
 
-        $config = Config::findOne(['type' => 'safe'])->getField();
+        $config = Config::findOne(['type' => 'safe']);
 
         return $this->render('login', ['callback' => $request->get('callback', ''), 'config' => $config]);
 
@@ -107,11 +107,9 @@ class AccountController extends PublicController
      */
     public function actionLogout()
     {
-
         if (Yii::$app->user->isGuest || Yii::$app->user->logout()) {
             return $this->redirect(['account/login']);
         }
-
     }
 
     /**
@@ -120,11 +118,9 @@ class AccountController extends PublicController
      */
     public function actionHome()
     {
-
         if(Yii::$app->user->isGuest) {
             return $this->redirect(['home/account/login','callback' => Url::current()]);
         }
-
         return $this->display('home');
     }
 
@@ -134,7 +130,6 @@ class AccountController extends PublicController
      */
     public function actionProfile()
     {
-
         if(Yii::$app->user->isGuest) {
             return $this->redirect(['home/account/login','callback' => Url::current()]);
         }
@@ -168,7 +163,6 @@ class AccountController extends PublicController
         }
 
         return $this->display('profile');
-
     }
 
     /**
@@ -177,7 +171,6 @@ class AccountController extends PublicController
      */
     public function actionPassword()
     {
-
         if(Yii::$app->user->isGuest) {
             return $this->redirect(['home/account/login','callback' => Url::current()]);
         }

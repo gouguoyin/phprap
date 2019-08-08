@@ -49,11 +49,18 @@ class Config extends Model
         ];
     }
 
-    public function getField($field = null)
+    /**
+     * 获取不存在字段
+     * @param string $name
+     * @return mixed
+     */
+    public function __get($name)
     {
-        $config = json_decode($this->content);
-
-        return $field ? trim($config->$field) : $config;
+        if (!$this->hasAttribute($name)) {
+            $config = json_decode($this->content);
+            return $config->$name;
+        }
+        return parent::__get($name);
     }
 
 }

@@ -1,4 +1,5 @@
 <?php
+
 namespace app\models\account;
 
 use Yii;
@@ -23,8 +24,12 @@ class LoginForm extends Account
             ['email', 'email','message' => '邮箱格式不合法'],
             ['rememberMe', 'boolean'],
             ['password', 'required', 'message' => '密码不可以为空'],
-            ['verifyCode', 'required', 'message' => '验证码不能为空', 'on' => 'verifyCode'],
-            ['verifyCode', 'captcha', 'captchaAction' => 'home/captcha/login', 'on' => 'verifyCode'],
+            ['verifyCode', 'required', 'message' => '验证码不能为空', 'when' => function($model, $attribute){
+                return trim($model->verifyCode) ? true : false;
+            }],
+            ['verifyCode', 'captcha', 'captchaAction' => 'home/captcha/login', 'when' => function($model, $attribute){
+                return trim($model->verifyCode) ? true : false;
+            }],
             ['password', 'validatePassword'],
 
             ['callback', 'string', 'max' => 255],
@@ -46,14 +51,12 @@ class LoginForm extends Account
         }
     }
 
+    /**
+     * 用户登录
+     * @return bool
+     */
     public function login()
     {
-        $config  = Config::findOne(['type' => 'safe']);
-        $captcha = $config->getField('login_captcha');
-
-        if($captcha){
-            $this->scenario = 'verifyCode';
-        }
 
         if(!$this->validate()){
             return false;
@@ -73,9 +76,11 @@ class LoginForm extends Account
             return false;
         }
 
-        $login_keep_time = $config->getField('login_keep_time');
+        $config = Config::findOne(['type' => 'safe']);
+        $login_keep_time = $config->login_keep_time;
 
         return Yii::$app->user->login($account, 60*60*$login_keep_time);
+
     }
 
 }

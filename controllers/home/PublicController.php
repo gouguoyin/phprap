@@ -30,7 +30,7 @@ class PublicController extends Controller
             return $this->redirect(['home/install/step1'])->send();
         }
 
-        $config = Config::findOne(['type' => 'safe'])->getField();
+        $config = Config::findOne(['type' => 'safe']);
 
         $ip_white_list = array_filter(explode("\r\n", trim($config->ip_white_list)));
         $ip_black_list = array_filter(explode("\r\n", trim($config->ip_black_list)));
