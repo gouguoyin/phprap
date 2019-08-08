@@ -36,7 +36,6 @@ class PasswordForm extends Account
 
     public function store()
     {
-
         if (!$this->validate()) {
             return false;
         }
@@ -66,7 +65,6 @@ class PasswordForm extends Account
         }
         
         return true;
-
     }
 
 }

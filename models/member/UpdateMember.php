@@ -68,7 +68,6 @@ class UpdateMember extends Member
         $transaction->commit();
 
         return true;
-
     }
 
 }

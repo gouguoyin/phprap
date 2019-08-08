@@ -30,7 +30,6 @@ class UpdateEnv extends Env
      */
     public function validateName($attribute)
     {
-
         $query = Env::find();
 
         $query->andFilterWhere([
@@ -47,7 +46,6 @@ class UpdateEnv extends Env
             $this->addError($attribute, '抱歉，该环境已存在');
             return false;
         }
-
     }
 
     /**
@@ -56,7 +54,6 @@ class UpdateEnv extends Env
      */
     public function validateProject($attribute)
     {
-
         if(!$this->project->hasRule('env', 'update')){
             $this->addError($attribute, '抱歉，您没有操作权限');
             return false;
@@ -93,7 +90,6 @@ class UpdateEnv extends Env
         $transaction->commit();
 
         return true;
-
     }
 
 }

@@ -33,7 +33,6 @@ class RemoveMember extends Member
         ];
     }
 
-
     /**
      * 验证密码是否正确
      * @param $attribute
@@ -54,7 +53,6 @@ class RemoveMember extends Member
      */
     public function validateProject($attribute)
     {
-
         if(!$this->project->hasRule('member', 'remove')){
             $this->addError($attribute, '抱歉，您没有操作权限');
             return false;
@@ -89,7 +87,6 @@ class RemoveMember extends Member
         $transaction->commit();
 
         return true;
-
     }
 
 }

@@ -9,7 +9,6 @@ class CreateLog extends LoginLog
 
     public function store()
     {
-
         $log = &$this;
 
         $log->user_id    = $this->user_id;
@@ -28,6 +27,5 @@ class CreateLog extends LoginLog
         }
 
         return true;
-
     }
 }

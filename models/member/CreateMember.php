@@ -103,7 +103,6 @@ class CreateMember extends Member
         $transaction->commit();
 
         return true;
-
     }
 
 }

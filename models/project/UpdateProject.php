@@ -59,7 +59,6 @@ class UpdateProject extends Project
             $this->addError($attribute, '抱歉，该项目名称已存在');
             return false;
         }
-
     }
 
     /**
@@ -92,8 +91,8 @@ class UpdateProject extends Project
 
         $project->title  = $this->title;
         $project->remark = $this->remark;
-        $project->type = $this->type;
-        $project->sort = $this->sort;
+        $project->type   = $this->type;
+        $project->sort   = $this->sort;
         $project->updater_id = Yii::$app->user->identity->id;
         $project->updated_at = date('Y-m-d H:i:s');
 

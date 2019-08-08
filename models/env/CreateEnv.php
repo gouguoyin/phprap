@@ -95,7 +95,6 @@ class CreateEnv extends Env
         $transaction->commit();
 
         return true;
-
     }
 
 }

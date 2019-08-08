@@ -53,7 +53,6 @@ class UpdateField extends Api
      */
     public function store()
     {
-
         if(!$this->validate()){
             return false;
         }
@@ -77,7 +76,6 @@ class UpdateField extends Api
         $transaction->commit();
 
         return true;
-
     }
 
 }

@@ -35,7 +35,6 @@ class DeleteApi extends Api
      */
     public function validatePassword($attribute)
     {
-
         $account = Yii::$app->user->identity;
 
         if (!$account->id || !$account->validatePassword($this->password)) {
@@ -87,7 +86,6 @@ class DeleteApi extends Api
         $transaction->commit();
 
         return true;
-
     }
 
 }

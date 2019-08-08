@@ -71,7 +71,6 @@ class RegisterForm extends Account
 
     public function register()
     {
-
         $config = Config::findOne(['type' => 'safe']);
 
         $token   = $config->getField('register_token');
@@ -130,7 +129,6 @@ class RegisterForm extends Account
         $login_keep_time = $config->getField('login_keep_time');
 
         return Yii::$app->user->login($account, 60*60*$login_keep_time);
-
     }
 
 }
