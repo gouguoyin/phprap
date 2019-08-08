@@ -6,6 +6,7 @@
         vertical-align: top;
         border-top: 1px solid #ddd;
     }
+    .js_name{float: right}
     .move-cursor{
         cursor:move
     }
@@ -20,7 +21,12 @@
     {{include_file name='home/public/nav' sidebar='home/project/sidebar'}}
     <div id="page-wrapper">
         <table class="clone-table hidden">
+
             <tr class="js_headerClone">
+                <td class="hidden"><input name="id" class="form-control js_id" value="0"></td>
+                <td class="hidden"><input name="parent_id" class="form-control js_parent_id" value="0"></td>
+                <td class="hidden"><input name="level" class="form-control js_level" value="1"></td>
+
                 <td><input name="name" class="form-control js_name" placeholder="必填" datatype="*1-20" nullmsg="请填写参数名" value=""></td>
                 <td><input name="title" class="form-control js_title" placeholder="非必填" ignore="ignore" datatype="*1-50" nullmsg="请填写参数标题" value=""></td>
                 <td>
@@ -43,11 +49,13 @@
                     <a onclick="deleteField(this)" href="javascript:;" class="btn btn-xs hidden-xs fa fa-fw fa-trash-o option-btn" title="删除参数"></a>
                     <a onclick="addField(this, 'header')" href="javascript:;" class="btn btn-xs hidden-xs fa fa-fw fa-plus option-btn js_addField" title="添加子参数" disabled></a>
                 </td>
-                <td class="hidden"><input name="level" class="form-control js_level" value="0"></td>
-
             </tr>
 
             <tr class="js_requestClone">
+                <td class="hidden"><input name="id" class="form-control js_id" value="0"></td>
+                <td class="hidden"><input name="parent_id" class="form-control js_parent_id" value="0"></td>
+                <td class="hidden"><input name="level" class="form-control js_level" value="1"></td>
+
                 <td><input name="name" class="form-control js_name" placeholder="必填" datatype="*1-20" nullmsg="请填写参数名" value=""></td>
                 <td><input name="title" class="form-control js_title" placeholder="必填" datatype="*1-50" nullmsg="请填写参数标题" value=""></td>
                 <td>
@@ -70,11 +78,14 @@
                     <a onclick="deleteField(this)" href="javascript:;" class="btn btn-xs hidden-xs fa fa-fw fa-trash-o option-btn" title="删除参数"></a>
                     <a onclick="addField(this, 'request')" href="javascript:;" class="btn btn-xs hidden-xs fa hidden-xs fa-fw fa-plus option-btn js_addField" title="添加子参数" disabled></a>
                 </td>
-                <td class="hidden"><input name="level" class="form-control js_level" value="0"></td>
 
             </tr>
 
             <tr class="js_responseClone">
+
+                <td class="hidden"><input name="id" class="form-control js_id" value="0"></td>
+                <td class="hidden"><input name="parent_id" class="form-control js_parent_id" value="0"></td>
+                <td class="hidden"><input name="level" class="form-control js_level" value="1"></td>
 
                 <td><input name="name" class="form-control js_name" placeholder="必填" datatype="*1-20" nullmsg="请填写参数名" value=""></td>
                 <td><input name="title" class="form-control js_title" placeholder="必填" datatype="*1-50" nullmsg="请填写参数标题" value=""></td>
@@ -96,7 +107,6 @@
 
                     <a onclick="addField(this, 'response')" href="javascript:;" class="btn btn-xs hidden-xs fa fa-fw fa-plus option-btn js_addField" title="添加子参数" disabled></a>
                 </td>
-                <td class="hidden"><input name="level" class="form-control js_level" value="0"></td>
 
             </tr>
         </table>
@@ -110,7 +120,7 @@
                         <h1>接口字段</h1>
                         <div class="opt-btn">
                             <a class="btn btn-sm btn-warning js_cancel mr-1" href="javascript:;" onclick="cancelSave()"><i class="fa fa-fw fa-reply"></i>取消</a>
-                            <a class="btn btn-sm btn-success js_submit" href="javascript:void(0);"><i class="fa fa-fw fa-save"></i>保存</a>
+                            <a class="btn btn-sm btn-success" id="js_submit" href="javascript:void(0);"><i class="fa fa-fw fa-save"></i>保存</a>
                         </div>
                     </div>
                 </div>
@@ -125,12 +135,13 @@
                         {{include_file name='home/api/tab' tab='field'}}
 
                         <div class="panel-body">
+
                             <div class="row">
                                 <div class="col-lg-12">
                                     <div class="panel panel-default">
                                         <div class="panel-heading">
                                             Header参数
-                                            <a onclick="addField(this, 'header')" href="javascript:;" class="fa fa-plus ml-1" data-toggle="tooltip" data-title="添加参数"></a>
+                                            <a onclick="addField(this, 'header')" href="javascript:;" class="fa fa-plus ml-1" data-toggle="tooltip" data-title="添加参数" data-parent_id="0"></a>
                                         </div>
 
                                         <!-- /.panel-heading -->
@@ -153,18 +164,19 @@
 
                                                     {{foreach $api->headerAttributes as $header}}
                                                     <tr>
+                                                        <td class="hidden"><input name="id" class="form-control js_id" value="{{$header->id}}"></td>
+                                                        <td class="hidden"><input name="parent_id" class="form-control js_parent_id" value="{{$header->parent_id}}"></td>
+                                                        <td class="hidden"><input name="level" class="form-control js_level" value="{{$header->level}}"></td>
                                                         <td>
-                                                            {{if $header->level}}
-                                                            <input autocomplete="off" style="padding-left: {{$header->level * 10 + 12}}px" name="name" class="form-control js_name" placeholder="必填" datatype="*1-20" nullmsg="请填写参数名"  value="{{$header->name}}">
-                                                            {{else}}
-                                                            <input autocomplete="off" name="name" class="form-control js_name" placeholder="必填" datatype="*1-20" nullmsg="请填写参数名"  value="{{$header->name}}">
-                                                            {{/if}}
+                                                            <input autocomplete="off" style="width: {{(10 - $header->level)*10}}%" name="name" class="form-control js_name" placeholder="必填" datatype="*1-20" nullmsg="请填写参数名"  value="{{$header->name}}">
                                                         </td>
+
+
                                                         <td><input name="title" class="form-control js_title" placeholder="非必填" ignore="ignore" datatype="*1-50" nullmsg="请填写参数标题" value="{{$header->title}}"></td>
                                                         <td>
                                                             <select onchange="selectType(this)" name="type" class="form-control js_type">
                                                                 {{foreach $api->fieldTypeLabels as $k => $v}}
-                                                                <option {{if $header->type == $k1}}selected{{/if}} value="{{$k}}">{{$v}}</option>
+                                                                <option {{if $header->type == $k}}selected{{/if}} value="{{$k}}">{{$v}}</option>
                                                                 {{/foreach}}
                                                             </select>
                                                         </td>
@@ -181,9 +193,8 @@
                                                         <td><input name="remark" class="form-control js_remark" placeholder="非必填" value="{{$header->remark}}"></td>
                                                         <td>
                                                             <a onclick="deleteField(this)" href="javascript:;" class="btn btn-xs hidden-xs fa fa-fw fa-trash-o option-btn" data-toggle="tooltip" data-placement="bottom" data-title="删除参数"></a>
-                                                            <a onclick="addField(this, 'header')" href="javascript:;" class="btn btn-xs hidden-xs fa fa-fw fa-plus option-btn js_addField" data-toggle="tooltip" data-placement="bottom" data-title="添加子参数" {{if !$api->isCompositeType($header->type)}}disabled{{/if}}></a>
+                                                            <a onclick="addField(this, 'header')" href="javascript:;" class="btn btn-xs hidden-xs fa fa-fw fa-plus option-btn js_addField" data-toggle="tooltip" data-placement="bottom" data-title="添加子参数" {{if !$api->isCompositeType($header->type)}}disabled{{/if}} data-parent_id="{{$header->id}}"></a>
                                                         </td>
-                                                        <td class="hidden"><input name="level" class="form-control js_level" value="{{$header->level|default:0}}"></td>
 
                                                     </tr>
 
@@ -206,7 +217,7 @@
                                     <div class="panel panel-default">
                                         <div class="panel-heading">
                                             请求参数
-                                            <a onclick="addField(this, 'request')" href="javascript:;" class="fa fa-plus ml-1" data-toggle="tooltip" data-title="添加参数"></a>
+                                            <a onclick="addField(this, 'request')" href="javascript:;" class="fa fa-plus ml-1" data-toggle="tooltip" data-title="添加参数" data-parent_id="0"></a>
                                         </div>
                                         <!-- /.panel-heading -->
                                         <div class="panel-body">
@@ -229,12 +240,13 @@
 
                                                     {{foreach $api->requestAttributes as $request}}
                                                     <tr>
+
+                                                        <td class="hidden"><input name="id" class="form-control js_id" value="{{$request->id}}"></td>
+                                                        <td class="hidden"><input name="parent_id" class="form-control js_parent_id" value="{{$request->parent_id}}"></td>
+                                                        <td class="hidden"><input name="level" class="form-control js_level" value="{{$request->level}}"></td>
+
                                                         <td>
-                                                            {{if $request->level}}
-                                                            <input autocomplete="off" style="padding-left: {{$request->level * 10 + 12}}px" name="name" class="form-control js_name" placeholder="必填" datatype="*1-20" nullmsg="请填写参数名"  value="{{$request->name}}">
-                                                            {{else}}
-                                                            <input autocomplete="off" name="name" class="form-control js_name" placeholder="必填" datatype="*1-20" nullmsg="请填写参数名"  value="{{$request->name}}">
-                                                            {{/if}}
+                                                            <input autocomplete="off" style="width: {{(10 - $request->level)*10}}%" name="name" class="form-control js_name" placeholder="必填" datatype="*1-20" nullmsg="请填写参数名"  value="{{$request->name}}">
                                                         </td>
 
                                                         <td><input name="title" class="form-control js_title" placeholder="必填" datatype="*1-50" nullmsg="请填写参数标题" value="{{$request->title}}"></td>
@@ -256,9 +268,8 @@
                                                         <td><input name="remark" class="form-control js_remark" placeholder="非必填" value="{{$request->remark}}"></td>
                                                         <td>
                                                             <a onclick="deleteField(this)" href="javascript:;" class="btn btn-xs hidden-xs fa fa-fw fa-trash-o option-btn" data-toggle="tooltip" data-placement="bottom" data-title="删除参数"></a>
-                                                            <a onclick="addField(this, 'request')" href="javascript:;" class="btn btn-xs hidden-xs fa fa-fw fa-plus option-btn js_addField" data-toggle="tooltip" data-placement="bottom" data-title="添加子参数" {{if !$api->isCompositeType($request->type)}}disabled{{/if}}></a>
+                                                            <a onclick="addField(this, 'request')" href="javascript:;" class="btn btn-xs hidden-xs fa fa-fw fa-plus option-btn js_addField" data-toggle="tooltip" data-placement="bottom" data-title="添加子参数" {{if !$api->isCompositeType($request->type)}}disabled{{/if}} data-parent_id="{{$request->id}}"></a>
                                                         </td>
-                                                        <td class="hidden"><input name="level" class="form-control js_level" value="{{$request->level|default:0}}"></td>
 
                                                     </tr>
                                                     {{/foreach}}
@@ -280,7 +291,7 @@
                                     <div class="panel panel-default mb-0">
                                         <div class="panel-heading">
                                             响应参数
-                                            <a onclick="addField(this, 'response')" href="javascript:;" class="fa fa-plus ml-1" data-toggle="tooltip" data-title="添加参数"></a>
+                                            <a onclick="addField(this, 'response')" href="javascript:;" class="fa fa-plus ml-1" data-toggle="tooltip" data-title="添加参数" data-parent_id="0"></a>
                                         </div>
                                         <!-- /.panel-heading -->
                                         <div class="panel-body">
@@ -301,13 +312,12 @@
 
                                                     {{foreach $api->responseAttributes as $k=>$response}}
                                                     <tr>
+                                                        <td class="hidden"><input name="id" class="form-control js_id" value="{{$response->id}}"></td>
+                                                        <td class="hidden"><input name="parent_id" class="form-control js_parent_id" value="{{$response->parent_id}}"></td>
+                                                        <td class="hidden"><input name="level" class="form-control js_level" value="{{$response->level}}"></td>
 
                                                         <td>
-                                                            {{if $response->level}}
-                                                            <input autocomplete="off" style="padding-left: {{$response->level * 10 + 12}}px" name="name" class="form-control js_name" placeholder="必填" datatype="*1-20" nullmsg="请填写参数名"  value="{{$response->name}}">
-                                                            {{else}}
-                                                            <input autocomplete="off" name="name" class="form-control js_name" placeholder="必填" datatype="*1-20" nullmsg="请填写参数名"  value="{{$response->name}}">
-                                                            {{/if}}
+                                                            <input autocomplete="off" style="width: {{(10 - $response->level)*10}}%" name="name" class="form-control js_name" placeholder="必填" datatype="*1-20" nullmsg="请填写参数名"  value="{{$response->name}}">
                                                         </td>
                                                         <td><input autocomplete="off" name="title" class="form-control js_title" placeholder="必填" datatype="*1-50" nullmsg="请填写参数标题"  value="{{$response->title}}"></td>
                                                         <td>
@@ -323,10 +333,8 @@
 
                                                         <td>
                                                             <a onclick="deleteField(this)" href="javascript:;" class="btn btn-xs option-btn hidden-xs fa fa-fw fa-trash-o" data-toggle="tooltip" data-placement="bottom" data-title="删除参数"></a>
-                                                            <a onclick="addField(this, 'response')" href="javascript:;" class="btn btn-xs hidden-xs fa fa-fw fa-plus option-btn js_addField" data-toggle="tooltip" data-placement="bottom" data-title="添加子参数" {{if !$api->isCompositeType($response->type)}}disabled{{/if}}></a>
+                                                            <a onclick="addField(this, 'response')" href="javascript:;" class="btn btn-xs hidden-xs fa fa-fw fa-plus option-btn js_addField" data-toggle="tooltip" data-placement="bottom" data-title="添加子参数" {{if !$api->isCompositeType($response->type)}}disabled{{/if}} data-parent_id="{{$response->id}}"></a>
                                                         </td>
-
-                                                        <td class="hidden"><input name="level" class="form-control js_level" value="{{$response->level|default:0}}"></td>
 
                                                     </tr>
                                                     {{/foreach}}
@@ -413,10 +421,18 @@
 
         // 初始化change
         $('.js_type').trigger("change");
+
         //选择header
         selectHeader({{json_encode($api->defaultHeaderParams)}});
-        //提交表单
-        submitForm(".js_submit");
+
+        // 表单验证
+        $("form").validateForm({
+            'before':function (json) {
+                $(".js_headerJson").val(getTableJson('headerParamTable'));
+                $(".js_requestJson").val(getTableJson('requestParamTable'));
+                $(".js_responseJson").val(getTableJson('responseParamTable'));
+            },
+        });
     });
 
 </script>
