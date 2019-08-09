@@ -8,7 +8,6 @@ use app\models\loginLog\CreateLog;
 
 class LoginForm extends Account
 {
-
     public $email;
     public $password;
     public $verifyCode;
@@ -35,6 +34,10 @@ class LoginForm extends Account
         ];
     }
 
+    /**
+     * 验证密码是否正确
+     * @param $attribute
+     */
     public function validatePassword($attribute)
     {
         $account = Account::findByEmail($this->email);
@@ -56,7 +59,6 @@ class LoginForm extends Account
      */
     public function login()
     {
-
         if(!$this->validate()){
             return false;
         }
@@ -79,7 +81,6 @@ class LoginForm extends Account
         $login_keep_time = $config->login_keep_time;
 
         return Yii::$app->user->login($account, 60*60*$login_keep_time);
-
     }
 
 }

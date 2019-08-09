@@ -6,7 +6,6 @@ use app\models\Account;
 
 class PasswordForm extends Account
 {
-
     public $old_password;
     public $new_password;
 

@@ -78,7 +78,6 @@ class ProfileForm extends Account
 
     public function store()
     {
-
         if (!$this->validate()) {
             return false;
         }

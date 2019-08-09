@@ -9,7 +9,6 @@ use app\models\loginLog\CreateLog;
 
 class RegisterForm extends Account
 {
-
     public $name;
     public $email;
     public $password;
@@ -66,7 +65,6 @@ class RegisterForm extends Account
      */
     public function validateEmail($attribute)
     {
-
         $config = Config::findOne(['type' => 'safe']);
 
         $email_white_list = array_filter(explode("\r\n", trim($config->email_white_list)));
@@ -87,6 +85,11 @@ class RegisterForm extends Account
         }
     }
 
+    /**用户注册
+     *
+     * @return bool
+     * @throws \yii\db\Exception
+     */
     public function register()
     {
         if (!$this->validate()) {
