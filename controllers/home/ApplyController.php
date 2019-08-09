@@ -30,7 +30,6 @@ class ApplyController extends PublicController
      */
     public function actionCreate($project_id)
     {
-
         $request = Yii::$app->request;
 
         $model   = CreateApply::findModel();
@@ -43,9 +42,7 @@ class ApplyController extends PublicController
             $model->project_id = $project->id;
 
             if ($model->store()) {
-
                 return ['status' => 'success', 'message' => '申请成功，请耐心等待项目创建人审核'];
-
             }
 
             return ['status' => 'error', 'message' => $model->getErrorMessage(), 'label' => $model->getErrorLabel()];

@@ -84,7 +84,6 @@ class RegisterForm extends Account
     }
 
     /**用户注册
-     *
      * @return bool
      * @throws \yii\db\Exception
      */
@@ -120,8 +119,8 @@ class RegisterForm extends Account
         $member = new Member();
         $member->encode_id  = $this->createEncodeId();
         $member->project_id = 1;
-        $member->user_id   = $account->id;
-        $member->join_type = $member::PASSIVE_JOIN_TYPE;
+        $member->user_id    = $account->id;
+        $member->join_type  = $member::PASSIVE_JOIN_TYPE;
         $member->project_rule = 'look,export';
         $member->env_rule     = 'look';
         $member->module_rule  = 'look';
@@ -138,7 +137,6 @@ class RegisterForm extends Account
 
         // 记录日志
         $loginLog = new CreateLog();
-
         $loginLog->user_id    = $account->id;
         $loginLog->user_name  = $account->name;
         $loginLog->user_email = $account->email;

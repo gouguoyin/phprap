@@ -12,9 +12,7 @@ class SiteController extends PublicController
      */
     public function actionIndex()
     {
-
         return $this->redirect(['project/select']);
-
     }
 
 }

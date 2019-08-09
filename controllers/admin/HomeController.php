@@ -16,7 +16,6 @@ class HomeController extends PublicController
      */
     public function actionIndex()
     {
-
         if(Yii::$app->user->isGuest){
             return $this->redirect(['home/account/login', 'callback' => Url::current()]);
         }
@@ -32,7 +31,6 @@ class HomeController extends PublicController
         $tongji = new Tongji();
 
         return $this->display('index', ['system' => array2object($system), 'tongji' => $tongji]);
-
     }
 
 

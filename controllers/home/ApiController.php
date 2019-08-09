@@ -47,15 +47,11 @@ class ApiController extends PublicController
             Yii::$app->response->format = Response::FORMAT_JSON;
 
             if(!$api->load($request->post())){
-
                 return ['status' => 'error', 'message' => '数据加载失败'];
-
             }
 
             if(!$api->store()){
-
                 return ['status' => 'error', 'message' => $api->getErrorMessage(), 'label' => $api->getErrorLabel()];
-
             }
 
             $callback = url('home/api/show', ['id' => $api->encode_id]);
@@ -85,9 +81,7 @@ class ApiController extends PublicController
             Yii::$app->response->format = Response::FORMAT_JSON;
 
             if(!$api->load($request->post())){
-
                 return ['status' => 'error', 'message' => '数据加载失败'];
-
             }
 
             if ($api->store()) {
@@ -120,17 +114,12 @@ class ApiController extends PublicController
             Yii::$app->response->format = Response::FORMAT_JSON;
 
             if(!$api->load($request->post())){
-
                 return ['status' => 'error', 'message' => '加载数据失败'];
-
             }
 
             if ($api->delete()) {
-
                 $callback = url('home/project/show', ['id' => $api->module->project->encode_id]);
-
                 return ['status' => 'success', 'message' => '删除成功', 'callback' => $callback];
-
             }
 
             return ['status' => 'error', 'message' => $api->getErrorMessage(), 'label' => $api->getErrorLabel()];

@@ -37,7 +37,7 @@ class HistoryController extends PublicController
         $params['refuse_status'] = Apply::REFUSE_STATUS;
         $params['order_by'] = 'checked_at desc';
 
-        $model  = Apply::findModel()->search($params);
+        $model = Apply::findModel()->search($params);
 
         return $this->display('apply', ['model' => $model]);
 

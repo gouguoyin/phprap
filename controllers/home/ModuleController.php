@@ -30,15 +30,11 @@ class ModuleController extends PublicController
             $model->project_id = $project->id;
 
             if(!$model->load($request->post())){
-
                 return ['status' => 'error', 'message' => '数据加载失败'];
-
             }
 
             if ($model->store()) {
-
                 return ['status' => 'success', 'message' => '添加成功'];
-
             }
 
             return ['status' => 'error', 'message' => $model->getErrorMessage(), 'label' => $model->getErrorLabel()];
@@ -57,7 +53,7 @@ class ModuleController extends PublicController
     public function actionUpdate($id)
     {
 
-        $request  = Yii::$app->request;
+        $request = Yii::$app->request;
 
         $model = UpdateModule::findModel(['encode_id' => $id]);
 
@@ -66,15 +62,11 @@ class ModuleController extends PublicController
             Yii::$app->response->format = Response::FORMAT_JSON;
 
             if(!$model->load($request->post())){
-
                 return ['status' => 'error', 'message' => '数据加载失败'];
-
             }
 
             if ($model->store()) {
-
                 return ['status' => 'success', 'message' => '编辑成功'];
-
             }
 
             return ['status' => 'error', 'message' => $model->getErrorMessage(), 'label' => $model->getErrorLabel()];
@@ -101,16 +93,12 @@ class ModuleController extends PublicController
 
             Yii::$app->response->format = Response::FORMAT_JSON;
 
-            if(!$model->load($request->post())){
-
+            if (!$model->load($request->post())) {
                 return ['status' => 'error', 'message' => '数据加载失败'];
-
             }
 
             if ($model->delete()) {
-
                 return ['status' => 'success', 'message' => '删除成功'];
-
             }
 
             return ['status' => 'error', 'message' => $model->getErrorMessage(), 'label' => $model->getErrorLabel()];

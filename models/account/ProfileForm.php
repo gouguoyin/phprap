@@ -6,7 +6,6 @@ use app\models\Account;
 
 class ProfileForm extends Account
 {
-
     public $password;
 
     /**

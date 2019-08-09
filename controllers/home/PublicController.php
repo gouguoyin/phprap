@@ -38,7 +38,6 @@ class PublicController extends Controller
         $ip = Yii::$app->request->userIP;
 
         if($ip_white_list && !in_array($ip, $ip_white_list)){
-
             return $this->error('抱歉，该IP不在可访问IP段内');
         }
 

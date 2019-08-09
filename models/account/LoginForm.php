@@ -67,7 +67,6 @@ class LoginForm extends Account
 
         // 记录日志
         $loginLog = new CreateLog();
-
         $loginLog->user_id    = $account->id;
         $loginLog->user_name  = $account->name;
         $loginLog->user_email = $account->email;

@@ -43,19 +43,14 @@ class UserController extends PublicController
             $response->format = Response::FORMAT_JSON;
 
             if(!$model->load($request->post())){
-
                 return ['status' => 'error', 'message' => '加载数据失败', 'model' => 'ProfileForm'];
-
             }
 
             if($model->store()) {
-
                 return ['status' => 'success', 'message' => '编辑成功'];
-
             }
 
             return ['status' => 'error', 'message' => $model->getErrorMessage(), 'label' => $model->getErrorLabel()];
-
         }
 
         return $this->display('profile', ['user' => $model]);
@@ -78,20 +73,14 @@ class UserController extends PublicController
             Yii::$app->response->format = Response::FORMAT_JSON;
 
             if(!$model->load($request->post())){
-
                 return ['status' => 'error', 'message' => '加载数据失败', 'model' => 'PasswordForm'];
-
             }
 
             if ($model->store()) {
-
                 return ['status' => 'success', 'message' => '密码重置成功'];
-
-            } else {
-
-                return ['status' => 'error', 'message' => $model->getErrorMessage(), 'label' => $model->getErrorLabel()];
-
             }
+
+            return ['status' => 'error', 'message' => $model->getErrorMessage(), 'label' => $model->getErrorLabel()];
 
         }
 
