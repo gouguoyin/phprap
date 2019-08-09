@@ -57,7 +57,7 @@
                             </div>
 
                             <div class="form-group">
-                                <label class="control-label">推送消息 <a data-toggle="tooltip" data-placement="right" title="" class="btn-show-tips" data-original-title="开启后会在指定时间间隔内推送申请消息，关闭后只有在刷新页面时才会推送消息">
+                                <label class="control-label">推送消息 <a data-toggle="tooltip" data-placement="right" class="btn-show-tips" data-title="开启后会在指定时间间隔内推送申请消息，关闭后只有在刷新页面时才会推送消息">
                                     <i class="fa fa-info-circle"></i>
                                 </a></label>
                                 <div class="form-group">
@@ -73,7 +73,7 @@
 
                             <div class="form-group js_pushTime hidden">
                                 <label>推送间隔(单位秒)</label>
-                                <input class="form-control" name="Config[push_time]" value="{{$config->push_time}}" placeholder="单位秒，推送时间间隔不能小于10秒" value="10" datatype="numrange" min="10" errormsg="推送时间间隔不能小于10秒">
+                                <input class="form-control" name="Config[push_time]" value="{{$config->push_time}}" placeholder="单位秒，推送时间间隔不能小于10秒" value="10" datatype="numrange" min="10" nullmsg="请输入推送间隔" errormsg="推送时间间隔不能小于10秒">
                             </div>
 
                             <button type="reset" class="btn btn-default mr-1">重置</button>
