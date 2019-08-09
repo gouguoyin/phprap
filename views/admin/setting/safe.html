@@ -98,11 +98,11 @@
                                 </a></label>
                                 <div class="form-group">
                                     <label class="radio-inline">
-                                        <input type="radio" name="Config[login_captcha]" {{if $config->login_captcha == 1}}checked{{/if}} value=1 > 开启
+                                        <input type="radio" name="Config[login_captcha]" {{if $config->login_captcha == 1}}checked{{/if}} value="1"> 开启
                                     </label>
 
                                     <label class="radio-inline">
-                                        <input type="radio" name="Config[login_captcha]" {{if $config->login_captcha == 0}}checked{{/if}} value=0> 关闭
+                                        <input type="radio" name="Config[login_captcha]" {{if $config->login_captcha == 0}}checked{{/if}} value="0"> 关闭
                                     </label>
 
                                 </div>
@@ -114,7 +114,7 @@
                                         <i class="fa fa-info-circle"></i>
                                     </a>
                                 </label>
-                                <input class="form-control" name="Config[login_keep_time]" value="{{$config->login_keep_time}}" placeholder="单位小时" value="123456" datatype="n" nullmsg="登录有效期" errormsg="必须是数字">
+                                <input class="form-control" name="Config[login_keep_time]" value="{{$config->login_keep_time}}" placeholder="单位小时" datatype="n" nullmsg="请输入登录有效期，单位小时" errormsg="必须是数字">
                             </div>
 
                             <button type="reset" class="btn btn-default mr-1">重置</button>
