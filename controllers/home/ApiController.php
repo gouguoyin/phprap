@@ -12,12 +12,10 @@ use app\models\api\DeleteApi;
 
 class ApiController extends PublicController
 {
-
     public $checkLogin = false;
 
     public function actionDebug($id)
     {
-
         $api = Api::findModel($id);
 
         $project = $api->module->project;
@@ -26,7 +24,6 @@ class ApiController extends PublicController
         $project->current_version = $api->module->version;
 
         return $this->display('debug', ['project' => $project, 'api' => $api]);
-
     }
 
     /**
@@ -35,7 +32,6 @@ class ApiController extends PublicController
      */
     public function actionCreate($module_id)
     {
-
         $request = Yii::$app->request;
 
         $module = Module::findModel(['encode_id' => $module_id]);
@@ -61,7 +57,6 @@ class ApiController extends PublicController
         }
 
         return $this->display('create', ['api' => $api, 'module' => $module]);
-
     }
 
     /**
@@ -71,7 +66,6 @@ class ApiController extends PublicController
      */
     public function actionUpdate($id)
     {
-
         $request = Yii::$app->request;
 
         $api = UpdateApi::findModel(['encode_id' => $id]);
@@ -94,7 +88,6 @@ class ApiController extends PublicController
         }
 
         return $this->display('update', ['api' => $api]);
-
     }
     
     /**
@@ -104,7 +97,6 @@ class ApiController extends PublicController
      */
     public function actionDelete($id)
     {
-
         $request = Yii::$app->request;
 
         $api = DeleteApi::findModel(['encode_id' => $id]);
@@ -127,7 +119,6 @@ class ApiController extends PublicController
         }
 
         return $this->display('delete', ['api' => $api]);
-
     }
 
     /**
@@ -137,7 +128,6 @@ class ApiController extends PublicController
      */
     public function actionShow($id, $tab = 'home')
     {
-
         $api = Api::findModel(['encode_id' => $id]);
 
         if($api->project->isPrivate()) {
@@ -167,7 +157,6 @@ class ApiController extends PublicController
         }
 
         return $this->display($view, ['project' => $api->project, 'api' => $api]);
-
     }
 
     /**
@@ -185,6 +174,5 @@ class ApiController extends PublicController
         header ("Content-Disposition: attachment;filename=$file_name");
 
         return $this->display('export', ['api' => $api]);
-
     }
 }

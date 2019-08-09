@@ -14,11 +14,9 @@ class ImportController extends PublicController
      */
     public function actionProject($id)
     {
-
         $project = Project::findModel(['encode_id' => $id]);
 
         return $this->display('project', ['project' => $project]);
-
     }
 
     /**
@@ -28,11 +26,9 @@ class ImportController extends PublicController
      */
     public function actionApi($id)
     {
-
         $api = Api::findModel(['encode_id' => $id]);
 
         return $this->display('api', ['api' => $api]);
-
     }
 
 }

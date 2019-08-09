@@ -11,7 +11,6 @@ use app\models\member\CreateMember;
 
 class ApplyController extends PublicController
 {
-
     public function actionIndex()
     {
         $params = Yii::$app->request->queryParams;
@@ -49,7 +48,6 @@ class ApplyController extends PublicController
         }
 
         return $this->display('create', ['apply' => $model, 'project' => $project]);
-
     }
 
     /**
@@ -58,7 +56,6 @@ class ApplyController extends PublicController
      */
     public function actionPass($id)
     {
-
         $request = Yii::$app->request;
 
         $model   = UpdateApply::findModel($id);
@@ -104,7 +101,6 @@ class ApplyController extends PublicController
         }
 
         return $this->display('check', ['apply' => $model]);
-
     }
 
     /**
@@ -142,7 +138,6 @@ class ApplyController extends PublicController
         }
 
         return $this->display('check', ['apply' => $model]);
-
     }
 
     /**

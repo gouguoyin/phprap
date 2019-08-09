@@ -7,7 +7,6 @@ use app\models\Config;
 
 class SettingController extends PublicController
 {
-
     /**
      * 基础设置
      *
@@ -15,7 +14,6 @@ class SettingController extends PublicController
      */
     public function actionApp()
     {
-
         $request  = Yii::$app->request;
         $response = Yii::$app->response;
         $config   = Config::findOne(['type' => 'app']);
@@ -63,7 +61,6 @@ class SettingController extends PublicController
         }
 
         return $this->display('email', ['config' => $config]);
-
     }
 
     /**
@@ -72,7 +69,6 @@ class SettingController extends PublicController
      */
     public function actionSafe()
     {
-
         $request  = Yii::$app->request;
         $response = Yii::$app->response;
         $config   = Config::findOne(['type' => 'safe']);

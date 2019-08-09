@@ -12,7 +12,6 @@ use app\models\account\RegisterForm;
 
 class AccountController extends PublicController
 {
-
     public $checkLogin = false;
 
     /**
@@ -21,7 +20,6 @@ class AccountController extends PublicController
      */
     public function actionRegister()
     {
-
         $request  = Yii::$app->request;
 
         if($request->isPost){
@@ -45,7 +43,6 @@ class AccountController extends PublicController
         $config = Config::findOne(['type' => 'safe']);
 
         return $this->display('register', ['config' => $config]);
-
     }
 
     /**
@@ -54,7 +51,6 @@ class AccountController extends PublicController
      */
     public function actionLogin()
     {
-
         $request  = Yii::$app->request;
 
         // 已登录用户直接挑转到项目选择页
@@ -84,7 +80,6 @@ class AccountController extends PublicController
         $config = Config::findOne(['type' => 'safe']);
 
         return $this->render('login', ['callback' => $request->get('callback', ''), 'config' => $config]);
-
     }
 
     /**

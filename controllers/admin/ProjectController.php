@@ -9,21 +9,18 @@ use app\models\project\RecoverProject;
 
 class ProjectController extends PublicController
 {
-
     /**
      * 搜索项目
      * @return string
      */
     public function actionIndex()
     {
-
         $params = Yii::$app->request->queryParams;
         $params['status'] = Project::ACTIVE_STATUS;
 
         $model = Project::findModel()->search($params);
 
         return $this->display('index', ['project' => $model]);
-
     }
 
     /**
@@ -33,7 +30,6 @@ class ProjectController extends PublicController
      */
     public function actionRecycle()
     {
-
         $params = Yii::$app->request->queryParams;
         $params['status']  = Project::DELETED_STATUS;
         $params['orderBy'] = 'updated_at desc';
@@ -41,7 +37,6 @@ class ProjectController extends PublicController
         $model = Project::findModel()->search($params);
 
         return $this->display('recycle', ['project' => $model]);
-
     }
 
     /**
@@ -51,7 +46,6 @@ class ProjectController extends PublicController
      */
     public function actionDelete($id)
     {
-
         $request = Yii::$app->request;
 
         $model = DeleteProject::findModel(['encode_id' => $id]);
@@ -77,7 +71,6 @@ class ProjectController extends PublicController
         }
 
         return $this->display('delete', ['project' => $model]);
-
     }
 
     /**
@@ -87,7 +80,6 @@ class ProjectController extends PublicController
      */
     public function actionRecover($id)
     {
-
         $request = Yii::$app->request;
 
         $model = RecoverProject::findModel(['encode_id' => $id]);
@@ -109,7 +101,6 @@ class ProjectController extends PublicController
         }
 
         return $this->display('recover', ['project' => $model]);
-
     }
 
 }

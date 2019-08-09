@@ -7,12 +7,8 @@ use app\models\Api;
 use app\models\Project;
 use app\models\template\UpdateTemplate;
 
-/**
- * Site controller
- */
 class TemplateController extends PublicController
 {
-
     /**
      * 更新模板
      * @param $id
@@ -20,7 +16,6 @@ class TemplateController extends PublicController
      */
     public function actionForm($project_id)
     {
-
         $request = Yii::$app->request;
 
         $project = Project::findModel(['encode_id' => $project_id]);
@@ -48,7 +43,6 @@ class TemplateController extends PublicController
         }
 
         return $this->display('form', ['project' => $project, 'template' => $template, 'api' => $api]);
-
     }
 
 }

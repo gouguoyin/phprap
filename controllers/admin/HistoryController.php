@@ -6,7 +6,6 @@ use app\models\LoginLog;
 
 class HistoryController extends PublicController
 {
-
     /**
      * 登录历史
      * @param $project_id
@@ -18,5 +17,4 @@ class HistoryController extends PublicController
 
         return $this->display('login', ['model' => $model]);
     }
-
 }
