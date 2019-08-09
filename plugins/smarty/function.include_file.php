@@ -1,5 +1,10 @@
 <?php
-
+/**
+ * 引入文件
+ * @param $params
+ * @param $smarty
+ * @return mixed
+ */
 function smarty_function_include_file($params, &$smarty)
 {
 
