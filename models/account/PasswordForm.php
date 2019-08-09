@@ -48,8 +48,7 @@ class PasswordForm extends Account
         $account->generateAuthKey();
         $account->updated_at = date('Y-m-d H:i:s');
         
-        if(!$account->save())
-        {
+        if(!$account->save()) {
             $this->addError($account->getErrorLabel(), $account->getErrorMessage());
             $transaction->rollBack();
             return false;
@@ -58,7 +57,7 @@ class PasswordForm extends Account
         // 事务提交
         $transaction->commit();
 
-        // 重新登录
+        // 前台用户重新登录
         if($this->scenario == 'home'){
             Yii::$app->user->logout();
         }

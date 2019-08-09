@@ -73,13 +73,11 @@ class RegisterForm extends Account
         $register_email_suffix = '@' . explode('@', $this->email)[1];
 
         if($email_white_list && !in_array($register_email_suffix, $email_white_list)){
-
             $this->addError($attribute, '该邮箱后缀不在可注册名单中');
             return false;
         }
 
         if($email_black_list && in_array($register_email_suffix, $email_black_list)){
-
             $this->addError($attribute, '该邮箱后缀不允许注册');
             return false;
         }
