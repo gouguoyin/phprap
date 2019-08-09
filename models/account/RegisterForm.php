@@ -70,7 +70,7 @@ class RegisterForm extends Account
         $email_white_list = array_filter(explode("\r\n", trim($config->email_white_list)));
         $email_black_list = array_filter(explode("\r\n", trim($config->email_black_list)));
 
-        $register_email_suffix = '@' . explode('@', $this->email)[1];
+        $register_email_suffix = stristr($this->email,"@");
 
         if($email_white_list && !in_array($register_email_suffix, $email_white_list)){
             $this->addError($attribute, '该邮箱后缀不在可注册名单中');
