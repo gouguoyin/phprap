@@ -27,9 +27,7 @@ class SettingController extends PublicController
             $config->content = json_encode($request->post('Config'), JSON_UNESCAPED_UNICODE);
 
             if ($config->save()) {
-
                 return ['status' => 'success', 'message' => '保存成功'];
-
             }
 
             return ['status' => 'error', 'message' => $config->getErrorMessage(), 'label' => $config->getErrorLabel()];
@@ -57,9 +55,7 @@ class SettingController extends PublicController
             $config->content = json_encode($request->post('Config'), JSON_UNESCAPED_UNICODE);
 
             if ($config->save()) {
-
                 return ['status' => 'success', 'message' => '保存成功'];
-
             }
 
             return ['status' => 'error', 'message' => $config->getErrorMessage(), 'label' => $config->getErrorLabel()];
@@ -101,7 +97,6 @@ class SettingController extends PublicController
             $email_white_list = explode('\r\n', trim($data['email_white_list']));
             $email_black_list = explode('\r\n', trim($data['email_black_list']));
 
-
             $conflict_list = array_intersect($email_white_list, $email_black_list);
 
             if(array_filter($conflict_list)){
@@ -111,9 +106,7 @@ class SettingController extends PublicController
             $config->content = json_encode($data, JSON_UNESCAPED_UNICODE);
 
             if ($config->save()) {
-
                 return ['status' => 'success', 'message' => '保存成功'];
-
             }
 
             return ['status' => 'error', 'message' => $config->getErrorMessage(), 'label' => $config->getErrorLabel()];

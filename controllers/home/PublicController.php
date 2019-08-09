@@ -30,7 +30,7 @@ class PublicController extends Controller
             return $this->redirect(['home/install/step1'])->send();
         }
 
-        $config = Config::findOne(['type' => 'safe'])->getField();
+        $config = Config::findOne(['type' => 'safe']);
 
         $ip_white_list = array_filter(explode("\r\n", trim($config->ip_white_list)));
         $ip_black_list = array_filter(explode("\r\n", trim($config->ip_black_list)));
@@ -38,7 +38,6 @@ class PublicController extends Controller
         $ip = Yii::$app->request->userIP;
 
         if($ip_white_list && !in_array($ip, $ip_white_list)){
-
             return $this->error('抱歉，该IP不在可访问IP段内');
         }
 

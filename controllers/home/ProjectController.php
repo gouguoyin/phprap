@@ -45,7 +45,7 @@ class ProjectController extends PublicController
         $params['status'] = Project::ACTIVE_STATUS;
         $params['type']   = Project::PUBLIC_TYPE;
 
-        $model  = Project::findModel()->search($params);
+        $model = Project::findModel()->search($params);
 
         return $this->display('search', ['project' => $model]);
 
@@ -75,9 +75,7 @@ class ProjectController extends PublicController
             }
 
             if($model->store()) {
-
                 return ['status' => 'success', 'message' => '添加成功'];
-
             }
 
             return ['status' => 'error', 'message' => $model->getErrorMessage(), 'label' => $model->getErrorLabel()];
@@ -109,14 +107,11 @@ class ProjectController extends PublicController
             Yii::$app->response->format = Response::FORMAT_JSON;
 
             if(!$model->load($request->post())) {
-
                 return ['status' => 'error', 'message' => '加载数据失败'];
             }
 
             if($model->store()) {
-
                 return ['status' => 'success', 'message' => '编辑成功'];
-
             }
 
             return ['status' => 'error', 'message' => $model->getErrorMessage(), 'label' => $model->getErrorLabel()];
@@ -161,8 +156,7 @@ class ProjectController extends PublicController
 
             case 'template':
 
-                if(!$project->hasRule('template', 'look'))
-                {
+                if(!$project->hasRule('template', 'look')) {
                     return $this->error('抱歉，您无权查看');
                 }
 
@@ -180,8 +174,7 @@ class ProjectController extends PublicController
 
             case 'member':
 
-                if(!$project->hasRule('member', 'look'))
-                {
+                if(!$project->hasRule('member', 'look')) {
                     return $this->error('抱歉，您无权查看');
                 }
 
@@ -211,16 +204,12 @@ class ProjectController extends PublicController
 
             Yii::$app->response->format = Response::FORMAT_JSON;
 
-            if(!$model->load($request->post())) {
-
+            if (!$model->load($request->post())) {
                 return ['status' => 'error', 'message' => '加载数据失败'];
-
             }
 
             if ($model->transfer()) {
-
                 return ['status' => 'success', 'message' => '转让成功'];
-
             }
 
             return ['status' => 'error', 'message' => $model->getErrorMessage(), 'label' => $model->getErrorLabel()];
@@ -251,7 +240,6 @@ class ProjectController extends PublicController
      */
     public function actionDelete($id)
     {
-
         $request = Yii::$app->request;
 
         $model = DeleteProject::findModel(['encode_id' => $id]);
@@ -261,15 +249,11 @@ class ProjectController extends PublicController
             Yii::$app->response->format = Response::FORMAT_JSON;
 
             if(!$model->load($request->post())) {
-
                 return ['status' => 'error', 'message' => '数据加载失败'];
-
             }
 
             if($model->delete()) {
-
                 return ['status' => 'success', 'message' => '删除成功'];
-
             }
 
             return ['status' => 'error', 'message' => $model->getErrorMessage(), 'label' => $model->getErrorLabel()];
@@ -299,15 +283,11 @@ class ProjectController extends PublicController
             Yii::$app->response->format = Response::FORMAT_JSON;
 
             if(!$model->load($request->post())) {
-
                 return ['status' => 'error', 'message' => '数据加载失败'];
-
             }
 
             if($model->quit()) {
-
                 return ['status' => 'success', 'message' => '退出成功'];
-
             }
 
             return ['status' => 'error', 'message' => $model->getErrorMessage(), 'label' => $model->getErrorLabel()];

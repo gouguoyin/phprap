@@ -33,15 +33,11 @@ class MemberController extends PublicController
             $model->join_type  = Member::PASSIVE_JOIN_TYPE;
 
             if(!$model->load($request->post())){
-
                 return ['status' => 'error', 'message' => '数据加载失败'];
-
             }
 
             if ($model->store()) {
-
                 return ['status' => 'success', 'message' => '添加成功'];
-
             }
 
             return ['status' => 'error', 'message' => $model->getErrorMessage(), 'label' => $model->getErrorLabel()];
@@ -69,15 +65,11 @@ class MemberController extends PublicController
             Yii::$app->response->format = Response::FORMAT_JSON;
 
             if(!$model->load($request->post())){
-
                 return ['status' => 'error', 'message' => '数据加载失败'];
-
             }
 
             if ($model->store()) {
-
                 return ['status' => 'success', 'message' => '编辑成功'];
-
             }
 
             return ['status' => 'error', 'message' => $model->getErrorMessage(), 'label' => $model->getErrorLabel()];
@@ -128,16 +120,12 @@ class MemberController extends PublicController
 
             Yii::$app->response->format = Response::FORMAT_JSON;
 
-            if(!$model->load($request->post())){
-
+            if (!$model->load($request->post())) {
                 return ['status' => 'error', 'message' => '数据加载失败'];
-
             }
 
             if ($model->remove()) {
-
                 return ['status' => 'success', 'message' => '移出成功'];
-
             }
 
             return ['status' => 'error', 'message' => $model->getErrorMessage(), 'label' => $model->getErrorLabel()];

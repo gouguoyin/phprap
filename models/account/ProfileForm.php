@@ -6,7 +6,6 @@ use app\models\Account;
 
 class ProfileForm extends Account
 {
-
     public $password;
 
     /**
@@ -70,7 +69,6 @@ class ProfileForm extends Account
         $account = Account::findModel($this->id);
 
         if(!$account->id || !$account->validatePassword($this->password)) {
-
             $this->addError($attribute, '登录密码验证失败');
             return false;
         }
@@ -78,7 +76,6 @@ class ProfileForm extends Account
 
     public function store()
     {
-
         if (!$this->validate()) {
             return false;
         }

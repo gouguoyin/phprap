@@ -34,17 +34,13 @@ class TemplateController extends PublicController
             Yii::$app->response->format = Response::FORMAT_JSON;
 
             if(!$template->load($request->post())){
-
                 return ['status' => 'error', 'message' => '加载数据失败'];
-
             }
 
             $template->project_id = $project->id;
 
             if ($template->store()) {
-
                 return ['status' => 'success', 'message' => '保存成功'];
-
             }
 
             return ['status' => 'error', 'message' => $template->getErrorMessage(), 'label' => $template->getErrorLabel()];

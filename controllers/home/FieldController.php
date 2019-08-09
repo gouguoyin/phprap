@@ -25,9 +25,7 @@ class FieldController extends PublicController
             Yii::$app->response->format = Response::FORMAT_JSON;
 
             if(!$api->load($request->post())){
-
                 return ['status' => 'error', 'message' => '数据加载失败'];
-
             }
 
             if ($api->store()) {
@@ -60,9 +58,7 @@ class FieldController extends PublicController
             Yii::$app->response->format = Response::FORMAT_JSON;
 
             if(!$api->load($request->post())){
-
                 return ['status' => 'error', 'message' => '数据加载失败'];
-
             }
 
             if ($api->store()) {

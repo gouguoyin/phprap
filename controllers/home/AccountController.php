@@ -31,24 +31,18 @@ class AccountController extends PublicController
             $model = new RegisterForm();
 
             if(!$model->load($request->post())){
-
                 return ['status' => 'error', 'message' => '加载数据失败'];
-
             }
 
             if ($model->register()) {
-
                 return ['status' => 'success', 'message' => '注册成功', 'callback' => Url::toRoute(['project/select'])];
-
-            } else {
-
-                return ['status' => 'error', 'message' => $model->getErrorMessage(), 'label' => $model->getErrorLabel()];
-
             }
+
+            return ['status' => 'error', 'message' => $model->getErrorMessage(), 'label' => $model->getErrorLabel()];
 
         }
 
-        $config = Config::findOne(['type' => 'safe'])->getField();
+        $config = Config::findOne(['type' => 'safe']);
 
         return $this->display('register', ['config' => $config]);
 
@@ -65,7 +59,6 @@ class AccountController extends PublicController
 
         // 已登录用户直接挑转到项目选择页
         if(!Yii::$app->user->isGuest){
-
             return $this->redirect(['home/project/select']);
         }
 
@@ -76,26 +69,19 @@ class AccountController extends PublicController
             $model = new LoginForm();
 
             if(!$model->load($request->post())){
-
                 return ['status' => 'error', 'message' => '加载数据失败'];
-
             }
 
             if ($model->login()) {
-
                 $callback = $model->callback ? $model->callback : Url::toRoute(['home/project/select']);
-
                 return ['status' => 'success', 'message' => '登录成功', 'callback' => $callback];
-
-            } else {
-
-                return ['status' => 'error', 'message' => $model->getErrorMessage(), 'label' => $model->getErrorLabel()];
-
             }
+
+            return ['status' => 'error', 'message' => $model->getErrorMessage(), 'label' => $model->getErrorLabel()];
 
         }
 
-        $config = Config::findOne(['type' => 'safe'])->getField();
+        $config = Config::findOne(['type' => 'safe']);
 
         return $this->render('login', ['callback' => $request->get('callback', ''), 'config' => $config]);
 
@@ -107,11 +93,9 @@ class AccountController extends PublicController
      */
     public function actionLogout()
     {
-
         if (Yii::$app->user->isGuest || Yii::$app->user->logout()) {
             return $this->redirect(['account/login']);
         }
-
     }
 
     /**
@@ -120,7 +104,6 @@ class AccountController extends PublicController
      */
     public function actionHome()
     {
-
         if(Yii::$app->user->isGuest) {
             return $this->redirect(['home/account/login','callback' => Url::current()]);
         }
@@ -134,7 +117,6 @@ class AccountController extends PublicController
      */
     public function actionProfile()
     {
-
         if(Yii::$app->user->isGuest) {
             return $this->redirect(['home/account/login','callback' => Url::current()]);
         }
@@ -150,25 +132,17 @@ class AccountController extends PublicController
             Yii::$app->response->format = Response::FORMAT_JSON;
 
             if(!$model->load($request->post())){
-
                 return ['status' => 'error', 'message' => '加载数据失败', 'model' => 'ProfileForm'];
-
             }
 
             if ($model->store()) {
-
                 return ['status' => 'success', 'message' => '修改成功'];
-
-            } else {
-
-                return ['status' => 'error', 'message' => $model->getErrorMessage(), 'label' => $model->getErrorLabel()];
-
             }
 
+            return ['status' => 'error', 'message' => $model->getErrorMessage(), 'label' => $model->getErrorLabel()];
         }
 
         return $this->display('profile');
-
     }
 
     /**
@@ -177,7 +151,6 @@ class AccountController extends PublicController
      */
     public function actionPassword()
     {
-
         if(Yii::$app->user->isGuest) {
             return $this->redirect(['home/account/login','callback' => Url::current()]);
         }
@@ -193,20 +166,14 @@ class AccountController extends PublicController
             $model->scenario = 'home';
 
             if(!$model->load($request->post())){
-
                 return ['status' => 'error', 'message' => '加载数据失败', 'model' => 'PasswordForm'];
-
             }
 
             if ($model->store()) {
-
                 return ['status' => 'success', 'message' => '密码修改成功，请重新登录'];
-
-            } else {
-
-                return ['status' => 'error', 'message' => $model->getErrorMessage(), 'label' => $model->getErrorLabel()];
-
             }
+
+            return ['status' => 'error', 'message' => $model->getErrorMessage(), 'label' => $model->getErrorLabel()];
 
         }
 

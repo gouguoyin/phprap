@@ -37,7 +37,7 @@
                                         <i class="fa fa-info-circle"></i>
                                     </a>
                                 </label>
-                                <textarea class="form-control" name="Config[ip_white_list]" placeholder="IP白名单，非必填，每行一个" rows="3" ignore="ignore" datatype="*" >{{$config->getField('ip_white_list')}}</textarea>
+                                <textarea class="form-control" name="Config[ip_white_list]" placeholder="IP白名单，非必填，每行一个" rows="3" ignore="ignore" datatype="*" >{{$config->ip_white_list}}</textarea>
                             </div>
 
                             <div class="form-group">
@@ -46,7 +46,7 @@
                                         <i class="fa fa-info-circle"></i>
                                     </a>
                                 </label>
-                                <textarea class="form-control" name="Config[ip_black_list]" placeholder="IP黑名单，非必填，每行一个" rows="3" ignore="ignore" datatype="*" >{{$config->getField('ip_black_list')}}</textarea>
+                                <textarea class="form-control" name="Config[ip_black_list]" placeholder="IP黑名单，非必填，每行一个" rows="3" ignore="ignore" datatype="*" >{{$config->ip_black_list}}</textarea>
                             </div>
 
                             <div class="form-group">
@@ -55,7 +55,7 @@
                                         <i class="fa fa-info-circle"></i>
                                     </a>
                                 </label>
-                                <textarea class="form-control" name="Config[email_white_list]" placeholder="邮箱后缀，如@163.com，非必填，每行一个" rows="3" ignore="ignore" datatype="*" >{{$config->getField('email_white_list')}}</textarea>
+                                <textarea class="form-control" name="Config[email_white_list]" placeholder="邮箱后缀，如@163.com，非必填，每行一个" rows="3" ignore="ignore" datatype="*" >{{$config->email_white_list}}</textarea>
                             </div>
 
                             <div class="form-group">
@@ -64,7 +64,7 @@
                                         <i class="fa fa-info-circle"></i>
                                     </a>
                                 </label>
-                                <textarea class="form-control" name="Config[email_black_list]" placeholder="邮箱后缀，如@163.com，非必填，每行一个" rows="3" ignore="ignore" datatype="*" >{{$config->getField('email_black_list')}}</textarea>
+                                <textarea class="form-control" name="Config[email_black_list]" placeholder="邮箱后缀，如@163.com，非必填，每行一个" rows="3" ignore="ignore" datatype="*" >{{$config->email_black_list}}</textarea>
                             </div>
 
                             <div class="form-group">
@@ -73,7 +73,7 @@
                                     <i class="fa fa-info-circle"></i>
                                     </a>
                                 </label>
-                                <input class="form-control" name="Config[register_token]" value="{{$config->getField('register_token')}}" placeholder="非必填，4-10个字符，区分大小写" value="123456" ignore="ignore" datatype="*4-10" nullmsg="请输入注册口令！" errormsg="至少6位">
+                                <input class="form-control" name="Config[register_token]" value="{{$config->register_token}}" placeholder="非必填，4-10个字符，区分大小写" value="123456" ignore="ignore" datatype="*4-10" nullmsg="请输入注册口令！" errormsg="至少6位">
                             </div>
 
                             <div class="form-group">
@@ -82,11 +82,11 @@
                                 </a></label>
                                 <div class="form-group">
                                     <label class="radio-inline">
-                                        <input type="radio" name="Config[register_captcha]" {{if $config->getField('register_captcha') == 1}}checked{{/if}} value=1 > 开启
+                                        <input type="radio" name="Config[register_captcha]" {{if $config->register_captcha == 1}}checked{{/if}} value=1 > 开启
                                     </label>
 
                                     <label class="radio-inline">
-                                        <input type="radio" name="Config[register_captcha]" {{if $config->getField('register_captcha') == 0}}checked{{/if}} value=0> 关闭
+                                        <input type="radio" name="Config[register_captcha]" {{if $config->register_captcha == 0}}checked{{/if}} value=0> 关闭
                                     </label>
 
                                 </div>
@@ -98,11 +98,11 @@
                                 </a></label>
                                 <div class="form-group">
                                     <label class="radio-inline">
-                                        <input type="radio" name="Config[login_captcha]" {{if $config->getField('login_captcha') == 1}}checked{{/if}} value=1 > 开启
+                                        <input type="radio" name="Config[login_captcha]" {{if $config->login_captcha == 1}}checked{{/if}} value="1"> 开启
                                     </label>
 
                                     <label class="radio-inline">
-                                        <input type="radio" name="Config[login_captcha]" {{if $config->getField('login_captcha') == 0}}checked{{/if}} value=0> 关闭
+                                        <input type="radio" name="Config[login_captcha]" {{if $config->login_captcha == 0}}checked{{/if}} value="0"> 关闭
                                     </label>
 
                                 </div>
@@ -114,7 +114,7 @@
                                         <i class="fa fa-info-circle"></i>
                                     </a>
                                 </label>
-                                <input class="form-control" name="Config[login_keep_time]" value="{{$config->getField('login_keep_time')}}" placeholder="单位小时" value="123456" datatype="n" nullmsg="登录有效期" errormsg="必须是数字">
+                                <input class="form-control" name="Config[login_keep_time]" value="{{$config->login_keep_time}}" placeholder="单位小时" datatype="n" nullmsg="请输入登录有效期，单位小时" errormsg="必须是数字">
                             </div>
 
                             <button type="reset" class="btn btn-default mr-1">重置</button>
@@ -155,14 +155,16 @@
         }
     }
 
-    pushTimeShow();
-
-    // 选择不时时推送时
-    $("input[name='Config[is_push]']").click(function(){
-        pushTimeShow();
-    });
-
     $(function () {
+        // 初始化
+        pushTimeShow();
+
+        // 选择不时时推送时
+        $("input[name='Config[is_push]']").click(function(){
+            pushTimeShow();
+        });
+
+        // 表单验证
         $("form").validateForm();
     });
 

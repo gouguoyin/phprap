@@ -58,7 +58,8 @@ if (!function_exists('config')){
         }else{
             $field = $name;
         }
-        return \app\models\Config::findModel(['type' => $type])->getField($field);
+
+        return \app\models\Config::findModel(['type' => $type])->$field;
     }
 }
 

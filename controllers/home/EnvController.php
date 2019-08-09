@@ -31,15 +31,11 @@ class EnvController extends PublicController
             Yii::$app->response->format = Response::FORMAT_JSON;
 
             if(!$model->load($request->post())){
-
                 return ['status' => 'error', 'message' => '加载数据失败', 'model' => 'CreateEnv'];
-
             }
 
             if ($model->store()) {
-
                 return ['status' => 'success', 'message' => '创建成功'];
-
             }
 
             return ['status' => 'error', 'message' => $model->getErrorMessage(), 'label' => $model->getErrorLabel()];
@@ -67,15 +63,11 @@ class EnvController extends PublicController
             Yii::$app->response->format = Response::FORMAT_JSON;
 
             if(!$model->load($request->post())){
-
                 return ['status' => 'error', 'message' => '加载数据失败', 'model' => 'UpdateEnv'];
-
             }
 
             if ($model->store()) {
-
                 return ['status' => 'success', 'message' => '编辑成功'];
-
             }
 
             return ['status' => 'error', 'message' => $model->getErrorMessage(), 'label' => $model->getErrorLabel()];
@@ -103,15 +95,11 @@ class EnvController extends PublicController
             Yii::$app->response->format = Response::FORMAT_JSON;
 
             if(!$model->load($request->post())) {
-
                 return ['status' => 'error', 'message' => '数据加载失败', 'model' => 'DeleteEnv'];
-
             }
 
             if ($model->delete()) {
-
                 return ['status' => 'success', 'message' => '删除成功'];
-
             }
 
             return ['status' => 'error', 'message' => $model->getErrorMessage(), 'label' => $model->getErrorLabel()];
