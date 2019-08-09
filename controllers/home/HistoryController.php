@@ -7,7 +7,6 @@ use app\models\LoginLog;
 
 class HistoryController extends PublicController
 {
-
     /**
      * 登录历史
      * @param $project_id
@@ -29,7 +28,6 @@ class HistoryController extends PublicController
      */
     public function actionApply()
     {
-
         $params = Yii::$app->request->queryParams;
 
         $params['creater_id'] = Yii::$app->user->identity->id;
@@ -40,7 +38,6 @@ class HistoryController extends PublicController
         $model = Apply::findModel()->search($params);
 
         return $this->display('apply', ['model' => $model]);
-
     }
 
 }

@@ -9,15 +9,12 @@ use app\models\Model;
 
 class PublicController extends Controller
 {
-
-    public $layout = false;
-
+    public $layout       = false;
     public $beforeAction = true;
-    public $checkLogin = true;
+    public $checkLogin   = true;
 
     public function beforeAction($action)
     {
-
         if($this->beforeAction){
             if(!$this->isInstalled()){
                 return $this->redirect(['home/install/step1'])->send();
@@ -33,7 +30,6 @@ class PublicController extends Controller
         }
 
         return true;
-
     }
 
     /** 展示模板
@@ -57,7 +53,6 @@ class PublicController extends Controller
         $params['installed_at'] = Model::findModel()->getInstallTime();
 
         exit($this->render($view . '.html', $params));
-
     }
 
     /**
@@ -70,11 +65,9 @@ class PublicController extends Controller
      */
     public function success($message, $jumpSeconds = 1, $jumpUrl = '', $model = null)
     {
-
         $jumpUrl = $jumpUrl ? Url::toRoute($jumpUrl) : \Yii::$app->request->referrer;
 
         return $this->display('/home/public/message', ['flag' => 'success', 'message' => $message, 'time' => $jumpSeconds, 'url' => $jumpUrl, 'model' => $model]);
-
     }
 
     /**
@@ -86,11 +79,9 @@ class PublicController extends Controller
      */
     public function error($message, $jumpSeconds = 3, $jumpUrl = '')
     {
-
         $jumpUrl = $jumpUrl ? Url::toRoute($jumpUrl) : \Yii::$app->request->referrer;
 
         return $this->display('/home/public/message', ['flag' => 'error', 'message' => $message, 'time' => $jumpSeconds, 'url' => $jumpUrl]);
-
     }
 
     /**

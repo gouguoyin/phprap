@@ -10,7 +10,6 @@ use app\models\env\UpdateEnv;
 
 class EnvController extends PublicController
 {
-
     /**
      * 创建环境
      * @param $project_id
@@ -18,7 +17,6 @@ class EnvController extends PublicController
      */
     public function actionCreate($project_id)
     {
-
         $request = Yii::$app->request;
 
         $project = Project::findModel(['encode_id' => $project_id]);
@@ -30,7 +28,7 @@ class EnvController extends PublicController
 
             Yii::$app->response->format = Response::FORMAT_JSON;
 
-            if(!$model->load($request->post())){
+            if (!$model->load($request->post())) {
                 return ['status' => 'error', 'message' => '加载数据失败', 'model' => 'CreateEnv'];
             }
 
@@ -43,7 +41,6 @@ class EnvController extends PublicController
         }
 
         return $this->display('create', ['env' => $model->getNextEnv()]);
-
     }
 
     /**
@@ -53,7 +50,6 @@ class EnvController extends PublicController
      */
     public function actionUpdate($id)
     {
-
         $request = Yii::$app->request;
 
         $model   = UpdateEnv::findModel(['encode_id' => $id]);
@@ -75,7 +71,6 @@ class EnvController extends PublicController
         }
 
         return $this->display('update', ['env' => $model]);
-
     }
 
     /**
@@ -85,7 +80,6 @@ class EnvController extends PublicController
      */
     public function actionDelete($id)
     {
-
         $request = Yii::$app->request;
 
         $model   = DeleteEnv::findModel(['encode_id' => $id]);
@@ -107,7 +101,6 @@ class EnvController extends PublicController
         }
 
         return $this->display('delete', ['env' => $model]);
-
     }
 
 }

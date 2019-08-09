@@ -10,7 +10,6 @@ use app\models\Config;
 
 class PublicController extends Controller
 {
-
     /**
      * 是否启用布局
      * @var bool
@@ -25,7 +24,6 @@ class PublicController extends Controller
 
     public function beforeAction($action)
     {
-
         if(!$this->isInstalled()){
             return $this->redirect(['home/install/step1'])->send();
         }
@@ -50,7 +48,6 @@ class PublicController extends Controller
         }
 
         return true;
-
     }
 
     /** 展示模板
@@ -60,7 +57,6 @@ class PublicController extends Controller
      */
     public function display($view, $params = [])
     {
-        
         $account = Yii::$app->user->identity;
 
         if($account->id){
@@ -86,7 +82,6 @@ class PublicController extends Controller
      */
     public function success($message, $jumpSeconds = 1, $jumpUrl = '')
     {
-
         $jumpUrl = $jumpUrl ? Url::toRoute($jumpUrl) : \Yii::$app->request->referrer;
 
         return $this->display('/home/public/message', ['flag' => 'success', 'message' => $message, 'time' => $jumpSeconds, 'url' => $jumpUrl]);
@@ -101,7 +96,6 @@ class PublicController extends Controller
      */
     public function error($message, $jumpSeconds = 3, $jumpUrl = '')
     {
-
         $jumpUrl = $jumpUrl ? Url::toRoute($jumpUrl) : \Yii::$app->request->referrer;
 
         return $this->display('/home/public/message', ['flag' => 'error', 'message' => $message, 'time' => $jumpSeconds, 'url' => $jumpUrl]);

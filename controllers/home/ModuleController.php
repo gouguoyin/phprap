@@ -16,7 +16,6 @@ class ModuleController extends PublicController
      */
     public function actionCreate($project_id)
     {
-
         $request = Yii::$app->request;
 
         $project = Project::findModel(['encode_id' => $project_id]);
@@ -42,7 +41,6 @@ class ModuleController extends PublicController
         }
 
         return $this->display('create');
-
     }
 
     /**
@@ -52,7 +50,6 @@ class ModuleController extends PublicController
      */
     public function actionUpdate($id)
     {
-
         $request = Yii::$app->request;
 
         $model = UpdateModule::findModel(['encode_id' => $id]);
@@ -74,7 +71,6 @@ class ModuleController extends PublicController
         }
 
         return $this->display('update', ['module' => $model]);
-
     }
 
     /**
@@ -84,7 +80,6 @@ class ModuleController extends PublicController
      */
     public function actionDelete($id)
     {
-
         $request = Yii::$app->request;
 
         $model  = DeleteModule::findModel(['encode_id' => $id]);
@@ -106,7 +101,6 @@ class ModuleController extends PublicController
         }
 
         return $this->display('delete', ['module' => $model]);
-
     }
 
 

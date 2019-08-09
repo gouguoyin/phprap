@@ -7,7 +7,6 @@ use app\models\api\UpdateField;
 
 class FieldController extends PublicController
 {
-
     /**
      * 更新表单
      * @param $id
@@ -15,7 +14,6 @@ class FieldController extends PublicController
      */
     public function actionForm($api_id)
     {
-
         $request = Yii::$app->request;
 
         $api = UpdateField::findModel(['encode_id' => $api_id]);
@@ -38,7 +36,6 @@ class FieldController extends PublicController
         }
 
         return $this->display('/home/field/form', ['api' => $api, 'project' => $api->project]);
-
     }
 
     /**
@@ -48,7 +45,6 @@ class FieldController extends PublicController
      */
     public function actionJson($api_id)
     {
-
         $request = Yii::$app->request;
 
         $api = UpdateField::findModel(['encode_id' => $api_id]);
@@ -71,7 +67,6 @@ class FieldController extends PublicController
         }
 
         return $this->display('/home/field/json', ['api' => $api, 'project' => $api->project]);
-        
     }
 
 

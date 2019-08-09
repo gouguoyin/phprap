@@ -5,7 +5,6 @@ use Yii;
 
 class SiteController extends PublicController
 {
-
     /**
      * 前台主页
      * @return \yii\web\Response

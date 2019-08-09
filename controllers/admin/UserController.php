@@ -9,21 +9,18 @@ use app\models\account\ProfileForm;
 
 class UserController extends PublicController
 {
-
     /**
      * 成员列表
      * @return string
      */
     public function actionIndex()
     {
-
         $params = Yii::$app->request->queryParams;
         $params['type'] = Account::USER_TYPE;
 
         $model = Account::findModel()->search($params);
 
         return $this->display('index', ['user' => $model]);
-
     }
 
     /**
@@ -32,7 +29,6 @@ class UserController extends PublicController
      */
     public function actionProfile($id)
     {
-
         $request  = Yii::$app->request;
         $response = Yii::$app->response;
 
@@ -54,7 +50,6 @@ class UserController extends PublicController
         }
 
         return $this->display('profile', ['user' => $model]);
-
     }
 
     /**
@@ -63,7 +58,6 @@ class UserController extends PublicController
      */
     public function actionPassword($id)
     {
-
         $request = Yii::$app->request;
 
         $model = PasswordForm::findModel($id);
@@ -72,7 +66,7 @@ class UserController extends PublicController
 
             Yii::$app->response->format = Response::FORMAT_JSON;
 
-            if(!$model->load($request->post())){
+            if (!$model->load($request->post())) {
                 return ['status' => 'error', 'message' => '加载数据失败', 'model' => 'PasswordForm'];
             }
 
@@ -81,7 +75,6 @@ class UserController extends PublicController
             }
 
             return ['status' => 'error', 'message' => $model->getErrorMessage(), 'label' => $model->getErrorLabel()];
-
         }
 
         return $this->display('password', ['user' => $model]);

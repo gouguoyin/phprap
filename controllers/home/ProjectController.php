@@ -15,7 +15,6 @@ use app\models\project\DeleteProject;
 
 class ProjectController extends PublicController
 {
-
     public $checkLogin = false;
 
     /**
@@ -24,13 +23,11 @@ class ProjectController extends PublicController
      */
     public function actionSelect()
     {
-
         if(Yii::$app->user->isGuest) {
             return $this->redirect(['home/account/login','callback' => Url::current()]);
         }
 
         return $this->display('select');
-
     }
 
     /**
@@ -39,7 +36,6 @@ class ProjectController extends PublicController
      */
     public function actionSearch()
     {
-
         $params = Yii::$app->request->queryParams;
 
         $params['status'] = Project::ACTIVE_STATUS;
@@ -48,7 +44,6 @@ class ProjectController extends PublicController
         $model = Project::findModel()->search($params);
 
         return $this->display('search', ['project' => $model]);
-
     }
 
     /**
@@ -57,7 +52,6 @@ class ProjectController extends PublicController
      */
     public function actionCreate()
     {
-
         $request = Yii::$app->request;
 
         if(Yii::$app->user->isGuest) {
@@ -83,7 +77,6 @@ class ProjectController extends PublicController
         }
 
         return $this->display('create', ['project' => $model]);
-
     }
 
     /**
@@ -93,7 +86,6 @@ class ProjectController extends PublicController
      */
     public function actionUpdate($id)
     {
-
         $request = Yii::$app->request;
 
         if(Yii::$app->user->isGuest) {
@@ -119,7 +111,6 @@ class ProjectController extends PublicController
         }
 
         return $this->display('update', ['project' => $model]);
-
     }
 
     /**
@@ -186,7 +177,6 @@ class ProjectController extends PublicController
         }
 
         return $this->display($view, $data);
-
     }
 
     /**
@@ -195,7 +185,6 @@ class ProjectController extends PublicController
      */
     public function actionTransfer($id)
     {
-
         $request = Yii::$app->request;
 
         $model   = TransferProject::findModel(['encode_id' => $id]);
@@ -217,7 +206,6 @@ class ProjectController extends PublicController
         }
 
         return $this->display('transfer', ['project' => $model]);
-
     }
     
     public function actionExport($id)
@@ -230,7 +218,6 @@ class ProjectController extends PublicController
         header ("Content-Disposition: attachment;filename=$file_name");
 
         return $this->display('export', ['project' => $project]);
-
     }
 
     /**
@@ -261,7 +248,6 @@ class ProjectController extends PublicController
         }
 
         return $this->display('delete', ['project' => $model]);
-
     }
 
     /**
@@ -271,10 +257,9 @@ class ProjectController extends PublicController
      */
     public function actionQuit($id)
     {
-
         $request = Yii::$app->request;
 
-        $model = QuitProject::findModel(['encode_id' => $id]);
+        $model  = QuitProject::findModel(['encode_id' => $id]);
 
         $member = Member::findModel(['project_id' => $model->id, 'user_id' => Yii::$app->user->identity->id]);
 
@@ -295,6 +280,5 @@ class ProjectController extends PublicController
         }
 
         return $this->display('quit', ['project' => $model, 'member' => $member]);
-
     }
 }

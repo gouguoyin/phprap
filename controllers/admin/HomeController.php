@@ -8,7 +8,6 @@ use app\models\Tongji;
 
 class HomeController extends PublicController
 {
-
     /**
      * 后台主页
      * @return string|\yii\web\Response
@@ -32,6 +31,4 @@ class HomeController extends PublicController
 
         return $this->display('index', ['system' => array2object($system), 'tongji' => $tongji]);
     }
-
-
 }

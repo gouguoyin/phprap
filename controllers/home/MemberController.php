@@ -11,14 +11,12 @@ use app\models\member\RemoveMember;
 
 class MemberController extends PublicController
 {
-
     /**
      * 添加成员
      * @return string
      */
     public function actionCreate($project_id)
     {
-
         $request = Yii::$app->request;
 
         $project = Project::findModel(['encode_id' => $project_id]);
@@ -45,7 +43,6 @@ class MemberController extends PublicController
         }
 
         return $this->display('create', ['project' => $project, 'member' => $model]);
-
     }
 
     /**
@@ -55,7 +52,6 @@ class MemberController extends PublicController
      */
     public function actionUpdate($id)
     {
-
         $request = Yii::$app->request;
 
         $model   = UpdateMember::findModel(['encode_id' => $id]);
@@ -77,7 +73,6 @@ class MemberController extends PublicController
         }
 
         return $this->display('update', ['member' => $model]);
-
     }
 
     /**
@@ -86,7 +81,6 @@ class MemberController extends PublicController
      */
     public function actionSelect($project_id, $name)
     {
-
         Yii::$app->response->format = Response::FORMAT_JSON;
 
         $project = Project::findModel(['encode_id' => $project_id]);
@@ -101,7 +95,6 @@ class MemberController extends PublicController
         }
 
         return $user;
-
     }
 
     /**
@@ -111,7 +104,6 @@ class MemberController extends PublicController
      */
     public function actionRemove($id)
     {
-
         $request = Yii::$app->request;
 
         $model = RemoveMember::findModel(['encode_id' => $id]);
@@ -133,7 +125,6 @@ class MemberController extends PublicController
         }
 
         return $this->display('remove', ['member' => $model]);
-
     }
 
     /**
