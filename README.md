@@ -117,25 +117,25 @@
 - 打开浏览器，访问域名，会自动跳转到安装界面运行安装程序
 
     - 安装步骤一：环境检测
-    ![](http://gouguoyin.qiniudn.com/step1.png)
+    ![](http://www.phprap.com/static/images/wiki/step1.png?v=1.1)
     
     - 安装步骤二：数据库配置
-    ![](http://gouguoyin.qiniudn.com/step2.png)
+    ![](http://www.phprap.com/static/images/wiki/step2.png?v=1.1)
 
     - 安装步骤三：管理员配置
-    ![](http://gouguoyin.qiniudn.com/step3.png)
+    ![](http://www.phprap.com/static/images/wiki/step3.png?v=1.1)
 
     - 安装步骤四：安装完成
-    ![](http://gouguoyin.qiniudn.com/step4.png)
+    ![](http://www.phprap.com/static/images/wiki/step4.png?v=1.1)
 
     
 ## 使用
 
 - 注册
-![](http://gouguoyin.qiniudn.com/register.png)
+![](http://www.phprap.com/static/images/wiki/register.png)
 
 - 登录
-![](http://gouguoyin.qiniudn.com/login.png)
+![](http://www.phprap.com/static/images/wiki/login.png)
 
 - 修改资料
 ![](http://gouguoyin.qiniudn.com/profile_edit.png)
@@ -240,5 +240,5 @@
 ## 捐献
 - 如果觉得还不错，请作者喝杯咖啡吧，开源不易，您的支持是我前进的动力！
 
-![微信](http://www.phprap.com/static/images/wxpay.jpg)
-![支付宝](http://www.phprap.com/static/images/alipay.jpg)
+![微信](http://www.phprap.com/static/images/site/wxpay.jpg)
+![支付宝](http://www.phprap.com/static/images/site/alipay.jpg)
