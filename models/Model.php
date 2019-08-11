@@ -7,7 +7,6 @@ use itbdw\Ip\IpLocation;
 
 class Model extends \yii\db\ActiveRecord
 {
-
     public $models;
     public $pages;
     public $params;
