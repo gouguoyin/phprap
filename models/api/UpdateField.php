@@ -6,7 +6,6 @@ use app\models\Api;
 
 class UpdateField extends Api
 {
-
     /**
      * 验证规则
      */

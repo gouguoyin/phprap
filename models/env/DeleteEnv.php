@@ -58,6 +58,11 @@ class DeleteEnv extends Env
         }
     }
 
+    /**
+     * 删除环境
+     * @return bool|false|int
+     * @throws \yii\db\Exception
+     */
     public function delete()
     {
         // 开启事务
@@ -68,7 +73,7 @@ class DeleteEnv extends Env
         $count = Env::find()->where(['project_id' => $env->project_id,'status' => Env::ACTIVE_STATUS])->count();
 
         if($count < 2){
-            $this->addError('count', '亲，至少保留一个环境');
+            $this->addError('count', '亲，至少要保留一个环境');
             return false;
         }
 

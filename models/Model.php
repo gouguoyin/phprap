@@ -21,11 +21,16 @@ class Model extends \yii\db\ActiveRecord
     const DELETED_STATUS = 30; //删除状态
 
     public $statusLabels = [
-        self::ACTIVE_STATUS => '正常',
+        self::ACTIVE_STATUS  => '正常',
         self::DISABLE_STATUS => '禁用',
         self::DELETED_STATUS => '删除',
     ];
 
+    /**
+     * 实例化模型
+     * @param null $condition
+     * @return Model|null
+     */
     public static function findModel($condition = null)
     {
         if(!$condition){
@@ -33,13 +38,10 @@ class Model extends \yii\db\ActiveRecord
         }
 
         if (($model = static::findOne($condition)) !== null) {
-
             return $model;
-
-        } else {
-
-            return new static();
         }
+
+        return new static();
     }
 
     /**
@@ -194,7 +196,7 @@ class Model extends \yii\db\ActiveRecord
         $agent = new Agent();
 
         $platform = $agent->platform();
-        $version = $agent->version($platform);
+        $version  = $agent->version($platform);
 
         return $platform . '(' . $version . ')';
     }
@@ -212,6 +214,5 @@ class Model extends \yii\db\ActiveRecord
 
         return $browser . '(' . $version . ')';
     }
-
 
 }
