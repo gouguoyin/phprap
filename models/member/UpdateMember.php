@@ -6,7 +6,6 @@ use app\models\Member;
 
 class UpdateMember extends Member
 {
-
     /**
      * 验证规则
      */

@@ -6,7 +6,6 @@ use app\models\Module;
 
 class UpdateModule extends Module
 {
-
     /**
      * 验证规则
      */
@@ -19,18 +18,6 @@ class UpdateModule extends Module
             [['sort'], 'integer'],
 
             ['id', 'validateProject'],
-        ];
-    }
-
-    /**
-     * 字段字典
-     */
-    public function attributeLabels()
-    {
-        return [
-            'title' => '模块名称',
-            'remark' => '模块描述',
-            'sort' => '模块排序',
         ];
     }
 
@@ -62,9 +49,9 @@ class UpdateModule extends Module
         // 保存模块
         $module = &$this;
 
-        $module->title  = $this->title;
-        $module->remark = $this->remark;
-        $module->sort   = $this->sort;
+        $module->title      = $this->title;
+        $module->remark     = $this->remark;
+        $module->sort       = $this->sort;
         $module->updater_id = Yii::$app->user->identity->id;
         $module->updated_at = date('Y-m-d H:i:s');
 

@@ -7,7 +7,6 @@ use app\models\Member;
 
 class QuitProject extends Project
 {
-
     public $password; // 登录密码
 
     /**

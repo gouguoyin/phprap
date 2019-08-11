@@ -5,7 +5,6 @@ use Yii;
 
 class Tongji
 {
-
     /**
      * 获取全部会员
      * @return Account|null

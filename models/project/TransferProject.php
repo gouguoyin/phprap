@@ -2,12 +2,11 @@
 namespace app\models\project;
 
 use Yii;
+use app\models\Account;
 use app\models\Project;
-use app\models\User;
 
 class TransferProject extends Project
 {
-
     public $user_id;
     public $password;
 
@@ -64,9 +63,9 @@ class TransferProject extends Project
         // 开启事务
         $transaction = Yii::$app->db->beginTransaction();
 
-        $user = User::findModel($this->user_id);
+        $account = Account::findModel($this->user_id);
 
-        $this->creater_id = $user->id;
+        $this->creater_id = $account->id;
 
         if(!$this->save(false)){
             $transaction->rollBack();

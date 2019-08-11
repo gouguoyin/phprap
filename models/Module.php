@@ -122,9 +122,9 @@ class Module extends Model
 
         $pagination = new Pagination([
             'pageSizeParam' => false,
-            'totalCount' => $this->count,
-            'pageSize'   => $this->pageSize,
-            'validatePage' => false,
+            'totalCount'    => $this->count,
+            'pageSize'      => $this->pageSize,
+            'validatePage'  => false,
         ]);
 
         $this->models = $query
@@ -137,12 +137,12 @@ class Module extends Model
 
         $this->pages = LinkPager::widget([
             'pagination' => $pagination,
-            'nextPageLabel' => '下一页',
-            'prevPageLabel' => '上一页',
-            'firstPageLabel' => '首页',
-            'lastPageLabel' => '尾页',
+            'nextPageLabel'    => '下一页',
+            'prevPageLabel'    => '上一页',
+            'firstPageLabel'   => '首页',
+            'lastPageLabel'    => '尾页',
             'hideOnSinglePage' => true,
-            'maxButtonCount' => 5,
+            'maxButtonCount'   => 5,
         ]);
 
         return $this;

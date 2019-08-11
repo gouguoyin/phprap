@@ -6,7 +6,6 @@ use app\models\Project;
 
 class RecoverProject extends Project
 {
-
     public $password; // 登录密码
 
     /**

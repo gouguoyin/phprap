@@ -6,7 +6,6 @@ use app\models\Project;
 
 class DeleteProject extends Project
 {
-
     public $password; // 登录密码
 
     /**
@@ -70,11 +69,11 @@ class DeleteProject extends Project
         }
 
         // 开启事务
-        $transaction  = Yii::$app->db->beginTransaction();
+        $transaction = Yii::$app->db->beginTransaction();
 
         $project = &$this;
 
-        $project->status = Project::DELETED_STATUS;
+        $project->status     = Project::DELETED_STATUS;
         $project->updater_id = Yii::$app->user->identity->id;
         $project->updated_at = date('Y-m-d H:i:s');
 

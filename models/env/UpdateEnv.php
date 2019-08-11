@@ -6,7 +6,6 @@ use app\models\Env;
 
 class UpdateEnv extends Env
 {
-
     /**
      * 验证规则
      */
@@ -34,8 +33,8 @@ class UpdateEnv extends Env
 
         $query->andFilterWhere([
             'project_id' => $this->project_id,
-            'status' => Env::ACTIVE_STATUS,
-            'name'   => $this->name,
+            'status'     => Env::ACTIVE_STATUS,
+            'name'       => $this->name,
         ]);
 
         $query->andFilterWhere([

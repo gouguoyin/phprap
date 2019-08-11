@@ -7,7 +7,6 @@ use app\models\Apply;
 
 class CreateApply extends Apply
 {
-
     /**
      * 验证规则
      */
@@ -72,7 +71,7 @@ class CreateApply extends Apply
         $apply->project_id = $this->project_id;
         $apply->user_id    = Yii::$app->user->identity->id;
         $apply->status     = self::CHECK_STATUS;
-        $apply->ip         = $this->getIp();
+        $apply->ip         = $this->getUserIp();
         $apply->location   = $this->getLocation();
         $apply->created_at = date('Y-m-d H:i:s');
 

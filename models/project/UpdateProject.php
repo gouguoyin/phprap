@@ -6,7 +6,6 @@ use app\models\Project;
 
 class UpdateProject extends Project
 {
-
     /**
      * 验证规则
      */
@@ -47,8 +46,8 @@ class UpdateProject extends Project
 
         $query->andFilterWhere([
             'creater_id' => Yii::$app->user->identity->id,
-            'status' => Project::ACTIVE_STATUS,
-            'title'  => $this->title,
+            'status'     => Project::ACTIVE_STATUS,
+            'title'      => $this->title,
         ]);
 
         $query->andFilterWhere([

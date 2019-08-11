@@ -37,7 +37,6 @@ class AccountController extends PublicController
             }
 
             return ['status' => 'error', 'message' => $model->getErrorMessage(), 'label' => $model->getErrorLabel()];
-
         }
 
         $config = Config::findOne(['type' => 'safe']);
@@ -51,7 +50,7 @@ class AccountController extends PublicController
      */
     public function actionLogin()
     {
-        $request  = Yii::$app->request;
+        $request = Yii::$app->request;
 
         // 已登录用户直接挑转到项目选择页
         if(!Yii::$app->user->isGuest){
@@ -74,7 +73,6 @@ class AccountController extends PublicController
             }
 
             return ['status' => 'error', 'message' => $model->getErrorMessage(), 'label' => $model->getErrorLabel()];
-
         }
 
         $config = Config::findOne(['type' => 'safe']);
@@ -112,7 +110,7 @@ class AccountController extends PublicController
      */
     public function actionProfile()
     {
-        if(Yii::$app->user->isGuest) {
+        if (Yii::$app->user->isGuest) {
             return $this->redirect(['home/account/login','callback' => Url::current()]);
         }
 
@@ -126,7 +124,7 @@ class AccountController extends PublicController
 
             Yii::$app->response->format = Response::FORMAT_JSON;
 
-            if(!$model->load($request->post())){
+            if (!$model->load($request->post())) {
                 return ['status' => 'error', 'message' => '加载数据失败', 'model' => 'ProfileForm'];
             }
 
@@ -146,7 +144,7 @@ class AccountController extends PublicController
      */
     public function actionPassword()
     {
-        if(Yii::$app->user->isGuest) {
+        if (Yii::$app->user->isGuest) {
             return $this->redirect(['home/account/login','callback' => Url::current()]);
         }
 
@@ -160,7 +158,7 @@ class AccountController extends PublicController
 
             $model->scenario = 'home';
 
-            if(!$model->load($request->post())){
+            if (!$model->load($request->post())) {
                 return ['status' => 'error', 'message' => '加载数据失败', 'model' => 'PasswordForm'];
             }
 

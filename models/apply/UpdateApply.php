@@ -83,8 +83,8 @@ class UpdateApply extends Apply
 
         $apply = &$this;
 
-        $apply->status       = $this->status;
-        $apply->checked_at   =  date('Y-m-d H:i:s');
+        $apply->status      = $this->status;
+        $apply->checked_at  =  date('Y-m-d H:i:s');
 
         if(!$apply->save()){
             $this->addError($apply->getErrorLabel(), $apply->getErrorMessage());

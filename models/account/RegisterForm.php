@@ -70,6 +70,7 @@ class RegisterForm extends Account
         $email_white_list = array_filter(explode("\r\n", trim($config->email_white_list)));
         $email_black_list = array_filter(explode("\r\n", trim($config->email_black_list)));
 
+        // 获取邮箱后缀，如@phprap.com
         $register_email_suffix = stristr($this->email, "@");
 
         if($email_white_list && !in_array($register_email_suffix, $email_white_list)){
@@ -100,7 +101,7 @@ class RegisterForm extends Account
 
         $account->name       = $this->name;
         $account->email      = $this->email;
-        $account->ip         = Yii::$app->request->userIP;
+        $account->ip         = $this->getUserIp();
         $account->location   = $this->getLocation();
         $account->status     = Account::ACTIVE_STATUS;
         $account->type       = Account::USER_TYPE;
@@ -117,10 +118,10 @@ class RegisterForm extends Account
 
         // 默认加入测试项目
         $member = new Member();
-        $member->encode_id  = $this->createEncodeId();
-        $member->project_id = 1;
-        $member->user_id    = $account->id;
-        $member->join_type  = $member::PASSIVE_JOIN_TYPE;
+        $member->encode_id    = $this->createEncodeId();
+        $member->project_id   = 1;
+        $member->user_id      = $account->id;
+        $member->join_type    = $member::PASSIVE_JOIN_TYPE;
         $member->project_rule = 'look,export';
         $member->env_rule     = 'look';
         $member->module_rule  = 'look';

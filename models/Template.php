@@ -19,7 +19,6 @@ use Yii;
  */
 class Template extends Module
 {
-
     /**
      * 默认模板参数
      * @var array

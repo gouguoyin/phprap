@@ -7,13 +7,11 @@ use app\models\Member;
 
 class CreateMember extends Member
 {
-
     /**
      * 验证规则
      */
     public function rules()
     {
-
         return [
             [['project_id', 'user_id'], 'required'],
 
@@ -22,7 +20,6 @@ class CreateMember extends Member
 
             ['project_id', 'validateProject'],
         ];
-
     }
 
     /**

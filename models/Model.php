@@ -97,6 +97,18 @@ class Model extends \yii\db\ActiveRecord
     }
 
     /**
+     * 获取当前格式化时间
+     * @param string $format
+     * @return false|string
+     */
+    public function getNowTime($format = '')
+    {
+        $format = $format ? : 'Y-m-d H:i:s';
+
+        return date($format);
+    }
+
+    /**
      * 获取友好的时间，如5分钟前
      * @return string
      */
@@ -150,7 +162,7 @@ class Model extends \yii\db\ActiveRecord
      * 获取客户端IP
      * @return mixed|string|null
      */
-    public function getIp()
+    public function getUserIp()
     {
         return Yii::$app->request->userIP;
     }
@@ -162,7 +174,7 @@ class Model extends \yii\db\ActiveRecord
      */
     public function getLocation($ip = null)
     {
-        $ip = $ip ? : $this->getIp();
+        $ip = $ip ? : $this->getUserIp();
 
         $location = IpLocation::getLocation($ip);
 

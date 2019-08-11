@@ -6,7 +6,6 @@ use app\models\Project;
 
 class CreateProject extends Project
 {
-
     /**
      * 验证规则
      */
@@ -32,8 +31,8 @@ class CreateProject extends Project
 
         $query->andFilterWhere([
             'creater_id' => Yii::$app->user->identity->id,
-            'status' => Project::ACTIVE_STATUS,
-            'title'  => $this->title,
+            'status'     => Project::ACTIVE_STATUS,
+            'title'      => $this->title,
         ]);
 
         if($query->exists()) {
@@ -58,12 +57,12 @@ class CreateProject extends Project
         // 保存项目
         $project = &$this;
 
-        $project->encode_id = $this->createEncodeId();
-        $project->title  = $this->title;
-        $project->remark = $this->remark;
-        $project->status = Project::ACTIVE_STATUS;
-        $project->type = $this->type;
-        $project->sort = $this->sort;
+        $project->encode_id  = $this->createEncodeId();
+        $project->title      = $this->title;
+        $project->remark     = $this->remark;
+        $project->status     = Project::ACTIVE_STATUS;
+        $project->type       = $this->type;
+        $project->sort       = $this->sort;
         $project->creater_id = Yii::$app->user->identity->id;
         $project->created_at = date('Y-m-d H:i:s');
 

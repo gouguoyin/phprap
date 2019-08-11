@@ -6,7 +6,6 @@ use app\models\Env;
 
 class DeleteEnv extends Env
 {
-
     public $password; // 登录密码
 
     /**
@@ -73,7 +72,7 @@ class DeleteEnv extends Env
             return false;
         }
 
-        $env->status = Env::DELETED_STATUS;
+        $env->status     = Env::DELETED_STATUS;
         $env->updater_id = Yii::$app->user->identity->id;
         $env->updated_at = date('Y-m-d H:i:s');
 

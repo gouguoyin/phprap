@@ -6,7 +6,6 @@ use app\models\Module;
 
 class DeleteModule extends Module
 {
-
     public $password; // 登录密码
 
     /**

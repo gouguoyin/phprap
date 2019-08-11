@@ -26,7 +26,6 @@ class InstallController extends PublicController
      */
     public function actionStep1()
     {
-
         $request = Yii::$app->request;
         if($request->isPost){
 
@@ -35,7 +34,6 @@ class InstallController extends PublicController
             Yii::$app->cache->set('step', 1);
 
             return ['status' => 'success', 'callback' => url('home/install/step2')];
-
         }
 
         $step1 = [
@@ -70,13 +68,10 @@ class InstallController extends PublicController
      */
     public function actionStep2()
     {
-
         $request = Yii::$app->request;
 
         if(Yii::$app->cache->get('step') != 1){
-
             return $this->redirect(['home/install/step1']);
-
         }
 
         if($request->isPost){
@@ -86,7 +81,7 @@ class InstallController extends PublicController
             $step2 = $request->post('Step2');
 
             $db = [
-                'dsn'   => "mysql:host={$step2['host']};port={$step2['port']}}",
+                'dsn'      => "mysql:host={$step2['host']};port={$step2['port']}}",
                 'username' => $step2['username'],
                 'password' => $step2['password'],
                 'charset'  => 'utf8',
@@ -96,11 +91,8 @@ class InstallController extends PublicController
 
             // 判断数据库连接状态
             try {
-
                 $connection->open();
-
             } catch(Exception $e) {
-
                 return ['status' => 'error', 'message' => '数据库连接失败，请检查数据库配置信息是否正确'];
             }
 
@@ -115,7 +107,7 @@ class InstallController extends PublicController
                 return ['status' => 'error', 'message' => "数据库 {$step2['dbname']} 创建失败，没有创建数据库权限，请手动创建数据库"];
             }
 
-            $db['dsn'] = "mysql:host={$step2['host']};port={$step2['port']};dbname={$step2['dbname']}";
+            $db['dsn']         = "mysql:host={$step2['host']};port={$step2['port']};dbname={$step2['dbname']}";
             $db['tablePrefix'] = $step2['prefix'];
             $db = ['class' => 'yii\db\Connection'] + $db;
 
@@ -123,19 +115,15 @@ class InstallController extends PublicController
 
             // 将数据库配置信息写入配置文件
             if(file_put_contents(Yii::getAlias("@app") . '/configs/db.php', $config) === false){
-
                 return ['status' => 'error', 'message' => '数据库配置文件写入错误，请检查configs/db.php文件是否有可写权限'];
-
             }
 
             Yii::$app->cache->set('step', 2);
 
             return ['status' => 'success', 'callback' => url('home/install/step3')];
-
         }
 
         return $this->display('/install/step2');
-
     }
 
     /**
@@ -144,13 +132,10 @@ class InstallController extends PublicController
      */
     public function actionStep3()
     {
-
         $request = Yii::$app->request;
 
         if(Yii::$app->cache->get('step') != 2){
-
             return $this->redirect(['home/install/step2']);
-
         }
 
         if($request->isPost){
@@ -160,7 +145,6 @@ class InstallController extends PublicController
             $step3 = $request->post('Step3');
 
             try {
-
                 // 开启事务
                 $transaction = Yii::$app->db->beginTransaction();
 
@@ -168,11 +152,8 @@ class InstallController extends PublicController
                 $sql = $this->getInitSql();
 
                 if(Yii::$app->db->createCommand($sql)->execute() === false){
-
                     $transaction->rollBack();
-
                     return ['status' => 'error', 'message' => '数据库初始化安装失败，请检查 configs/db.php 文件是否完整'];
-
                 }
 
                 // 插入管理员
@@ -182,7 +163,7 @@ class InstallController extends PublicController
                 $account->type   = $account::ADMIN_TYPE;
                 $account->name   = $step3['name'];
                 $account->email  = $step3['email'];
-                $account->ip     = $account->getIp();
+                $account->ip     = $account->getUserIp();
                 $account->location   = $account->getLocation();
                 $account->created_at = date('Y-m-d H:i:s');
 
@@ -196,10 +177,10 @@ class InstallController extends PublicController
 
                 // 默认加入测试项目
                 $member = new Member();
-                $member->encode_id  = $member->createEncodeId();
-                $member->project_id = 1;
-                $member->user_id   = $account->id;
-                $member->join_type = $member::PASSIVE_JOIN_TYPE;
+                $member->encode_id    = $member->createEncodeId();
+                $member->project_id   = 1;
+                $member->user_id      = $account->id;
+                $member->join_type    = $member::PASSIVE_JOIN_TYPE;
                 $member->project_rule = 'look,export';
                 $member->env_rule     = 'look';
                 $member->module_rule  = 'look';
@@ -246,7 +227,6 @@ class InstallController extends PublicController
         }
 
         return $this->display('/install/step3');
-
     }
 
     /**
@@ -255,18 +235,13 @@ class InstallController extends PublicController
      */
     public function actionStep4()
     {
-
         if(Yii::$app->cache->get('step') != 3){
-
             return $this->redirect(['home/install/step3']);
-
         }
 
         // 创建安装锁文件
         if(file_put_contents(Yii::getAlias("@runtime") . '/install/install.lock', json_encode(['installed_at' => date('Y-m-d H:i:s')])) === false){
-
             return ['status' => 'error', 'message' => '数据库锁文件写入错误，请检查 runtime/install 文件夹是否有可写权限'];
-
         }
 
         Yii::$app->cache->set('step', 4);
@@ -276,35 +251,18 @@ class InstallController extends PublicController
         $tables = Yii::$app->db->createCommand($sql)->queryColumn();
 
         return $this->display('/install/step4', ['tables' => $tables]);
-
     }
 
     // 获取权限
     private function getChmodsLabel($dirName)
     {
-
         $chmod = '';
 
-        if (is_readable ($dirName)) {
-
-            $chmod = '可读、';
-
-        }
-
-        if (is_writable ($dirName)) {
-
-            $chmod .= '可写、';
-
-        }
-
-        if (is_executable ($dirName)) {
-
-            $chmod .= '可执行、';
-
-        }
+        is_readable ($dirName) && $chmod = '可读、';
+        is_writable ($dirName) && $chmod .= '可写、';
+        is_executable ($dirName) && $chmod .= '可执行、';
 
         return trim($chmod, '、');
-
     }
 
     // 获取安装初始化sql语句
@@ -342,7 +300,6 @@ class InstallController extends PublicController
      */
     public function display($view, $params = [])
     {
-
         exit($this->render($view . '.html', $params));
     }
 

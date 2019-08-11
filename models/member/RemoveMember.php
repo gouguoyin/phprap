@@ -6,7 +6,6 @@ use app\models\Member;
 
 class RemoveMember extends Member
 {
-
     public $password; // 登录密码
 
     /**

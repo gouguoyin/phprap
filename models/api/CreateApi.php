@@ -58,7 +58,7 @@ class CreateApi extends Api
 
         $api->encode_id  = $this->createEncodeId();
         $api->project_id = $module->project_id;
-        $api->module_id = $module->id;
+        $api->module_id  = $module->id;
         $api->uri        = '/' . trim($this->uri, '/');
         $api->status     = Api::ACTIVE_STATUS;
         $api->creater_id = Yii::$app->user->identity->id;

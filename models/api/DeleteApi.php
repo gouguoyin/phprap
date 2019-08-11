@@ -71,8 +71,7 @@ class DeleteApi extends Api
         // 保存接口
         $api = &$this;
 
-        $api->status = self::DELETED_STATUS;
-
+        $api->status     = self::DELETED_STATUS;
         $api->updater_id = Yii::$app->user->identity->id;
         $api->updated_at = date('Y-m-d H:i:s');
 

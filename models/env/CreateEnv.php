@@ -7,7 +7,6 @@ use app\models\Env;
 
 class CreateEnv extends Env
 {
-
     /**
      * 验证规则
      */
@@ -75,13 +74,13 @@ class CreateEnv extends Env
         // 保存环境
         $env = &$this;
 
-        $env->encode_id = $this->createEncodeId();
+        $env->encode_id  = $this->createEncodeId();
         $env->project_id = $this->project_id;
-        $env->title = $this->title;
-        $env->name  = $this->name;
-        $env->base_url = trim($this->base_url, '/');
-        $env->status = self::ACTIVE_STATUS;
-        $env->sort   = $this->sort?:0;
+        $env->title      = $this->title;
+        $env->name       = $this->name;
+        $env->base_url   = trim($this->base_url, '/');
+        $env->status     = self::ACTIVE_STATUS;
+        $env->sort       = $this->sort?:0;
         $env->creater_id = Yii::$app->user->identity->id;
         $env->created_at = date('Y-m-d H:i:s');
 

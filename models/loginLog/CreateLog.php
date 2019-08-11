@@ -14,7 +14,7 @@ class CreateLog extends LoginLog
         $log->user_id    = $this->user_id;
         $log->user_name  = $this->user_name;
         $log->user_email = $this->user_email;
-        $log->ip         = $this->getIp();
+        $log->ip         = $this->getUserIp();
         $log->location   = $this->getLocation();
         $log->browser    = $this->getBrowser();
         $log->os         = $this->getOs();
