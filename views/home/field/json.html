@@ -131,20 +131,16 @@
 <p class="text-center">{{config('copyright')}}</p>
 
 <script>
+    // 取消保存
+    function cancelSave() {
+        confirm('您编辑的内容还没有保存，确定要退出吗？', function () {
+            window.location.reload();
+        });
+    }
 
     $(function(){
-
-        // 取消保存
-        function cancelSave() {
-            confirm('您编辑的内容还没有保存，确定要退出吗？', function () {
-                window.location.reload();
-            });
-        }
-
         //提交表单
         $("form").validateForm();
-
     });
-
 </script>
 {{include_file name='home/public/footer'}}
