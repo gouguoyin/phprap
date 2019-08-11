@@ -42,7 +42,7 @@ $(function(){
     // 表单验证
     $("form").validateForm({
         'success':function (json) {
-            parent.location.href = json.callback;
+            parent.location.reload();
         },
     });
 });
