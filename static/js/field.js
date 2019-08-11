@@ -43,11 +43,23 @@ function selectType(object) {
     }
 }
 
-var id = -1;
+// 获取最大id
+function getMaxId(tabel) {
+    var ids = [];
+    $(tabel).find(".js_id").each(function() {
+        ids.push($(this).val());
+    });
+
+    if(ids.length == 0){
+        return 0;
+    }
+
+    return parseInt(ids.sort().reverse()[0]);
+}
+
 // 新增字段
 function addField(object, type) {
 
-    id++;
 
     var thisObj  = $(object);
     var tableObj = thisObj.closest('.row').find('.table');
@@ -59,10 +71,19 @@ function addField(object, type) {
 
     if(type == 'header'){
         var cloneObj = $('.clone-table .js_headerClone').clone(true);
+        var id = getMaxId("#headerParamTable");
     }else if(type == 'request'){
         var cloneObj = $('.clone-table .js_requestClone').clone(true);
+        var id = getMaxId("#requestParamTable");
     }else if(type == 'response'){
         var cloneObj = $('.clone-table .js_responseClone').clone(true);
+        var id = getMaxId("#responseParamTable");
+    }
+
+    console.log(id);
+
+    if(id <= 0){
+        id = 1;
     }
 
     cloneObj.find('input.js_id').attr('value', id+1);
@@ -71,7 +92,6 @@ function addField(object, type) {
 
     if(TrObj.length > 0){
         cloneObj.find("input.js_level").attr('value', level + 1);
-        // TrObj.after(cloneObj).next('tr').find('input.js_name').css('padding-left', pl + 'px').focus();
         TrObj.after(cloneObj).next('tr').find('input.js_name').css('width', width + '%').focus();
     }else{
         cloneObj.find("input.js_level").attr('value', 0);
@@ -169,59 +189,5 @@ function getTableJson(tableId) {
 function cancelSave() {
     confirm('您编辑的内容还没有保存，确定要退出吗？', function () {
         window.location.reload();
-    });
-}
-
-// 添加表单验证
-function submitForm(submitBtn) {
-
-    $("form").Validform({
-
-        tiptype:function(msg,o){
-
-            if(!o.obj.is("form")){
-                if(3 == o.type){
-                    alert(msg, 'error');
-                }
-            }
-        },
-
-        label:"label",
-
-        btnSubmit: submitBtn,
-
-        tipSweep:true,
-
-        ignoreHidden:true,
-
-        ajaxPost:true,
-
-        beforeSubmit: function () {
-
-            $(submitBtn).attr("disabled", "disabled");
-
-            $(".js_headerJson").val(getTableJson('headerParamTable'));
-            $(".js_requestJson").val(getTableJson('requestParamTable'));
-            $(".js_responseJson").val(getTableJson('responseParamTable'));
-
-        },
-
-        callback:function(json){
-
-            if(json.status == 'success'){
-
-                alert(json.message, 'success', function () {
-                    parent.location.reload();
-                });
-
-            }else{
-
-                $(".js_" + json.label).focus().addClass('Validform_error');
-                $(submitBtn).removeAttr("disabled");
-                alert(json.message, 'error');
-
-            }
-
-        }
     });
 }
