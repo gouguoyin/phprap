@@ -90,16 +90,14 @@
 <!-- /#wrapper -->
 
 <script>
-
-    $(function(){
-        // 表单验证
-        $("form").validateForm({
-            'success':function (json) {
-                parent.location.href = json.callback;
-            },
-        });
+$(function(){
+    // 表单验证
+    $("form").validateForm({
+        'success':function (json) {
+            parent.location.href = json.callback;
+        },
     });
-
+});
 </script>
 
 {{include_file name='home/public/footer'}}

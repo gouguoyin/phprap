@@ -165,26 +165,20 @@
 </div>
 
 <script>
-
-    $(function(){
-
-        //查看项目
-        $(".js_viewProject").on('click',function (e) {
-
-            var e = e||window.event;
-            e.stopPropagation();
-            window.location.href = $(this).data('url');
-
-        });
-
-        //搜索项目
-        $(".js_searchProject").on('click',function(){
-
-            window.location.href = "{{url('project/search')}}";
-
-        });
-
+$(function(){
+    //查看项目
+    $(".js_viewProject").on('click',function (e) {
+        var e = e||window.event;
+        e.stopPropagation();
+        window.location.href = $(this).data('url');
     });
+
+    //搜索项目
+    $(".js_searchProject").on('click',function(){
+        window.location.href = "{{url('project/search')}}";
+    });
+
+});
 </script>
 
 {{include_file name='home/public/footer'}}

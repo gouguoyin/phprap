@@ -68,7 +68,6 @@
     </div>
 
     <script>
-
         // 刷新验证码
         function reloadCode() {
 
@@ -91,14 +90,11 @@
         }
 
         $(function(){
-
             // enter键快速提交
             $('body').bind('keypress',function(event){
 
                 if(event.keyCode == "13") {
-
                     $('#js_loginForm').trigger('submit');
-
                 }
 
             });

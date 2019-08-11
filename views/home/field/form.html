@@ -417,23 +417,22 @@
 
 <script>
 
-    $(function(){
+$(function(){
+    // 初始化change
+    $('.js_type').trigger("change");
 
-        // 初始化change
-        $('.js_type').trigger("change");
+    //选择header
+    selectHeader({{json_encode($api->defaultHeaderParams)}});
 
-        //选择header
-        selectHeader({{json_encode($api->defaultHeaderParams)}});
-
-        // 表单验证
-        $("form").validateForm({
-            'before':function (json) {
-                $(".js_headerJson").val(getTableJson('headerParamTable'));
-                $(".js_requestJson").val(getTableJson('requestParamTable'));
-                $(".js_responseJson").val(getTableJson('responseParamTable'));
-            },
-        });
+    // 表单验证
+    $("form").validateForm({
+        'before':function (json) {
+            $(".js_headerJson").val(getTableJson('headerParamTable'));
+            $(".js_requestJson").val(getTableJson('requestParamTable'));
+            $(".js_responseJson").val(getTableJson('responseParamTable'));
+        },
     });
+});
 
 </script>
 {{include_file name='home/public/footer'}}

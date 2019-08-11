@@ -340,12 +340,12 @@
 
 <script>
 
-    $(function(){
-        //选择header
-        selectHeader({{json_encode($api->defaultHeaderParams)}});
-        //提交表单
-        submitForm(".js_submit");
-    });
+$(function(){
+    //选择header
+    selectHeader({{json_encode($api->defaultHeaderParams)}});
+    //提交表单
+    submitForm(".js_submit");
+});
 
 </script>
 {{include_file name='home/public/footer'}}

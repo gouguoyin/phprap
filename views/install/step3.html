@@ -81,16 +81,14 @@
 
 <script>
 
-    $(function(){
-
-        // 表单验证
-        $("form").validateForm({
-            'success':function (json) {
-                window.location.href = json.callback;
-            }
-        });
-
-    })
+$(function(){
+    // 表单验证
+    $("form").validateForm({
+        'success':function (json) {
+            window.location.href = json.callback;
+        }
+    });
+})
 
 </script>
 {{include_file name='install/public/footer'}}

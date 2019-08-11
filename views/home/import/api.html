@@ -14,7 +14,7 @@
 <div class="container">
     <!-- /.row -->
     <div class="row">
-        <form id="js_addModuleForm" role="form" action="{{url('')}}" method="post">
+        <form role="form" action="{{url('')}}" method="post">
 
             <input type="hidden" name="csrf-phprap" value="{{csrf_token()}}" />
 
@@ -38,56 +38,14 @@
 
 <script>
 
-    $(function(){
-        var modalObj  = $(window.parent.document).find('#js_addModuleModal');
-        var submitObj = modalObj.find(":submit");
-        // 添加表单验证
-        $("#js_addModuleForm").Validform({
-
-            tiptype:function(msg,o){
-
-                if(!o.obj.is("form")){
-
-                    if(3 == o.type){
-                        alert(msg, 'error');
-                    }
-
-                }
-            },
-
-            label:"label",
-
-            btnSubmit: '#js_submit',
-
-            tipSweep:true,
-
-            ajaxPost:true,
-
-            beforeSubmit: function () {
-
-                submitObj.attr("disabled", "disabled");
-            },
-
-            callback:function(json){
-
-                if(json.status == 'success'){
-
-                    alert(json.message, 'success', function () {
-                        parent.location.reload();
-                    });
-
-                }else{
-
-                    $(".js_" + json.label).focus().addClass('Validform_error');
-                    submitObj.removeAttr("disabled");
-                    alert(json.message, 'error');
-
-                }
-
-            }
-        });
-
+$(function(){
+    // 表单验证
+    $("form").validateForm({
+        'success':function (json) {
+            parent.location.href = json.callback;
+        },
     });
+});
 
 </script>
 
