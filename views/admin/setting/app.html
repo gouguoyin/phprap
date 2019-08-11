@@ -97,36 +97,33 @@
 
 <script>
 
-    //展示推送间隔信息
-    var pushTimeShow = function(){
-        var isPush = $("input[name='Config[is_push]']:checked").val();
+//展示推送间隔信息
+var pushTimeShow = function(){
+    var isPush = $("input[name='Config[is_push]']:checked").val();
 
-        if(isPush == 1){
+    if(isPush == 1){
 
-            $(".js_pushTime").removeClass("hidden");
-            $(".js_pushTime input").attr("ignore",'');
+        $(".js_pushTime").removeClass("hidden");
+        $(".js_pushTime input").attr("ignore",'');
 
-        }else{
+    }else{
 
-            $(".js_pushTime").addClass("hidden");
-            $(".js_pushTime input").attr("ignore",'ignore');
+        $(".js_pushTime").addClass("hidden");
+        $(".js_pushTime input").attr("ignore",'ignore');
 
-        }
     }
+}
 
+pushTimeShow();
+
+// 选择不时时推送时
+$("input[name='Config[is_push]']").click(function(){
     pushTimeShow();
+});
 
-    // 选择不时时推送时
-    $("input[name='Config[is_push]']").click(function(){
-        pushTimeShow();
-    });
-
-    $(function () {
-
-        $("form").validateForm();
-
-    });
-
+$(function () {
+    $("form").validateForm();
+});
 
 </script>
 
