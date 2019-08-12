@@ -38,21 +38,22 @@
 
   [**GITEE(推荐)**]
     ```php
-    git clone https://gitee.com/gouguoyin/phprap.git 'web目录名'
+    git clone https://gitee.com/gouguoyin/phprap.git 'web可访问目录'
     ```
     
   [**GITHUB**]
     ```php
-    git clone https://github.com/gouguoyin/phprap.git 'web目录名'
+    git clone https://github.com/gouguoyin/phprap.git 'web可访问目录'
     ```
        
   [**源码**]
   
-  下载[源码](https://gitee.com/gouguoyin/phprap/repository/archive/master.zip)，上传到服务器上后解压到根目录下
+  下载[源码](https://gitee.com/gouguoyin/phprap/repository/archive/master.zip)，解压后将到phprap目录内所有源码上传到根目录下
     
 - 设置目录权限
 
     `runtime`目录及子目录给予可读可写权限
+    
     `configs/db.php`文件给予可读可写权限
     
     
@@ -92,20 +93,34 @@
     
     将`AllowOverride None` 改为 `AllowOverride All`
     
-    把下面的内容保存为`.htaccess`文件放到应用入口文件的同级目录下，默认放在`public`目录下
+    如果是部署在根目录下，在`.htaccess`中配置转发规则 
     
     ```php
     <IfModule mod_rewrite.c>
     RewriteEngine on
+   
     RewriteCond %{REQUEST_FILENAME} !-d
     RewriteCond %{REQUEST_FILENAME} !-f
     RewriteRule ^(.*)$ index.php?r=/$1 [QSA,PT,L]
     </IfModule>
     ```
+    
+    如果是部署在二级目录下(假设二级目录是sub_dir)，在`.htaccess`中配置转发规则 
+        
+    ```php
+    <IfModule mod_rewrite.c>
+    RewriteEngine on
+   
+    RewriteCond %{REQUEST_URI} !^/sub_dir/ 
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteRule ^(.*)$ /sub_dir/index.php?r=/$1 [QSA,PT,L]
+    </IfModule>
+    ```
 
   [**Nginx**]
   
-    如果是部署在根目录下，在Nginx.conf中配置转发规则  
+    如果是部署在根目录下，在`Nginx.conf`中配置转发规则  
   
     ```php
     location / { 
@@ -129,16 +144,16 @@
 - 打开浏览器，访问域名，会自动跳转到安装界面运行安装程序
 
     - 安装步骤一：环境检测
-    ![](http://www.phprap.com/static/images/wiki/step1.png?v=1.1)
+    ![](http://www.phprap.com/static/images/wiki/step1.png?v=1.0)
     
     - 安装步骤二：数据库配置
-    ![](http://www.phprap.com/static/images/wiki/step2.png?v=1.1)
+    ![](http://www.phprap.com/static/images/wiki/step2.png?v=1.0)
 
     - 安装步骤三：管理员配置
-    ![](http://www.phprap.com/static/images/wiki/step3.png?v=1.1)
+    ![](http://www.phprap.com/static/images/wiki/step3.png?v=1.0)
 
     - 安装步骤四：安装完成
-    ![](http://www.phprap.com/static/images/wiki/step4.png?v=1.1)
+    ![](http://www.phprap.com/static/images/wiki/step4.png?v=1.0)
 
     
 ## 使用
