@@ -34,23 +34,22 @@
  
 ## 安装
 
-- 下载程序
+- 下载程序到根目录下
 
+  [**GITEE(推荐)**]
+    ```php
+    git clone https://gitee.com/gouguoyin/phprap.git 'web目录名'
+    ```
+    
   [**GITHUB**]
     ```php
-    git clone https://github.com/gouguoyin/phprap.git
+    git clone https://github.com/gouguoyin/phprap.git 'web目录名'
     ```
-    
-  [**GITEE**]
-    ```php
-    git clone https://gitee.com/gouguoyin/phprap.git
-    ```
-    
+       
   [**源码**]
   
-  下载[源码](https://github.com/gouguoyin/phprap/archive/stable.zip)，上传到服务器上后解压
+  下载[源码](https://gitee.com/gouguoyin/phprap/repository/archive/master.zip)，上传到服务器上后解压到根目录下
     
-
 - 设置目录权限
 
     `runtime`目录及子目录给予可读可写权限
@@ -106,13 +105,26 @@
 
   [**Nginx**]
   
-    如果是部署在根目录下，在`Nginx.conf`中配置转发规则  
+    如果是部署在根目录下，在Nginx.conf中配置转发规则  
   
     ```php
     location / { 
-       try_files $uri $uri/ /index.php?r=$uri&$args;
+       if (!-e $request_filename) {
+           rewrite  ^(.*)$  /index.php?r=$1  last;
+           break;
+       }
     }
     ```
+    
+    如果是部署在二级目录下(假设二级目录是sub_dir)，在Nginx.conf中配置转发规则
+  
+    ```php
+    location /sub_dir/ {
+        if (!-e $request_filename){
+            rewrite  ^/sub_dir/(.*)$  /sub_dir/index.php?r=$1  last;
+        }
+    }
+    ```  
     
 - 打开浏览器，访问域名，会自动跳转到安装界面运行安装程序
 
