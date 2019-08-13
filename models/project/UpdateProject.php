@@ -66,7 +66,7 @@ class UpdateProject extends Project
      */
     public function validateProject($attribute)
     {
-        if(!$this->hasRule('project', 'update')){
+        if(!$this->hasRule(['project' => 'update'])){
             $this->addError($attribute, '抱歉，您没有操作权限');
             return false;
         }

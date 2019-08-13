@@ -52,7 +52,7 @@ class DeleteProject extends Project
      */
     public function validateProject($attribute)
     {
-        if(!$this->hasRule('project', 'delete')) {
+        if(!$this->hasRule(['project' => 'delete'])) {
             $this->addError($attribute, '抱歉，您没有操作权限');
             return false;
         }

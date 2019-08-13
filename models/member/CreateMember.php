@@ -44,7 +44,7 @@ class CreateMember extends Member
      */
     public function validateProject($attribute)
     {
-        if(!$this->project->hasRule('member', 'create')){
+        if(!$this->project->hasRule(['member' => 'create'])){
             $this->addError($attribute, '抱歉，您没有操作权限');
             return false;
         }

@@ -49,7 +49,7 @@ class DeleteApi extends Api
      */
     public function validateProject($attribute)
     {
-        if(!$this->project->hasRule('api', 'delete')){
+        if(!$this->project->hasRule(['api' => 'delete'])){
             $this->addError($attribute, '抱歉，您没有操作权限');
             return false;
         }

@@ -28,9 +28,8 @@
                 <div class="page-header">
                     <h1>字段模板 </h1>
                     <div class="opt-btn">
-
                         <!--<a href="javascript:void(0);" class="btn hidden-xs btn-sm btn-warning" data-toggle="tooltip" title="" data-placement="bottom" data-original-title="导出HTML"><i class="fa fa-fw fa-download"></i>导出</a>-->
-                        {{if $project->hasRule('project', 'template')}}
+                        {{if $project->hasRule(['template' => 'look'])}}
                         <a href="javascript:;" class="btn btn-sm btn-success js_editApiBtn" data-url="{{url('home/template/form', ['project_id' => $project->encode_id])}}"><i class="fa fa-fw fa-edit"></i>编辑</a>
                         {{/if}}
                     </div>
