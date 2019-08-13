@@ -23,22 +23,6 @@ class CreateMember extends Member
     }
 
     /**
-     * 字段字典
-     */
-    public function attributeLabels()
-    {
-        return [
-            'project_id' => '项目ID',
-            'user_id' => '用户ID',
-            'project_rule' => '项目权限',
-            'env_rule' => '环境权限',
-            'module_rule' => '模块权限',
-            'api_rule' => '接口权限',
-            'member_rule' => '成员权限',
-        ];
-    }
-
-    /**
      * 验证是否有项目操作权限
      * @param $attribute
      */

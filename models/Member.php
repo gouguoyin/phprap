@@ -57,7 +57,7 @@ class Member extends Model
     }
 
     /**
-     * 字段映射
+     * 字段字典
      * @return array
      */
     public function attributeLabels()
