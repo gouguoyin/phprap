@@ -2,7 +2,6 @@
     <div class="sidebar-nav navbar-collapse">
 
         <ul class="nav" id="sidebar-menu">
-
             <li>
                 <a href="{{url('home/project/show', ['id' => $project->encode_id])}}"><i class="fa fa-home fa-fw"></i> 项目主页</a>
             </li>
@@ -26,18 +25,19 @@
                     {{/if}}
                 </a>
                 <ul class="nav nav-second-level collapse {{if $module->id == $api->module->id}}in{{/if}}" aria-expanded="true">
-                    {{foreach $module->apis as $k => $v}}
+                    {{foreach $module->apis as $api}}
                     <li class="api-item">
-                        <a class="{{if $api->id == $v->id}}active{{/if}}" href="{{url('home/api/show', ['id' => $v->encode_id])}}" title="点击查看接口详情">
-                            <i class="fa fa-fw fa-files-o"></i>{{$v->title}}
+                        <a class="{{if $api->id == $api->id}}active{{/if}}" href="{{url('home/api/show', ['id' => $api->encode_id])}}" title="点击查看接口详情">
+                            <i class="fa fa-fw fa-files-o"></i>{{$api->title}}
 
                             {{if $project->hasRule(['api' => 'delete'])}}
-                            <i class="fa hidden-xs fa-fw fa-trash-o option-btn pull-right js_deleteModuleBtn mt-1" data-toggle="tooltip" data-placement="bottom" data-modal="#js_popModal" data-title="删除接口" data-height="250" data-src="{{url('home/api/delete', ['id' => $v->encode_id])}}"></i>
+                            <i class="fa hidden-xs fa-fw fa-trash-o option-btn pull-right mt-1" data-toggle="tooltip" data-placement="bottom" data-modal="#js_popModal" data-title="删除接口" data-height="250" data-src="{{url('home/api/delete', ['id' => $api->encode_id])}}"></i>
                             {{/if}}
 
                             {{if $project->hasRule(['api' => 'update'])}}
-                            <i class="fa hidden-xs fa-fw fa-pencil option-btn pull-right js_addModuleBtn mt-1" data-toggle="tooltip" data-placement="bottom" data-modal="#js_popModal" data-title="编辑接口" data-height="440" data-src="{{url('home/api/update', ['id' => $v->encode_id])}}"></i>
+                            <i class="fa hidden-xs fa-fw fa-pencil option-btn pull-right mt-1" data-toggle="tooltip" data-placement="bottom" data-modal="#js_popModal" data-title="编辑接口" data-height="440" data-src="{{url('home/api/update', ['id' => $api->encode_id])}}"></i>
                             {{/if}}
+
                         </a>
                     </li>
                     {{/foreach}}
