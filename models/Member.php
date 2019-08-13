@@ -146,9 +146,9 @@ class Member extends Model
      */
     public function getRuleLabel($type)
     {
-        $type = $type . '_rule';
+        $type  = $type . '_rule';
 
-        $title   = $this->$type ? str_replace($this->find, $this->replace, $this->$type . ',') : '';
+        $title = $this->$type ? str_replace($this->find, $this->replace, $this->$type . ',') : '';
 
         return trim($title, '、');
     }

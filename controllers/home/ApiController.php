@@ -136,7 +136,7 @@ class ApiController extends PublicController
                 return $this->redirect(['home/account/login','callback' => Url::current()]);
             }
 
-            if(!$api->project->hasRule('project', 'look')) {
+            if(!$api->project->hasRule(['project' => 'look'])) {
                 return $this->error('抱歉，您无权查看');
             }
         }
