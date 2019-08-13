@@ -245,10 +245,11 @@ class Project extends Model
 
     /**
      * 检测是否有操作权限
-     * @param $rule
+     * @param array $rules e.g ['project' => 'look,export','module' => 'look']
+     * @param int $user_id
      * @return bool
      */
-    public function hasRule($type, $rule, $user_id = 0)
+    public function hasRule($rules, $user_id = 0)
     {
         $user_id = (int)$user_id ? $user_id : Yii::$app->user->identity->id;
 
@@ -270,7 +271,7 @@ class Project extends Model
             return false;
         }
 
-        if($member->hasRule($type, $rule)){
+        if($member->hasRule($rules)){
             return true;
         }
 

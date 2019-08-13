@@ -120,21 +120,23 @@ class Member extends Model
     }
 
     /**
-     * 判断是否有权限
-     * @param $type project|module|env|api|member
-     * @param $rule create|update|delete|remove|quit
-     * @return bool|int
+     * 判断是否拥有指定权限
+     * @param array $rules e.g ['project' => 'look,export','module' => 'look']
+     * @return bool
      */
-    public function hasRule($type, $rule)
+    public function hasRule($rules)
     {
-        $type = $type . '_rule';
-
-        if(in_array($rule, explode(',', $this->$type))){
-
-            return true;
+        if(!is_array($rules) || count($rules) == 0){
+            return false;
         }
-
-        return false;
+        $flag = 0;
+        foreach ($rules as $type => $rule) {
+            $type = $type . '_rule';
+            // 求差集
+            $diff = array_diff(array_filter(explode(',', $rule)), array_filter(explode(',', $this->$type)));
+            $flag += count($diff);
+        }
+        return $flag ? false : true;
     }
 
     /**
