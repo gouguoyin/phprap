@@ -207,15 +207,36 @@ class ProjectController extends PublicController
 
         return $this->display('transfer', ['project' => $model]);
     }
-    
+
+    /**
+     * 导出项目
+     * @param $id
+     * @return string
+     */
     public function actionExport($id)
     {
+        $account = Yii::$app->user->identity;
+        $cache   = Yii::$app->cache;
+
+        $cache_key      = 'export_' . $account->id . '_' . $id;
+        $cache_interval = 60;
+
+        if($cache->get($cache_key) !== false){
+            $remain_time = $cache->get($cache_key) - time();
+            if($remain_time < $cache_interval){
+                $this->error("导出太频繁，请{$remain_time}秒后再试!", 5);
+            }
+        }
+
         $project = Project::findModel(['encode_id' => $id]);
 
         $file_name = $project->title . '接口离线文档.html';
 
         header ("Content-Type: application/force-download");
         header ("Content-Disposition: attachment;filename=$file_name");
+
+        // 限制导出频率, 60秒一次
+        Yii::$app->cache->set($cache_key, time() + $cache_interval, $cache_interval);
 
         return $this->display('export', ['project' => $project]);
     }
