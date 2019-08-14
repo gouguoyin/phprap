@@ -168,10 +168,30 @@ class ApiController extends PublicController
     {
         $api = Api::findModel(['encode_id' => $id]);
 
+        if(!$api->project->hasRule(['api' => 'export'])) {
+            return $this->error('抱歉，您没有操作权限');
+        }
+
+        $account = Yii::$app->user->identity;
+        $cache   = Yii::$app->cache;
+
+        $cache_key = 'api_' . $id . '_' . $account->id;
+        $cache_interval = 60;
+
+        if($cache->get($cache_key) !== false){
+            $remain_time = $cache->get($cache_key)  - time();
+            if($remain_time < $cache_interval){
+                $this->error("抱歉，导出太频繁，请{$remain_time}秒后再试!", 5);
+            }
+        }
+
         $file_name = "[{$api->module->title}]" . $api->title . '离线文档.html';
 
         header ("Content-Type: application/force-download");
         header ("Content-Disposition: attachment;filename=$file_name");
+
+        // 限制导出频率, 60秒一次
+        Yii::$app->cache->set($cache_key, time() + $cache_interval, $cache_interval);
 
         return $this->display('export', ['api' => $api]);
     }

@@ -215,20 +215,24 @@ class ProjectController extends PublicController
      */
     public function actionExport($id)
     {
+        $project = Project::findModel(['encode_id' => $id]);
+
+        if(!$project->hasRule(['project' => 'export'])){
+            return $this->error("抱歉，您没有操作权限!");
+        }
+
         $account = Yii::$app->user->identity;
         $cache   = Yii::$app->cache;
 
-        $cache_key      = 'export_' . $account->id . '_' . $id;
+        $cache_key = 'project_' . $id . '_' . $account->id;
         $cache_interval = 60;
 
         if($cache->get($cache_key) !== false){
-            $remain_time = $cache->get($cache_key) - time();
+            $remain_time = $cache->get($cache_key)  - time();
             if($remain_time < $cache_interval){
-                $this->error("导出太频繁，请{$remain_time}秒后再试!", 5);
+                $this->error("抱歉，导出太频繁，请{$remain_time}秒后再试!", 5);
             }
         }
-
-        $project = Project::findModel(['encode_id' => $id]);
 
         $file_name = $project->title . '接口离线文档.html';
 
