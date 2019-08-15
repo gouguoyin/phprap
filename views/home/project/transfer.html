@@ -71,7 +71,7 @@
         selectMemberBtn.typeahead({
             source: function (name, process) {
 
-                var url = "{{url('member/select', ['project_id' => $project->encode_id])}}";
+                var url = "{{url('project/member', ['id' => $project->encode_id])}}";
 
                 $.get(url, { "name": name }, function (data) {
                     return process(data);

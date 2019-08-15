@@ -180,6 +180,32 @@ class ProjectController extends PublicController
     }
 
     /**
+     * 项目成员
+     * @param $id
+     * @param null $name
+     * @return array
+     */
+    public function actionMember($id, $name = null)
+    {
+        Yii::$app->response->format = Response::FORMAT_JSON;
+
+        $project = Project::findModel(['encode_id' => $id]);
+
+        $members = $project->members;
+
+        $user = [];
+
+        foreach ($members as $k => $member){
+            if(strpos($member->account->name, $name) !== false || strpos($member->account->email, $name) !== false){
+                $user[$k]['id']   = $member->account->id;
+                $user[$k]['name'] = $member->account->fullName;
+            }
+        }
+
+        return $user;
+    }
+
+    /**
      * 转让项目
      * @return string
      */
