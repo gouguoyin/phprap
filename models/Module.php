@@ -22,7 +22,6 @@ use yii\data\Pagination;
  */
 class Module extends Model
 {
-
     /**
      * 绑定数据表
      */

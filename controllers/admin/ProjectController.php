@@ -55,19 +55,14 @@ class ProjectController extends PublicController
             Yii::$app->response->format = Response::FORMAT_JSON;
 
             if(!$model->load($request->post())) {
-
                 return ['status' => 'error', 'message' => '数据加载失败'];
-
             }
 
             if($model->delete()) {
-
                 return ['status' => 'success', 'message' => '删除成功'];
-
             }
 
             return ['status' => 'error', 'message' => $model->getErrorMessage(), 'label' => $model->getErrorLabel()];
-
         }
 
         return $this->display('delete', ['project' => $model]);
@@ -97,7 +92,6 @@ class ProjectController extends PublicController
             }
 
             return ['status' => 'error', 'message' => $model->getErrorMessage(), 'label' => $model->getErrorLabel()];
-
         }
 
         return $this->display('recover', ['project' => $model]);

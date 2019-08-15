@@ -81,7 +81,7 @@
                 <div class="panel panel-default">
                     <div class="panel-heading">
                     <span class="head-title">{{if $project->isPrivate()}}<i class="fa fa-fw fa-key"></i>{{/if}}{{$project->title}}</span>
-                        <span class="head-btn pull-right">
+                        <span class="head-btn hidden pull-right">
                             <a href="javascript:;" class="fa hidden-xs fa-pencil" data-toggle="tooltip" data-placement="top" data-modal="#js_popModal"data-height="350" data-title="编辑项目" data-src="{{url('update', ['id' => $project->encode_id])}}"></a>
 
                             <a  href="javascript:;" class="fa hidden-xs fa-trash-o" data-toggle="tooltip" data-placement="top" data-modal="#js_popModal" data-height="270" data-title="删除项目" data-src="{{url('delete', ['id' => $project->encode_id])}}"></a>
@@ -125,7 +125,7 @@
                 <div class="panel panel-default">
                     <div class="panel-heading">
                         <span class="head-title">{{if $project->isPrivate()}}<i class="fa fa-fw fa-key"></i>{{/if}}{{$project->title}}</span>
-                        <span class="head-btn pull-right">
+                        <span class="head-btn hidden pull-right">
                             {{if $project->hasAuth(['project' => 'update'])}}
                             <a href="javascript:;" class="fa hidden-xs fa-pencil" data-toggle="tooltip" data-placement="top" data-modal="#js_popModal" data-height="370" data-title="编辑项目" data-src="{{url('update', ['id' => $project->encode_id])}}"></a>
                             {{/if}}

@@ -21,7 +21,6 @@ use Yii;
  */
 class Env extends Model
 {
-
     /**
      * 默认环境
      * @var array

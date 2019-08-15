@@ -22,7 +22,6 @@ use yii\web\IdentityInterface;
  */
 class User extends Model implements IdentityInterface
 {
-
     /**
      * @inheritdoc
      */
@@ -70,11 +69,8 @@ class User extends Model implements IdentityInterface
     public static function findIdentity($id)
     {
         if(file_exists(Yii::getAlias("@runtime") . '/install/install.lock')){
-
             return static::findOne(['id' => $id, 'status' => self::ACTIVE_STATUS]);
-
         }
-
         return null;
     }
 

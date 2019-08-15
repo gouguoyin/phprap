@@ -31,7 +31,6 @@ use yii\data\Pagination;
  */
 class Api extends Model
 {
-
     /**
      * 请求方式标签
      * @var array
@@ -57,7 +56,7 @@ class Api extends Model
      * @var array
      */
     public $fieldTypeLabels = [
-        'string' => '字符串',
+        'string'  => '字符串',
         'integer' => '整数',
         'float'   => '小数',
         'boolean' => '布尔',

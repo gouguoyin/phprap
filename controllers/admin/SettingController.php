@@ -29,11 +29,9 @@ class SettingController extends PublicController
             }
 
             return ['status' => 'error', 'message' => $config->getErrorMessage(), 'label' => $config->getErrorLabel()];
-
         }
 
         return $this->display('app', ['config' => $config]);
-
     }
 
     /**
@@ -57,7 +55,6 @@ class SettingController extends PublicController
             }
 
             return ['status' => 'error', 'message' => $config->getErrorMessage(), 'label' => $config->getErrorLabel()];
-
         }
 
         return $this->display('email', ['config' => $config]);
@@ -106,11 +103,9 @@ class SettingController extends PublicController
             }
 
             return ['status' => 'error', 'message' => $config->getErrorMessage(), 'label' => $config->getErrorLabel()];
-
         }
 
         return $this->display('safe', ['config' => $config]);
-
     }
 
 

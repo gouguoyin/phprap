@@ -64,11 +64,21 @@ class LoginLog extends Model
         ];
     }
 
+    /**
+     * 获取关联用户对象
+     * @return \yii\db\ActiveQuery
+     */
     public function getAccount()
     {
         return $this->hasOne(Account::className(),['id'=>'user_id']);
     }
 
+    /**
+     * 登录历史搜索
+     * @param array $params
+     * @return $this
+     * @throws \Exception
+     */
     public function search($params = [])
     {
 
@@ -121,7 +131,6 @@ class LoginLog extends Model
         ]);
 
         return $this;
-
     }
 
 }

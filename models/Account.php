@@ -7,15 +7,13 @@ use yii\data\Pagination;
 
 class Account extends User
 {
-
     const USER_TYPE  = 10; // 普通用户类型
     const ADMIN_TYPE = 20; // 管理员类型
 
     /**
-     * Finds user by username
-     *
-     * @param string $username
-     * @return static|null
+     * 通过email查找用户
+     * @param $email
+     * @return Account|User|null
      */
     public static function findByEmail($email)
     {
@@ -49,7 +47,8 @@ class Account extends User
     }
 
     /**
-     * 获取创建的项目
+     * 获取创建项目
+     * @param null $type 项目类型
      * @return \yii\db\ActiveQuery
      */
     public function getCreatedProjects($type = null)
@@ -61,8 +60,10 @@ class Account extends User
     }
 
     /**
-     * 获取参与的项目
+     * 获取参与项目
+     * @param null $type 项目类型
      * @return \yii\db\ActiveQuery
+     * @throws \yii\base\InvalidConfigException
      */
     public function getJoinedProjects($type = null)
     {
@@ -82,6 +83,12 @@ class Account extends User
         return $this->type == self::ADMIN_TYPE ? true : false;
     }
 
+    /**
+     * 账户搜索
+     * @param array $params
+     * @return $this
+     * @throws \Exception
+     */
     public function search($params = [])
     {
         $this->params = array2object($params);

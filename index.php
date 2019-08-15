@@ -13,12 +13,11 @@ if(!is_writable($db_file)){
     exit($db_file . '没有可写权限');
 }
 
-// comment out the following two lines when deployed to production
 defined('YII_DEBUG') or define('YII_DEBUG', true);
 
 require __DIR__ . '/vendor/autoload.php';
 require __DIR__ . '/vendor/yiisoft/yii2/Yii.php';
-require (__DIR__.'/function/function.php');
+require __DIR__.'/function/function.php';
 
 $config = require __DIR__ . '/configs/web.php';
 

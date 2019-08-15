@@ -20,7 +20,6 @@ use yii\data\Pagination;
  */
 class Apply extends Model
 {
-    
     const CHECK_STATUS = 10; //待审核状态
     const PASS_STATUS  = 20; //审核通过状态
     const REFUSE_STATUS = 30; //审核拒绝状态
@@ -178,6 +177,5 @@ class Apply extends Model
         ]);
 
         return $this;
-
     }
 }

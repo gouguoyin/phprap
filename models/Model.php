@@ -105,7 +105,6 @@ class Model extends \yii\db\ActiveRecord
     public function getNowTime($format = '')
     {
         $format = $format ? : 'Y-m-d H:i:s';
-
         return date($format);
     }
 
