@@ -88,7 +88,7 @@ class Member extends Model
     {
         return [
             self::INITIATIVE_JOIN_TYPE  => '申请加入',
-            self::PASSIVE_JOIN_TYPE => '添加加入',
+            self::PASSIVE_JOIN_TYPE     => '添加加入',
         ];
     }
 

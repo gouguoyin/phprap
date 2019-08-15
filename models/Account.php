@@ -108,7 +108,7 @@ class Account extends User
 
         if($this->params->project_id){
 
-            $project = Project::findModel(['encode_id' => $this->params->project_id]);
+            $project  = Project::findModel(['encode_id' => $this->params->project_id]);
 
             $user_ids = Member::find()->where(['project_id' => $project->id])->select('user_id')->column();
 
@@ -128,9 +128,9 @@ class Account extends User
 
         $pagination = new Pagination([
             'pageSizeParam' => false,
-            'totalCount' => $this->count,
-            'pageSize'   => $this->pageSize,
-            'validatePage' => false,
+            'totalCount'    => $this->count,
+            'pageSize'      => $this->pageSize,
+            'validatePage'  => false,
         ]);
 
         $this->models = $query
@@ -139,7 +139,6 @@ class Account extends User
             ->orderBy('id DESC')
             ->all();
 
-
         $this->sql = $query->createCommand()->getRawSql();
 
         $this->pages = LinkPager::widget([
@@ -147,9 +146,9 @@ class Account extends User
             'nextPageLabel' => '下一页',
             'prevPageLabel' => '上一页',
             'firstPageLabel' => '首页',
-            'lastPageLabel' => '尾页',
+            'lastPageLabel'  => '尾页',
             'hideOnSinglePage' => true,
-            'maxButtonCount' => 5,
+            'maxButtonCount'   => 5,
         ]);
 
         return $this;

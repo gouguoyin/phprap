@@ -90,7 +90,7 @@ class Project extends Model
      */
     public function getTypeLabel()
     {
-        return $this->getTypeLabels()[$this->type];
+        return $this->typeLabels[$this->type];
     }
 
     /**
@@ -102,7 +102,7 @@ class Project extends Model
         $filter = ['status' => Env::ACTIVE_STATUS];
         $order = [
             'sort' =>SORT_DESC,
-            'id' => SORT_ASC
+            'id'   => SORT_ASC
         ];
         return $this->hasMany(Env::className(), ['project_id' => 'id'])->where($filter)->orderBy($order);
     }
@@ -118,7 +118,7 @@ class Project extends Model
         ];
         $order  = [
             'sort' =>SORT_DESC,
-            'id' => SORT_DESC
+            'id'   => SORT_DESC
         ];
 
         return $this->hasMany(Module::className(), ['project_id' => 'id'])->where($filter)->orderBy($order);
@@ -135,7 +135,7 @@ class Project extends Model
         ];
         $order  = [
             'sort' =>SORT_DESC,
-            'id' => SORT_DESC
+            'id'   => SORT_DESC
         ];
 
         return $this->hasMany(Api::className(), ['project_id' => 'id'])->where($filter)->orderBy($order);

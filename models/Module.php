@@ -58,10 +58,10 @@ class Module extends Model
             'encode_id'  => '加密id',
             'project_id' => '项目id',
             'version_id' => '版本id',
-            'title' => '模块名称',
+            'title'  => '模块名称',
             'remark' => '项目描述',
             'status' => '模块状态',
-            'sort' => '模块排序',
+            'sort'   => '模块排序',
             'creater_id' => '创建者id',
             'updater_id' => '更新者id',
             'created_at' => '创建时间',
@@ -135,7 +135,7 @@ class Module extends Model
         $this->sql = $query->createCommand()->getRawSql();
 
         $this->pages = LinkPager::widget([
-            'pagination' => $pagination,
+            'pagination'       => $pagination,
             'nextPageLabel'    => '下一页',
             'prevPageLabel'    => '上一页',
             'firstPageLabel'   => '首页',
@@ -145,7 +145,6 @@ class Module extends Model
         ]);
 
         return $this;
-
     }
 
 }

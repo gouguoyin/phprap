@@ -81,7 +81,6 @@ class LoginLog extends Model
      */
     public function search($params = [])
     {
-
         $this->params = array2object($params);
 
         $query = self::find();
