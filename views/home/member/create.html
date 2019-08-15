@@ -169,10 +169,14 @@ $(function(){
             userIdInput.val(item.id);
             selectMemberBtn.attr("readonly","readonly");
         },
-
         items: 10, //显示8条
         delay: 100, //延迟时间
+    });
 
+    // 清除已选成员
+    $('.js_cleanMemberBtn').click(function () {
+        userIdInput.val(0);
+        selectMemberBtn.removeAttr("readonly").val('').focus();
     });
     
     // 表单验证

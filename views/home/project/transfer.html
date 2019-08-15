@@ -88,6 +88,12 @@
 
         });
 
+        // 清除已选成员
+        $('.js_cleanMemberBtn').click(function () {
+            userIdInput.val(0);
+            selectMemberBtn.removeAttr("readonly").val('').focus();
+        });
+
         // 表单验证
         $("form").validateForm({
             'success':function (json) {

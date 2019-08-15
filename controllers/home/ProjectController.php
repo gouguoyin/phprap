@@ -201,8 +201,8 @@ class ProjectController extends PublicController
                 $user[$k]['name'] = $member->account->fullName;
             }
         }
-
-        return $user;
+        // 重建索引
+        return array_values($user);
     }
 
     /**
