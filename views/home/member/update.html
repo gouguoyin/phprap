@@ -115,7 +115,7 @@
                 <label>成员权限</label>
                 <input type="hidden" class="js_memberRule" name="UpdateMember[member_rule]">
                 <label class="checkbox-inline">
-                    <input class="js_memberRule" onclick="return false;" checked type="checkbox" value="look">查看成员
+                    <input class="js_memberRule" type="checkbox" {{if $member->hasAuth(['member' => 'look'])}}checked{{/if}} value="look">查看成员
                 </label>
                 <label class="checkbox-inline">
                     <input class="js_memberRule" type="checkbox" {{if $member->hasAuth(['member' => 'create'])}}checked{{/if}} value="create">添加成员
