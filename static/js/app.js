@@ -1,7 +1,14 @@
 $('#sidebar-menu').metisMenu();
 $('[data-toggle="tooltip"]').tooltip();
 
-function alert(msg, type, callbak) {
+/**
+ * 优化的弹框
+ * @param msg 弹出消息
+ * @param type 信息类型，success|error
+ * @param callback 回调函数
+ * @returns {boolean}
+ */
+function alert(msg, type, callback) {
     var shift;
     var time;
     if (msg !== undefined && msg.length == 0) {
@@ -23,9 +30,15 @@ function alert(msg, type, callbak) {
     layer.msg(msg, {
         time: time,
         shift: shift
-    }, callbak)
+    }, callback)
 }
 
+/**
+ * 优化的确认框
+ * @param msg 确认信息
+ * @param callback 回调函数
+ * @returns {boolean}
+ */
 function confirm(msg, callback) {
     var d = dialog({
         fixed: true,
@@ -52,6 +65,9 @@ function confirm(msg, callback) {
     return false
 }
 
+/**
+ * 重置表单
+ */
 function resetForm() {
     $(':input', 'form').not(':button, :submit, :reset, :hidden').val('').removeAttr('checked').removeAttr('selected')
 }
@@ -62,6 +78,10 @@ $(":reset").on('click', function(e) {
     e.returnValue = false;
     resetForm()
 });
+
+/**
+ * 模态框封装
+ */
 (function($) {
     $("[data-modal]").on('click', function(e) {
         var e = e || window.event;
@@ -123,6 +143,10 @@ $(":reset").on('click', function(e) {
         })
     })
 })(jQuery);
+
+/**
+ * 表单提交验证
+ */
 (function($) {
     $.fn.validateForm = function(options) {
         var defaults = {
