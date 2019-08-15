@@ -1,4 +1,7 @@
-// 选择header
+/**
+ * 选择header
+ * @param headerParams
+ */
 function selectHeader(headerParams) {
     var selectHeaderBtn = $('#headerParamTable .js_name');
     selectHeaderBtn.typeahead({
@@ -6,10 +9,13 @@ function selectHeader(headerParams) {
         items: 8, //显示8条
         delay: 100, //延迟时间
         autoSelect:false
-
     });
 }
-// 选择类型
+
+/**
+ * 选择字段类型
+ * @param object 当前对象
+ */
 function selectType(object) {
     var type = ["array", "object"];
 
@@ -43,7 +49,11 @@ function selectType(object) {
     }
 }
 
-// 获取最大id
+/**
+ * 获取最大id
+ * @param tabel 表单对象
+ * @returns {number} 最大id
+ */
 function getMaxId(tabel) {
     var ids = [];
     $(tabel).find(".js_id").each(function() {
@@ -57,9 +67,12 @@ function getMaxId(tabel) {
     return parseInt(ids.sort().reverse()[0]);
 }
 
-// 新增字段
+/**
+ * 新增字段
+ * @param object 当前对象
+ * @param type 字段类型 header|request|response
+ */
 function addField(object, type) {
-
 
     var thisObj  = $(object);
     var tableObj = thisObj.closest('.row').find('.table');
@@ -80,7 +93,7 @@ function addField(object, type) {
         var id = getMaxId("#responseParamTable");
     }
 
-    console.log(id);
+    //console.log(id);
 
     if(id <= 0){
         id = 1;
