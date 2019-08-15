@@ -224,7 +224,8 @@ class ProjectController extends PublicController
             }
 
             if ($model->transfer()) {
-                return ['status' => 'success', 'message' => '转让成功'];
+                $callback = url('home/project/select');
+                return ['status' => 'success', 'message' => '转让成功', 'callback' => $callback];
             }
 
             return ['status' => 'error', 'message' => $model->getErrorMessage(), 'label' => $model->getErrorLabel()];
