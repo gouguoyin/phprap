@@ -1,10 +1,7 @@
 {{include_file name='install/public/header' title='创建数据表——安装步骤四'}}
-<link href="{{STATIC_URL}}/css/install.css" rel="stylesheet">
-
 </head>
 
 <body>
-
     <div class="container">
         <div class="row">
             <div class="col-md-10 col-md-offset-1">
@@ -58,27 +55,25 @@
     </div>
     
 <script>
+    function setProcess(){
+        var processbar = document.getElementById("processbar");
+        processbar.style.width = parseInt(processbar.style.width) + 10 + "%";
+        processbar.innerHTML = processbar.style.width;
+        if(processbar.style.width == "100%"){
 
-        function setProcess(){
-            var processbar = document.getElementById("processbar");
-            processbar.style.width = parseInt(processbar.style.width) + 10 + "%";
-            processbar.innerHTML = processbar.style.width;
-            if(processbar.style.width == "100%"){
+            $('.js_delete').removeClass('disabled');
+            $('.js_success').removeClass('hidden');
 
-                $('.js_delete').removeClass('disabled');
-                $('.js_success').removeClass('hidden');
+            $('.js_process').attr('href', "{{url('admin/home/index')}}").text('管理接口文档').removeClass('disabled');
 
-                $('.js_process').attr('href', "{{url('admin/home/index')}}").text('管理接口文档').removeClass('disabled');
-
-                window.clearInterval(bartimer);
-            }
+            window.clearInterval(bartimer);
         }
+    }
 
-        var bartimer = window.setInterval(function(){setProcess();},100);
-        window.onload = function(){
-            bartimer;
-        }
-
-    </script>
+    var bartimer = window.setInterval(function(){setProcess();},100);
+    window.onload = function(){
+        bartimer;
+    }
+</script>
 
 {{include_file name='install/public/footer'}}
