@@ -27,7 +27,7 @@ class UpdateMember extends Member
      */
     public function validateProject($attribute)
     {
-        if(!$this->project->hasRule(['member' => 'update'])){
+        if(!$this->project->hasAuth(['member' => 'update'])){
             $this->addError($attribute, '抱歉，您没有操作权限');
             return false;
         }

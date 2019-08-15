@@ -136,7 +136,7 @@ class ApiController extends PublicController
                 return $this->redirect(['home/account/login','callback' => Url::current()]);
             }
 
-            if(!$api->project->hasRule(['project' => 'look'])) {
+            if(!$api->project->hasAuth(['project' => 'look'])) {
                 return $this->error('抱歉，您无权查看');
             }
         }
@@ -168,7 +168,7 @@ class ApiController extends PublicController
     {
         $api = Api::findModel(['encode_id' => $id]);
 
-        if(!$api->project->hasRule(['api' => 'export'])) {
+        if(!$api->project->hasAuth(['api' => 'export'])) {
             return $this->error('抱歉，您没有操作权限');
         }
 

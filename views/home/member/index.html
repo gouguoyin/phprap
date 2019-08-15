@@ -16,7 +16,7 @@
                         <small>({{$member->count}})</small>
                     </h1>
                     <div class="opt-btn">
-                        {{if $project->hasRule(['member' => 'create'])}}
+                        {{if $project->hasAuth(['member' => 'create'])}}
                         <a href="javascript:void(0);" class="btn hidden-xs btn-sm btn-success" data-title='添加成员' data-modal="#js_popModal" data-height="300" data-src="{{url('member/create', ['project_id' => $project->encode_id])}}"><i class="fa fa-fw fa-plus"></i>添加</a>
                         {{/if}}
                     </div>
@@ -62,13 +62,13 @@
                                     {{if $member->count}}
                                     <td class="hidden-xs">
 
-                                        {{if $project->hasRule(['member' => 'update'])}}
+                                        {{if $project->hasAuth(['member' => 'update'])}}
                                         <a type="button" class="btn btn-success btn-xs mr-1" data-toggle="tooltip" data-placement="top" data-title="编辑成员" data-modal="#js_popModal" data-height="330" data-src="{{url('home/member/update', ['id' => $model->encode_id])}}">编辑</a>
                                         {{else}}
                                         <a type="button" class="btn btn-success btn-xs mr-1" data-toggle="tooltip" data-placement="top" data-title="查看成员" data-modal="#js_popModal" data-height="330" data-ok-btn-show="false" data-src="{{url('home/member/show', ['id' => $model->encode_id])}}">查看</a>
                                         {{/if}}
 
-                                        {{if $project->hasRule(['member' => 'remove'])}}
+                                        {{if $project->hasAuth(['member' => 'remove'])}}
                                         <a type="button" class="btn btn-danger btn-xs" data-toggle="tooltip" data-placement="top" data-title="移出项目" data-modal="#js_popModal" data-height="270" data-src="{{url('home/member/remove', ['id' => $model->encode_id])}}">移出</a>
                                         {{/if}}
                                     </td>

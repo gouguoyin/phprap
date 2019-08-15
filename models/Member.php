@@ -121,19 +121,19 @@ class Member extends Model
 
     /**
      * 判断是否拥有指定权限
-     * @param array $rules e.g ['project' => 'look,export','module' => 'look']
+     * @param array $auths e.g ['project' => 'look,export','module' => 'look']
      * @return bool
      */
-    public function hasRule($rules)
+    public function hasAuth($auths)
     {
-        if(!is_array($rules) || count($rules) == 0){
+        if(!is_array($auths) || count($auths) == 0){
             return false;
         }
         $flag = 0;
-        foreach ($rules as $type => $rule) {
+        foreach ($auths as $type => $auth) {
             $type = $type . '_rule';
             // 求差集
-            $diff = array_diff(array_filter(explode(',', $rule)), array_filter(explode(',', $this->$type)));
+            $diff = array_diff(array_filter(explode(',', $auth)), array_filter(explode(',', $this->$type)));
             $flag += count($diff);
         }
         return $flag ? false : true;
@@ -144,7 +144,7 @@ class Member extends Model
      * @param $type
      * @return string
      */
-    public function getRuleLabel($type)
+    public function getAuthLabel($type)
     {
         $type  = $type . '_rule';
 

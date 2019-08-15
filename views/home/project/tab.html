@@ -4,7 +4,7 @@
 
     <li class="hidden-xs {{if $tab == 'env'}}active{{/if}}"><a href="{{url('home/project/show', ['id' => $project->encode_id, 'tab' => 'env'])}}">项目环境</a></li>
 
-    {{if $project->hasRule(['member' => 'look'])}}
+    {{if $project->hasAuth(['member' => 'look'])}}
     <li class="{{if $tab == 'member'}}active{{/if}}"><a href="{{url('home/project/show', ['id' => $project->encode_id, 'tab' => 'member'])}}">项目成员</a></li>
     {{/if}}
 </ul>

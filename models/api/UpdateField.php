@@ -26,7 +26,7 @@ class UpdateField extends Api
      */
     public function validateProject($attribute)
     {
-        if(!$this->project->hasRule(['field' => 'update'])){
+        if(!$this->project->hasAuth(['field' => 'update'])){
             $this->addError($attribute, '抱歉，您没有操作权限');
             return false;
         }

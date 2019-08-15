@@ -17,7 +17,7 @@
 
                     </h1>
                     <div class="opt-btn">
-                        {{if $project->hasRule(['env' => 'create'])}}
+                        {{if $project->hasAuth(['env' => 'create'])}}
                         <a href="javascript:void(0);" class="btn hidden-xs btn-sm btn-success js_addEnvBtn" data-modal="#js_popModal" data-height="210" data-title='添加环境' data-src="{{url('home/env/create', ['project_id' => $project->encode_id])}}"><i class="fa fa-fw fa-plus"></i>添加</a>
                         {{/if}}
                     </div>
@@ -44,7 +44,7 @@
                                     <th>环境根路径</th>
                                     <th>创建人昵称/账号</th>
                                     <th class="datetime">添加时间</th>
-                                    {{if $project->hasRule(['env' => 'update,delete'])}}
+                                    {{if $project->hasAuth(['env' => 'update,delete'])}}
                                     <th class="hidden-xs" width="95px"></th>
                                     {{/if}}
                                 </tr>
@@ -58,11 +58,11 @@
                                     <td>{{$env->created_at}}</td>
                                     <td class="hidden-xs">
 
-                                        {{if $project->hasRule(['env' => 'update'])}}
+                                        {{if $project->hasAuth(['env' => 'update'])}}
                                         <a class="btn btn-success btn-xs mr-1" data-toggle="tooltip" data-placement="top" data-title="编辑环境" data-modal="#js_popModal" data-height="210" data-src="{{url('home/env/update', ['id' => $env->encode_id])}}">编辑</a>
                                         {{/if}}
 
-                                        {{if $project->hasRule(['env' => 'delete'])}}
+                                        {{if $project->hasAuth(['env' => 'delete'])}}
                                         <a class="btn btn-danger btn-xs" data-toggle="tooltip" data-placement="top" data-title="删除环境" data-modal="#js_popModal" data-height="190" data-src="{{url('home/env/delete', ['id' => $env->encode_id])}}">删除</a>
                                         {{/if}}
                                     </td>

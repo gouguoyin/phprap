@@ -31,7 +31,7 @@
                     <h1>接口字段 </h1>
                     <div class="opt-btn">
 
-                        {{if $project->hasRule(['api' => 'update'])}}
+                        {{if $project->hasAuth(['api' => 'update'])}}
                         <div class="btn-group hidden">
                             <button type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown" data-original-title="" title="" aria-expanded="false">
                                 <i class="fa fa-th-large" aria-hidden="true"></i>
@@ -54,7 +54,7 @@
                         </div>
                         {{/if}}
 
-                        {{if $project->hasRule(['api' => 'update'])}}
+                        {{if $project->hasAuth(['api' => 'update'])}}
                         <a href="javascript:;" class="btn btn-sm hidden-xs btn-success js_editFormBtn mr-1" data-url="{{url('home/field/form', ['api_id' => $api->encode_id])}}"><i class="fa fa-fw fa-edit"></i>编辑</a>
                         <a href="javascript:;" class="btn btn-sm hidden-xs btn-warning js_editJsonBtn" data-url="{{url('home/field/json', ['api_id' => $api->encode_id])}}"><i class="fa fa-fw fa-upload"></i>导入</a>
                         {{/if}}

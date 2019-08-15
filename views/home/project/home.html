@@ -15,13 +15,13 @@
                     <h1>项目主页 </h1>
                     <div class="opt-btn">
 
-                        {{if $project->hasRule(['project' => 'update'])}}
+                        {{if $project->hasAuth(['project' => 'update'])}}
                         <a href="javascript:void(0);" class="btn hidden-xs btn-sm btn-success mr-1" data-toggle="tooltip" data-placement="bottom" data-modal="#js_popModal" data-title="编辑项目" data-height="350" data-src="{{url('home/project/update', ['id' => $project->encode_id])}}"><i class="fa fa-fw fa-edit"></i>编辑</a>
                         {{/if}}
 
                         <a href="javascript:void(0);" class="btn hidden-xs btn-sm btn-info mr-1 js_copyUrl" data-clipboard-text="{{$project->getUrl(true)}}"  data-toggle="tooltip" data-title="复制项目地址" data-placement="bottom"><i class="fa fa-fw fa-link"></i>复制</a>
 
-                        {{if $project->hasRule(['project' => 'export'])}}
+                        {{if $project->hasAuth(['project' => 'export'])}}
                         <a href="{{url('export',['id' => $project->encode_id])}}" class="btn hidden-xs btn-sm btn-warning" data-toggle="tooltip" data-title="导出项目" data-placement="bottom"><i class="fa fa-fw fa-download"></i>导出</a>
                         {{/if}}
 

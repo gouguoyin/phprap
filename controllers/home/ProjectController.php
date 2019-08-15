@@ -129,7 +129,7 @@ class ProjectController extends PublicController
                 return $this->redirect(['home/account/login','callback' => Url::current()]);
             }
 
-            if(!$project->hasRule(['project' => 'look'])) {
+            if(!$project->hasAuth(['project' => 'look'])) {
                 return $this->error('抱歉，您无权查看');
             }
         }
@@ -147,7 +147,7 @@ class ProjectController extends PublicController
 
             case 'template':
 
-                if(!$project->hasRule(['template' => 'look'])) {
+                if(!$project->hasAuth(['template' => 'look'])) {
                     return $this->error('抱歉，您无权查看');
                 }
 
@@ -165,7 +165,7 @@ class ProjectController extends PublicController
 
             case 'member':
 
-                if(!$project->hasRule(['member' => 'look'])) {
+                if(!$project->hasAuth(['member' => 'look'])) {
                     return $this->error('抱歉，您无权查看');
                 }
 
@@ -217,7 +217,7 @@ class ProjectController extends PublicController
     {
         $project = Project::findModel(['encode_id' => $id]);
 
-        if(!$project->hasRule(['project' => 'export'])){
+        if(!$project->hasAuth(['project' => 'export'])){
             return $this->error("抱歉，您没有操作权限!");
         }
 

@@ -53,7 +53,7 @@ class UpdateEnv extends Env
      */
     public function validateProject($attribute)
     {
-        if(!$this->project->hasRule(['env' => 'update'])){
+        if(!$this->project->hasAuth(['env' => 'update'])){
             $this->addError($attribute, '抱歉，您没有操作权限');
             return false;
         }

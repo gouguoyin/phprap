@@ -52,7 +52,7 @@ class CreateEnv extends Env
     {
         $project = Project::findModel($this->project_id);
 
-        if(!$project->hasRule(['env' => 'create'])){
+        if(!$project->hasAuth(['env' => 'create'])){
             $this->addError($attribute, '抱歉，您没有操作权限');
             return false;
         }

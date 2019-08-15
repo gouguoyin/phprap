@@ -39,15 +39,15 @@
                 </label>
 
                 <label class="checkbox-inline">
-                    <input class="js_projectRule" type="checkbox" value="update" {{if $member->hasRule(['project' => 'update'])}}checked{{/if}} >编辑项目
+                    <input class="js_projectRule" type="checkbox" value="update" {{if $member->hasAuth(['project' => 'update'])}}checked{{/if}} >编辑项目
                 </label>
 
                 <label class="checkbox-inline">
-                    <input class="js_projectRule" type="checkbox" value="export" {{if $member->hasRule(['project' => 'export'])}}checked{{/if}} >导出项目
+                    <input class="js_projectRule" type="checkbox" value="export" {{if $member->hasAuth(['project' => 'export'])}}checked{{/if}} >导出项目
                 </label>
 
                 <label class="checkbox-inline">
-                    <input class="js_projectRule" type="checkbox" value="delete" {{if $member->hasRule(['project' => 'delete'])}}checked{{/if}} >删除项目
+                    <input class="js_projectRule" type="checkbox" value="delete" {{if $member->hasAuth(['project' => 'delete'])}}checked{{/if}} >删除项目
                 </label>
             </div>
 
@@ -58,13 +58,13 @@
                     <input class="js_envRule" onclick="return false;" checked type="checkbox" value="look">查看环境
                 </label>
                 <label class="checkbox-inline">
-                    <input class="js_envRule" type="checkbox" {{if $member->hasRule(['env' => 'create'])}}checked{{/if}} value="create">新增环境
+                    <input class="js_envRule" type="checkbox" {{if $member->hasAuth(['env' => 'create'])}}checked{{/if}} value="create">新增环境
                 </label>
                 <label class="checkbox-inline">
-                    <input class="js_envRule" type="checkbox" {{if $member->hasRule(['env' => 'update'])}}checked{{/if}} value="update">编辑环境
+                    <input class="js_envRule" type="checkbox" {{if $member->hasAuth(['env' => 'update'])}}checked{{/if}} value="update">编辑环境
                 </label>
                 <label class="checkbox-inline">
-                    <input class="js_envRule" type="checkbox" {{if $member->hasRule(['env' => 'delete'])}}checked{{/if}} value="delete">删除环境
+                    <input class="js_envRule" type="checkbox" {{if $member->hasAuth(['env' => 'delete'])}}checked{{/if}} value="delete">删除环境
                 </label>
             </div>
 
@@ -75,13 +75,13 @@
                     <input class="js_moduleRule" onclick="return false;" checked type="checkbox" value="look">查看模块
                 </label>
                 <label class="checkbox-inline">
-                    <input class="js_moduleRule" type="checkbox" {{if $member->hasRule(['module' => 'create'])}}checked{{/if}} value="create">新增模块
+                    <input class="js_moduleRule" type="checkbox" {{if $member->hasAuth(['module' => 'create'])}}checked{{/if}} value="create">新增模块
                 </label>
                 <label class="checkbox-inline">
-                    <input class="js_moduleRule" type="checkbox" {{if $member->hasRule(['module' => 'update'])}}checked{{/if}} value="update">编辑模块
+                    <input class="js_moduleRule" type="checkbox" {{if $member->hasAuth(['module' => 'update'])}}checked{{/if}} value="update">编辑模块
                 </label>
                 <label class="checkbox-inline">
-                    <input class="js_moduleRule" type="checkbox" {{if $member->hasRule(['module' => 'delete'])}}checked{{/if}} value="delete">删除模块
+                    <input class="js_moduleRule" type="checkbox" {{if $member->hasAuth(['module' => 'delete'])}}checked{{/if}} value="delete">删除模块
                 </label>
             </div>
 
@@ -93,17 +93,17 @@
                     <input class="js_apiRule" onclick="return false;" checked type="checkbox" value="look">查看接口
                 </label>
                 <label class="checkbox-inline">
-                    <input class="js_apiRule" type="checkbox" {{if $member->hasRule(['api' => 'create'])}}checked{{/if}} value="create">新增接口
+                    <input class="js_apiRule" type="checkbox" {{if $member->hasAuth(['api' => 'create'])}}checked{{/if}} value="create">新增接口
                 </label>
 
                 <label class="checkbox-inline">
-                    <input class="js_apiRule" type="checkbox" {{if $member->hasRule(['api' => 'update'])}}checked{{/if}} value="update">编辑接口
+                    <input class="js_apiRule" type="checkbox" {{if $member->hasAuth(['api' => 'update'])}}checked{{/if}} value="update">编辑接口
                 </label>
                 <label class="checkbox-inline">
-                    <input class="js_apiRule" type="checkbox" {{if $member->hasRule(['api' => 'export'])}}checked{{/if}} value="export">导出接口
+                    <input class="js_apiRule" type="checkbox" {{if $member->hasAuth(['api' => 'export'])}}checked{{/if}} value="export">导出接口
                 </label>
                 <label class="checkbox-inline">
-                    <input class="js_apiRule" type="checkbox" {{if $member->hasRule(['api' => 'delete'])}}checked{{/if}} value="delete">删除接口
+                    <input class="js_apiRule" type="checkbox" {{if $member->hasAuth(['api' => 'delete'])}}checked{{/if}} value="delete">删除接口
                 </label>
             </div>
 
@@ -114,14 +114,14 @@
                     <input class="js_memberRule" onclick="return false;" checked type="checkbox" value="look">查看成员
                 </label>
                 <label class="checkbox-inline">
-                    <input class="js_memberRule" type="checkbox" {{if $member->hasRule(['member' => 'create'])}}checked{{/if}} value="create">添加成员
+                    <input class="js_memberRule" type="checkbox" {{if $member->hasAuth(['member' => 'create'])}}checked{{/if}} value="create">添加成员
                 </label>
 
                 <label class="checkbox-inline">
-                    <input class="js_memberRule" type="checkbox" {{if $member->hasRule(['member' => 'update'])}}checked{{/if}} value="update">编辑成员
+                    <input class="js_memberRule" type="checkbox" {{if $member->hasAuth(['member' => 'update'])}}checked{{/if}} value="update">编辑成员
                 </label>
                 <label class="checkbox-inline">
-                    <input class="js_memberRule" type="checkbox" {{if $member->hasRule(['member' => 'remove'])}}checked{{/if}} value="remove">移除成员
+                    <input class="js_memberRule" type="checkbox" {{if $member->hasAuth(['member' => 'remove'])}}checked{{/if}} value="remove">移除成员
                 </label>
             </div>
 

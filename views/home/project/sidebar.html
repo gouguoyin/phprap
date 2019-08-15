@@ -12,15 +12,15 @@
                     <i class="fa fa-fw fa-folder-open"></i>
                     {{$module->title}}
 
-                    {{if $project->hasRule(['api' => 'create'])}}
+                    {{if $project->hasAuth(['api' => 'create'])}}
                     <i class="fa hidden-xs fa-fw fa-plus option-btn pull-right mt-0" data-toggle="tooltip" data-placement="bottom" data-modal="#js_popModal" data-title="添加接口" data-height="440" data-src="{{url('home/api/create', ['module_id' => $module->encode_id])}}"></i>
                     {{/if}}
 
-                    {{if $project->hasRule(['module' => 'delete'])}}
+                    {{if $project->hasAuth(['module' => 'delete'])}}
                     <i class="fa hidden-xs fa-fw fa-trash-o option-btn pull-right mt-0" data-toggle="tooltip" data-placement="bottom" data-modal="#js_popModal" data-title="删除模块" data-height="250" data-src="{{url('home/module/delete', ['id' => $module->encode_id])}}"></i>
                     {{/if}}
 
-                    {{if $project->hasRule(['module' => 'update'])}}
+                    {{if $project->hasAuth(['module' => 'update'])}}
                     <i class="fa hidden-xs fa-fw fa-pencil option-btn pull-right mt-0" data-toggle="tooltip" data-placement="bottom" data-modal="#js_popModal" data-title="编辑模块" data-height="230" data-src="{{url('home/module/update', ['id' => $module->encode_id])}}"></i>
                     {{/if}}
                 </a>
@@ -28,13 +28,13 @@
                     {{foreach $module->apis as $k => $v}}
                     <li class="api-item">
                         <a class="{{if $api->id == $v->id}}active{{/if}}" href="{{url('home/api/show', ['id' => $v->encode_id])}}" title="点击查看接口详情">
-                            <i class="fa fa-fw fa-files-o"></i>{{$api->title}}
+                            <i class="fa fa-fw fa-files-o"></i>{{$v->title}}
 
-                            {{if $project->hasRule(['api' => 'delete'])}}
+                            {{if $project->hasAuth(['api' => 'delete'])}}
                             <i class="fa hidden-xs fa-fw fa-trash-o option-btn pull-right mt-1" data-toggle="tooltip" data-placement="bottom" data-modal="#js_popModal" data-title="删除接口" data-height="250" data-src="{{url('home/api/delete', ['id' => $v->encode_id])}}"></i>
                             {{/if}}
 
-                            {{if $project->hasRule(['api' => 'update'])}}
+                            {{if $project->hasAuth(['api' => 'update'])}}
                             <i class="fa hidden-xs fa-fw fa-pencil option-btn pull-right mt-1" data-toggle="tooltip" data-placement="bottom" data-modal="#js_popModal" data-title="编辑接口" data-height="440" data-src="{{url('home/api/update', ['id' => $v->encode_id])}}"></i>
                             {{/if}}
 
@@ -45,7 +45,7 @@
             </li>
             {{/foreach}}
 
-            {{if $project->hasRule(['module' => 'create'])}}
+            {{if $project->hasAuth(['module' => 'create'])}}
             <li>
                 <a class="hidden-xs" data-modal="#js_popModal" data-height="230" data-title="添加模块" data-src="{{url('home/module/create', ['project_id' => $project->encode_id])}}" href="javascript:void(0);"><i class="fa fa-fw fa-plus"></i> 添加模块</a>
             </li>

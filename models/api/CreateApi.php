@@ -32,7 +32,7 @@ class CreateApi extends Api
     {
         $module = Module::findModel(['encode_id' => $this->module_id]);
 
-        if(!$module->project->hasRule(['api' => 'create'])){
+        if(!$module->project->hasAuth(['api' => 'create'])){
             $this->addError($attribute, '抱歉，您没有操作权限');
             return false;
         }
