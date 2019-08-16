@@ -39,8 +39,6 @@ class Model extends \yii\db\ActiveRecord
         if (($model = static::findOne($condition)) !== null) {
             return $model;
         }
-
-        return new static();
     }
 
     /**
