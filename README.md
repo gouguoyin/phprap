@@ -159,61 +159,53 @@
 ## 使用
 
 - 注册
-![](http://www.phprap.com/static/images/wiki/register.png)
+![](http://www.phprap.com/static/images/wiki/register.png?v=1.0)
 
 - 登录
-![](http://www.phprap.com/static/images/wiki/login.png)
+![](http://www.phprap.com/static/images/wiki/login.png?v=1.0)
 
-- 修改资料
-![](http://gouguoyin.qiniudn.com/profile_edit.png)
+- 修改账号
+![](http://www.phprap.com/static/images/wiki/profile2.png?v=1.0)
 
-- 消息通知
-![](http://gouguoyin.qiniudn.com/notify.png)
+- 修改密码
+![](http://www.phprap.com/static/images/wiki/password.png?v=1.0)
 
 - 登录历史
-![](http://gouguoyin.qiniudn.com/login_history.png)
+![](http://www.phprap.com/static/images/wiki/profile1.png?v=1.0)
+![](http://www.phprap.com/static/images/wiki/history.png?v=1.0)
 
 - 项目
 
     - 新建项目
-    ![](http://gouguoyin.qiniudn.com/project_creat.png)
+    ![](http://www.phprap.com/static/images/wiki/project/create.png?v=1.0)
     
     - 编辑项目
-    ![](http://gouguoyin.qiniudn.com/project_edit.png)
+    ![](http://www.phprap.com/static/images/wiki/project/update.png?v=1.0)
     
     - 转让项目
     ![](http://gouguoyin.qiniudn.com/project_transfer.png)
     
     - 搜索项目
-    ![](http://gouguoyin.qiniudn.com/project_search.png)
+    ![](http://www.phprap.com/static/images/wiki/project/search.png?v=1.0)
     
     - 切换项目
-    ![](http://gouguoyin.qiniudn.com/project_select.png)
+    ![](http://www.phprap.com/static/images/wiki/project/select.png?v=1.0)
     
     - 项目主页
-    ![](http://gouguoyin.qiniudn.com/project_home.png)
-    
-    - 项目成员
-    ![](http://gouguoyin.qiniudn.com/project_member.png)
-    
-    - 成员权限
-    ![](http://gouguoyin.qiniudn.com/member_rule.png)
-    
-    - 项目动态
-    ![](http://gouguoyin.qiniudn.com/project_history.png)
+    ![](http://www.phprap.com/static/images/wiki/project/home.png?v=1.0)
     
     - 删除项目
-    ![](http://gouguoyin.qiniudn.com/project_delete.png)
-    
+    ![](http://www.phprap.com/static/images/wiki/project/delete.png?v=1.0)
+         
 - 模块
     - 新建模块
-    ![](http://gouguoyin.qiniudn.com/module_creat.png)
+    ![](http://www.phprap.com/static/images/wiki/module/create.png?v=1.0)
     
     - 编辑模块
-    ![](http://gouguoyin.qiniudn.com/module_edit.png)
+    ![](http://www.phprap.com/static/images/wiki/module/update.png?v=1.0)
     
     - 删除模块
-    ![](http://gouguoyin.qiniudn.com/module_delete.png)
+    ![](http://www.phprap.com/static/images/wiki/module/delete.png?v=1.0)
     
 - 接口
 
@@ -241,21 +233,20 @@
 - 后台
 
     - 管理主页
-    ![](http://gouguoyin.qiniudn.com/admin_home.png)
+    ![](http://www.phprap.com/static/images/wiki/manage/home.png?v=1.0)
 
     - 项目管理
-    ![](http://gouguoyin.qiniudn.com/admin_project.png)
+    ![](http://www.phprap.com/static/images/wiki/manage/project.png?v=1.0)
     
     - 用户管理
-    ![](http://gouguoyin.qiniudn.com/admin_user.png)
-    ![](http://gouguoyin.qiniudn.com/user_disable.png)
-    ![](http://gouguoyin.qiniudn.com/reset_password.png)
+    ![](http://www.phprap.com/static/images/wiki/manage/user.png?v=1.0)
     
     - 登录历史
-    ![](http://gouguoyin.qiniudn.com/admin_login_history.png)
+    ![](http://www.phprap.com/static/images/wiki/manage/history.png?v=1.0)
     
     - 系统设置
-    ![](http://gouguoyin.qiniudn.com/admin_setting.png)
+    ![](http://www.phprap.com/static/images/wiki/setting/app.png?v=1.0)
+    ![](http://www.phprap.com/static/images/wiki/setting/safe.png?v=1.0)
     
 ## 联系
 
