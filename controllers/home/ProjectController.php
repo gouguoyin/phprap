@@ -36,6 +36,10 @@ class ProjectController extends PublicController
      */
     public function actionSearch()
     {
+        if(Yii::$app->user->isGuest) {
+            return $this->redirect(['home/account/login','callback' => Url::current()]);
+        }
+
         $params = Yii::$app->request->queryParams;
 
         $params['status'] = Project::ACTIVE_STATUS;
@@ -187,6 +191,10 @@ class ProjectController extends PublicController
      */
     public function actionMember($id, $name = null)
     {
+        if(Yii::$app->user->isGuest) {
+            return $this->redirect(['home/account/login']);
+        }
+
         Yii::$app->response->format = Response::FORMAT_JSON;
 
         $project = Project::findModel(['encode_id' => $id]);
@@ -211,6 +219,10 @@ class ProjectController extends PublicController
      */
     public function actionTransfer($id)
     {
+        if(Yii::$app->user->isGuest) {
+            return $this->redirect(['home/account/login']);
+        }
+
         $request = Yii::$app->request;
 
         $model   = TransferProject::findModel(['encode_id' => $id]);
@@ -279,6 +291,10 @@ class ProjectController extends PublicController
      */
     public function actionDelete($id)
     {
+        if(Yii::$app->user->isGuest) {
+            return $this->redirect(['home/account/login']);
+        }
+
         $request = Yii::$app->request;
 
         $model = DeleteProject::findModel(['encode_id' => $id]);
@@ -309,6 +325,10 @@ class ProjectController extends PublicController
      */
     public function actionQuit($id)
     {
+        if(Yii::$app->user->isGuest) {
+            return $this->redirect(['home/account/login']);
+        }
+
         $request = Yii::$app->request;
 
         $model  = QuitProject::findModel(['encode_id' => $id]);
