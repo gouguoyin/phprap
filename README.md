@@ -38,12 +38,12 @@
 
   [**GITEE(推荐)**]
     ```php
-    git clone https://gitee.com/gouguoyin/phprap.git 'web可访问目录'
+    git clone https://gitee.com/gouguoyin/phprap.git 'web目录'
     ```
     
   [**GITHUB**]
     ```php
-    git clone https://github.com/gouguoyin/phprap.git 'web可访问目录'
+    git clone https://github.com/gouguoyin/phprap.git 'web目录'
     ```
        
   [**源码**]
@@ -159,18 +159,23 @@
 ## 使用
 
 - 用户注册
+
 ![](http://www.phprap.com/static/images/wiki/register.png?v=1.0)
 
 - 用户登录
+
 ![](http://www.phprap.com/static/images/wiki/login.png?v=1.0)
 
 - 修改账号
+
 ![](http://www.phprap.com/static/images/wiki/profile2.png?v=1.0)
 
 - 修改密码
+
 ![](http://www.phprap.com/static/images/wiki/password.png?v=1.0)
 
 - 登录历史
+
 ![](http://www.phprap.com/static/images/wiki/profile1.png?v=1.0)
 ![](http://www.phprap.com/static/images/wiki/history.png?v=1.0)
 
@@ -181,10 +186,7 @@
     
     - 编辑项目
     ![](http://www.phprap.com/static/images/wiki/project/update.png?v=1.0)
-    
-    - 转让项目
-    ![](http://gouguoyin.qiniudn.com/project_transfer.png)
-    
+        
     - 搜索项目
     ![](http://www.phprap.com/static/images/wiki/project/search.png?v=1.0)
     
