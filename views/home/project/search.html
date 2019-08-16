@@ -66,7 +66,7 @@
                                 <thead>
                                 <tr>
                                     <th>项目名称</th>
-                                    <th>我的身份</th>
+                                    <th>我的角色</th>
                                     <th>创建人昵称/账号</th>
                                     <th width="60px">成员数</th>
                                     <th class="datetime">创建时间</th>
@@ -83,7 +83,7 @@
                                         {{$model->title}}
                                     </td>
                                     <td >
-                                        {{$model->identity}}
+                                        {{$model->role}}
                                     </td>
                                     <td >{{$model->creater->fullName}}</td>
                                     <td class="text-center">{{$model->getMembers()->count()}}</td>

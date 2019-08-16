@@ -228,11 +228,11 @@ class Project extends Model
     }
 
     /**
-     * 获取项目身份
+     * 获取项目角色
      * @param int $user_id
      * @return string
      */
-    public function getIdentity($user_id = 0)
+    public function getRole($user_id = 0)
     {
         if($this->isCreater($user_id)){
             return '创建者';
