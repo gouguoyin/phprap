@@ -240,6 +240,7 @@ class Project extends Model
         if($this->isJoiner($user_id)){
             return '项目成员';
         }
+
         return '普通游客';
     }
 
