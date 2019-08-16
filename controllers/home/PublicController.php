@@ -51,33 +51,28 @@ class PublicController extends Controller
     }
 
     /** 展示模板
-     * @param $view
+     * @param string $view 视图路径
      * @param array $params
      * @return string
      */
     public function display($view, $params = [])
     {
-        $account = Yii::$app->user->identity;
-
-        if($account->id){
-            $params['check_status'] = Apply::CHECK_STATUS;
-            $params['order_by']     = 'id desc';
-
-            $notify = Apply::findModel()->search($params);
+        if(!Yii::$app->user->isGuest){
+            $notify  = Apply::findModel()->search(['check_status' => Apply::CHECK_STATUS, 'order_by' => 'id desc']);
+            $account = Yii::$app->user->identity;
 
             $params['notify']  = $notify;
             $params['account'] = $account;
         }
-        
+
         exit($this->render($view . '.html', $params));
     }
 
     /**
      * 成功消息提示
-     * @param $message 提示信息
-     * @param int $jumpSeconds 延迟时间
+     * @param string $message 成功信息
+     * @param int $jumpSeconds 延迟时间，单位秒
      * @param string $jumpUrl 跳转链接
-     * @param null $model
      * @return string
      */
     public function success($message, $jumpSeconds = 1, $jumpUrl = '')
@@ -89,9 +84,9 @@ class PublicController extends Controller
 
     /**
      * 错误消息提示
-     * @param $message
-     * @param int $jumpSeconds
-     * @param string $jumpUrl
+     * @param string $message 错误信息
+     * @param int $jumpSeconds 延迟时间，单位秒
+     * @param string $jumpUrl 跳转链接
      * @return string
      */
     public function error($message, $jumpSeconds = 3, $jumpUrl = '')

@@ -10,13 +10,11 @@ use app\models\loginLog\CreateLog;
 
 class InstallController extends PublicController
 {
-
     public function beforeAction($action)
     {
         if($this->isInstalled()){
             exit('PHPRAP已安装过，请不要重复安装，如果需要重新安装，请先删除runtime/install/install.lock');
         }
-
         return true;
     }
 
@@ -28,37 +26,33 @@ class InstallController extends PublicController
     {
         $request = Yii::$app->request;
         if($request->isPost){
-
             Yii::$app->response->format = Response::FORMAT_JSON;
-
             Yii::$app->cache->set('step', 1);
-
             return ['status' => 'success', 'callback' => url('home/install/step2')];
         }
 
         $step1 = [
             'runtime' => [
-                'have_chmods' => $this->getChmodsLabel(Yii::getAlias("@runtime")),
+                'have_chmods'    => $this->getChmodsLabel(Yii::getAlias("@runtime")),
                 'require_chmods' => '可读、可写',
-                'check_chmod' => is_writable(Yii::getAlias("@runtime")),
+                'check_chmod'    => is_writable(Yii::getAlias("@runtime")),
             ],
             'runtime/cache' => [
-                'have_chmods' => $this->getChmodsLabel(Yii::getAlias("@runtime") . '/cache'),
+                'have_chmods'    => $this->getChmodsLabel(Yii::getAlias("@runtime") . '/cache'),
                 'require_chmods' => '可读、可写',
-                'check_chmod' => is_writable(Yii::getAlias("@runtime") . '/cache'),
+                'check_chmod'    => is_writable(Yii::getAlias("@runtime") . '/cache'),
             ],
             'runtime/install' => [
-                'have_chmods' => $this->getChmodsLabel(Yii::getAlias("@runtime") . '/install'),
+                'have_chmods'    => $this->getChmodsLabel(Yii::getAlias("@runtime") . '/install'),
                 'require_chmods' => '可读、可写',
-                'check_chmod' => is_writable(Yii::getAlias("@runtime") . '/install'),
+                'check_chmod'    => is_writable(Yii::getAlias("@runtime") . '/install'),
             ],
             'configs/db.php' => [
-                'have_chmods' => $this->getChmodsLabel(Yii::getAlias("@app") . '/configs/db.php'),
+                'have_chmods'    => $this->getChmodsLabel(Yii::getAlias("@app") . '/configs/db.php'),
                 'require_chmods' => '可读、可写',
-                'check_chmod' => is_writable(Yii::getAlias("@app") . '/configs/db.php'),
+                'check_chmod'    => is_writable(Yii::getAlias("@app") . '/configs/db.php'),
             ],
         ];
-
         return $this->display('/install/step1', ['step1' => $step1]);
     }
 
@@ -69,13 +63,11 @@ class InstallController extends PublicController
     public function actionStep2()
     {
         $request = Yii::$app->request;
-
         if(Yii::$app->cache->get('step') != 1){
             return $this->redirect(['home/install/step1']);
         }
 
         if($request->isPost){
-
             Yii::$app->response->format = Response::FORMAT_JSON;
 
             $step2 = $request->post('Step2');
@@ -87,9 +79,9 @@ class InstallController extends PublicController
                 'charset'  => 'utf8',
             ];
 
+            // 判断数据库连接状态
             $connection = new \yii\db\Connection($db);
 
-            // 判断数据库连接状态
             try {
                 $connection->open();
             } catch(Exception $e) {

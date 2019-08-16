@@ -341,8 +341,6 @@ class Project extends Model
 
         $this->sql = $query->createCommand()->getRawSql();
 
-//        dump($this->sql);
-
         $this->pages = LinkPager::widget([
             'pagination'       => $pagination,
             'nextPageLabel'    => '下一页',
@@ -354,7 +352,6 @@ class Project extends Model
         ]);
 
         return $this;
-
     }
 
 }
