@@ -16,19 +16,8 @@
                 <div class="search">
                     <div class="well">
                         <h4>
-                            {{if $flag == 'error'}}
-                            <i class="fa fa-times-circle fa-fw"></i>
+                            <i class="fa {{if $flag == 'error'}}fa-times-circle{{else}}fa-check-circle{{/if}} fa-fw"></i>
                             {{$message}}
-                            {{else if $flag == 'success'}}
-                            <i class="fa fa-check-circle fa-fw"></i>
-                            {{$message}}，请选择下一步操作
-                                <div class="clearfix" style="margin-top: 20px">
-                                    <a href="{{$data.create_url}}" class="btn btn-warning">继续发布</a>
-                                    <a href="{{$data.update_url}}" class="btn btn-success">返回编辑</a>
-                                    <a href="{{$data.list_url}}" class="btn btn-primary">返回列表</a>
-
-                                </div>
-                            {{/if}}
                         </h4>
 
                         <div class="clearfix" style="margin: 20px 0">
@@ -52,6 +41,7 @@
     </div>
     <!-- /#wrapper -->
     {{include_file name='home/public/copyright'}}
+
     <script>
 
         $(function(){
@@ -72,8 +62,6 @@
 
         });
 
-//        $("#js_tipModal").modal('show');
     </script>
-
 
     {{include_file name='home/public/footer'}}
