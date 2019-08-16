@@ -1,5 +1,4 @@
 {{include_file name='home/public/header' title='接口字段'}}
-<link href="{{STATIC_URL}}/plugins/jsonview/json-view.css" rel="stylesheet" type="text/css">
 <style>
     .table>thead>tr>th, .table>tbody>tr>th, .table>tfoot>tr>th, .table>thead>tr>td, .table>tbody>tr>td, .table>tfoot>tr>td {
         padding: 8px 8px 8px 0;
@@ -273,10 +272,7 @@
 </div>
 
 <!-- /#wrapper -->
-<hr>
-<p class="text-center">{{config('copyright')}}</p>
-
-<script src="{{STATIC_URL}}/plugins/jsonview/json-view.js"></script>
+{{include_file name='home/public/copyright'}}
 
 <script>
     $(function () {
