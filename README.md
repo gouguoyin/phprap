@@ -7,7 +7,7 @@
 ## 相关
  - 官方网站：[www.phprap.com](http://www.phprap.com)
  - 演示网站：[demo.phprap.com](http://demo.phprap.com)
- - 使用文档：[www.phprap.com/doc](http://www.phprap.com/doc/index.html)
+ - 使用文档：[www.phprap.com/wiki](http://www.phprap.com/wiki/index.html)
  
 ## 特性
 
@@ -158,10 +158,10 @@
     
 ## 使用
 
-- 注册
+- 用户注册
 ![](http://www.phprap.com/static/images/wiki/register.png?v=1.0)
 
-- 登录
+- 用户登录
 ![](http://www.phprap.com/static/images/wiki/login.png?v=1.0)
 
 - 修改账号
@@ -250,7 +250,7 @@
     
 ## 联系
 
-- 如果您在使用过程中有任何疑问，或有好的意见和想法，请通过以下途径联系我或者新建 [Issue](https://github.com/gouguoyin/phprap/issues)  讨论新特性或者变更。
+- 如果您在使用过程中有任何疑问，或有好的意见和想法，请通过以下途径联系我或者新建 [Issue](https://gitee.com/gouguoyin/phprap/issues)  讨论新特性或者变更。
 - 官方网站：[www.phprap.com](http://www.phprap.com)
 - 演示网站：[demo.phprap.com](http://demo.phprap.com)
 - 官方QQ群：421537504 <a style="margin-left:10px" target="_blank" href="http://shang.qq.com/wpa/qunwpa?idkey=d49826b55d1759513ce5d68253b3f0589b227587edf87059aa08125e620b73c0"><img border="0" src="http://pub.idqqimg.com/wpa/images/group.png" alt="GoPHP官方交流群" title="GoPHP官方交流群"></a>
