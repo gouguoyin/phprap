@@ -1,5 +1,4 @@
 {{include_file name='home/public/header' title='接口字段'}}
-<link href="{{STATIC_URL}}/plugins/jsonview/json-view.css" rel="stylesheet" type="text/css">
 <style>
     .table>thead>tr>th, .table>tbody>tr>th, .table>tfoot>tr>th, .table>thead>tr>td, .table>tbody>tr>td, .table>tfoot>tr>td {
         padding: 8px 8px 8px 0;
@@ -274,29 +273,17 @@
 <!-- /#wrapper -->
 {{include_file name='home/public/copyright'}}
 
-
-<script src="{{STATIC_URL}}/plugins/jsonview/json-view.js"></script>
-
 <script>
     $(function () {
 
-        // 格式化json
-        {{if $api->success_example}}
-        $(".success-box").JSONView({{$api->success_example}});
+        // 未设置环境弹框提示
+        {{if $project->getEnvs()->count() == 0}}
+        confirm('项目至少需要设置一个环境，请立即设置', function(){
+            window.location.href = "{{url('project/show', ['id' => $project->encode_id, 'tab' => 'env'])}}";
+        });
         {{/if}}
 
-            {{if $api->error_example}}
-            $(".error-box").JSONView({{$api->error_example}});
-            {{/if}}
-
-                // 未设置环境弹框提示
-                {{if $project->getEnvs()->count() == 0}}
-                confirm('项目至少需要设置一个环境，请立即设置', function(){
-                    window.location.href = "{{url('project/show', ['id' => $project->encode_id, 'tab' => 'env'])}}";
-                });
-                {{/if}}
-
-                });
+    });
 </script>
 
 {{include_file name='home/public/footer'}}
