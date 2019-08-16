@@ -32,7 +32,6 @@ class FieldController extends PublicController
             }
 
             return ['status' => 'error', 'message' => $api->getErrorMessage(), 'label' => $api->getErrorLabel()];
-
         }
 
         return $this->display('/home/field/form', ['api' => $api, 'project' => $api->project]);
@@ -63,12 +62,9 @@ class FieldController extends PublicController
             }
 
             return ['status' => 'error', 'message' => $api->getErrorMessage(), 'label' => $api->getErrorLabel()];
-
         }
 
         return $this->display('/home/field/json', ['api' => $api, 'project' => $api->project]);
     }
-
-
 
 }

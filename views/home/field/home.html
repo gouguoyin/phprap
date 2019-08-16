@@ -1,4 +1,5 @@
 {{include_file name='home/public/header' title='接口字段'}}
+<link href="{{STATIC_URL}}/plugins/jsonview/json-view.css" rel="stylesheet" type="text/css">
 <style>
     .table>thead>tr>th, .table>tbody>tr>th, .table>tfoot>tr>th, .table>thead>tr>td, .table>tbody>tr>td, .table>tfoot>tr>td {
         padding: 8px 8px 8px 0;
@@ -38,7 +39,6 @@
                             </button>
                             <ul class="dropdown-menu dropdown-menu-right" role="menu">
 
-
                                 <li>
                                     <a href="javascript:;" class="hidden-xs js_editFormBtn mr-1" data-url="{{url('home/field/form', ['api_id' => $api->encode_id])}}"><i class="fa fa-fw fa-edit"></i>表单模式</a>
 
@@ -54,8 +54,8 @@
                         {{/if}}
 
                         {{if $project->hasAuth(['api' => 'update'])}}
-                        <a href="javascript:;" class="btn btn-sm hidden-xs btn-success js_editFormBtn mr-1" data-url="{{url('home/field/form', ['api_id' => $api->encode_id])}}"><i class="fa fa-fw fa-edit"></i>编辑</a>
-                        <a href="javascript:;" class="btn btn-sm hidden-xs btn-warning js_editJsonBtn" data-url="{{url('home/field/json', ['api_id' => $api->encode_id])}}"><i class="fa fa-fw fa-upload"></i>导入</a>
+                        <a href="{{url('home/field/form', ['api_id' => $api->encode_id])}}" class="btn btn-sm hidden-xs btn-success"><i class="fa fa-fw fa-edit"></i>编辑</a>
+                        <a href="{{url('home/field/json', ['api_id' => $api->encode_id])}}" class="btn btn-sm hidden-xs btn-warning"><i class="fa fa-fw fa-upload"></i>导入</a>
                         {{/if}}
 
                     </div>
@@ -274,6 +274,9 @@
 <!-- /#wrapper -->
 {{include_file name='home/public/copyright'}}
 
+
+<script src="{{STATIC_URL}}/plugins/jsonview/json-view.js"></script>
+
 <script>
     $(function () {
 
@@ -282,40 +285,18 @@
         $(".success-box").JSONView({{$api->success_example}});
         {{/if}}
 
-        {{if $api->error_example}}
-        $(".error-box").JSONView({{$api->error_example}});
-        {{/if}}
+            {{if $api->error_example}}
+            $(".error-box").JSONView({{$api->error_example}});
+            {{/if}}
 
-        // 编辑表单
-        $(".js_editFormBtn").on('click', function () {
-            var thisObj = $(this);
-            var url = thisObj.data('url');
-            thisObj.attr("disabled", "disabled");
-            $("body").load(url, function (response, status) {
-                thisObj.removeAttr("disabled");
-            });
-        });
+                // 未设置环境弹框提示
+                {{if $project->getEnvs()->count() == 0}}
+                confirm('项目至少需要设置一个环境，请立即设置', function(){
+                    window.location.href = "{{url('project/show', ['id' => $project->encode_id, 'tab' => 'env'])}}";
+                });
+                {{/if}}
 
-        // 编辑JSON
-        $(".js_editJsonBtn").on('click', function () {
-            var thisObj = $(this);
-            var url = thisObj.data('url');
-            thisObj.attr("disabled", "disabled");
-            $("body").load(url, function (response, status) {
-                thisObj.removeAttr("disabled");
-            });
-        });
-
-        // 未设置环境弹框提示
-        {{if $project->getEnvs()->count() == 0}}
-        confirm('项目至少需要设置一个环境，请立即设置', function(){
-
-            window.location.href = "{{url('project/show', ['id' => $project->encode_id, 'tab' => 'env'])}}";
-
-        });
-        {{/if}}
-
-    });
+                });
 </script>
 
 {{include_file name='home/public/footer'}}
