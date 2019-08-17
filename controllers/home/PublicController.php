@@ -44,7 +44,7 @@ class PublicController extends Controller
         }
 
         if($this->checkLogin && Yii::$app->user->isGuest){
-            return $this->redirect(['home/account/login'])->send();
+            return $this->redirect(['home/account/login','callback' => Url::current()])->send();
         }
 
         return true;
