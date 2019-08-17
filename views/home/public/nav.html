@@ -65,9 +65,5 @@
         </li>
 
     </ul>
-    {{if isset($sidebar)}}
-
-    {{include_file name="{{$sidebar}}"}}
-
-    {{/if}}
+    {{if isset($sidebar)}} {{include_file name="{{$sidebar}}"}} {{/if}}
 </nav>
