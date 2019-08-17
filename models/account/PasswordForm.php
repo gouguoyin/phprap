@@ -33,6 +33,11 @@ class PasswordForm extends Account
         }
     }
 
+    /**
+     * 保存密码
+     * @return bool
+     * @throws \yii\db\Exception
+     */
     public function store()
     {
         if (!$this->validate()) {

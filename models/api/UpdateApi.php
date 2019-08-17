@@ -7,7 +7,6 @@ use app\models\Api;
 
 class UpdateApi extends Api
 {
-
     /**
      * 验证规则
      */

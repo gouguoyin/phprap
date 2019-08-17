@@ -6,8 +6,7 @@ use app\models\Api;
 
 class DeleteApi extends Api
 {
-
-    public $password;
+    public $password; // 登录密码
 
     public function rules()
     {
