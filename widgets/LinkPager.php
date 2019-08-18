@@ -1,15 +1,14 @@
 <?php
-
 namespace app\widgets;
 
-use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
+use yii\helpers\ArrayHelper;
 
 class LinkPager extends \yii\widgets\LinkPager
 {
     public $statisticPageLabel = '共 {totalPage}页 {totalRow} 条数据';
     public $statisticPageClass = 'page-total';
-    public $hideOnSinglePage = false;
+    public $hideOnSinglePage   = false;
 
     public function init() {
         parent::init();
@@ -23,7 +22,6 @@ class LinkPager extends \yii\widgets\LinkPager
         }
         echo $this->renderPageButtons();
     }
-
 
     protected function renderPageButtons()
     {
@@ -62,7 +60,7 @@ class LinkPager extends \yii\widgets\LinkPager
         // internal pages
         list($beginPage, $endPage) = $this->getPageRange();
         for ($i = $beginPage; $i <= $endPage; ++$i) {
-            $buttons[] = $this->renderPageButton($i + 1, $i, null, $this->disableCurrentPageButton && $i == $currentPage, $i == $currentPage);
+            $buttons[] = $this->renderPageButton($i + 1, $i, 'hidden-xs', $this->disableCurrentPageButton && $i == $currentPage, $i == $currentPage);
         }
 
         // next page
