@@ -141,9 +141,9 @@ class InstallController extends PublicController
                 $transaction = Yii::$app->db->beginTransaction();
 
                 // 数据库初始化
-                $sql = $this->getInitSql();
+                $init_sql = $this->getInitSql();
 
-                if(Yii::$app->db->createCommand($sql)->execute() === false){
+                if(Yii::$app->db->createCommand($init_sql)->execute() === false){
                     $transaction->rollBack();
                     return ['status' => 'error', 'message' => '数据库初始化安装失败，请检查 configs/db.php 文件是否完整'];
                 }
