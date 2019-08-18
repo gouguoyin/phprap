@@ -70,7 +70,7 @@ CREATE TABLE `doc_config` (
   `type` varchar(10) NOT NULL COMMENT '配置类型',
   `content` text NOT NULL COMMENT '配置内容',
   `created_at` datetime DEFAULT NULL COMMENT '创建时间',
-  `updated_at` timestamp NULL DEFAULT NULL COMMENT '更新时间',
+  `updated_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
   PRIMARY KEY (`id`),
   UNIQUE KEY `type` (`type`)
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COMMENT='配置表';
