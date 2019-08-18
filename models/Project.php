@@ -228,6 +228,39 @@ class Project extends Model
     }
 
     /**
+     * 将对象转化为json
+     * @return false|string
+     */
+    public function getJson()
+    {
+        $data['id']     = $this->id;
+        $data['title']  = $this->title;
+        $data['type']   = $this->type;
+        $data['status'] = $this->status;
+        $data['remark'] = $this->remark;
+        $data['envs']   = $this->getEnvs()->select(['id','title','name','base_url','status'])->asArray()->all();
+        foreach ($this->modules as $k1 => $v1) {
+            $data['modules'][$k1]['id']     = $v1->id;
+            $data['modules'][$k1]['title']  = $v1->title;
+            $data['modules'][$k1]['status'] = $v1->status;
+            $data['modules'][$k1]['remark'] = $v1->remark;
+            foreach ($v1->apis as $k2 => $v2) {
+                $data['modules'][$k1]['apis'][$k2]['id']                = $v2->id;
+                $data['modules'][$k1]['apis'][$k2]['title']             = $v2->title;
+                $data['modules'][$k1]['apis'][$k2]['request_method']    = $v2->requestMethodLabel;
+                $data['modules'][$k1]['apis'][$k2]['response_format']   = $v2->responseFormatLabel;
+                $data['modules'][$k1]['apis'][$k2]['request_url']       = $v2->url;
+                $data['modules'][$k1]['apis'][$k2]['status']            = $v2->status;
+                $data['modules'][$k1]['apis'][$k2]['remark']            = $v2->remark;
+                $data['modules'][$k1]['apis'][$k2]['header_fields'][]   = $v2->headerAttributes;
+                $data['modules'][$k1]['apis'][$k2]['request_fields'][]  = $v2->requestAttributes;
+                $data['modules'][$k1]['apis'][$k2]['response_fields'][] = $v2->responseAttributes;
+            }
+        }
+        return json_encode($data, JSON_UNESCAPED_UNICODE);
+    }
+
+    /**
      * 获取项目角色
      * @param int $user_id
      * @return string

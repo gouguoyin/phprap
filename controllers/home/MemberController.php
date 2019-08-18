@@ -77,7 +77,9 @@ class MemberController extends PublicController
 
     /**
      * 选择成员
-     * @return string
+     * @param $project_id 项目id
+     * @param $name 搜索词
+     * @return array
      */
     public function actionSelect($project_id, $name)
     {
@@ -121,7 +123,6 @@ class MemberController extends PublicController
             }
 
             return ['status' => 'error', 'message' => $model->getErrorMessage(), 'label' => $model->getErrorLabel()];
-
         }
 
         return $this->display('remove', ['member' => $model]);
