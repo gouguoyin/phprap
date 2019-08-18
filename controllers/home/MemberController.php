@@ -13,7 +13,8 @@ class MemberController extends PublicController
 {
     /**
      * 添加成员
-     * @return string
+     * @param $project_id 项目ID
+     * @return array|string
      */
     public function actionCreate($project_id)
     {
@@ -47,7 +48,7 @@ class MemberController extends PublicController
 
     /**
      * 编辑成员
-     * @param $id
+     * @param $id 成员ID
      * @return array|string
      */
     public function actionUpdate($id)
@@ -77,7 +78,7 @@ class MemberController extends PublicController
 
     /**
      * 选择成员
-     * @param $project_id 项目id
+     * @param $project_id 项目ID
      * @param $name 搜索词
      * @return array
      */
@@ -101,7 +102,7 @@ class MemberController extends PublicController
 
     /**
      * 移除成员
-     * @param $id
+     * @param $id 成员ID
      * @return array
      */
     public function actionRemove($id)
@@ -130,7 +131,7 @@ class MemberController extends PublicController
 
     /**
      * 成员详情
-     * @param $id
+     * @param $id 成员ID
      * @return string
      */
     public function actionShow($id)

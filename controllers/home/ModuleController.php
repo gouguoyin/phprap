@@ -12,7 +12,8 @@ class ModuleController extends PublicController
 {
     /**
      * 添加模块
-     * @return string
+     * @param $project_id 项目ID
+     * @return array|string
      */
     public function actionCreate($project_id)
     {
@@ -45,7 +46,7 @@ class ModuleController extends PublicController
 
     /**
      * 更新模块
-     * @param $id
+     * @param $id 模块ID
      * @return array|string
      */
     public function actionUpdate($id)
@@ -75,7 +76,7 @@ class ModuleController extends PublicController
 
     /**
      * 删除模块
-     * @param $id
+     * @param $id 模块ID
      * @return array|string
      */
     public function actionDelete($id)

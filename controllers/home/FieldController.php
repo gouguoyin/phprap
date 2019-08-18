@@ -8,8 +8,8 @@ use app\models\api\UpdateField;
 class FieldController extends PublicController
 {
     /**
-     * 更新表单
-     * @param $id
+     * 更新字段(表单形式)
+     * @param $api_id 接口ID
      * @return array|string
      */
     public function actionForm($api_id)
@@ -38,8 +38,8 @@ class FieldController extends PublicController
     }
 
     /**
-     * 更新JSON
-     * @param $api_id
+     * 更新字段(JSON形式)
+     * @param $api_id 接口ID
      * @return array|string
      */
     public function actionJson($api_id)

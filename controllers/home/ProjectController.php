@@ -85,7 +85,7 @@ class ProjectController extends PublicController
 
     /**
      * 编辑项目
-     * @param $id
+     * @param $id 项目ID
      * @return array|string
      */
     public function actionUpdate($id)
@@ -119,7 +119,7 @@ class ProjectController extends PublicController
 
     /**
      * 项目详情
-     * @param $token
+     * @param $id 项目ID
      * @param string $tab
      * @return string
      */
@@ -185,8 +185,8 @@ class ProjectController extends PublicController
 
     /**
      * 项目成员
-     * @param $id
-     * @param null $name
+     * @param $id 项目ID
+     * @param null $name 搜索词
      * @return array
      */
     public function actionMember($id, $name = null)
@@ -215,7 +215,8 @@ class ProjectController extends PublicController
 
     /**
      * 转让项目
-     * @return string
+     * @param $id 项目ID
+     * @return array|string|Response
      */
     public function actionTransfer($id)
     {
@@ -248,7 +249,7 @@ class ProjectController extends PublicController
     }
 
     /**
-     * @param $id 项目id
+     * @param $id 项目ID
      * @param string $format 导出格式 html|json
      * @return string
      */
@@ -296,7 +297,7 @@ class ProjectController extends PublicController
 
     /**
      * 删除项目
-     * @param $id
+     * @param $id 项目ID
      * @return array|string
      */
     public function actionDelete($id)
@@ -330,7 +331,7 @@ class ProjectController extends PublicController
 
     /**
      * 退出项目
-     * @param $id
+     * @param $id 项目ID
      * @return array|string
      */
     public function actionQuit($id)

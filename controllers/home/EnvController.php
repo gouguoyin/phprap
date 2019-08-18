@@ -12,7 +12,7 @@ class EnvController extends PublicController
 {
     /**
      * 创建环境
-     * @param $project_id
+     * @param $project_id 项目id
      * @return array|string
      */
     public function actionCreate($project_id)
@@ -45,7 +45,7 @@ class EnvController extends PublicController
 
     /**
      * 更新环境
-     * @param $id
+     * @param $id 环境ID
      * @return array|string
      */
     public function actionUpdate($id)
@@ -75,7 +75,7 @@ class EnvController extends PublicController
 
     /**
      * 删除环境
-     * @param $id
+     * @param $id 环境ID
      * @return array|string
      */
     public function actionDelete($id)
