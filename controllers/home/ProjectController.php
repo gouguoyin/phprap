@@ -7,11 +7,14 @@ use yii\web\Response;
 use app\models\Project;
 use app\models\Template;
 use app\models\Member;
+use app\models\ProjectLog;
+use app\models\projectLog\CreateLog;
 use app\models\project\CreateProject;
 use app\models\project\UpdateProject;
 use app\models\project\QuitProject;
 use app\models\project\TransferProject;
 use app\models\project\DeleteProject;
+
 
 class ProjectController extends PublicController
 {
@@ -127,8 +130,11 @@ class ProjectController extends PublicController
     {
         $project = Project::findModel(['encode_id' => $id]);
 
-        if($project->isPrivate()) {
+        if($project->status !== $project::ACTIVE_STATUS){
+            return $this->error('抱歉，项目不存在或者已被删除');
+        }
 
+        if($project->isPrivate()) {
             if(Yii::$app->user->isGuest) {
                 return $this->redirect(['home/account/login','callback' => Url::current()]);
             }
@@ -176,6 +182,18 @@ class ProjectController extends PublicController
                 $data['member'] = Member::findModel()->search($params);
 
                 $view  = '/home/member/index';
+
+                break;
+
+            case 'history':
+
+                if(!$project->hasAuth(['member' => 'look'])) {
+                    return $this->error('抱歉，您无权查看');
+                }
+
+                $data['history'] = ProjectLog::findModel()->search($params);
+
+                $view  = '/home/history/project';
 
                 break;
         }
@@ -237,8 +255,7 @@ class ProjectController extends PublicController
             }
 
             if ($model->transfer()) {
-                $callback = url('home/project/select');
-                return ['status' => 'success', 'message' => '转让成功', 'callback' => $callback];
+                return ['status' => 'success', 'message' => '转让成功', 'callback' => url('home/project/select')];
             }
 
             return ['status' => 'error', 'message' => $model->getErrorMessage(), 'label' => $model->getErrorLabel()];
@@ -268,31 +285,38 @@ class ProjectController extends PublicController
         $cache_interval = 60;
 
         if($cache->get($cache_key) !== false){
-            $remain_time = $cache->get($cache_key) - time();
+            $remain_time = $cache->get($cache_key)  - time();
             if($remain_time < $cache_interval){
                 $this->error("抱歉，导出太频繁，请{$remain_time}秒后再试!", 5);
             }
         }
 
-        $file_name = $project->title . '接口离线文档';
-        switch ($format) {
-            case 'html':
-                $file_name .= '.html';
-                $response  = $this->display('export', ['project' => $project]);
-                break;
-            case 'json':
-                $file_name .= '.json';
-                $response  = $project->getJson();
-                break;
-        }
-
-        header ("Content-Type: application/force-download");
-        header ("Content-Disposition: attachment;filename=$file_name");
-
         // 限制导出频率, 60秒一次
         Yii::$app->cache->set($cache_key, time() + $cache_interval, $cache_interval);
 
-        return $response;
+        $file_name = $project->title . '接口离线文档' . '.' . $format;
+
+        // 记录操作日志
+        $log = new CreateLog();
+        $log->project_id = $project->id;
+        $log->type       = 'export';
+        $log->content    = '导出了 文档 ' . '<code>' . $file_name . '</code>';
+
+        if(!$log->store()){
+            return $this->error($log->getErrorMessage());
+        }
+
+        header ("Content-Type: application/force-download");
+
+        switch ($format) {
+            case 'html':
+                header ("Content-Disposition: attachment;filename=$file_name");
+                return $this->display('export', ['project' => $project]);
+            case 'json':
+                header ("Content-Disposition: attachment;filename=$file_name");
+                return $project->getJson();
+        }
+
     }
 
     /**
@@ -319,7 +343,7 @@ class ProjectController extends PublicController
             }
 
             if($model->delete()) {
-                return ['status' => 'success', 'message' => '删除成功'];
+                return ['status' => 'success', 'message' => '删除成功', 'callback' => url('home/project/select')];
             }
 
             return ['status' => 'error', 'message' => $model->getErrorMessage(), 'label' => $model->getErrorLabel()];
@@ -355,11 +379,10 @@ class ProjectController extends PublicController
             }
 
             if($model->quit()) {
-                return ['status' => 'success', 'message' => '退出成功'];
+                return ['status' => 'success', 'message' => '退出成功', 'callback' => url('home/project/select')];
             }
 
             return ['status' => 'error', 'message' => $model->getErrorMessage(), 'label' => $model->getErrorLabel()];
-
         }
 
         return $this->display('quit', ['project' => $model, 'member' => $member]);
