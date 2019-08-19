@@ -130,33 +130,6 @@ class Model extends \yii\db\ActiveRecord
     }
 
     /**
-     * 获取模型更新内容
-     * @param $oldAttributes 原始属性
-     * @param $dirtyAttributes 更新属性
-     * @param string $preText 前缀文案
-     * @return string
-     */
-    public function getUpdateContent($oldAttributes, $dirtyAttributes, $preText = '')
-    {
-        $content = '';
-
-        foreach ($dirtyAttributes as $name => $value) {
-
-            $label = '<strong>' . $this->getAttributeLabel($name) . '</strong>';
-
-            if(isset($oldAttributes[$name])){
-                $oldValue = '<code>' . $oldAttributes[$name] . '</code>';
-                $newValue = '<code>' . $value . '</code>';
-
-                $content .= $preText . ' ' . $label . ' 从' . $oldValue . '更新为' . $newValue . ',';
-            }
-
-        }
-
-        return trim($content, ',');
-    }
-
-    /**
      * 获取客户端IP
      * @return mixed|string|null
      */
