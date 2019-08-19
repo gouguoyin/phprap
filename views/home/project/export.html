@@ -194,6 +194,7 @@
                                 <!-- /.panel-body -->
                             </div>
 
+                            {{if count($api->headerAttributes)}}
                             <div class="panel panel-default">
                                 <div class="panel-heading">
                                     Header参数
@@ -239,6 +240,7 @@
                                 </div>
                                 <!-- /.panel-body -->
                             </div>
+                            {{/if}}
 
                             <div class="panel panel-default">
                                 <div class="panel-heading">
@@ -337,10 +339,7 @@
         {{/foreach}}
         {{/foreach}}
     </div>
-    <hr />
-
-    <p class="text-center">{{config('copyright')}} Build By <a target="_blank" href="http://www.phprap.com/">PHPRAP</a></p>
-
+    {{include_file name='home/public/copyright'}}
 </div>
 <!-- /container -->
 <script src="https://cdn.staticfile.org/jquery/2.1.0-rc1/jquery.min.js"></script>

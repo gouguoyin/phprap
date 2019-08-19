@@ -6,7 +6,7 @@ use app\models\Account;
 
 class ProfileForm extends Account
 {
-    public $password;
+    public $password; // 登录密码
 
     /**
      * 验证规则
@@ -45,7 +45,7 @@ class ProfileForm extends Account
         $query = self::find();
 
         $query->andFilterWhere([
-            'email'  => $this->email,
+            'email' => $this->email,
         ]);
 
         $query->andFilterWhere([

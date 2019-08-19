@@ -6,7 +6,6 @@ use app\models\Apply;
 
 class UpdateApply extends Apply
 {
-
     public $password; // 登录密码
 
     /**

@@ -11,6 +11,10 @@ use app\models\member\CreateMember;
 
 class ApplyController extends PublicController
 {
+    /**
+     * 申请列表
+     * @return string
+     */
     public function actionIndex()
     {
         $params = Yii::$app->request->queryParams;
@@ -25,7 +29,8 @@ class ApplyController extends PublicController
 
     /**
      * 添加申请
-     * @return string
+     * @param $project_id 项目ID
+     * @return array|string
      */
     public function actionCreate($project_id)
     {
@@ -51,8 +56,9 @@ class ApplyController extends PublicController
     }
 
     /**
-     * 通过申请
-     * @return string
+     * @param $id 申请ID
+     * @return array|string
+     * @throws \yii\db\Exception
      */
     public function actionPass($id)
     {
@@ -105,7 +111,9 @@ class ApplyController extends PublicController
 
     /**
      * 拒绝申请
-     * @return string
+     * @param $id 申请ID
+     * @return array|string
+     * @throws \yii\db\Exception
      */
     public function actionRefuse($id)
     {

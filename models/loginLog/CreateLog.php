@@ -6,7 +6,6 @@ use app\models\LoginLog;
 
 class CreateLog extends LoginLog
 {
-
     public function store()
     {
         $log = &$this;
@@ -20,8 +19,7 @@ class CreateLog extends LoginLog
         $log->os         = $this->getOs();
         $log->created_at = date('Y-m-d H:i:s');
 
-        if(!$log->save())
-        {
+        if(!$log->save()){
             $this->addError($log->getErrorLabel(), $log->getErrorMessage());
             return false;
         }

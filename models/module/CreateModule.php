@@ -7,7 +7,6 @@ use app\models\Module;
 
 class CreateModule extends Module
 {
-
     /**
      * 验证规则
      */

@@ -47,10 +47,9 @@ class CreateApply extends Apply
         ])->orderBy(['id' => SORT_DESC])->one();
 
         if($apply->status == Apply::CHECK_STATUS){
-            $this->addError($attribute, '正在审核中，请耐心等待审核结果');
+            $this->addError($attribute, '您已提交过加入申请，请耐心等待审核结果');
             return false;
         }
-
     }
 
     /**

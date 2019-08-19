@@ -85,7 +85,7 @@ class ProjectController extends PublicController
 
     /**
      * 编辑项目
-     * @param $id
+     * @param $id 项目ID
      * @return array|string
      */
     public function actionUpdate($id)
@@ -119,7 +119,7 @@ class ProjectController extends PublicController
 
     /**
      * 项目详情
-     * @param $token
+     * @param $id 项目ID
      * @param string $tab
      * @return string
      */
@@ -185,8 +185,8 @@ class ProjectController extends PublicController
 
     /**
      * 项目成员
-     * @param $id
-     * @param null $name
+     * @param $id 项目ID
+     * @param null $name 搜索词
      * @return array
      */
     public function actionMember($id, $name = null)
@@ -215,7 +215,8 @@ class ProjectController extends PublicController
 
     /**
      * 转让项目
-     * @return string
+     * @param $id 项目ID
+     * @return array|string|Response
      */
     public function actionTransfer($id)
     {
@@ -248,11 +249,11 @@ class ProjectController extends PublicController
     }
 
     /**
-     * 导出项目
-     * @param $id
+     * @param $id 项目ID
+     * @param string $format 导出格式 html|json
      * @return string
      */
-    public function actionExport($id)
+    public function actionExport($id, $format = 'html')
     {
         $project = Project::findModel(['encode_id' => $id]);
 
@@ -267,13 +268,23 @@ class ProjectController extends PublicController
         $cache_interval = 60;
 
         if($cache->get($cache_key) !== false){
-            $remain_time = $cache->get($cache_key)  - time();
+            $remain_time = $cache->get($cache_key) - time();
             if($remain_time < $cache_interval){
                 $this->error("抱歉，导出太频繁，请{$remain_time}秒后再试!", 5);
             }
         }
 
-        $file_name = $project->title . '接口离线文档.html';
+        $file_name = $project->title . '接口离线文档';
+        switch ($format) {
+            case 'html':
+                $file_name .= '.html';
+                $response  = $this->display('export', ['project' => $project]);
+                break;
+            case 'json':
+                $file_name .= '.json';
+                $response  = $project->getJson();
+                break;
+        }
 
         header ("Content-Type: application/force-download");
         header ("Content-Disposition: attachment;filename=$file_name");
@@ -281,12 +292,12 @@ class ProjectController extends PublicController
         // 限制导出频率, 60秒一次
         Yii::$app->cache->set($cache_key, time() + $cache_interval, $cache_interval);
 
-        return $this->display('export', ['project' => $project]);
+        return $response;
     }
 
     /**
      * 删除项目
-     * @param $id
+     * @param $id 项目ID
      * @return array|string
      */
     public function actionDelete($id)
@@ -320,7 +331,7 @@ class ProjectController extends PublicController
 
     /**
      * 退出项目
-     * @param $id
+     * @param $id 项目ID
      * @return array|string
      */
     public function actionQuit($id)

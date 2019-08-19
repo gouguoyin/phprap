@@ -28,7 +28,8 @@ class ApiController extends PublicController
 
     /**
      * 添加接口
-     * @return string
+     * @param $module_id 模块ID
+     * @return array|string
      */
     public function actionCreate($module_id)
     {
@@ -61,7 +62,7 @@ class ApiController extends PublicController
 
     /**
      * 更新接口
-     * @param $id
+     * @param $id 接口ID
      * @return array|string
      */
     public function actionUpdate($id)
@@ -92,7 +93,7 @@ class ApiController extends PublicController
     
     /**
      * 删除接口
-     * @param $id
+     * @param $id 接口ID
      * @return array|string
      */
     public function actionDelete($id)
@@ -123,7 +124,7 @@ class ApiController extends PublicController
 
     /**
      * 接口详情
-     * @param $id
+     * @param $id 接口ID
      * @return string
      */
     public function actionShow($id, $tab = 'home')
@@ -161,7 +162,7 @@ class ApiController extends PublicController
 
     /**
      * 导出接口文档
-     * @param $id
+     * @param $id 接口ID
      * @return string
      */
     public function actionExport($id)
