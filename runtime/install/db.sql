@@ -226,26 +226,12 @@ DROP TABLE IF EXISTS `doc_project_log`;
 CREATE TABLE `doc_project_log` (
   `id` int(1) NOT NULL AUTO_INCREMENT,
   `project_id` int(10) NOT NULL COMMENT '项目id',
-  `module_id` int(10) NOT NULL DEFAULT '0' COMMENT '模块id',
-  `api_id` int(10) NOT NULL DEFAULT '0' COMMENT '接口id',
   `user_id` int(10) NOT NULL COMMENT '操作人id',
-  `user_name` varchar(50) NOT NULL COMMENT '操作人昵称',
-  `user_email` varchar(50) NOT NULL COMMENT '操作人邮箱',
-  `version_id` int(10) NOT NULL DEFAULT '0' COMMENT '操作版本id',
-  `version_name` varchar(255) NOT NULL DEFAULT '' COMMENT '操作版本号',
-  `method` varchar(10) NOT NULL COMMENT '操作方式',
-  `object_name` varchar(20) NOT NULL COMMENT '操作对象',
-  `object_id` int(10) NOT NULL COMMENT '操作对象id',
+  `type` varchar(10) NOT NULL COMMENT '操作类型',
   `content` text NOT NULL COMMENT '操作内容',
   `created_at` datetime DEFAULT NULL COMMENT '创建时间',
   `updated_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
-  PRIMARY KEY (`id`),
-  KEY `user_id` (`user_id`),
-  KEY `object_id` (`object_id`),
-  KEY `project_id` (`project_id`) USING BTREE,
-  KEY `version_id` (`version_id`),
-  KEY `module_id` (`module_id`),
-  KEY `api_id` (`api_id`)
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='项目日志表';
 
 -- ----------------------------

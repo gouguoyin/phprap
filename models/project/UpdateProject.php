@@ -23,20 +23,6 @@ class UpdateProject extends Project
     }
 
     /**
-     * 字段字典
-     */
-    public function attributeLabels()
-    {
-        return [
-            'project_id' => '项目ID',
-            'title' => '项目名称',
-            'remark' => '项目描述',
-            'type' => '项目类型',
-            'sort' => '项目排序',
-        ];
-    }
-
-    /**
      * 验证项目名是否唯一
      * @param $attribute
      */

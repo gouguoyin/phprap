@@ -75,6 +75,8 @@ class UpdateEnv extends Env
         // 保存环境
         $env = &$this;
 
+        $env->title = $this->title;
+        $env->name  = $this->name;
         $env->base_url   = trim($this->base_url, '/');
         $env->updater_id = Yii::$app->user->identity->id;
         $env->updated_at = date('Y-m-d H:i:s');
