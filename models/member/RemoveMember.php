@@ -3,6 +3,7 @@ namespace app\models\member;
 
 use Yii;
 use app\models\Member;
+use app\models\projectLog\CreateLog;
 
 class RemoveMember extends Member
 {
@@ -76,6 +77,18 @@ class RemoveMember extends Member
 
         if(!$member->delete()){
             $this->addError($member->getErrorLabel(), $member->getErrorMessage());
+            $transaction->rollBack();
+            return false;
+        }
+
+        // 保存操作日志
+        $log = new CreateLog();
+        $log->project_id = $member->project_id;
+        $log->type       = 'remove';
+        $log->content    = '移除了 成员 ' . '<code>' . $member->account->fullName . '</code>';
+
+        if(!$log->store()){
+            $this->addError($log->getErrorLabel(), $log->getErrorMessage());
             $transaction->rollBack();
             return false;
         }

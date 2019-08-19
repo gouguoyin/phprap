@@ -4,6 +4,7 @@ namespace app\models\member;
 use Yii;
 use app\models\Apply;
 use app\models\Member;
+use app\models\projectLog\CreateLog;
 
 class CreateMember extends Member
 {
@@ -80,6 +81,19 @@ class CreateMember extends Member
                 return false;
             }
         }
+
+        // 保存操作日志
+        $log = new CreateLog();
+        $log->project_id = $member->project_id;
+        $log->type       = 'create';
+        $log->content    = '添加了 成员 ' . '<code>' . $member->account->fullName . '</code>';
+
+        if(!$log->store()){
+            $this->addError($log->getErrorLabel(), $log->getErrorMessage());
+            $transaction->rollBack();
+            return false;
+        }
+
         // 事务提交
         $transaction->commit();
 

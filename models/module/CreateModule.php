@@ -4,6 +4,7 @@ namespace app\models\module;
 use Yii;
 use app\models\Project;
 use app\models\Module;
+use app\models\projectLog\CreateLog;
 
 class CreateModule extends Module
 {
@@ -63,6 +64,18 @@ class CreateModule extends Module
 
         if(!$module->save()){
             $this->addError($module->getErrorLabel(), $module->getErrorMessage());
+            $transaction->rollBack();
+            return false;
+        }
+
+        // 保存操作日志
+        $log = new CreateLog();
+        $log->project_id = $module->project->id;
+        $log->type       = 'create';
+        $log->content    = '添加了 模块 ' . '<code>' . $module->title . '</code>';
+
+        if(!$log->store()){
+            $this->addError($log->getErrorLabel(), $log->getErrorMessage());
             $transaction->rollBack();
             return false;
         }

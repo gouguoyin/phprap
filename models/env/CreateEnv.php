@@ -2,8 +2,9 @@
 namespace app\models\env;
 
 use Yii;
-use app\models\Project;
 use app\models\Env;
+use app\models\Project;
+use app\models\projectLog\CreateLog;
 
 class CreateEnv extends Env
 {
@@ -86,6 +87,18 @@ class CreateEnv extends Env
 
         if(!$env->save()){
             $this->addError($env->getErrorLabel(), $env->getErrorMessage());
+            $transaction->rollBack();
+            return false;
+        }
+
+        // 保存操作日志
+        $log = new CreateLog();
+        $log->project_id = $env->project_id;
+        $log->type       = 'create';
+        $log->content    = '添加了 环境 ' . '<code>' . $env->title . '(' . $env->name. ')' . '</code>';
+
+        if(!$log->store()){
+            $this->addError($log->getErrorLabel(), $log->getErrorMessage());
             $transaction->rollBack();
             return false;
         }

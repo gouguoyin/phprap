@@ -3,6 +3,7 @@ namespace app\models\api;
 
 use Yii;
 use app\models\Api;
+use app\models\projectLog\CreateLog;
 
 class DeleteApi extends Api
 {
@@ -74,6 +75,18 @@ class DeleteApi extends Api
 
         if(!$api->save()){
             $this->addError($api->getErrorLabel(), $api->getErrorMessage());
+            $transaction->rollBack();
+            return false;
+        }
+
+        // 保存操作日志
+        $log = new CreateLog();
+        $log->project_id = $api->project_id;
+        $log->type       = 'create';
+        $log->content    = '删除了 <strong>' . $api->module->title . '->' . $api->title . '</strong>';
+
+        if(!$log->store()){
+            $this->addError($log->getErrorLabel(), $log->getErrorMessage());
             $transaction->rollBack();
             return false;
         }

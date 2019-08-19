@@ -126,4 +126,35 @@ class Env extends Model
             return $this->defaultEnvs[3];
         }
     }
+
+    /**
+     * 获取更新内容
+     * @return string
+     */
+    public function getUpdateContent()
+    {
+        $content = '';
+        foreach ($this->dirtyAttributes as $name => $value) {
+
+            $label = '<strong>' . $this->oldAttributes['title'] . '->' . $this->getAttributeLabel($name) . '</strong>';
+
+            if(isset($this->oldAttributes[$name])){
+
+                switch ($name) {
+                    case 'status':
+                        $oldValue = '<code>' . $this->statusLabels[$this->oldAttributes[$name]] . '</code>';
+                        $newValue = '<code>' . $this->statusLabels[$this->dirtyAttributes[$name]] . '</code>';
+                        break;
+                    default:
+                        $oldValue = '<code>' . $this->oldAttributes[$name] . '</code>';
+                        $newValue = '<code>' . $value . '</code>';
+                }
+
+                $content .= '将 ' . $label . ' 从' . $oldValue . '更新为' . $newValue . ',';
+            }
+
+        }
+
+        return trim($content, ',');
+    }
 }

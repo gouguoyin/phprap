@@ -4,6 +4,7 @@ namespace app\models\api;
 use Yii;
 use app\models\Module;
 use app\models\Api;
+use app\models\projectLog\CreateLog;
 
 class UpdateApi extends Api
 {
@@ -53,6 +54,27 @@ class UpdateApi extends Api
         $module = Module::findModel(['encode_id' => $this->module_id]);
 
         $api->module_id  = $module->id;
+        $api->title      = $this->title;
+        $api->request_method = $this->request_method;
+        $api->uri    = $this->uri;
+        $api->remark = $this->remark;
+        $api->status = (int)$this->status;
+        $api->sort   = (int)$this->sort;
+
+        if($api->dirtyAttributes) {
+            $log = new CreateLog();
+            $log->project_id = $api->project->id;
+            $log->type       = 'update';
+            $log->content    = $api->getUpdateContent();
+
+            // 保存操作日志
+            if(!$log->store()){
+                $this->addError($log->getErrorLabel(), $log->getErrorMessage());
+                $transaction->rollBack();
+                return false;
+            }
+        }
+
         $api->updater_id = Yii::$app->user->identity->id;
         $api->updated_at = date('Y-m-d H:i:s');
 

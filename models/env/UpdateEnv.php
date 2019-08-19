@@ -3,6 +3,7 @@ namespace app\models\env;
 
 use Yii;
 use app\models\Env;
+use app\models\projectLog\CreateLog;
 
 class UpdateEnv extends Env
 {
@@ -78,6 +79,21 @@ class UpdateEnv extends Env
         $env->title = $this->title;
         $env->name  = $this->name;
         $env->base_url   = trim($this->base_url, '/');
+
+        if($env->dirtyAttributes) {
+            $log = new CreateLog();
+            $log->project_id = $env->project->id;
+            $log->type       = 'update';
+            $log->content    = $env->getUpdateContent();
+
+            // 保存操作日志
+            if(!$log->store()){
+                $this->addError($log->getErrorLabel(), $log->getErrorMessage());
+                $transaction->rollBack();
+                return false;
+            }
+        }
+
         $env->updater_id = Yii::$app->user->identity->id;
         $env->updated_at = date('Y-m-d H:i:s');
 

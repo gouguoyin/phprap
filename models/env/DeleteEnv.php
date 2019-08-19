@@ -3,6 +3,7 @@ namespace app\models\env;
 
 use Yii;
 use app\models\Env;
+use app\models\projectLog\CreateLog;
 
 class DeleteEnv extends Env
 {
@@ -81,6 +82,18 @@ class DeleteEnv extends Env
 
         if(!$env->save()){
             $this->addError($env->getErrorLabel(), $env->getErrorMessage());
+            $transaction->rollBack();
+            return false;
+        }
+
+        // 保存操作日志
+        $log = new CreateLog();
+        $log->project_id = $env->project_id;
+        $log->type       = 'create';
+        $log->content    = '删除了 环境 ' . '<code>' . $env->title . '(' . $env->name. ')' . '</code>';
+
+        if(!$log->store()){
+            $this->addError($log->getErrorLabel(), $log->getErrorMessage());
             $transaction->rollBack();
             return false;
         }
