@@ -47,6 +47,10 @@
                 </label>
 
                 <label class="checkbox-inline">
+                    <input class="js_projectRule" type="checkbox" value="history" {{if $member->hasAuth(['project' => 'history'])}}checked{{/if}}>项目动态
+                </label>
+
+                <label class="checkbox-inline">
                     <input class="js_projectRule" type="checkbox" value="transfer" {{if $member->hasAuth(['project' => 'transfer'])}}checked{{/if}} >转让项目
                 </label>
 

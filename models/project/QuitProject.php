@@ -4,6 +4,7 @@ namespace app\models\project;
 use Yii;
 use app\models\Project;
 use app\models\Member;
+use app\models\projectLog\CreateLog;
 
 class QuitProject extends Project
 {
@@ -72,8 +73,21 @@ class QuitProject extends Project
 
         $member = Member::findModel(['project_id' => $this->id, 'user_id' => Yii::$app->user->identity->id]);
 
+        // 删除成员
         if(!$member->delete()){
             $this->addError($member->getErrorLabel(), $member->getErrorMessage());
+            $transaction->rollBack();
+            return false;
+        }
+
+        // 保存操作日志
+        $log = new CreateLog();
+        $log->project_id = $member->project->id;
+        $log->type       = 'quit';
+        $log->content    = '退出了 项目 ' . '<code>' . $member->project->title . '</code>';
+
+        if(!$log->store()){
+            $this->addError($log->getErrorLabel(), $log->getErrorMessage());
             $transaction->rollBack();
             return false;
         }

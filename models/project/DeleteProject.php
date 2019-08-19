@@ -3,6 +3,7 @@ namespace app\models\project;
 
 use Yii;
 use app\models\Project;
+use app\models\projectLog\CreateLog;
 
 class DeleteProject extends Project
 {
@@ -75,8 +76,23 @@ class DeleteProject extends Project
         $project->updater_id = Yii::$app->user->identity->id;
         $project->updated_at = date('Y-m-d H:i:s');
 
+        /**
+         * 将项目状态设为删除状态
+         */
         if(!$project->save()) {
             $this->addError($project->getErrorLabel(), $project->getErrorMessage());
+            $transaction->rollBack();
+            return false;
+        }
+
+        // 保存操作日志
+        $log = new CreateLog();
+        $log->project_id = $project->id;
+        $log->type       = 'delete';
+        $log->content    = '删除了 项目 ' . '<code>' . $project->title . '</code>';
+
+        if(!$log->store()){
+            $this->addError($log->getErrorLabel(), $log->getErrorMessage());
             $transaction->rollBack();
             return false;
         }

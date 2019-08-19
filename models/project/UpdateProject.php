@@ -3,6 +3,7 @@ namespace app\models\project;
 
 use Yii;
 use app\models\Project;
+use app\models\projectLog\CreateLog;
 
 class UpdateProject extends Project
 {
@@ -76,8 +77,23 @@ class UpdateProject extends Project
 
         $project->title  = $this->title;
         $project->remark = $this->remark;
-        $project->type   = $this->type;
-        $project->sort   = $this->sort;
+        $project->type   = (int)$this->type;
+        $project->sort   = (int)$this->sort;
+
+        if($project->dirtyAttributes) {
+            $log = new CreateLog();
+            $log->project_id = $project->id;
+            $log->type       = 'update';
+            $log->content    = $project->getUpdateContent();
+
+            // 保存操作日志
+            if(!$log->store()){
+                $this->addError($log->getErrorLabel(), $log->getErrorMessage());
+                $transaction->rollBack();
+                return false;
+            }
+        }
+
         $project->updater_id = Yii::$app->user->identity->id;
         $project->updated_at = date('Y-m-d H:i:s');
 
