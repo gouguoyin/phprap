@@ -24,9 +24,7 @@ class DeleteApi extends Api
      */
     public function attributeLabels()
     {
-        return [
-            'password' => '登录密码',
-        ];
+        return parent::attributeLabels() + ['password' => '登录密码'];
     }
 
     /**
