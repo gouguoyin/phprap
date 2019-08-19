@@ -122,7 +122,7 @@ class RegisterForm extends Account
         $member->project_id   = 1;
         $member->user_id      = $account->id;
         $member->join_type    = $member::PASSIVE_JOIN_TYPE;
-        $member->project_rule = 'look,export';
+        $member->project_rule = 'look,export,history';
         $member->env_rule     = 'look';
         $member->module_rule  = 'look';
         $member->api_rule     = 'look,export';
