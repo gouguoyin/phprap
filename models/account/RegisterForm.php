@@ -33,7 +33,7 @@ class RegisterForm extends Account
                 return trim($model->verifyCode) ? true : false;
             }],
 
-            ['registerToken', 'required', 'message' => '注册口令不能为空', 'when' => function($model, $attribute){
+            ['registerToken', 'required', 'message' => '注册邀请码不能为空', 'when' => function($model, $attribute){
                 return trim($model->registerToken) ? true : false;
             }],
 
@@ -46,7 +46,7 @@ class RegisterForm extends Account
     }
 
     /**
-     * 验证注册口令
+     * 验证注册邀请码
      * @param $attribute
      */
     public function validateToken($attribute)
@@ -54,7 +54,7 @@ class RegisterForm extends Account
         $config = Config::findOne(['type' => 'safe']);
 
         if (!$config->register_token || $config->register_token != $this->registerToken) {
-            $this->addError($attribute, '注册口令错误');
+            $this->addError($attribute, '注册邀请码错误');
             return false;
         }
     }
