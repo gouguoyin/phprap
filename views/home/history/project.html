@@ -3,6 +3,32 @@
     .pagination {
         margin: 10px 0 0 0;
     }
+    .timeline-badge {
+        z-index: 100;
+        top: 16px;
+        left: 50%;
+        width: 50px;
+        height: 50px;
+        border-radius: 50% 50% 50% 50%;
+        text-align: center;
+        font-size: 1.4em;
+        line-height: 50px;
+        color: #fff;
+        background-color: #999999;
+    }
+    .timeline-badge.delete {
+        background-color: #d9534f !important;
+    }
+    .timeline-badge.create {
+        background-color: #3f903f !important;
+    }
+    .timeline-badge.update {
+        background-color: #337ab7 !important;
+    }
+
+    .timeline-badge.export {
+        background-color: #f0ad4e !important;
+    }
 </style>
 </head>
 
@@ -36,10 +62,18 @@
                         <ul class="chat">
                             {{foreach $history->models as $model}}
                             <li class="left clearfix">
-                                    <span class="chat-img pull-left">
-                                        <!--<i style="font-size: 3em" class="fa fa-trash-o fa-6" aria-hidden="true"></i>-->
-                                        <img src="http://placehold.it/50/55C1E7/fff" alt="User Avatar" class="img-circle">
-                                    </span>
+                                {{if $model->type == 'delete'}}
+                                <div class="timeline-badge delete pull-left"><i class="fa fa-fw fa-trash-o"></i></div>
+                                {{else if $model->type == 'export'}}
+                                <div class="timeline-badge export pull-left"><i class="fa fa-fw fa-download"></i></div>
+                                {{else if $model->type == 'create'}}
+                                <div class="timeline-badge create pull-left"><i class="fa fa-fw fa-plus"></i></div>
+                                {{else if $model->type == 'update'}}
+                                <div class="timeline-badge update pull-left"><i class="fa fa-fw fa-edit"></i></div>
+                                {{else}}
+                                <div class="timeline-badge pull-left"><i class="fa fa-fw fa-gear"></i></div>
+                                {{/if}}
+
                                 <div class="chat-body clearfix">
                                     <div class="header">
                                         <strong class="primary-font">{{$model->account->fullName}}</strong>
@@ -70,16 +104,16 @@
 {{include_file name='home/public/copyright'}}
 
 <script>
-$(function () {
+    $(function () {
 
-    // 未设置环境弹框提示
-    {{if $project->getEnvs()->count() == 0}}
-    confirm('项目至少需要设置一个环境，请立即设置', function(){
+        // 未设置环境弹框提示
+        {{if $project->getEnvs()->count() == 0}}
+        confirm('项目至少需要设置一个环境，请立即设置', function(){
 
-        window.location.href = "{{url('project/show', ['id' => $project->encode_id, 'tab' => 'env'])}}";
+            window.location.href = "{{url('project/show', ['id' => $project->encode_id, 'tab' => 'env'])}}";
 
-    });
-    {{/if}}
-});
+        });
+        {{/if}}
+        });
 </script>
 {{include_file name='home/public/footer' has_copyright='true'}}

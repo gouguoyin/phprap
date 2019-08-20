@@ -82,7 +82,7 @@ class DeleteApi extends Api
         // 保存操作日志
         $log = new CreateLog();
         $log->project_id = $api->project_id;
-        $log->type       = 'create';
+        $log->type       = 'delete';
         $log->content    = '删除了 <strong>' . $api->module->title . '->' . $api->title . '</strong>';
 
         if(!$log->store()){
