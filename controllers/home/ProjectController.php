@@ -219,7 +219,7 @@ class ProjectController extends PublicController
 
         $members = $project->members;
 
-        $user = [];
+        $user    = [];
 
         foreach ($members as $k => $member){
             if(strpos($member->account->name, $name) !== false || strpos($member->account->email, $name) !== false){
