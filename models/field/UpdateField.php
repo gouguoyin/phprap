@@ -8,20 +8,17 @@ use app\models\projectLog\CreateLog;
 
 class UpdateField extends Field
 {
-
     /**
      * 验证规则
      */
     public function rules()
     {
         return [
-
             [['header_field', 'request_field', 'response_field', 'success_example', 'error_example'], 'string'],
             [['request_method', 'response_format'], 'string', 'max' => 20],
 
             ['id', 'validateProject'],
             [['success_example', 'error_example'], 'validateJson'],
-
         ];
     }
 
@@ -55,7 +52,6 @@ class UpdateField extends Field
      */
     public function store()
     {
-
         if(!$this->validate()){
             return false;
         }
@@ -63,7 +59,6 @@ class UpdateField extends Field
         // 开启事务
         $transaction = Yii::$app->db->beginTransaction();
 
-        // 保存接口
         $api = &$this;
 
         $api->header_field   = $this->header_field;
@@ -87,6 +82,7 @@ class UpdateField extends Field
         $api->updater_id = Yii::$app->user->identity->id;
         $api->updated_at = date('Y-m-d H:i:s');
 
+        // 保存接口
         if(!$api->save()){
             $this->addError($api->getErrorLabel(), $api->getErrorMessage());
             $transaction->rollBack();
@@ -97,7 +93,6 @@ class UpdateField extends Field
         $transaction->commit();
 
         return true;
-
     }
 
 }

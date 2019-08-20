@@ -1,6 +1,7 @@
 <?php
 namespace app\controllers\home;
 
+use app\models\Field;
 use Yii;
 use yii\helpers\Url;
 use yii\web\Response;
@@ -129,7 +130,7 @@ class ApiController extends PublicController
      */
     public function actionShow($id, $tab = 'home')
     {
-        $api = Api::findModel(['encode_id' => $id]);
+        $api = Field::findModel(['encode_id' => $id]);
 
         if($api->project->isPrivate()) {
 
