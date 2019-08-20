@@ -3,7 +3,7 @@ namespace app\controllers\home;
 
 use Yii;
 use yii\web\Response;
-use app\models\api\UpdateField;
+use app\models\field\UpdateField;
 
 class FieldController extends PublicController
 {
