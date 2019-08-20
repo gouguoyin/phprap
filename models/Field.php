@@ -38,7 +38,7 @@ class Field extends Api
     ];
 
     /**
-     * 获取更新内容
+     * 获取字段更新内容
      * @return string
      */
     public function getUpdateContent()
