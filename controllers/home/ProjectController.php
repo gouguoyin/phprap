@@ -286,20 +286,20 @@ class ProjectController extends PublicController
         if($cache->get($cache_key) !== false){
             $remain_time = $cache->get($cache_key)  - time();
             if($remain_time < $cache_interval){
-                $this->error("抱歉，导出太频繁，请{$remain_time}秒后再试!", 5);
+                return $this->error("抱歉，导出太频繁，请{$remain_time}秒后再试!", 5);
             }
         }
 
         // 限制导出频率, 60秒一次
         Yii::$app->cache->set($cache_key, time() + $cache_interval, $cache_interval);
 
-        $file_name = $project->title . '接口离线文档' . '.' . $format;
+        $file_name = $project->title . '离线文档' . '.' . $format;
 
         // 记录操作日志
         $log = new CreateLog();
         $log->project_id = $project->id;
         $log->type       = 'export';
-        $log->content    = '导出了 文档 ' . '<code>' . $file_name . '</code>';
+        $log->content    = '导出了 ' . '<code>' . $file_name . '</code>';
 
         if(!$log->store()){
             return $this->error($log->getErrorMessage());

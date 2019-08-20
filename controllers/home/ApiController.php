@@ -183,7 +183,7 @@ class ApiController extends PublicController
         if($cache->get($cache_key) !== false){
             $remain_time = $cache->get($cache_key)  - time();
             if($remain_time < $cache_interval){
-                $this->error("抱歉，导出太频繁，请{$remain_time}秒后再试!", 5);
+                return $this->error("抱歉，导出太频繁，请{$remain_time}秒后再试!", 5);
             }
         }
 
