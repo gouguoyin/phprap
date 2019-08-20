@@ -40,12 +40,12 @@
 
   [**GITEE(推荐)**]
     ```php
-    git clone https://gitee.com/gouguoyin/phprap.git 'web目录'
+    git clone https://gitee.com/gouguoyin/phprap.git
     ```
     
   [**GITHUB**]
     ```php
-    git clone https://github.com/gouguoyin/phprap.git 'web目录'
+    git clone https://github.com/gouguoyin/phprap.git
     ```
        
   [**源码**]
@@ -200,6 +200,12 @@
     
     - 删除项目
     ![](http://www.phprap.com/static/images/wiki/project/delete.png?v=1.0)
+    
+    - 导出文档
+    ![](http://www.phprap.com/static/images/wiki/project/export.png?v=1.0)
+    
+    - 项目动态
+    ![](http://www.phprap.com/static/images/wiki/project/history.png?v=1.0)
          
 - 模块
     - 新建模块
@@ -213,26 +219,26 @@
     
 - 接口
 
-    - 添加接口
-    ![](http://gouguoyin.qiniudn.com/api_creat.png)
+    - 接口主页
+    ![](http://www.phprap.com/static/images/wiki/api/home.png?v=1.0)
+    
+    - 新建接口
+    ![](http://www.phprap.com/static/images/wiki/api/create.png?v=1.0)
     
     - 编辑接口
-    ![](http://gouguoyin.qiniudn.com/api_edit.png)
-    
-    - 接口主页
-    ![](http://gouguoyin.qiniudn.com/api_home.png)
+    ![](http://www.phprap.com/static/images/wiki/api/update.png?v=1.0)
     
     - 删除接口
-    ![](http://gouguoyin.qiniudn.com/api_delete.png)
-    
-    - 添加字段
-    ![](http://gouguoyin.qiniudn.com/field_creat.png)
+    ![](http://www.phprap.com/static/images/wiki/api/delete.png?v=1.0)
     
     - 编辑字段
-    ![](http://gouguoyin.qiniudn.com/field_edit.png)
+    ![](http://www.phprap.com/static/images/wiki/field/form.png?v=1.0)
     
-    - 删除字段
-    ![](http://gouguoyin.qiniudn.com/field_delete.png)
+    - 导入字段
+    ![](http://www.phprap.com/static/images/wiki/field/json.png?v=1.0)
+    
+    - 导出文档
+    ![](http://www.phprap.com/static/images/wiki/api/export.png?v=1.0)
     
 - 后台
 
@@ -240,10 +246,13 @@
     ![](http://www.phprap.com/static/images/wiki/manage/home.png?v=1.0)
 
     - 项目管理
-    ![](http://www.phprap.com/static/images/wiki/manage/project.png?v=1.0)
+    ![](http://www.phprap.com/static/images/wiki/manage/project.png?v=1.1)
+    
+    - 回收站管理
+    ![](http://www.phprap.com/static/images/wiki/manage/recycle.png?v=1.0)
     
     - 用户管理
-    ![](http://www.phprap.com/static/images/wiki/manage/user.png?v=1.0)
+    ![](http://www.phprap.com/static/images/wiki/manage/user.png?v=1.1)
     
     - 登录历史
     ![](http://www.phprap.com/static/images/wiki/manage/history.png?v=1.0)
