@@ -147,9 +147,7 @@ class Project extends Model
      */
     public function getMembers()
     {
-        $order = ['id' => SORT_DESC];
-
-        return $this->hasMany(Member::className(), ['project_id' => 'id'])->orderBy($order);
+        return $this->hasMany(Member::className(), ['project_id' => 'id'])->orderBy(['id' => SORT_DESC]);
     }
 
     /**

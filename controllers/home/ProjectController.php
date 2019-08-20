@@ -15,7 +15,6 @@ use app\models\project\QuitProject;
 use app\models\project\TransferProject;
 use app\models\project\DeleteProject;
 
-
 class ProjectController extends PublicController
 {
     public $checkLogin = false;
@@ -146,7 +145,7 @@ class ProjectController extends PublicController
 
         $params['project_id'] = $project->id;
 
-        $data['project'] = $project;
+        $assign['project'] = $project;
 
         switch ($tab) {
             case 'home':
@@ -161,7 +160,7 @@ class ProjectController extends PublicController
                     return $this->error('抱歉，您无权查看');
                 }
 
-                $data['template'] = Template::findModel(['project_id' => $project->id]);
+                $assign['template'] = Template::findModel($params);
 
                 $view  = '/home/template/home';
 
@@ -179,7 +178,7 @@ class ProjectController extends PublicController
                     return $this->error('抱歉，您无权查看');
                 }
 
-                $data['member'] = Member::findModel()->search($params);
+                $assign['member'] = Member::findModel()->search($params);
 
                 $view  = '/home/member/index';
 
@@ -191,14 +190,14 @@ class ProjectController extends PublicController
                     return $this->error('抱歉，您无权查看');
                 }
 
-                $data['history'] = ProjectLog::findModel()->search($params);
+                $assign['history'] = ProjectLog::findModel()->search($params);
 
                 $view  = '/home/history/project';
 
                 break;
         }
 
-        return $this->display($view, $data);
+        return $this->display($view, $assign);
     }
 
     /**
