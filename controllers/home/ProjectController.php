@@ -130,7 +130,7 @@ class ProjectController extends PublicController
     {
         $project = Project::findModel(['encode_id' => $id]);
 
-        if($project->status !== $project::ACTIVE_STATUS){
+        if(!Yii::$app->user->identity->isAdmin && $project->status !== $project::ACTIVE_STATUS){
             return $this->error('抱歉，项目不存在或者已被删除');
         }
 
