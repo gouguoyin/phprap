@@ -46,7 +46,7 @@ class Field extends Api
         $content = '';
         foreach ($this->dirtyAttributes as $name => $value) {
 
-            if(isset($this->oldAttributes[$name])){
+            if(isset($this->attributes[$name])){
                 $content = '更新了 <strong>' .$this->module->title . '->' . $this->title . '->接口字段->' . $this->getAttributeLabel($name). '</strong>';
             }
 
