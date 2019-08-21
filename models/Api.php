@@ -66,7 +66,7 @@ class Api extends Model
     public function rules()
     {
         return [
-            [['encode_id', 'project_id', 'module_id', 'title', 'request_method', 'response_format', 'uri', 'status', 'sort', 'creater_id'], 'required'],
+            [['encode_id', 'project_id', 'module_id', 'title', 'request_method', 'response_format', 'status', 'sort', 'creater_id'], 'required'],
 
             [['project_id', 'module_id', 'status', 'sort', 'creater_id','updater_id'], 'integer'],
             [['encode_id', 'request_method', 'response_format'], 'string', 'max' => 20],

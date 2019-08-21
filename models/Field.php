@@ -44,15 +44,14 @@ class Field extends Api
     public function getUpdateContent()
     {
         $content = '';
+
         foreach ($this->dirtyAttributes as $name => $value) {
-
-            if(isset($this->attributes[$name])){
-                $content = '更新了 <strong>' .$this->module->title . '->' . $this->title . '->接口字段->' . $this->getAttributeLabel($name). '</strong>';
+            if(in_array($name, ['header_field', 'request_field', 'response_field'])){
+                $content .= '<strong>' .$this->module->title . '->' . $this->title . '->接口字段->' . $this->getAttributeLabel($name). '</strong>,';
             }
-
         }
 
-        return trim($content, ',');
+        return '更新了 ' . trim($content, ',');
     }
     
     /**
