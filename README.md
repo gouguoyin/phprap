@@ -210,7 +210,7 @@
     
     ![](http://www.phprap.com/static/images/wiki/project/delete.png?v=1.0)
     
-    - 导出文档
+    - 导出HTML
     
     ![](http://www.phprap.com/static/images/wiki/project/export.png?v=1.0)
     
@@ -257,7 +257,7 @@
     
     ![](http://www.phprap.com/static/images/wiki/field/json.png?v=1.0)
     
-    - 导出文档
+    - 导出HTML
     
     ![](http://www.phprap.com/static/images/wiki/api/export.png?v=1.0)
     
