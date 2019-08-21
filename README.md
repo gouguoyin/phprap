@@ -146,40 +146,43 @@
 - 打开浏览器，访问域名，会自动跳转到安装界面运行安装程序
 
     - 安装步骤一：环境检测
-    ![](http://www.phprap.com/static/images/wiki/step1.png?v=1.0)
+    ![](http://www.phprap.com/static/images/wiki/install/step1.png?v=1.0)
     
     - 安装步骤二：数据库配置
-    ![](http://www.phprap.com/static/images/wiki/step2.png?v=1.0)
+    ![](http://www.phprap.com/static/images/wiki/install/step2.png?v=1.0)
 
     - 安装步骤三：管理员配置
-    ![](http://www.phprap.com/static/images/wiki/step3.png?v=1.0)
+    ![](http://www.phprap.com/static/images/wiki/install/step3.png?v=1.0)
 
     - 安装步骤四：安装完成
-    ![](http://www.phprap.com/static/images/wiki/step4.png?v=1.0)
+    ![](http://www.phprap.com/static/images/wiki/install/step4.png?v=1.0)
 
     
 ## 使用
 
 - 用户注册
 
-![](http://www.phprap.com/static/images/wiki/register.png?v=1.0)
+![](http://www.phprap.com/static/images/wiki/account/register.png?v=1.0)
 
 - 用户登录
 
-![](http://www.phprap.com/static/images/wiki/login.png?v=1.0)
+![](http://www.phprap.com/static/images/wiki/account/login.png?v=1.0)
+
+- 个人中心
+
+![](http://www.phprap.com/static/images/wiki/account/home.png?v=1.0)
 
 - 修改账号
 
-![](http://www.phprap.com/static/images/wiki/profile2.png?v=1.0)
+![](http://www.phprap.com/static/images/wiki/account/update.png?v=1.0)
 
 - 修改密码
 
-![](http://www.phprap.com/static/images/wiki/password.png?v=1.0)
+![](http://www.phprap.com/static/images/wiki/account/password.png?v=1.0)
 
 - 登录历史
 
-![](http://www.phprap.com/static/images/wiki/profile1.png?v=1.0)
-![](http://www.phprap.com/static/images/wiki/history.png?v=1.0)
+![](http://www.phprap.com/static/images/wiki/account/history.png?v=1.0)
 
 - 项目
 
