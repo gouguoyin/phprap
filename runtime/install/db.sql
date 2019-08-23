@@ -79,7 +79,7 @@ CREATE TABLE `doc_config` (
 --  Records of `doc_config`
 -- ----------------------------
 BEGIN;
-INSERT INTO `doc_config` VALUES ('1', 'app', '{\"name\":\"PHPRAP接口文档管理系统\",\"keywords\":\"phprap,apidoc,api文档管理\",\"description\":\"PHPRAP，是一个PHP轻量级开源API接口文档管理系统，致力于减少前后端沟通成本，提高团队协作开发效率，打造PHP版的RAP。\",\"copyright\":\"Copyright ©2019-2029 PHPRAP版权所有\",\"email\":\"245629560@qq.com\",\"is_push\":\"1\",\"push_time\":\"20\"}', '2018-05-15 14:08:31', '2019-07-20 16:49:53'), ('3', 'email', '', '2018-05-15 14:08:35', '2018-05-15 14:08:38'), ('4', 'safe', '{\"ip_white_list\":\"\",\"ip_black_list\":\"\",\"email_white_list\":\"\",\"email_black_list\":\"\",\"register_token\":\"\",\"register_captcha\":\"1\",\"login_captcha\":\"1\",\"login_keep_time\":\"24\"}', '2018-05-15 14:08:39', '2019-07-23 16:24:20');
+INSERT INTO `doc_config` VALUES ('1', 'app', '{\"name\":\"PHPRAP接口文档管理系统\",\"keywords\":\"phprap,apidoc,api文档管理\",\"description\":\"PHPRAP，是一个PHP轻量级开源API接口文档管理系统，致力于减少前后端沟通成本，提高团队协作开发效率，打造PHP版的RAP。\",\"copyright\":\"Copyright ©2018-2028 PHPRAP版权所有\",\"email\":\"245629560@qq.com\",\"is_push\":\"1\",\"push_time\":\"20\"}', '2018-05-15 14:08:31', '2019-07-20 16:49:53'), ('3', 'email', '', '2018-05-15 14:08:35', '2018-05-15 14:08:38'), ('4', 'safe', '{\"ip_white_list\":\"\",\"ip_black_list\":\"\",\"email_white_list\":\"\",\"email_black_list\":\"\",\"register_token\":\"\",\"register_captcha\":\"1\",\"login_captcha\":\"1\",\"login_keep_time\":\"24\"}', '2018-05-15 14:08:39', '2019-07-23 16:24:20');
 COMMIT;
 
 -- ----------------------------
