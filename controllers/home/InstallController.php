@@ -13,7 +13,8 @@ class InstallController extends PublicController
     public function beforeAction($action)
     {
         if($this->isInstalled()){
-            exit('PHPRAP已安装过，请不要重复安装，如果需要重新安装，请先删除runtime/install/install.lock');
+            $app_version = Yii::$app->params['app_version'];
+            exit('PHPRAP V' . $app_version . ' 已安装过，请不要重复安装，如果需要重新安装，请先删除runtime/install/install.lock');
         }
         return true;
     }
