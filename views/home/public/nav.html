@@ -46,14 +46,14 @@
                 <li><a href="javascript:;" data-modal="#js_popModal" data-height="280" data-title='修改密码' data-src="{{url('home/account/password')}}"><i class="fa fa-key fa-fw"></i> 修改密码</a></li>
                 {{else}}
                 <li><a href="{{url('home/account/register')}}"><i class="fa fa-user fa-fw"></i> 用户注册</a></li>
-                <li><a href="{{url('home/account/login')}}"><i class="fa fa-sign-in fa-fw"></i> 用户登录</a></li>
+                <li><a href="{{url('home/account/login', ['callback' => url('')])}}"><i class="fa fa-sign-in fa-fw"></i> 用户登录</a></li>
                 {{/if}}
 
                 {{if $account->isAdmin}}
                 <li><a href="{{url('admin/home/index')}}"><i class="fa fa-gear fa-fw"></i> 管理中心</a></li>
                 {{/if}}
 
-                <li><a target="_blank" href="http://www.phprap.com/doc/index.html"><i class="fa fa-file-text fa-fw"></i> 帮助文档</a></li>
+                <li><a target="_blank" href="http://www.phprap.com/wiki/index.html"><i class="fa fa-file-text fa-fw"></i> 帮助文档</a></li>
 
                 {{if $account->id}}
                 <li class="divider"></li>
