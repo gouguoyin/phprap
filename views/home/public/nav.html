@@ -40,7 +40,6 @@
                 <i class="fa fa-caret-down"></i>
             </a>
             <ul class="dropdown-menu dropdown-user">
-
                 {{if $account->id}}
                 <li><a href="{{url('home/account/home')}}"><i class="fa fa-user fa-fw"></i> 个人主页</a></li>
                 <li><a href="javascript:;" data-modal="#js_popModal" data-height="280" data-title='修改密码' data-src="{{url('home/account/password')}}"><i class="fa fa-key fa-fw"></i> 修改密码</a></li>
