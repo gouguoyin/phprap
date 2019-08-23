@@ -294,7 +294,7 @@ class ProjectController extends PublicController
         }
 
         // 限制导出频率, 60秒一次
-        Yii::$app->cache->set($cache_key, time() + $cache_interval, $cache_interval);
+        $cache_interval >0 && Yii::$app->cache->set($cache_key, time() + $cache_interval, $cache_interval);
 
         $file_name = $project->title . '离线文档' . '.' . $format;
 

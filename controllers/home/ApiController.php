@@ -196,7 +196,7 @@ class ApiController extends PublicController
         header ("Content-Disposition: attachment;filename=$file_name");
 
         // 限制导出频率, 60秒一次
-        Yii::$app->cache->set($cache_key, time() + $cache_interval, $cache_interval);
+        $cache_interval >0 && Yii::$app->cache->set($cache_key, time() + $cache_interval, $cache_interval);
 
         return $this->display('export', ['api' => $api]);
     }
