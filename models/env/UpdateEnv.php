@@ -76,9 +76,9 @@ class UpdateEnv extends Env
         // 保存环境
         $env = &$this;
 
-        $env->title = $this->title;
-        $env->name  = $this->name;
-        $env->base_url   = trim($this->base_url, '/');
+        $env->title    = $this->title;
+        $env->name     = $this->name;
+        $env->base_url = trim($this->base_url, '/') . '/';
 
         if($env->dirtyAttributes) {
             $log = new CreateLog();

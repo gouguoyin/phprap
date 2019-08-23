@@ -79,7 +79,7 @@ class CreateEnv extends Env
         $env->project_id = $this->project_id;
         $env->title      = $this->title;
         $env->name       = $this->name;
-        $env->base_url   = trim($this->base_url, '/');
+        $env->base_url   = trim($this->base_url, '/') . '/';
         $env->status     = self::ACTIVE_STATUS;
         $env->sort       = $this->sort?:0;
         $env->creater_id = Yii::$app->user->identity->id;
