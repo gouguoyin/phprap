@@ -288,7 +288,7 @@ class ProjectController extends PublicController
 
         if($cache_interval >0 && $cache->get($cache_key) !== false){
             $remain_time = $cache->get($cache_key)  - time();
-            if($remain_time < $cache_interval){
+            if($remain_time >0 && $remain_time < $cache_interval){
                 return $this->error("抱歉，导出太频繁，请{$remain_time}秒后再试!", 5);
             }
         }
