@@ -4,6 +4,7 @@
 
 <body>
 
+
 <div id="wrapper">
 
     <!-- Navigation -->
@@ -56,6 +57,15 @@
                             </div>
 
                             <div class="form-group">
+                                <label>导出间隔(单位秒)
+                                    <a data-toggle="tooltip" data-placement="right" title="" class="btn-show-tips" data-original-title="单位秒">
+                                        <i class="fa fa-info-circle"></i>
+                                    </a>
+                                </label>
+                                <input class="form-control" name="Config[export_time]" value="{{$config->export_time|default:0}}" placeholder="单位秒，填写0代表不限制导出频率" value="0" datatype="n" min="10" nullmsg="请输入导出间隔" errormsg="必须是数字">
+                            </div>
+
+                            <div class="form-group">
                                 <label class="control-label">推送消息 <a data-toggle="tooltip" data-placement="right" class="btn-show-tips" data-title="开启后会在指定时间间隔内推送申请消息，关闭后只有在刷新页面时才会推送消息">
                                     <i class="fa fa-info-circle"></i>
                                 </a></label>
@@ -96,33 +106,36 @@
 
 <script>
 
-//展示推送间隔信息
-var pushTimeShow = function(){
-    var isPush = $("input[name='Config[is_push]']:checked").val();
+    //展示推送间隔信息
+    var pushTimeShow = function(){
+        var isPush = $("input[name='Config[is_push]']:checked").val();
 
-    if(isPush == 1){
+        if(isPush == 1){
 
-        $(".js_pushTime").removeClass("hidden");
-        $(".js_pushTime input").attr("ignore",'');
+            $(".js_pushTime").removeClass("hidden");
+            $(".js_pushTime input").attr("ignore",'');
 
-    }else{
+        }else{
 
-        $(".js_pushTime").addClass("hidden");
-        $(".js_pushTime input").attr("ignore",'ignore');
+            $(".js_pushTime").addClass("hidden");
+            $(".js_pushTime input").attr("ignore",'ignore');
 
+        }
     }
-}
 
-pushTimeShow();
-
-// 选择不时时推送时
-$("input[name='Config[is_push]']").click(function(){
     pushTimeShow();
-});
 
-$(function () {
-    $("form").validateForm();
-});
+    // 选择不时时推送时
+    $("input[name='Config[is_push]']").click(function(){
+        pushTimeShow();
+    });
+
+    $(function () {
+
+        $("form").validateForm();
+
+    });
+
 
 </script>
 

@@ -1,6 +1,7 @@
 <?php
 namespace app\controllers\home;
 
+use app\models\Config;
 use Yii;
 use yii\helpers\Url;
 use yii\web\Response;
@@ -177,10 +178,12 @@ class ApiController extends PublicController
         $account = Yii::$app->user->identity;
         $cache   = Yii::$app->cache;
 
-        $cache_key = 'api_' . $id . '_' . $account->id;
-        $cache_interval = 60;
+        $config = Config::findOne(['type' => 'app']);
 
-        if($cache->get($cache_key) !== false){
+        $cache_key = 'api_' . $id . '_' . $account->id;
+        $cache_interval = (int)$config->export_time;
+
+        if($cache_interval >0 && $cache->get($cache_key) !== false){
             $remain_time = $cache->get($cache_key)  - time();
             if($remain_time < $cache_interval){
                 return $this->error("抱歉，导出太频繁，请{$remain_time}秒后再试!", 5);
