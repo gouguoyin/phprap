@@ -36,10 +36,10 @@
 
 <script>
 $(function () {
-    {{if $account->id && config('is_push', 'app')}}
+    {{if $account->id && config('app.is_push')}}
 
     var url  = "{{url('home/apply/notify')}}";
-    var time = "{{config('push_time', 'app')}}";
+    var time = "{{config('app.push_time')}}";
     setInterval(function(){
 
         $.get(url, function (json) {
