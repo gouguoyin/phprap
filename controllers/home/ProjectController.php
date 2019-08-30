@@ -193,6 +193,10 @@ class ProjectController extends PublicController
                     return $this->error('抱歉，您无权查看');
                 }
 
+                if(empty($params['object_name'])){
+                    $params['object_name'] = 'project,env,member,module';
+                }
+
                 $assign['history'] = ProjectLog::findModel()->search($params);
 
                 $view  = '/home/history/project';
