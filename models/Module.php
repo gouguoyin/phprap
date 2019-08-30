@@ -93,7 +93,7 @@ class Module extends Model
             'id'   => SORT_DESC
         ];
 
-        return $this->hasMany(Field::className(), ['module_id' => 'id'])->where($filter)->orderBy($sort);
+        return $this->hasMany(Api::className(), ['module_id' => 'id'])->where($filter)->orderBy($sort);
     }
 
     /**

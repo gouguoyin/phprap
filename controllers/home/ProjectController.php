@@ -144,6 +144,8 @@ class ProjectController extends PublicController
             }
         }
 
+        $params = Yii::$app->request->queryParams;
+
         $params['project_id'] = $project->id;
 
         $assign['project'] = $project;
