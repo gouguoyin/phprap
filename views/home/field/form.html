@@ -31,14 +31,14 @@
                 <td><input name="title" class="form-control js_title" placeholder="非必填" ignore="ignore" datatype="*1-50" nullmsg="请填写参数标题" value=""></td>
                 <td>
                     <select onchange="selectType(this)" name="type" class="form-control js_type">
-                        {{foreach $api->fieldTypeLabels as $k => $v}}
+                        {{foreach $field->fieldTypeLabels as $k => $v}}
                         <option value="{{$k}}">{{$v}}</option>
                         {{/foreach}}
                     </select>
                 </td>
                 <td>
                     <select name="required" class="form-control js_required">
-                        {{foreach $api->requiredLabels as $k => $v}}
+                        {{foreach $field->requiredLabels as $k => $v}}
                         <option value="{{$k}}">{{$v}}</option>
                         {{/foreach}}
                     </select>
@@ -60,14 +60,14 @@
                 <td><input name="title" class="form-control js_title" placeholder="必填" datatype="*1-50" nullmsg="请填写参数标题" value=""></td>
                 <td>
                     <select onchange="selectType(this)" name="type" class="form-control js_type">
-                        {{foreach $api->fieldTypeLabels as $k => $v}}
+                        {{foreach $field->fieldTypeLabels as $k => $v}}
                         <option value="{{$k}}">{{$v}}</option>
                         {{/foreach}}
                     </select>
                 </td>
                 <td>
                     <select name="required" class="form-control js_required">
-                        {{foreach $api->requiredLabels as $k => $v}}
+                        {{foreach $field->requiredLabels as $k => $v}}
                         <option value="{{$k}}">{{$v}}</option>
                         {{/foreach}}
                     </select>
@@ -91,7 +91,7 @@
                 <td><input name="title" class="form-control js_title" placeholder="必填" datatype="*1-50" nullmsg="请填写参数标题" value=""></td>
                 <td>
                     <select onchange="selectType(this)" name="type" class="form-control js_type">
-                        {{foreach $api->fieldTypeLabels as $k => $v}}
+                        {{foreach $field->fieldTypeLabels as $k => $v}}
                         <option value="{{$k}}">{{$v}}</option>
                         {{/foreach}}
                     </select>
@@ -120,7 +120,7 @@
                         <h1>编辑字段</h1>
                         <div class="opt-btn">
                             <a class="btn btn-sm btn-warning js_cancel" href="javascript:;" onclick="cancelSave()"><i class="fa fa-fw fa-reply"></i>取消</a>
-                            <a class="btn btn-sm btn-success" id="js_submit" href="javascript:void(0);"><i class="fa fa-fw fa-save"></i>保存</a>
+                            <a class="btn btn-sm btn-success ml-1" id="js_submit" href="javascript:void(0);"><i class="fa fa-fw fa-save"></i>保存</a>
                         </div>
                     </div>
                 </div>
@@ -147,7 +147,7 @@
                                         <!-- /.panel-heading -->
                                         <div class="panel-body">
                                             <div class="table-responsive">
-                                                <input type="hidden" class="js_headerJson" name="UpdateField[header_field]" value="">
+                                                <input type="hidden" class="js_headerJson" name="UpdateField[header_fields]" value="">
                                                 <table class="table" id="headerParamTable">
                                                     <thead>
                                                     <tr>
@@ -162,7 +162,7 @@
                                                     </thead>
                                                     <tbody>
 
-                                                    {{foreach $api->headerAttributes as $header}}
+                                                    {{foreach $field->headerAttributes as $header}}
                                                     <tr>
                                                         <td class="hidden"><input name="id" class="form-control js_id" value="{{$header->id}}"></td>
                                                         <td class="hidden"><input name="parent_id" class="form-control js_parent_id" value="{{$header->parent_id}}"></td>
@@ -175,7 +175,7 @@
                                                         <td><input name="title" class="form-control js_title" placeholder="非必填" ignore="ignore" datatype="*1-50" nullmsg="请填写参数标题" value="{{$header->title}}"></td>
                                                         <td>
                                                             <select onchange="selectType(this)" name="type" class="form-control js_type">
-                                                                {{foreach $api->fieldTypeLabels as $k => $v}}
+                                                                {{foreach $field->fieldTypeLabels as $k => $v}}
                                                                 <option {{if $header->type == $k1}}selected{{/if}} value="{{$k}}">{{$v}}</option>
                                                                 {{/foreach}}
                                                             </select>
@@ -183,7 +183,7 @@
 
                                                         <td>
                                                             <select name="required" class="form-control">
-                                                                {{foreach $api->requiredLabels as $k => $v}}
+                                                                {{foreach $field->requiredLabels as $k => $v}}
                                                                 <option {{if $header->required == $k}}selected{{/if}} value="{{$k}}">{{$v}}</option>
                                                                 {{/foreach}}
                                                             </select>
@@ -193,7 +193,7 @@
                                                         <td><input name="remark" class="form-control js_remark" placeholder="非必填" value="{{$header->remark}}"></td>
                                                         <td>
                                                             <a onclick="deleteField(this)" href="javascript:;" class="btn btn-xs hidden-xs fa fa-fw fa-trash-o option-btn" data-toggle="tooltip" data-placement="bottom" data-title="删除参数"></a>
-                                                            <a onclick="addField(this, 'header')" href="javascript:;" class="btn btn-xs hidden-xs fa fa-fw fa-plus option-btn js_addField" data-toggle="tooltip" data-placement="bottom" data-title="添加子参数" {{if !$api->isCompositeType($header->type)}}disabled{{/if}} data-parent_id="{{$header->id}}"></a>
+                                                            <a onclick="addField(this, 'header')" href="javascript:;" class="btn btn-xs hidden-xs fa fa-fw fa-plus option-btn js_addField" data-toggle="tooltip" data-placement="bottom" data-title="添加子参数" {{if !$field->isCompositeType($header->type)}}disabled{{/if}} data-parent_id="{{$header->id}}"></a>
                                                         </td>
 
                                                     </tr>
@@ -223,7 +223,7 @@
                                         <div class="panel-body">
                                             <div class="table-responsive">
 
-                                                <input type="hidden" class="js_requestJson" name="UpdateField[request_field]" value="">
+                                                <input type="hidden" class="js_requestJson" name="UpdateField[request_fields]" value="">
                                                 <table class="table" id="requestParamTable">
                                                     <thead>
                                                     <tr>
@@ -238,7 +238,7 @@
                                                     </thead>
                                                     <tbody>
 
-                                                    {{foreach $api->requestAttributes as $request}}
+                                                    {{foreach $field->requestAttributes as $request}}
                                                     <tr>
 
                                                         <td class="hidden"><input name="id" class="form-control js_id" value="{{$request->id}}"></td>
@@ -252,14 +252,14 @@
                                                         <td><input name="title" class="form-control js_title" placeholder="必填" datatype="*1-50" nullmsg="请填写参数标题" value="{{$request->title}}"></td>
                                                         <td>
                                                             <select onchange="selectType(this)" name="type" class="form-control js_type">
-                                                                {{foreach $api->fieldTypeLabels as $k => $v}}
+                                                                {{foreach $field->fieldTypeLabels as $k => $v}}
                                                                 <option {{if $request->type == $k}}selected{{/if}} value="{{$k}}">{{$v}}</option>
                                                                 {{/foreach}}
                                                             </select>
                                                         </td>
                                                         <td>
                                                             <select name="required" class="form-control">
-                                                                {{foreach $api->requiredLabels as $k => $v}}
+                                                                {{foreach $field->requiredLabels as $k => $v}}
                                                                 <option {{if $request->required == $k}}selected{{/if}} value="{{$k}}">{{$v}}</option>
                                                                 {{/foreach}}
                                                             </select>
@@ -268,7 +268,7 @@
                                                         <td><input name="remark" class="form-control js_remark" placeholder="非必填" value="{{$request->remark}}"></td>
                                                         <td>
                                                             <a onclick="deleteField(this)" href="javascript:;" class="btn btn-xs hidden-xs fa fa-fw fa-trash-o option-btn" data-toggle="tooltip" data-placement="bottom" data-title="删除参数"></a>
-                                                            <a onclick="addField(this, 'request')" href="javascript:;" class="btn btn-xs hidden-xs fa fa-fw fa-plus option-btn js_addField" data-toggle="tooltip" data-placement="bottom" data-title="添加子参数" {{if !$api->isCompositeType($request->type)}}disabled{{/if}} data-parent_id="{{$request->id}}"></a>
+                                                            <a onclick="addField(this, 'request')" href="javascript:;" class="btn btn-xs hidden-xs fa fa-fw fa-plus option-btn js_addField" data-toggle="tooltip" data-placement="bottom" data-title="添加子参数" {{if !$field->isCompositeType($request->type)}}disabled{{/if}} data-parent_id="{{$request->id}}"></a>
                                                         </td>
 
                                                     </tr>
@@ -296,7 +296,7 @@
                                         <!-- /.panel-heading -->
                                         <div class="panel-body">
                                             <div class="table-responsive">
-                                                <input type="hidden" class="js_responseJson" name="UpdateField[response_field]" value="">
+                                                <input type="hidden" class="js_responseJson" name="UpdateField[response_fields]" value="">
                                                 <table class="table" id="responseParamTable">
                                                     <thead>
                                                     <tr>
@@ -310,7 +310,7 @@
                                                     </thead>
                                                     <tbody>
 
-                                                    {{foreach $api->responseAttributes as $k=>$response}}
+                                                    {{foreach $field->responseAttributes as $k=>$response}}
                                                     <tr>
                                                         <td class="hidden"><input name="id" class="form-control js_id" value="{{$response->id}}"></td>
                                                         <td class="hidden"><input name="parent_id" class="form-control js_parent_id" value="{{$response->parent_id}}"></td>
@@ -322,7 +322,7 @@
                                                         <td><input autocomplete="off" name="title" class="form-control js_title" placeholder="必填" datatype="*1-50" nullmsg="请填写参数标题"  value="{{$response->title}}"></td>
                                                         <td>
                                                             <select onchange="selectType(this)" name="type" class="form-control js_type">
-                                                                {{foreach $api->fieldTypeLabels as $k => $v}}
+                                                                {{foreach $field->fieldTypeLabels as $k => $v}}
                                                                 <option {{if $response->type == $k}}selected{{/if}} value="{{$k}}">{{$v}}</option>
                                                                 {{/foreach}}
                                                             </select>
@@ -333,7 +333,7 @@
 
                                                         <td>
                                                             <a onclick="deleteField(this)" href="javascript:;" class="btn btn-xs option-btn hidden-xs fa fa-fw fa-trash-o" data-toggle="tooltip" data-placement="bottom" data-title="删除参数"></a>
-                                                            <a onclick="addField(this, 'response')" href="javascript:;" class="btn btn-xs hidden-xs fa fa-fw fa-plus option-btn js_addField" data-toggle="tooltip" data-placement="bottom" data-title="添加子参数" {{if !$api->isCompositeType($response->type)}}disabled{{/if}} data-parent_id="{{$response->id}}"></a>
+                                                            <a onclick="addField(this, 'response')" href="javascript:;" class="btn btn-xs hidden-xs fa fa-fw fa-plus option-btn js_addField" data-toggle="tooltip" data-placement="bottom" data-title="添加子参数" {{if !$field->isCompositeType($response->type)}}disabled{{/if}} data-parent_id="{{$response->id}}"></a>
                                                         </td>
 
                                                     </tr>
@@ -341,46 +341,6 @@
                                                     </tbody>
                                                 </table>
 
-                                            </div>
-                                            <!-- /.table-responsive -->
-                                        </div>
-                                        <!-- /.panel-body -->
-                                    </div>
-                                    <!-- /.panel -->
-                                </div>
-                                <!-- /.col-lg-6 -->
-                            </div>
-
-                            <div class="row hidden">
-                                <div class="col-lg-12">
-                                    <div class="panel panel-default mb-0">
-                                        <div class="panel-heading">
-                                            响应成功示例
-                                        </div>
-                                        <!-- /.panel-heading -->
-                                        <div class="panel-body">
-                                            <div class="table-responsive">
-                                                <textarea name="UpdateField[success_example]" class="form-control js_success_example" rows="5" placeholder="非必填，JSON格式">{{$api->success_example}}</textarea>
-                                            </div>
-                                            <!-- /.table-responsive -->
-                                        </div>
-                                        <!-- /.panel-body -->
-                                    </div>
-                                    <!-- /.panel -->
-                                </div>
-                                <!-- /.col-lg-6 -->
-                            </div>
-
-                            <div class="row hidden">
-                                <div class="col-lg-12">
-                                    <div class="panel panel-default mb-0">
-                                        <div class="panel-heading">
-                                            响应失败示例
-                                        </div>
-                                        <!-- /.panel-heading -->
-                                        <div class="panel-body">
-                                            <div class="table-responsive">
-                                                <textarea name="UpdateField[error_example]" class="form-control js_error_example" rows="5" placeholder="非必填，JSON格式">{{$api->error_example}}</textarea>
                                             </div>
                                             <!-- /.table-responsive -->
                                         </div>
@@ -410,7 +370,7 @@
 <!-- /#wrapper -->
 {{include_file name='home/public/copyright'}}
 
-<script src="{{STATIC_URL}}/js/field.min.js?v={{STATIC_VERSION}}"></script>
+<script src="{{STATIC_URL}}/js/field.js?v={{STATIC_VERSION}}"></script>
 <script src="{{STATIC_URL}}/plugins/bootstrap/js/typeahead.min.js"></script>
 
 <script>

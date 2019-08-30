@@ -138,6 +138,7 @@ CREATE TABLE `doc_login_log` (
 DROP TABLE IF EXISTS `doc_field`;
 CREATE TABLE `doc_field` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
+  `encode_id` varchar(50) NOT NULL COMMENT '加密id',
   `api_id` int(10) DEFAULT '0' COMMENT '接口ID',
   `header_fields` text NOT NULL COMMENT 'header字段',
   `request_fields` text COMMENT '请求字段',
@@ -147,7 +148,9 @@ CREATE TABLE `doc_field` (
   `created_at` datetime NOT NULL COMMENT '创建时间',
   `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
   PRIMARY KEY (`id`),
+  UNIQUE KEY `encode_id` (`encode_id`) USING BTREE,
   UNIQUE KEY `api_id` (`id`),
+  KEY `creater_id` (`updater_id`)
   KEY `creater_id` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='接口字段表';
 

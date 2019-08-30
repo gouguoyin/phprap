@@ -28,7 +28,7 @@
                         <div class="opt-btn">
                             <!--<a class="btn btn-sm btn-success js_submit" href="javascript:void(0);"><i class="fa fa-fw fa-save"></i>导入</a>-->
                             <a class="btn btn-sm btn-warning js_cancel" href="javascript:;" onclick="cancelSave()"><i class="fa fa-fw fa-reply"></i>取消</a>
-                            <a class="btn btn-sm btn-success" id="js_submit" href="javascript:void(0);"><i class="fa fa-fw fa-save"></i>保存</a>
+                            <a class="btn btn-sm btn-success ml-1" id="js_submit" href="javascript:void(0);"><i class="fa fa-fw fa-save"></i>保存</a>
 
                         </div>
                     </div>
@@ -59,7 +59,7 @@
                                         <!-- /.panel-heading -->
                                         <div class="panel-body">
                                             <div class="table-responsive">
-                                                <textarea name="UpdateField[header_field]" placeholder="JSON格式" class="form-control js_header_field" rows="5">{{$api->header_field}}</textarea>
+                                                <textarea name="UpdateField[header_fields]" placeholder="JSON格式" class="form-control js_header_fields" rows="5">{{$field->header_fields}}</textarea>
                                             </div>
                                             <!-- /.table-responsive -->
                                         </div>
@@ -79,7 +79,7 @@
                                         <!-- /.panel-heading -->
                                         <div class="panel-body">
                                             <div class="table-responsive">
-                                                <textarea name="UpdateField[request_field]" placeholder="JSON格式" class="form-control js_request_field" rows="5">{{$api->request_field}}</textarea>
+                                                <textarea name="UpdateField[request_fields]" placeholder="JSON格式" class="form-control js_request_fields" rows="5">{{$field->request_fields}}</textarea>
                                             </div>
                                             <!-- /.table-responsive -->
                                         </div>
@@ -99,7 +99,7 @@
                                         <!-- /.panel-heading -->
                                         <div class="panel-body">
                                             <div class="table-responsive">
-                                                <textarea name="UpdateField[response_field]" placeholder="JSON格式" class="form-control js_response_field" rows="5">{{$api->response_field}}</textarea>
+                                                <textarea name="UpdateField[response_fields]" placeholder="JSON格式" class="form-control js_response_fields" rows="5">{{$field->response_fields}}</textarea>
                                             </div>
                                             <!-- /.table-responsive -->
                                         </div>
@@ -133,7 +133,7 @@
     // 取消保存
     function cancelSave() {
         confirm('您编辑的内容还没有保存，确定要退出吗？', function () {
-            window.location.href = "{{url('home/api/show', ['id' => $api->encode_id, 'tab' => 'field'])}}";
+            window.location.href = "{{url('home/api/show', ['id' => $field->api->encode_id, 'tab' => 'field'])}}";
         });
     }
 
