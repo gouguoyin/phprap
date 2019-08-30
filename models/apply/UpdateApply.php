@@ -22,7 +22,7 @@ class UpdateApply extends Apply
             ['password', 'required', 'message' => '登录密码不可以为空'],
 
             ['password', 'validatePassword'],
-            ['project_id', 'validateProject'],
+            ['project_id', 'validateAuth'],
         ];
     }
 
@@ -54,7 +54,7 @@ class UpdateApply extends Apply
      * 验证申请是否唯一
      * @param $attribute
      */
-    public function validateProject($attribute)
+    public function validateAuth($attribute)
     {
         if(!$this->project->isCreater()){
             $this->addError($attribute, '抱歉，您没有操作权限');

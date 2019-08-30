@@ -15,7 +15,7 @@ class CreateField extends Field
         return [
             [['api_id'], 'integer'],
             [['header_fields', 'request_fields', 'response_fields'], 'string'],
-            ['api_id', 'checkAuth'],
+            ['api_id', 'validateAuth'],
         ];
     }
 
@@ -23,7 +23,7 @@ class CreateField extends Field
      * 检测是否有操作权限
      * @param $attribute
      */
-    public function checkAuth($attribute)
+    public function validateAuth($attribute)
     {
         $api = Api::findOne($this->api_id);
 

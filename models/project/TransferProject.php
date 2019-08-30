@@ -21,7 +21,7 @@ class TransferProject extends Project
             ['user_id', 'required', 'message'  => '请选择成员'],
             ['password', 'required', 'message' => '登录密码不可以为空'],
             ['password', 'validatePassword'],
-            ['user_id', 'validateJoiner'],
+            ['user_id', 'validateAuth'],
         ];
     }
 
@@ -43,7 +43,7 @@ class TransferProject extends Project
      * 验证选择用户是不是项目成员
      * @param $attribute
      */
-    public function validateJoiner($attribute)
+    public function validateAuth($attribute)
     {
         if($this->hasAuth(['project' => 'transfer'])) {
             $this->addError($attribute, '抱歉，您没有操作权限');

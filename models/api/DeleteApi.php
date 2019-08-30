@@ -15,7 +15,7 @@ class DeleteApi extends Api
             ['password', 'required', 'message' => '密码不可以为空'],
 
             ['password', 'validatePassword'],
-            ['id', 'validateProject'],
+            ['id', 'validateAuth'],
         ];
     }
 
@@ -45,7 +45,7 @@ class DeleteApi extends Api
      * 验证是否有项目操作权限
      * @param $attribute
      */
-    public function validateProject($attribute)
+    public function validateAuth($attribute)
     {
         if(!$this->project->hasAuth(['api' => 'delete'])){
             $this->addError($attribute, '抱歉，您没有操作权限');

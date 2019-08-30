@@ -19,7 +19,7 @@ class CreateModule extends Module
             [['title', 'remark'], 'string', 'max' => 250],
             [['sort'], 'integer'],
 
-            ['project_id', 'validateProject'],
+            ['project_id', 'validateAuth'],
         ];
     }
 
@@ -27,7 +27,7 @@ class CreateModule extends Module
      * 验证是否有项目操作权限
      * @param $attribute
      */
-    public function validateProject($attribute)
+    public function validateAuth($attribute)
     {
         $project = Project::findModel($this->project_id);
 

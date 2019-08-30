@@ -22,7 +22,7 @@ class CreateApi extends Api
             [['request_method', 'response_format'], 'string', 'max' => 20],
             [['project_id', 'module_id','sort'], 'integer'],
 
-            ['id', 'validateProject'],
+            ['id', 'validateAuth'],
         ];
     }
 
@@ -30,7 +30,7 @@ class CreateApi extends Api
      * 验证是否有项目操作权限
      * @param $attribute
      */
-    public function validateProject($attribute)
+    public function validateAuth($attribute)
     {
         $module = Module::findModel(['encode_id' => $this->module_id]);
 

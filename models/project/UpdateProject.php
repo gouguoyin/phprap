@@ -19,7 +19,7 @@ class UpdateProject extends Project
             [['sort','type'], 'integer'],
 
             ['title', 'validateTitle'],
-            ['id', 'validateProject'],
+            ['id', 'validateAuth'],
         ];
     }
 
@@ -51,7 +51,7 @@ class UpdateProject extends Project
      * 验证是否有项目操作权限
      * @param $attribute
      */
-    public function validateProject($attribute)
+    public function validateAuth($attribute)
     {
         if(!$this->hasAuth(['project' => 'update'])){
             $this->addError($attribute, '抱歉，您没有操作权限');

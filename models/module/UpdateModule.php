@@ -18,7 +18,7 @@ class UpdateModule extends Module
             [['title', 'remark'], 'string', 'max' => 250],
             [['sort'], 'integer'],
 
-            ['id', 'validateProject'],
+            ['id', 'validateAuth'],
         ];
     }
 
@@ -26,7 +26,7 @@ class UpdateModule extends Module
      * 验证是否有项目操作权限
      * @param $attribute
      */
-    public function validateProject($attribute)
+    public function validateAuth($attribute)
     {
         if(!$this->project->hasAuth(['module' => 'update'])){
             $this->addError($attribute, '抱歉，您没有操作权限');

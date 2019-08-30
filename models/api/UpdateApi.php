@@ -19,7 +19,7 @@ class UpdateApi extends Api
             [['title', 'uri', 'remark'], 'string', 'max' => 250],
             [['sort', 'project_id', 'module_id'], 'integer'],
 
-            ['id', 'validateProject'],
+            ['id', 'validateAuth'],
         ];
     }
 
@@ -27,7 +27,7 @@ class UpdateApi extends Api
      * 验证是否有项目操作权限
      * @param $attribute
      */
-    public function validateProject($attribute)
+    public function validateAuth($attribute)
     {
         if(!$this->project->hasAuth(['api' => 'update'])){
             $this->addError($attribute, '抱歉，您没有操作权限');

@@ -21,7 +21,7 @@ class CreateEnv extends Env
             [['project_id', 'sort'], 'integer'],
 
             ['name', 'validateName'],
-            ['project_id', 'validateProject'],
+            ['project_id', 'validateAuth'],
         ];
     }
 
@@ -49,7 +49,7 @@ class CreateEnv extends Env
      * 验证是否有项目操作权限
      * @param $attribute
      */
-    public function validateProject($attribute)
+    public function validateAuth($attribute)
     {
         $project = Project::findModel($this->project_id);
 

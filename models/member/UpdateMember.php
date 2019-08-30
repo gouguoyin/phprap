@@ -18,7 +18,7 @@ class UpdateMember extends Member
             [['project_id', 'user_id'], 'integer'],
             [['project_rule', 'module_rule', 'api_rule', 'member_rule', 'env_rule'], 'string', 'max' => 100],
 
-            ['id', 'validateProject'],
+            ['id', 'validateAuth'],
         ];
     }
 
@@ -26,7 +26,7 @@ class UpdateMember extends Member
      * 验证是否有项目操作权限
      * @param $attribute
      */
-    public function validateProject($attribute)
+    public function validateAuth($attribute)
     {
         if(!$this->project->hasAuth(['member' => 'update'])){
             $this->addError($attribute, '抱歉，您没有操作权限');

@@ -19,7 +19,7 @@ class DeleteModule extends Module
             ['password', 'required', 'message' => '登录密码不可以为空'],
 
             ['password', 'validatePassword'],
-            ['id', 'validateProject'],
+            ['id', 'validateAuth'],
         ];
     }
 
@@ -49,7 +49,7 @@ class DeleteModule extends Module
      * 验证是否有项目操作权限
      * @param $attribute
      */
-    public function validateProject($attribute)
+    public function validateAuth($attribute)
     {
         if(!$this->project->hasAuth(['module' => 'delete'])){
             $this->addError($attribute, '抱歉，您没有操作权限');
