@@ -4,6 +4,7 @@ namespace app\models\api;
 use Yii;
 use app\models\Module;
 use app\models\Api;
+use app\models\field\CreateField;
 use app\models\projectLog\CreateLog;
 
 class CreateApi extends Api
@@ -60,10 +61,10 @@ class CreateApi extends Api
         $api->encode_id  = $this->createEncodeId();
         $api->project_id = $module->project_id;
         $api->module_id  = $module->id;
-        $api->uri        = '/' . trim($this->uri, '/');
+        $api->uri        = trim($this->uri, '/');
         $api->status     = Api::ACTIVE_STATUS;
         $api->creater_id = Yii::$app->user->identity->id;
-        $api->created_at = date('Y-m-d H:i:s');
+        $api->created_at = $this->getNowTime();
 
         if(!$api->save()){
             $this->addError($api->getErrorLabel(), $api->getErrorMessage());
@@ -71,11 +72,23 @@ class CreateApi extends Api
             return false;
         }
 
-        // 保存操作日志、
+        // 添加空字段
+        $field = new CreateField();
+        $field->api_id = $api->id;
+
+        if(!$field->store()){
+            $this->addError($field->getErrorLabel(), $field->getErrorMessage());
+            $transaction->rollBack();
+            return false;
+        }
+
+        // 保存操作日志
         $log = new CreateLog();
-        $log->project_id = $api->project_id;
-        $log->type       = 'create';
-        $log->content    = '添加了 <strong>' . $module->title . '->' . $api->title . '</strong>';
+        $log->project_id  = $api->project_id;
+        $log->object_name = 'api';
+        $log->object_id   = $api->id;
+        $log->type        = 'create';
+        $log->content     = '创建了 接口 ' . '<code>' . $api->title . '</code>';
 
         if(!$log->store()){
             $this->addError($log->getErrorLabel(), $log->getErrorMessage());

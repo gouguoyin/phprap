@@ -80,13 +80,13 @@ class UpdateProject extends Project
         $project->type   = (int)$this->type;
         $project->sort   = (int)$this->sort;
 
-        if($project->dirtyAttributes) {
+        // 如果有更改，保存操作日志
+        if(array_filter($project->dirtyAttributes)) {
             $log = new CreateLog();
             $log->project_id = $project->id;
             $log->type       = 'update';
             $log->content    = $project->getUpdateContent();
 
-            // 保存操作日志
             if(!$log->store()){
                 $this->addError($log->getErrorLabel(), $log->getErrorMessage());
                 $transaction->rollBack();
@@ -94,9 +94,8 @@ class UpdateProject extends Project
             }
         }
 
+        // 保存项目更新
         $project->updater_id = Yii::$app->user->identity->id;
-        $project->updated_at = date('Y-m-d H:i:s');
-
         if(!$project->save()){
             $this->addError($project->getErrorLabel(), $project->getErrorMessage());
             $transaction->rollBack();

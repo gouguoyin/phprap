@@ -46,21 +46,20 @@ class UpdateModule extends Module
 
         // 开启事务
         $transaction = Yii::$app->db->beginTransaction();
-        
-        // 保存模块
+
         $module = &$this;
 
         $module->title      = $this->title;
         $module->remark     = $this->remark;
         $module->sort       = (int)$this->sort;
 
-        if($module->dirtyAttributes) {
+        // 如果有更改，保存操作日志
+        if(array_filter($module->dirtyAttributes)) {
             $log = new CreateLog();
             $log->project_id = $module->project->id;
             $log->type       = 'update';
             $log->content    = $module->getUpdateContent();
 
-            // 保存操作日志
             if(!$log->store()){
                 $this->addError($log->getErrorLabel(), $log->getErrorMessage());
                 $transaction->rollBack();
@@ -68,9 +67,8 @@ class UpdateModule extends Module
             }
         }
 
+        // 保存模块更新
         $module->updater_id = Yii::$app->user->identity->id;
-        $module->updated_at = date('Y-m-d H:i:s');
-
         if(!$module->save()){
             $this->addError($module->getErrorLabel(), $module->getErrorMessage());
             $transaction->rollBack();

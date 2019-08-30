@@ -48,7 +48,6 @@ class UpdateApi extends Api
         // 开启事务
         $transaction = Yii::$app->db->beginTransaction();
 
-        // 保存接口
         $api = &$this;
 
         $module = Module::findModel(['encode_id' => $this->module_id]);
@@ -61,13 +60,13 @@ class UpdateApi extends Api
         $api->status = (int)$this->status;
         $api->sort   = (int)$this->sort;
 
-        if($api->dirtyAttributes) {
+        // 如果有更改，保存操作日志
+        if(array_filter($api->dirtyAttributes)) {
             $log = new CreateLog();
             $log->project_id = $api->project->id;
             $log->type       = 'update';
             $log->content    = $api->getUpdateContent();
 
-            // 保存操作日志
             if(!$log->store()){
                 $this->addError($log->getErrorLabel(), $log->getErrorMessage());
                 $transaction->rollBack();
@@ -75,9 +74,8 @@ class UpdateApi extends Api
             }
         }
 
+        // 保存接口更新内容
         $api->updater_id = Yii::$app->user->identity->id;
-        $api->updated_at = date('Y-m-d H:i:s');
-
         if(!$api->save()){
             $this->addError($api->getErrorLabel(), $api->getErrorMessage());
             $transaction->rollBack();

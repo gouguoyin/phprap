@@ -64,8 +64,8 @@ class UpdateField extends Field
         $field->request_fields  = $this->request_fields;
         $field->response_fields = $this->response_fields;
 
+        // 如果有更改，保存操作日志
         if(array_filter($field->dirtyAttributes)) {
-
             $log = new CreateLog();
             $log->project_id  = $field->api->project->id;
             $log->object_name = 'api';
@@ -73,7 +73,6 @@ class UpdateField extends Field
             $log->type        = 'update';
             $log->content     = $field->getUpdateContent();
 
-            // 保存操作日志
             if(!$log->store()){
                 $this->addError($log->getErrorLabel(), $log->getErrorMessage());
                 $transaction->rollBack();
@@ -83,7 +82,6 @@ class UpdateField extends Field
 
         // 保存字段更新
         $field->updater_id = Yii::$app->user->identity->id;
-
         if(!$field->save()){
             $this->addError($field->getErrorLabel(), $field->getErrorMessage());
             $transaction->rollBack();
