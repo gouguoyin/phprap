@@ -154,7 +154,6 @@ class Field extends Model
             $label = '<strong>' .  $this->getAttributeLabel($name) . '</strong>';
 
             if(isset($this->oldAttributes[$name])){
-
                 $content .= '更新了  ' . $label . ',';
             }elseif(!empty($this->statusLabels[$name])){
                 $content .= '添加了  ' . $label . ',';
