@@ -65,7 +65,7 @@ class ProjectController extends PublicController
             return $this->redirect(['home/account/login']);
         }
 
-        $model = CreateProject::findModel();
+        $model = new CreateProject();
 
         if($request->isPost) {
 
