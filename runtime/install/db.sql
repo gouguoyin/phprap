@@ -247,9 +247,10 @@ DROP TABLE IF EXISTS `doc_project_log`;
 CREATE TABLE `doc_project_log` (
   `id` int(1) NOT NULL AUTO_INCREMENT,
   `project_id` int(10) NOT NULL COMMENT '项目id',
+  `object_name` varchar(10) NOT NULL COMMENT '操作对象',
+  `object_id` int(10) NOT NULL COMMENT '操作对象id',
   `user_id` int(10) NOT NULL COMMENT '操作人id',
   `type` varchar(10) NOT NULL COMMENT '操作类型',
-  `object` varchar(10) NOT NULL COMMENT '操作对象',
   `content` text NOT NULL COMMENT '操作内容',
   `created_at` datetime DEFAULT NULL COMMENT '创建时间',
   `updated_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
