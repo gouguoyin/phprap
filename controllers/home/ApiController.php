@@ -1,6 +1,7 @@
 <?php
 namespace app\controllers\home;
 
+use app\models\ProjectLog;
 use Yii;
 use app\models\Config;
 use yii\helpers\Url;
@@ -143,22 +144,35 @@ class ApiController extends PublicController
             }
         }
 
+        $data['project'] = $api->project;
+        $data['api'] = $api;
+
+        $params = Yii::$app->request->queryParams;
+
         switch ($tab) {
             case 'home':
                 $view  = '/home/api/home';
                 break;
             case 'field':
+                $data['field'] = $api->field;
                 $view  = '/home/field/home';
                 break;
-            case 'debug':
-                $view  = '/home/api/debug';
+            case 'history':
+                $params['object_name'] = 'api';
+                $params['object_id']   = $api->id;
+
+                $data['history'] = ProjectLog::findModel()->search($params);
+
+                $view  = '/home/history/api';
+
                 break;
             default:
                 $view  = '/home/api/home';
                 break;
         }
 
-        return $this->display($view, ['project' => $api->project, 'api' => $api]);
+        return $this->display($view, $data);
+
     }
 
     /**

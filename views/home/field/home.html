@@ -31,8 +31,8 @@
                     <div class="opt-btn">
 
                         {{if $project->hasAuth(['api' => 'update'])}}
-                        <a href="{{url('home/field/form', ['api_id' => $api->encode_id])}}" class="btn btn-sm hidden-xs btn-success"><i class="fa fa-fw fa-edit"></i>编辑</a>
-                        <a href="{{url('home/field/json', ['api_id' => $api->encode_id])}}" class="btn btn-sm hidden-xs btn-warning"><i class="fa fa-fw fa-upload"></i>导入</a>
+                        <a href="{{url('home/field/update', ['id' => $field->encode_id, 'method' => 'form'])}}" class="btn btn-sm hidden-xs btn-success"><i class="fa fa-fw fa-edit"></i>编辑</a>
+                        <a href="{{url('home/field/update', ['id' => $field->encode_id, 'method' => 'json'])}}" class="btn btn-sm hidden-xs btn-warning"><i class="fa fa-fw fa-upload"></i>导入</a>
                         {{/if}}
 
                     </div>
@@ -50,7 +50,7 @@
 
                     <div class="panel-body">
                         <!--header参数-->
-                        {{if isset($api->headerAttributes)}}
+                        {{if isset($field->headerAttributes)}}
                         <div class="row">
                             <div class="col-lg-12">
                                 <div class="panel panel-default">
@@ -72,7 +72,7 @@
                                                 </tr>
                                                 </thead>
                                                 <tbody>
-                                                {{foreach $api->headerAttributes as $header}}
+                                                {{foreach $field->headerAttributes as $header}}
                                                 <tr class="level{{$header->level}}">
                                                     <td>
                                                         {{if $header->level}}
@@ -83,8 +83,8 @@
                                                     </td>
                                                     <td>{{$header->title}}</td>
 
-                                                    <td>{{$api->fieldTypeLabels[$header->type]}}</td>
-                                                    <td>{{$api->requiredLabels[$header->required]}}</td>
+                                                    <td>{{$field->fieldTypeLabels[$header->type]}}</td>
+                                                    <td>{{$field->requiredLabels[$header->required]}}</td>
 
                                                     <td>{{$header->value}}</td>
                                                     <td>{{$header->remark}}</td>
@@ -125,7 +125,7 @@
                                                 </tr>
                                                 </thead>
                                                 <tbody>
-                                                {{foreach $api->requestAttributes as $request}}
+                                                {{foreach $field->requestAttributes as $request}}
                                                 <tr class="level{{$request->level}}">
                                                     <td>
                                                         {{if $request->level}}
@@ -136,8 +136,8 @@
                                                     </td>
 
                                                     <td>{{$request->title}}</td>
-                                                    <td>{{$api->fieldTypeLabels[$request->type]}}</td>
-                                                    <td>{{$api->requiredLabels[$request->required]}}</td>
+                                                    <td>{{$field->fieldTypeLabels[$request->type]}}</td>
+                                                    <td>{{$field->requiredLabels[$request->required]}}</td>
                                                     <td>{{$request->example_value}}</td>
                                                     <td>{{$request->remark}}</td>
                                                 </tr>
@@ -174,7 +174,7 @@
                                                 </tr>
                                                 </thead>
                                                 <tbody>
-                                                {{foreach $api->responseAttributes as $response}}
+                                                {{foreach $field->responseAttributes as $response}}
                                                 <tr class="level{{$response->level}}">
                                                     <td>
                                                         {{if $response->level}}
@@ -184,7 +184,7 @@
                                                         {{$response->name}}
                                                     </td>
                                                     <td>{{$response->title}}</td>
-                                                    <td>{{$api->fieldTypeLabels[$response->type]}}</td>
+                                                    <td>{{$field->fieldTypeLabels[$response->type]}}</td>
                                                     <td>{{$response->example_value}}</td>
                                                     <td>{{$response->remark}}</td>
                                                 </tr>
