@@ -83,9 +83,11 @@ class UpdateProject extends Project
         // 如果有更改，保存操作日志
         if(array_filter($project->dirtyAttributes)) {
             $log = new CreateLog();
-            $log->project_id = $project->id;
-            $log->type       = 'update';
-            $log->content    = $project->getUpdateContent();
+            $log->project_id  = $project->id;
+            $log->object_name = 'project';
+            $log->object_id   = $project->id;
+            $log->type        = 'update';
+            $log->content     = $project->getUpdateContent();
 
             if(!$log->store()){
                 $this->addError($log->getErrorLabel(), $log->getErrorMessage());

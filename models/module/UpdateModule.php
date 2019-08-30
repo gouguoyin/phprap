@@ -56,9 +56,11 @@ class UpdateModule extends Module
         // 如果有更改，保存操作日志
         if(array_filter($module->dirtyAttributes)) {
             $log = new CreateLog();
-            $log->project_id = $module->project->id;
-            $log->type       = 'update';
-            $log->content    = $module->getUpdateContent();
+            $log->project_id  = $module->project->id;
+            $log->object_name = 'module';
+            $log->object_id   = $module->id;
+            $log->type        = 'update';
+            $log->content     = $module->getUpdateContent();
 
             if(!$log->store()){
                 $this->addError($log->getErrorLabel(), $log->getErrorMessage());

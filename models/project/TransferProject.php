@@ -82,9 +82,11 @@ class TransferProject extends Project
 
         // 保存操作日志
         $log = new CreateLog();
-        $log->project_id = $project->id;
-        $log->type       = 'transfer';
-        $log->content    = '转让 项目 ' . '<code>' . $project->title . '</code>' . '给 成员 <code>' . $account->fullName . '</code>';
+        $log->project_id  = $project->id;
+        $log->object_name = 'project';
+        $log->object_id   = $project->id;
+        $log->type        = 'transfer';
+        $log->content     = '转让 项目 ' . '<code>' . $project->title . '</code>' . '给 成员 <code>' . $account->fullName . '</code>';
 
         if(!$log->store()){
             $this->addError($log->getErrorLabel(), $log->getErrorMessage());

@@ -83,6 +83,8 @@ class QuitProject extends Project
         // 保存操作日志
         $log = new CreateLog();
         $log->project_id = $member->project->id;
+        $log->object_name = 'project';
+        $log->object_id   = $member->project->id;
         $log->type       = 'quit';
         $log->content    = '退出了 项目 ' . '<code>' . $member->project->title . '</code>';
 

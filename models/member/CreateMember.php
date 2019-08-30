@@ -84,9 +84,11 @@ class CreateMember extends Member
 
         // 保存操作日志
         $log = new CreateLog();
-        $log->project_id = $member->project_id;
-        $log->type       = 'create';
-        $log->content    = '添加了 成员 ' . '<code>' . $member->account->fullName . '</code>';
+        $log->project_id  = $member->project_id;
+        $log->object_name = 'member';
+        $log->object_id   = $member->id;
+        $log->type        = 'create';
+        $log->content     = '添加了 成员 ' . '<code>' . $member->account->fullName . '</code>';
 
         if(!$log->store()){
             $this->addError($log->getErrorLabel(), $log->getErrorMessage());

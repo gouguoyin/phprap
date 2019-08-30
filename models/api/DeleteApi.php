@@ -71,7 +71,6 @@ class DeleteApi extends Api
 
         $api->status     = self::DELETED_STATUS;
         $api->updater_id = Yii::$app->user->identity->id;
-        $api->updated_at = date('Y-m-d H:i:s');
 
         if(!$api->save()){
             $this->addError($api->getErrorLabel(), $api->getErrorMessage());
@@ -81,9 +80,11 @@ class DeleteApi extends Api
 
         // 保存操作日志
         $log = new CreateLog();
-        $log->project_id = $api->project_id;
-        $log->type       = 'delete';
-        $log->content    = '删除了 <strong>' . $api->module->title . '->' . $api->title . '</strong>';
+        $log->project_id  = $api->project_id;
+        $log->type        = 'delete';
+        $log->object_name = 'api';
+        $log->object_id   = $api->id;
+        $log->content     = '删除了 接口 <code>' . $api->title . '</code>';
 
         if(!$log->store()){
             $this->addError($log->getErrorLabel(), $log->getErrorMessage());

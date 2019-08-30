@@ -83,9 +83,11 @@ class UpdateEnv extends Env
         // 如果有更改，保存操作日志
         if(array_filter($env->dirtyAttributes)) {
             $log = new CreateLog();
-            $log->project_id = $env->project->id;
-            $log->type       = 'update';
-            $log->content    = $env->getUpdateContent();
+            $log->project_id  = $env->project->id;
+            $log->object_name = 'env';
+            $log->object_id   = $env->id;
+            $log->type        = 'update';
+            $log->content     = $env->getUpdateContent();
 
             if(!$log->store()){
                 $this->addError($log->getErrorLabel(), $log->getErrorMessage());

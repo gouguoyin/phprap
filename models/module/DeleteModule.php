@@ -74,7 +74,6 @@ class DeleteModule extends Module
 
         $module->status     = self::DELETED_STATUS;
         $module->updater_id = Yii::$app->user->identity->id;
-        $module->updated_at = date('Y-m-d H:i:s');
 
         if(!$module->save()){
             $this->addError($module->getErrorLabel(), $module->getErrorMessage());
@@ -84,9 +83,11 @@ class DeleteModule extends Module
 
         // 保存操作日志
         $log = new CreateLog();
-        $log->project_id = $module->project->id;
-        $log->type       = 'delete';
-        $log->content    = '删除了 模块 ' . '<code>' . $module->title . '</code>';
+        $log->project_id  = $module->project->id;
+        $log->object_name = 'module';
+        $log->object_id   = $module->id;
+        $log->type        = 'delete';
+        $log->content     = '删除了 模块 ' . '<code>' . $module->title . '</code>';
 
         if(!$log->store()){
             $this->addError($log->getErrorLabel(), $log->getErrorMessage());

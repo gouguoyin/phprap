@@ -74,7 +74,6 @@ class DeleteProject extends Project
 
         $project->status     = Project::DELETED_STATUS;
         $project->updater_id = Yii::$app->user->identity->id;
-        $project->updated_at = date('Y-m-d H:i:s');
 
         /**
          * 将项目状态设为删除状态
@@ -87,9 +86,11 @@ class DeleteProject extends Project
 
         // 保存操作日志
         $log = new CreateLog();
-        $log->project_id = $project->id;
-        $log->type       = 'delete';
-        $log->content    = '删除了 项目 ' . '<code>' . $project->title . '</code>';
+        $log->project_id  = $project->id;
+        $log->object_name = 'project';
+        $log->object_id   = $project->id;
+        $log->type        = 'delete';
+        $log->content     = '删除了 项目 ' . '<code>' . $project->title . '</code>';
 
         if(!$log->store()){
             $this->addError($log->getErrorLabel(), $log->getErrorMessage());

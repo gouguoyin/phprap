@@ -63,9 +63,11 @@ class UpdateApi extends Api
         // 如果有更改，保存操作日志
         if(array_filter($api->dirtyAttributes)) {
             $log = new CreateLog();
-            $log->project_id = $api->project->id;
-            $log->type       = 'update';
-            $log->content    = $api->getUpdateContent();
+            $log->project_id  = $api->project->id;
+            $log->object_name = 'api';
+            $log->object_id   = $api->id;
+            $log->type        = 'update';
+            $log->content     = $api->getUpdateContent();
 
             if(!$log->store()){
                 $this->addError($log->getErrorLabel(), $log->getErrorMessage());
