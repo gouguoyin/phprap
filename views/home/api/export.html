@@ -138,18 +138,30 @@
                                 <thead>
                                 <tr>
                                     <th width="200px">参数名</th>
-                                    <th width="150px">参数类型</th>
-                                    <th width="320px">参数值</th>
+                                    <th width="200px">参数标题</th>
+                                    <th width="100px">参数类型</th>
+                                    <th width="60px">必填</th>
+                                    <th width="90px">参数值</th>
                                     <th>备注说明</th>
                                 </tr>
                                 </thead>
                                 <tbody>
                                 {{foreach $api->field->headerAttributes as $header}}
-                                <tr>
-                                    <td>{{$header->name}}</td>
+                                <tr class="level{{$header->level}}">
+                                    <td>
+                                        {{if $header->level}}
+                                        {{str_repeat('&nbsp;&nbsp;&nbsp;', $header->level)}}
+                                        <i class="fa fa-fw fa-angle-right fa-1" aria-hidden="true"></i>
+                                        {{/if}}
+                                        {{$header->name}}
+                                    </td>
+                                    <td>{{$header->title}}</td>
+
                                     <td>{{$api->field->fieldTypeLabels[$header->type]}}</td>
+                                    <td>{{$api->field->requiredLabels[$header->required]}}</td>
+
                                     <td>{{$header->value}}</td>
-                                    <td>{{$header->description}}</td>
+                                    <td>{{$header->remark}}</td>
                                 </tr>
                                 {{/foreach}}
 
@@ -180,21 +192,28 @@
                                 <tr>
                                     <th width="200px">参数名</th>
                                     <th width="200px">参数标题</th>
-                                    <th width="120px">参数类型</th>
+                                    <th width="100px">参数类型</th>
                                     <th width="60px">必填</th>
-                                    <th width="90px">默认值</th>
+                                    <th width="90px">示例值</th>
                                     <th>备注说明</th>
                                 </tr>
                                 </thead>
                                 <tbody>
                                 {{foreach $api->field->requestAttributes as $request}}
-                                <tr class="">
-                                    <td>{{$request->name}}</td>
+                                <tr class="level{{$request->level}}">
+                                    <td>
+                                        {{if $request->level}}
+                                        {{str_repeat('&nbsp;&nbsp;&nbsp;', $request->level)}}
+                                        <i class="fa fa-fw fa-angle-right fa-1" aria-hidden="true"></i>
+                                        {{/if}}
+                                        {{$request->name}}
+                                    </td>
+
                                     <td>{{$request->title}}</td>
                                     <td>{{$api->field->fieldTypeLabels[$request->type]}}</td>
                                     <td>{{$api->field->requiredLabels[$request->required]}}</td>
-                                    <td>{{$request->default}}</td>
-                                    <td>{{$request->description}}</td>
+                                    <td>{{$request->example_value}}</td>
+                                    <td>{{$request->remark}}</td>
                                 </tr>
                                 {{/foreach}}
                                 </tbody>
@@ -223,8 +242,8 @@
                                 <tr>
                                     <th width="200px">参数名</th>
                                     <th width="200px">参数标题</th>
-                                    <th width="120px">参数类型</th>
-                                    <th width="200px">MOCK规则</th>
+                                    <th width="100px">参数类型</th>
+                                    <th width="150px">示例值</th>
                                     <th>备注说明</th>
                                 </tr>
                                 </thead>
@@ -240,8 +259,8 @@
                                     </td>
                                     <td>{{$response->title}}</td>
                                     <td>{{$api->field->fieldTypeLabels[$response->type]}}</td>
-                                    <td>{{$response->mock}}</td>
-                                    <td>{{$response->description}}</td>
+                                    <td>{{$response->example_value}}</td>
+                                    <td>{{$response->remark}}</td>
                                 </tr>
                                 {{/foreach}}
                                 </tbody>
