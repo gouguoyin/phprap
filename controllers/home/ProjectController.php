@@ -306,9 +306,11 @@ class ProjectController extends PublicController
 
         // 记录操作日志
         $log = new CreateLog();
-        $log->project_id = $project->id;
-        $log->type       = 'export';
-        $log->content    = '导出了 ' . '<code>' . $file_name . '</code>';
+        $log->project_id  = $project->id;
+        $log->object_name = 'project';
+        $log->object_id   = $project->id;
+        $log->type        = 'export';
+        $log->content     = '导出了 ' . '<code>' . $file_name . '</code>';
 
         if(!$log->store()){
             return $this->error($log->getErrorMessage());

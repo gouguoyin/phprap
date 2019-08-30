@@ -1,16 +1,17 @@
 <?php
 namespace app\controllers\home;
 
-use app\models\ProjectLog;
 use Yii;
-use app\models\Config;
 use yii\helpers\Url;
 use yii\web\Response;
+use app\models\Config;
 use app\models\Module;
 use app\models\Api;
 use app\models\api\CreateApi;
 use app\models\api\UpdateApi;
 use app\models\api\DeleteApi;
+use app\models\ProjectLog;
+use app\models\projectLog\CreateLog;
 
 class ApiController extends PublicController
 {
@@ -204,6 +205,18 @@ class ApiController extends PublicController
         }
 
         $file_name = "[{$api->module->title}]" . $api->title . '离线文档.html';
+
+        // 记录操作日志
+        $log = new CreateLog();
+        $log->project_id  = $api->id;
+        $log->object_name = 'api';
+        $log->object_id   = $api->id;
+        $log->type        = 'export';
+        $log->content     = '导出了 ' . '<code>' . $file_name . '</code>';
+
+        if(!$log->store()){
+            return $this->error($log->getErrorMessage());
+        }
 
         header ("Content-Type: application/force-download");
         header ("Content-Disposition: attachment;filename=$file_name");
