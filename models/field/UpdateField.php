@@ -64,8 +64,6 @@ class UpdateField extends Field
         $field->request_fields  = $this->request_fields;
         $field->response_fields = $this->response_fields;
 
-        dump($field->dirtyAttributes);
-
         // 如果有更改，保存操作日志
         if(array_filter($field->dirtyAttributes)) {
             $log = new CreateLog();

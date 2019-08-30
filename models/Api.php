@@ -158,7 +158,7 @@ class Api extends Model
     public function getUpdateContent()
     {
         $content = '';
-        foreach ($this->dirtyAttributes as $name => $value) {
+        foreach (array_filter($this->dirtyAttributes) as $name => $value) {
 
             $label = '<strong>' .  $this->getAttributeLabel($name) . '</strong>';
 
