@@ -45,6 +45,7 @@
                     <h1>项目动态
                         <small>({{$history->count}})</small>
                     </h1>
+
                 </div>
             </div>
             <!-- /.col-lg-12 -->
@@ -54,9 +55,62 @@
 
             <div class="col-lg-12">
 
+                <div class="search">
+                    <div class="row">
+                        <form action="{{url()}}" method="get" autocomplete="off">
+                            <input name="tab" type="hidden" value="history">
+
+                            <div class="col-sm-4">
+
+                                <div class="form-group">
+                                    <select class="form-control" name="object_name">
+                                        <option disabled="" selected="" style="display:none;">操作对象</option>
+                                        <option value="">不限</option>
+                                        {{foreach $history->objectLabels as $k => $v}}
+                                        {{if $k != 'api'}}
+                                        <option value="{{$k}}" {{if $history->params->object_name == $k}}selected{{/if}}>{{$v}}</option>
+                                        {{/if}}
+                                        {{/foreach}}
+
+                                    </select>
+                                </div>
+
+                            </div>
+
+                            <div class="col-sm-4">
+
+                                <div class="form-group">
+                                    <select class="form-control" name="type">
+                                        <option disabled="" selected="" style="display:none;">操作行为</option>
+                                        <option value="">不限</option>
+                                        {{foreach $history->typeLabels as $k => $v}}
+                                        <option value="{{$k}}" {{if $history->params->type == $k}}selected{{/if}}>{{$v}}</option>
+                                        {{/foreach}}
+
+                                    </select>
+                                </div>
+
+                            </div>
+
+                            <div class="col-sm-4">
+
+                                <div class="form-group">
+                                    <button type="reset" class="btn btn-warning mr-1">重置</button>
+
+                                    <button type="submit" class="btn btn-primary">搜索</button>
+                                </div>
+                            </div>
+
+
+                        </form>
+
+                    </div>
+                </div>
+
                 <div class="panel panel-default">
 
                     {{include_file name='home/project/tab' tab='history'}}
+
 
                     <div class="panel-body">
                         <ul class="chat">
@@ -70,8 +124,6 @@
                                 <div class="timeline-badge create pull-left"><i class="fa fa-fw fa-plus"></i></div>
                                 {{else if $model->type == 'update'}}
                                 <div class="timeline-badge update pull-left"><i class="fa fa-fw fa-edit"></i></div>
-                                {{else}}
-                                <div class="timeline-badge pull-left"><i class="fa fa-fw fa-gear"></i></div>
                                 {{/if}}
 
                                 <div class="chat-body clearfix">
@@ -104,16 +156,16 @@
 {{include_file name='home/public/copyright'}}
 
 <script>
-    $(function () {
+$(function () {
 
-        // 未设置环境弹框提示
-        {{if $project->getEnvs()->count() == 0}}
-        confirm('项目至少需要设置一个环境，请立即设置', function(){
+    // 未设置环境弹框提示
+    {{if $project->getEnvs()->count() == 0}}
+    confirm('项目至少需要设置一个环境，请立即设置', function(){
 
-            window.location.href = "{{url('project/show', ['id' => $project->encode_id, 'tab' => 'env'])}}";
+        window.location.href = "{{url('project/show', ['id' => $project->encode_id, 'tab' => 'env'])}}";
 
-        });
-        {{/if}}
-        });
+    });
+    {{/if}}
+});
 </script>
 {{include_file name='home/public/footer' has_copyright='true'}}
