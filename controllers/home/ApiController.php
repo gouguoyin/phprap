@@ -1,13 +1,12 @@
 <?php
 namespace app\controllers\home;
 
-use app\models\Config;
 use Yii;
+use app\models\Config;
 use yii\helpers\Url;
 use yii\web\Response;
 use app\models\Module;
 use app\models\Api;
-use app\models\Field;
 use app\models\api\CreateApi;
 use app\models\api\UpdateApi;
 use app\models\api\DeleteApi;
@@ -131,7 +130,7 @@ class ApiController extends PublicController
      */
     public function actionShow($id, $tab = 'home')
     {
-        $api = Field::findModel(['encode_id' => $id]);
+        $api = Api::findModel(['encode_id' => $id]);
 
         if($api->project->isPrivate()) {
 
@@ -169,7 +168,7 @@ class ApiController extends PublicController
      */
     public function actionExport($id)
     {
-        $api = Field::findModel(['encode_id' => $id]);
+        $api = Api::findModel(['encode_id' => $id]);
 
         if(!$api->project->hasAuth(['api' => 'export'])) {
             return $this->error('抱歉，您没有操作权限');
