@@ -19,6 +19,10 @@ class FieldController extends PublicController
 
         $model = UpdateField::findModel(['encode_id' => $id]);
 
+        $data['project'] = $model->api->project;
+        $data['api']     = $model->api;
+        $data['field']   = $model;
+
         if($request->isPost){
 
             Yii::$app->response->format = Response::FORMAT_JSON;
@@ -36,7 +40,7 @@ class FieldController extends PublicController
 
         }
 
-        return $this->display('/home/field/' . $method, ['field' => $model, 'project' => $model->api->project]);
+        return $this->display('/home/field/' . $method, $data);
     }
 
 }
