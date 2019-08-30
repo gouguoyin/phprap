@@ -140,8 +140,8 @@
 
                     <p class="text-muted"><label>项目名称：</label>{{$project->title}}</p>
                     <p class="text-muted"><label>项目类型：</label>{{$project->typeLabel}}</p>
-                    <p class="text-muted"><label>创建时间：</label>{{$project->created_at}}</p>
-                    <p class="text-muted"><label>导出时间：</label>{{date('Y-m-d H:i:s')}}</p>
+                    <p class="text-muted"><label>最近更新时间：</label>{{$project->updated_at}}</p>
+                    <p class="text-muted"><label>文档创建时间：</label>{{date('Y-m-d H:i:s')}}</p>
                     <p class="text-muted"><label>项目描述：</label><span style="word-break:break-all">{{$project->remark}}</span></p>
                     <!-- Nav tabs -->
 
