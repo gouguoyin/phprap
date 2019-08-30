@@ -8,63 +8,35 @@ use app\models\field\UpdateField;
 class FieldController extends PublicController
 {
     /**
-     * 更新字段(表单形式)
-     * @param $api_id 接口ID
+     * 更新字段
+     * @param $id
+     * @param string $method
      * @return array|string
      */
-    public function actionForm($api_id)
+    public function actionUpdate($id, $method = 'form')
     {
         $request = Yii::$app->request;
 
-        $api = UpdateField::findModel(['encode_id' => $api_id]);
+        $model = UpdateField::findModel(['encode_id' => $id]);
 
         if($request->isPost){
 
             Yii::$app->response->format = Response::FORMAT_JSON;
 
-            if(!$api->load($request->post())){
+            if(!$model->load($request->post())){
                 return ['status' => 'error', 'message' => '数据加载失败'];
             }
 
-            if ($api->store()) {
-                $callback = url('home/api/show', ['id' => $api->encode_id]);
+            if($model->store()) {
+                $callback = url('home/api/show', ['id' => $model->api->encode_id, 'tab' => 'field']);
                 return ['status' => 'success', 'message' => '编辑成功', 'callback' => $callback];
             }
 
-            return ['status' => 'error', 'message' => $api->getErrorMessage(), 'label' => $api->getErrorLabel()];
+            return ['status' => 'error', 'message' => $model->getErrorMessage(), 'label' => $model->getErrorLabel()];
+
         }
 
-        return $this->display('/home/field/form', ['api' => $api, 'project' => $api->project]);
-    }
-
-    /**
-     * 更新字段(JSON形式)
-     * @param $api_id 接口ID
-     * @return array|string
-     */
-    public function actionJson($api_id)
-    {
-        $request = Yii::$app->request;
-
-        $api = UpdateField::findModel(['encode_id' => $api_id]);
-
-        if($request->isPost){
-
-            Yii::$app->response->format = Response::FORMAT_JSON;
-
-            if(!$api->load($request->post())){
-                return ['status' => 'error', 'message' => '数据加载失败'];
-            }
-
-            if ($api->store()) {
-                $callback = url('home/api/show', ['id' => $api->encode_id]);
-                return ['status' => 'success', 'message' => '编辑成功', 'callback' => $callback];
-            }
-
-            return ['status' => 'error', 'message' => $api->getErrorMessage(), 'label' => $api->getErrorLabel()];
-        }
-
-        return $this->display('/home/field/json', ['api' => $api, 'project' => $api->project]);
+        return $this->display('/home/field/' . $method, ['field' => $model, 'project' => $model->api->project]);
     }
 
 }
