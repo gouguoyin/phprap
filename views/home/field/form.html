@@ -388,7 +388,7 @@
         $('.js_type').trigger("change");
 
         //选择header
-        selectHeader({{json_encode($api->defaultHeaderParams)}});
+        selectHeader({{json_encode($field->defaultHeaderParams)}});
 
         // 表单验证
         $("form").validateForm({
