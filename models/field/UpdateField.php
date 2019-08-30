@@ -14,22 +14,20 @@ class UpdateField extends Field
     public function rules()
     {
         return [
-            [['header_field', 'request_field', 'response_field', 'success_example', 'error_example'], 'string'],
-            [['request_method', 'response_format'], 'string', 'max' => 20],
-
-            ['id', 'validateProject'],
-            [['success_example', 'error_example'], 'validateJson'],
+            ['id', 'checkAuth'],
+            [['header_fields', 'request_fields', 'response_fields'], 'validateJson'],
         ];
     }
 
     /**
-     * 验证是否有项目操作权限
+     * 检测是否有操作权限
      * @param $attribute
      */
-    public function validateProject($attribute)
+    public function checkAuth($attribute)
     {
-        if(!$this->project->hasAuth(['field' => 'update'])){
+        if(!$this->api->project->hasAuth(['api' => 'update'])){
             $this->addError($attribute, '抱歉，您没有操作权限');
+            return false;
         }
     }
 
@@ -43,6 +41,7 @@ class UpdateField extends Field
 
         if(json_last_error() != JSON_ERROR_NONE){
             $this->addError($attribute,'非法JSON格式');
+            return false;
         }
     }
 
@@ -59,17 +58,20 @@ class UpdateField extends Field
         // 开启事务
         $transaction = Yii::$app->db->beginTransaction();
 
-        $api = &$this;
+        $field = &$this;
 
-        $api->header_field   = $this->header_field;
-        $api->request_field  = $this->request_field;
-        $api->response_field = $this->response_field;
+        $field->header_fields   = $this->header_fields;
+        $field->request_fields  = $this->request_fields;
+        $field->response_fields = $this->response_fields;
 
-        if($api->dirtyAttributes) {
+        if(array_filter($field->dirtyAttributes)) {
+
             $log = new CreateLog();
-            $log->project_id = $api->project->id;
-            $log->type       = 'update';
-            $log->content    = $api->getUpdateContent();
+            $log->project_id  = $field->api->project->id;
+            $log->object_name = 'api';
+            $log->object_id   = $field->api->id;
+            $log->type        = 'update';
+            $log->content     = $field->getUpdateContent();
 
             // 保存操作日志
             if(!$log->store()){
@@ -79,12 +81,11 @@ class UpdateField extends Field
             }
         }
 
-        $api->updater_id = Yii::$app->user->identity->id;
-        $api->updated_at = date('Y-m-d H:i:s');
+        // 保存字段更新
+        $field->updater_id = Yii::$app->user->identity->id;
 
-        // 保存接口
-        if(!$api->save()){
-            $this->addError($api->getErrorLabel(), $api->getErrorMessage());
+        if(!$field->save()){
+            $this->addError($field->getErrorLabel(), $field->getErrorMessage());
             $transaction->rollBack();
             return false;
         }
@@ -93,6 +94,7 @@ class UpdateField extends Field
         $transaction->commit();
 
         return true;
+
     }
 
 }

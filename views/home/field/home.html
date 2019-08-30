@@ -31,28 +31,6 @@
                     <div class="opt-btn">
 
                         {{if $project->hasAuth(['api' => 'update'])}}
-                        <div class="btn-group hidden">
-                            <button type="button" class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown" data-original-title="" title="" aria-expanded="false">
-                                <i class="fa fa-th-large" aria-hidden="true"></i>
-                                编辑字段 <span class="caret"></span>
-                            </button>
-                            <ul class="dropdown-menu dropdown-menu-right" role="menu">
-
-                                <li>
-                                    <a href="javascript:;" class="hidden-xs js_editFormBtn mr-1" data-url="{{url('home/field/form', ['api_id' => $api->encode_id])}}"><i class="fa fa-fw fa-edit"></i>表单模式</a>
-
-                                </li>
-
-                                <li>
-                                    <a href="javascript:;" class="hidden-xs js_editJsonBtn" data-url="{{url('home/field/json', ['api_id' => $api->encode_id])}}"><i class="fa fa-fw fa-edit"></i>JSON模式</a>
-
-                                </li>
-
-                            </ul>
-                        </div>
-                        {{/if}}
-
-                        {{if $project->hasAuth(['api' => 'update'])}}
                         <a href="{{url('home/field/form', ['api_id' => $api->encode_id])}}" class="btn btn-sm hidden-xs btn-success"><i class="fa fa-fw fa-edit"></i>编辑</a>
                         <a href="{{url('home/field/json', ['api_id' => $api->encode_id])}}" class="btn btn-sm hidden-xs btn-warning"><i class="fa fa-fw fa-upload"></i>导入</a>
                         {{/if}}

@@ -228,11 +228,14 @@ CREATE TABLE `doc_project_log` (
   `project_id` int(10) NOT NULL COMMENT '项目id',
   `user_id` int(10) NOT NULL COMMENT '操作人id',
   `type` varchar(10) NOT NULL COMMENT '操作类型',
+  `object` varchar(10) NOT NULL COMMENT '操作对象',
   `content` text NOT NULL COMMENT '操作内容',
   `created_at` datetime DEFAULT NULL COMMENT '创建时间',
   `updated_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='项目日志表';
+
+SET FOREIGN_KEY_CHECKS = 1;
 
 -- ----------------------------
 --  Table structure for `doc_template`
