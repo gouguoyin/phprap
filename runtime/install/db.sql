@@ -133,6 +133,27 @@ CREATE TABLE `doc_login_log` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='登录日志表';
 
 -- ----------------------------
+--  Table structure for `doc_field`
+-- ----------------------------
+DROP TABLE IF EXISTS `doc_field`;
+CREATE TABLE `doc_field` (
+  `id` int(10) NOT NULL AUTO_INCREMENT,
+  `api_id` int(10) DEFAULT '0' COMMENT '接口ID',
+  `header_fields` text NOT NULL COMMENT 'header字段',
+  `request_fields` text COMMENT '请求字段',
+  `response_fields` text NOT NULL COMMENT '响应字段',
+  `creater_id` int(10) NOT NULL COMMENT '创建者id',
+  `updater_id` int(10) NOT NULL COMMENT '更新者id',
+  `created_at` datetime NOT NULL COMMENT '创建时间',
+  `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `api_id` (`id`),
+  KEY `creater_id` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='接口字段表';
+
+SET FOREIGN_KEY_CHECKS = 1;
+
+-- ----------------------------
 --  Table structure for `doc_member`
 -- ----------------------------
 DROP TABLE IF EXISTS `doc_member`;
