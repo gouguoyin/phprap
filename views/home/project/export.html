@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content="" />
-    <title>项目文档导出——{{config('app.name')}}</title>
+    <title>项目文档导出——{{config('name')}}</title>
 
     <link href="https://cdn.bootcss.com/bootstrap/3.3.1/css/bootstrap.min.css" rel="stylesheet">
 
@@ -139,10 +139,9 @@
                 <div class="panel-body">
 
                     <p class="text-muted"><label>项目名称：</label>{{$project->title}}</p>
-                    <p class="text-muted"><label>项目创建人：</label>{{$project->creater->fullName}}</p>
                     <p class="text-muted"><label>项目类型：</label>{{$project->typeLabel}}</p>
-                    <p class="text-muted"><label>项目创建时间：</label>{{$project->created_at}}</p>
-                    <p class="text-muted"><label>文档创建时间：</label>{{date('Y-m-d H:i:s')}}</p>
+                    <p class="text-muted"><label>创建时间：</label>{{$project->created_at}}</p>
+                    <p class="text-muted"><label>导出时间：</label>{{date('Y-m-d H:i:s')}}</p>
                     <p class="text-muted"><label>项目描述：</label><span style="word-break:break-all">{{$project->remark}}</span></p>
                     <!-- Nav tabs -->
 
@@ -194,7 +193,7 @@
                                 <!-- /.panel-body -->
                             </div>
 
-                            {{if isset($api->headerAttributes)}}
+                            {{if isset($api->field->headerAttributes)}}
                             <div class="panel panel-default">
                                 <div class="panel-heading">
                                     Header参数
@@ -214,7 +213,7 @@
                                             </tr>
                                             </thead>
                                             <tbody>
-                                            {{foreach $api->headerAttributes as $header}}
+                                            {{foreach $api->field->headerAttributes as $header}}
                                             <tr class="level{{$header->level}}">
                                                 <td>
                                                     {{if $header->level}}
@@ -225,8 +224,8 @@
                                                 </td>
                                                 <td>{{$header->title}}</td>
 
-                                                <td>{{$api->fieldTypeLabels[$header->type]}}</td>
-                                                <td>{{$api->requiredLabels[$header->required]}}</td>
+                                                <td>{{$api->field->fieldTypeLabels[$header->type]}}</td>
+                                                <td>{{$api->field->requiredLabels[$header->required]}}</td>
 
                                                 <td>{{$header->value}}</td>
                                                 <td>{{$header->remark}}</td>
@@ -261,7 +260,7 @@
                                             </tr>
                                             </thead>
                                             <tbody>
-                                            {{foreach $api->requestAttributes as $request}}
+                                            {{foreach $api->field->requestAttributes as $request}}
                                             <tr class="level{{$request->level}}">
                                                 <td>
                                                     {{if $request->level}}
@@ -272,8 +271,8 @@
                                                 </td>
 
                                                 <td>{{$request->title}}</td>
-                                                <td>{{$api->fieldTypeLabels[$request->type]}}</td>
-                                                <td>{{$api->requiredLabels[$request->required]}}</td>
+                                                <td>{{$api->field->fieldTypeLabels[$request->type]}}</td>
+                                                <td>{{$api->field->requiredLabels[$request->required]}}</td>
                                                 <td>{{$request->example_value}}</td>
                                                 <td>{{$request->remark}}</td>
                                             </tr>
@@ -304,7 +303,7 @@
                                             </tr>
                                             </thead>
                                             <tbody>
-                                            {{foreach $api->responseAttributes as $response}}
+                                            {{foreach $api->field->responseAttributes as $response}}
                                             <tr class="level{{$response->level}}">
                                                 <td>
                                                     {{if $response->level}}
@@ -314,7 +313,7 @@
                                                     {{$response->name}}
                                                 </td>
                                                 <td>{{$response->title}}</td>
-                                                <td>{{$api->fieldTypeLabels[$response->type]}}</td>
+                                                <td>{{$api->field->fieldTypeLabels[$response->type]}}</td>
                                                 <td>{{$response->example_value}}</td>
                                                 <td>{{$response->remark}}</td>
                                             </tr>
@@ -339,13 +338,18 @@
         {{/foreach}}
         {{/foreach}}
     </div>
-    {{include_file name='home/public/copyright'}}
+    <hr />
+
+    <p class="text-center">{{config('app.copyright')}} Build By <a target="_blank" href="http://www.phprap.com/">PHPRAP</a></p>
+
 </div>
 <!-- /container -->
 <script src="https://cdn.staticfile.org/jquery/2.1.0-rc1/jquery.min.js"></script>
 <script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.1/js/bootstrap.min.js"></script>
 
 <script type="text/javascript">
+
+
     function prepareStr(str) {
         try {
             return syntaxHighlight(JSON.stringify(JSON.parse(str.replace(/'/g, '"')), null, 2));
@@ -393,16 +397,6 @@
         });
 
         $("[data-toggle=popover]").popover({placement: 'right'});
-
-        $('[data-toggle=popover]').on('shown.bs.popover', function () {
-            var $sample = $(this).parent().find(".popover-content"),
-                str = $(this).data('content');
-            if (typeof str == "undefined" || str === "") {
-                return;
-            }
-            var str = prepareStr(str);
-            $sample.html('<pre>' + str + '</pre>');
-        });
 
     });
 </script>

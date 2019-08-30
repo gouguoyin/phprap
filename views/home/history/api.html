@@ -1,0 +1,117 @@
+{{include_file name='home/public/header' title='接口动态'}}
+<style>
+    .pagination {
+        margin: 10px 0 0 0;
+    }
+    .timeline-badge {
+        z-index: 100;
+        top: 16px;
+        left: 50%;
+        width: 50px;
+        height: 50px;
+        border-radius: 50% 50% 50% 50%;
+        text-align: center;
+        font-size: 1.4em;
+        line-height: 50px;
+        color: #fff;
+        background-color: #999999;
+    }
+    .timeline-badge.delete {
+        background-color: #d9534f !important;
+    }
+    .timeline-badge.create {
+        background-color: #3f903f !important;
+    }
+    .timeline-badge.update {
+        background-color: #337ab7 !important;
+    }
+
+    .timeline-badge.export {
+        background-color: #f0ad4e !important;
+    }
+</style>
+</head>
+
+<body>
+
+<div id="wrapper">
+
+    <!-- Navigation -->
+    {{include_file name='home/public/nav' sidebar='home/project/sidebar'}}
+    <div id="page-wrapper">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="page-header">
+                    <h1>接口动态
+                        <small>({{$history->count}})</small>
+                    </h1>
+                </div>
+            </div>
+            <!-- /.col-lg-12 -->
+        </div>
+        <!-- /.row -->
+        <div class="row">
+
+            <div class="col-lg-12">
+
+                <div class="panel panel-default">
+
+                    {{include_file name='home/api/tab' tab='history'}}
+
+                    <div class="panel-body">
+                        <ul class="chat">
+                            {{foreach $history->models as $model}}
+                            <li class="left clearfix">
+                                {{if $model->type == 'delete'}}
+                                <div class="timeline-badge delete pull-left"><i class="fa fa-fw fa-trash-o"></i></div>
+                                {{else if $model->type == 'export'}}
+                                <div class="timeline-badge export pull-left"><i class="fa fa-fw fa-download"></i></div>
+                                {{else if $model->type == 'create'}}
+                                <div class="timeline-badge create pull-left"><i class="fa fa-fw fa-plus"></i></div>
+                                {{else if $model->type == 'update'}}
+                                <div class="timeline-badge update pull-left"><i class="fa fa-fw fa-edit"></i></div>
+                                {{/if}}
+
+                                <div class="chat-body clearfix">
+                                    <div class="header">
+                                        <strong class="primary-font">{{$model->account->fullName}}</strong>
+                                        <small class="pull-right text-muted">
+                                            <i class="fa fa-clock-o fa-fw"></i> {{$history->getFriendTime($model->created_at)}}
+                                        </small>
+                                    </div>
+                                    <p>
+                                        {{$model->content}}
+                                    </p>
+                                </div>
+                            </li>
+                            {{/foreach}}
+                        </ul>
+                        {{$history->pages}}
+                    </div>
+                    <!-- /.panel-body -->
+                </div>
+                <!-- /.panel -->
+            </div>
+            <!-- /.col-lg-12 -->
+        </div>
+
+    </div>
+    <!-- /#page-wrapper -->
+</div>
+
+{{include_file name='home/public/copyright'}}
+
+<script>
+$(function () {
+
+    // 未设置环境弹框提示
+    {{if $project->getEnvs()->count() == 0}}
+    confirm('项目至少需要设置一个环境，请立即设置', function(){
+
+        window.location.href = "{{url('project/show', ['id' => $project->encode_id, 'tab' => 'env'])}}";
+
+    });
+    {{/if}}
+});
+</script>
+{{include_file name='home/public/footer' has_copyright='true'}}
