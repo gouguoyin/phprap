@@ -1,5 +1,4 @@
 <?php
-
 namespace app\models\field;
 
 use Yii;
@@ -14,7 +13,7 @@ class UpdateField extends Field
     public function rules()
     {
         return [
-            ['id', 'checkAuth'],
+            ['id', 'validateAuth'],
             [['header_fields', 'request_fields', 'response_fields'], 'validateJson'],
         ];
     }
@@ -23,7 +22,7 @@ class UpdateField extends Field
      * 检测是否有操作权限
      * @param $attribute
      */
-    public function checkAuth($attribute)
+    public function validateAuth($attribute)
     {
         if(!$this->api->project->hasAuth(['api' => 'update'])){
             $this->addError($attribute, '抱歉，您没有操作权限');
