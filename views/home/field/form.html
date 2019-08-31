@@ -23,28 +23,28 @@
         <table class="clone-table hidden">
 
             <tr class="js_headerClone">
-                <td class="hidden"><input name="id" class="form-control js_id" value="0"></td>
-                <td class="hidden"><input name="parent_id" class="form-control js_parent_id" value="0"></td>
-                <td class="hidden"><input name="level" class="form-control js_level" value="1"></td>
+                <td class="hidden"><input name="header[id][]" class="form-control js_id" value="0"></td>
+                <td class="hidden"><input name="header[parent_id][]" class="form-control js_parent_id" value="0"></td>
+                <td class="hidden"><input name="header[level][]" class="form-control js_level" value="1"></td>
 
-                <td><input name="name" class="form-control js_name" placeholder="必填" datatype="*1-20" nullmsg="请填写参数名" value=""></td>
-                <td><input name="title" class="form-control js_title" placeholder="非必填" ignore="ignore" datatype="*1-50" nullmsg="请填写参数标题" value=""></td>
+                <td><input name="header[name][]" class="form-control js_name" placeholder="必填" datatype="*1-20" nullmsg="请填写参数名" value=""></td>
+                <td><input name="header[title][]" class="form-control js_title" placeholder="非必填" ignore="ignore" datatype="*1-50" nullmsg="请填写参数标题" value=""></td>
                 <td>
-                    <select onchange="selectType(this)" name="type" class="form-control js_type">
+                    <select onchange="selectType(this)" name="header[type][]" class="form-control js_type">
                         {{foreach $field->fieldTypeLabels as $k => $v}}
                         <option value="{{$k}}">{{$v}}</option>
                         {{/foreach}}
                     </select>
                 </td>
                 <td>
-                    <select name="required" class="form-control js_required">
+                    <select name="header[required][]" class="form-control js_required">
                         {{foreach $field->requiredLabels as $k => $v}}
                         <option value="{{$k}}">{{$v}}</option>
                         {{/foreach}}
                     </select>
                 </td>
-                <td><input name="value" class="form-control js_value" placeholder="非必填" value=""></td>
-                <td><input name="remark" class="form-control js_remark" placeholder="非必填" value=""></td>
+                <td><input name="header[value][]" class="form-control js_value" placeholder="非必填" value=""></td>
+                <td><input name="header[remark][]" class="form-control js_remark" placeholder="非必填" value=""></td>
                 <td>
                     <a onclick="deleteField(this)" href="javascript:;" class="btn btn-xs hidden-xs fa fa-fw fa-trash-o option-btn" title="删除参数"></a>
                     <a onclick="addField(this, 'header')" href="javascript:;" class="btn btn-xs hidden-xs fa fa-fw fa-plus option-btn js_addField" title="添加子参数" disabled></a>
@@ -52,28 +52,28 @@
             </tr>
 
             <tr class="js_requestClone">
-                <td class="hidden"><input name="id" class="form-control js_id" value="0"></td>
-                <td class="hidden"><input name="parent_id" class="form-control js_parent_id" value="0"></td>
-                <td class="hidden"><input name="level" class="form-control js_level" value="1"></td>
+                <td class="hidden"><input name="request[id][]" class="form-control js_id" value="0"></td>
+                <td class="hidden"><input name="request[parent_id][]" class="form-control js_parent_id" value="0"></td>
+                <td class="hidden"><input name="request[level][]" class="form-control js_level" value="1"></td>
 
-                <td><input name="name" class="form-control js_name" placeholder="必填" datatype="*1-20" nullmsg="请填写参数名" value=""></td>
-                <td><input name="title" class="form-control js_title" placeholder="必填" datatype="*1-50" nullmsg="请填写参数标题" value=""></td>
+                <td><input name="request[name][]" class="form-control js_name" placeholder="必填" datatype="*1-20" nullmsg="请填写参数名" value=""></td>
+                <td><input name="request[title][]" class="form-control js_title" placeholder="必填" datatype="*1-50" nullmsg="请填写参数标题" value=""></td>
                 <td>
-                    <select onchange="selectType(this)" name="type" class="form-control js_type">
+                    <select onchange="selectType(this)" name="request[type][]" class="form-control js_type">
                         {{foreach $field->fieldTypeLabels as $k => $v}}
                         <option value="{{$k}}">{{$v}}</option>
                         {{/foreach}}
                     </select>
                 </td>
                 <td>
-                    <select name="required" class="form-control js_required">
+                    <select name="request[required][]" class="form-control js_required">
                         {{foreach $field->requiredLabels as $k => $v}}
                         <option value="{{$k}}">{{$v}}</option>
                         {{/foreach}}
                     </select>
                 </td>
-                <td><input name="example_value" class="form-control js_example_value" placeholder="非必填" value=""></td>
-                <td><input name="remark" class="form-control js_remark" placeholder="非必填" value=""></td>
+                <td><input name="request[example_value][]" class="form-control js_example_value" placeholder="非必填" value=""></td>
+                <td><input name="request[remark][]" class="form-control js_remark" placeholder="非必填" value=""></td>
                 <td>
                     <a onclick="deleteField(this)" href="javascript:;" class="btn btn-xs hidden-xs fa fa-fw fa-trash-o option-btn" title="删除参数"></a>
                     <a onclick="addField(this, 'request')" href="javascript:;" class="btn btn-xs hidden-xs fa hidden-xs fa-fw fa-plus option-btn js_addField" title="添加子参数" disabled></a>
@@ -83,23 +83,23 @@
 
             <tr class="js_responseClone">
 
-                <td class="hidden"><input name="id" class="form-control js_id" value="0"></td>
-                <td class="hidden"><input name="parent_id" class="form-control js_parent_id" value="0"></td>
-                <td class="hidden"><input name="level" class="form-control js_level" value="1"></td>
+                <td class="hidden"><input name="response[id][]" class="form-control js_id" value="0"></td>
+                <td class="hidden"><input name="response[parent_id][]" class="form-control js_parent_id" value="0"></td>
+                <td class="hidden"><input name="response[level][]" class="form-control js_level" value="1"></td>
 
-                <td><input name="name" class="form-control js_name" placeholder="必填" datatype="*1-20" nullmsg="请填写参数名" value=""></td>
-                <td><input name="title" class="form-control js_title" placeholder="必填" datatype="*1-50" nullmsg="请填写参数标题" value=""></td>
+                <td><input name="response[name][]" class="form-control js_name" placeholder="必填" datatype="*1-20" nullmsg="请填写参数名" value=""></td>
+                <td><input name="response[title][]" class="form-control js_title" placeholder="必填" datatype="*1-50" nullmsg="请填写参数标题" value=""></td>
                 <td>
-                    <select onchange="selectType(this)" name="type" class="form-control js_type">
+                    <select onchange="selectType(this)" name="response[type][]" class="form-control js_type">
                         {{foreach $field->fieldTypeLabels as $k => $v}}
                         <option value="{{$k}}">{{$v}}</option>
                         {{/foreach}}
                     </select>
                 </td>
 
-                <td><input name="example_value" class="form-control js_example_value" placeholder="非必填" value=""></td>
+                <td><input name="response[example_value][]" class="form-control js_example_value" placeholder="非必填" value=""></td>
 
-                <td><input name="remark" class="form-control js_remark" placeholder="非必填" value=""></td>
+                <td><input name="response[remark][]" class="form-control js_remark" placeholder="非必填" value=""></td>
 
                 <td>
 
@@ -147,7 +147,6 @@
                                         <!-- /.panel-heading -->
                                         <div class="panel-body">
                                             <div class="table-responsive">
-                                                <input type="hidden" class="js_headerJson" name="UpdateField[header_fields]" value="">
                                                 <table class="table" id="headerParamTable">
                                                     <thead>
                                                     <tr>
@@ -164,17 +163,17 @@
 
                                                     {{foreach $field->headerAttributes as $header}}
                                                     <tr>
-                                                        <td class="hidden"><input name="id" class="form-control js_id" value="{{$header->id}}"></td>
-                                                        <td class="hidden"><input name="parent_id" class="form-control js_parent_id" value="{{$header->parent_id}}"></td>
-                                                        <td class="hidden"><input name="level" class="form-control js_level" value="{{$header->level}}"></td>
+                                                        <td class="hidden"><input name="header[id][]" class="form-control js_id" value="{{$header->id}}"></td>
+                                                        <td class="hidden"><input name="header[parent_id][]" class="form-control js_parent_id" value="{{$header->parent_id}}"></td>
+                                                        <td class="hidden"><input name="header[level][]" class="form-control js_level" value="{{$header->level}}"></td>
                                                         <td>
-                                                            <input autocomplete="off" style="width: {{(10 - $header->level)*10}}%" name="name" class="form-control js_name" placeholder="必填" datatype="*1-20" nullmsg="请填写参数名"  value="{{$header->name}}">
+                                                            <input autocomplete="off" style="width: {{(10 - $header->level)*10}}%" name="header[name][]" class="form-control js_name" placeholder="必填" datatype="*1-20" nullmsg="请填写参数名"  value="{{$header->name}}">
                                                         </td>
 
 
-                                                        <td><input name="title" class="form-control js_title" placeholder="非必填" ignore="ignore" datatype="*1-50" nullmsg="请填写参数标题" value="{{$header->title}}"></td>
+                                                        <td><input name="header[title][]" class="form-control js_title" placeholder="非必填" ignore="ignore" datatype="*1-50" nullmsg="请填写参数标题" value="{{$header->title}}"></td>
                                                         <td>
-                                                            <select onchange="selectType(this)" name="type" class="form-control js_type">
+                                                            <select onchange="selectType(this)" name="header[type][]" class="form-control js_type">
                                                                 {{foreach $field->fieldTypeLabels as $k => $v}}
                                                                 <option {{if $header->type == $k1}}selected{{/if}} value="{{$k}}">{{$v}}</option>
                                                                 {{/foreach}}
@@ -182,15 +181,15 @@
                                                         </td>
 
                                                         <td>
-                                                            <select name="required" class="form-control">
+                                                            <select name="header[required][]" class="form-control">
                                                                 {{foreach $field->requiredLabels as $k => $v}}
                                                                 <option {{if $header->required == $k}}selected{{/if}} value="{{$k}}">{{$v}}</option>
                                                                 {{/foreach}}
                                                             </select>
                                                         </td>
 
-                                                        <td><input autocomplete="off" name="value" class="form-control js_value" placeholder="非必填" value="{{$header->value}}"></td>
-                                                        <td><input name="remark" class="form-control js_remark" placeholder="非必填" value="{{$header->remark}}"></td>
+                                                        <td><input autocomplete="off" name="header[value][]" class="form-control js_value" placeholder="非必填" value="{{$header->value}}"></td>
+                                                        <td><input name="header[remark][]" class="form-control js_remark" placeholder="非必填" value="{{$header->remark}}"></td>
                                                         <td>
                                                             <a onclick="deleteField(this)" href="javascript:;" class="btn btn-xs hidden-xs fa fa-fw fa-trash-o option-btn" data-toggle="tooltip" data-placement="bottom" data-title="删除参数"></a>
                                                             <a onclick="addField(this, 'header')" href="javascript:;" class="btn btn-xs hidden-xs fa fa-fw fa-plus option-btn js_addField" data-toggle="tooltip" data-placement="bottom" data-title="添加子参数" {{if !$field->isCompositeType($header->type)}}disabled{{/if}} data-parent_id="{{$header->id}}"></a>
@@ -222,8 +221,6 @@
                                         <!-- /.panel-heading -->
                                         <div class="panel-body">
                                             <div class="table-responsive">
-
-                                                <input type="hidden" class="js_requestJson" name="UpdateField[request_fields]" value="">
                                                 <table class="table" id="requestParamTable">
                                                     <thead>
                                                     <tr>
@@ -241,31 +238,31 @@
                                                     {{foreach $field->requestAttributes as $request}}
                                                     <tr>
 
-                                                        <td class="hidden"><input name="id" class="form-control js_id" value="{{$request->id}}"></td>
-                                                        <td class="hidden"><input name="parent_id" class="form-control js_parent_id" value="{{$request->parent_id}}"></td>
-                                                        <td class="hidden"><input name="level" class="form-control js_level" value="{{$request->level}}"></td>
+                                                        <td class="hidden"><input name="request[id][]" class="form-control js_id" value="{{$request->id}}"></td>
+                                                        <td class="hidden"><input name="request[parent_id][]" class="form-control js_parent_id" value="{{$request->parent_id}}"></td>
+                                                        <td class="hidden"><input name="request[level][]" class="form-control js_level" value="{{$request->level}}"></td>
 
                                                         <td>
-                                                            <input autocomplete="off" style="width: {{(10 - $request->level)*10}}%" name="name" class="form-control js_name" placeholder="必填" datatype="*1-20" nullmsg="请填写参数名"  value="{{$request->name}}">
+                                                            <input autocomplete="off" style="width: {{(10 - $request->level)*10}}%" name="request[name][]" class="form-control js_name" placeholder="必填" datatype="*1-20" nullmsg="请填写参数名"  value="{{$request->name}}">
                                                         </td>
 
-                                                        <td><input name="title" class="form-control js_title" placeholder="必填" datatype="*1-50" nullmsg="请填写参数标题" value="{{$request->title}}"></td>
+                                                        <td><input name="request[title][]" class="form-control js_title" placeholder="必填" datatype="*1-50" nullmsg="请填写参数标题" value="{{$request->title}}"></td>
                                                         <td>
-                                                            <select onchange="selectType(this)" name="type" class="form-control js_type">
+                                                            <select onchange="selectType(this)" name="request[type][]" class="form-control js_type">
                                                                 {{foreach $field->fieldTypeLabels as $k => $v}}
                                                                 <option {{if $request->type == $k}}selected{{/if}} value="{{$k}}">{{$v}}</option>
                                                                 {{/foreach}}
                                                             </select>
                                                         </td>
                                                         <td>
-                                                            <select name="required" class="form-control">
+                                                            <select name="request[required][]" class="form-control">
                                                                 {{foreach $field->requiredLabels as $k => $v}}
                                                                 <option {{if $request->required == $k}}selected{{/if}} value="{{$k}}">{{$v}}</option>
                                                                 {{/foreach}}
                                                             </select>
                                                         </td>
-                                                        <td><input name="example_value" class="form-control js_example_value" placeholder="非必填" value="{{$request->example_value}}"></td>
-                                                        <td><input name="remark" class="form-control js_remark" placeholder="非必填" value="{{$request->remark}}"></td>
+                                                        <td><input name="request[example_value][]" class="form-control js_example_value" placeholder="非必填" value="{{$request->example_value}}"></td>
+                                                        <td><input name="request[remark][]" class="form-control js_remark" placeholder="非必填" value="{{$request->remark}}"></td>
                                                         <td>
                                                             <a onclick="deleteField(this)" href="javascript:;" class="btn btn-xs hidden-xs fa fa-fw fa-trash-o option-btn" data-toggle="tooltip" data-placement="bottom" data-title="删除参数"></a>
                                                             <a onclick="addField(this, 'request')" href="javascript:;" class="btn btn-xs hidden-xs fa fa-fw fa-plus option-btn js_addField" data-toggle="tooltip" data-placement="bottom" data-title="添加子参数" {{if !$field->isCompositeType($request->type)}}disabled{{/if}} data-parent_id="{{$request->id}}"></a>
@@ -296,7 +293,6 @@
                                         <!-- /.panel-heading -->
                                         <div class="panel-body">
                                             <div class="table-responsive">
-                                                <input type="hidden" class="js_responseJson" name="UpdateField[response_fields]" value="">
                                                 <table class="table" id="responseParamTable">
                                                     <thead>
                                                     <tr>
@@ -312,24 +308,24 @@
 
                                                     {{foreach $field->responseAttributes as $k=>$response}}
                                                     <tr>
-                                                        <td class="hidden"><input name="id" class="form-control js_id" value="{{$response->id}}"></td>
-                                                        <td class="hidden"><input name="parent_id" class="form-control js_parent_id" value="{{$response->parent_id}}"></td>
-                                                        <td class="hidden"><input name="level" class="form-control js_level" value="{{$response->level}}"></td>
+                                                        <td class="hidden"><input name="response[id][]" class="form-control js_id" value="{{$response->id}}"></td>
+                                                        <td class="hidden"><input name="response[parent_id][]" class="form-control js_parent_id" value="{{$response->parent_id}}"></td>
+                                                        <td class="hidden"><input name="response[level][]" class="form-control js_level" value="{{$response->level}}"></td>
 
                                                         <td>
-                                                            <input autocomplete="off" style="width: {{(10 - $response->level)*10}}%" name="name" class="form-control js_name" placeholder="必填" datatype="*1-20" nullmsg="请填写参数名"  value="{{$response->name}}">
+                                                            <input autocomplete="off" style="width: {{(10 - $response->level)*10}}%" name="response[name][]" class="form-control js_name" placeholder="必填" datatype="*1-20" nullmsg="请填写参数名"  value="{{$response->name}}">
                                                         </td>
-                                                        <td><input autocomplete="off" name="title" class="form-control js_title" placeholder="必填" datatype="*1-50" nullmsg="请填写参数标题"  value="{{$response->title}}"></td>
+                                                        <td><input autocomplete="off" name="response[title][]" class="form-control js_title" placeholder="必填" datatype="*1-50" nullmsg="请填写参数标题"  value="{{$response->title}}"></td>
                                                         <td>
-                                                            <select onchange="selectType(this)" name="type" class="form-control js_type">
+                                                            <select onchange="selectType(this)" name="response[type][]" class="form-control js_type">
                                                                 {{foreach $field->fieldTypeLabels as $k => $v}}
                                                                 <option {{if $response->type == $k}}selected{{/if}} value="{{$k}}">{{$v}}</option>
                                                                 {{/foreach}}
                                                             </select>
                                                         </td>
 
-                                                        <td><input autocomplete="off" name="example_value" class="form-control js_example_value" placeholder="非必填" value="{{$response->example_value}}"></td>
-                                                        <td><input autocomplete="off" name="remark" class="form-control js_remark" placeholder="非必填" value="{{$response->remark}}"></td>
+                                                        <td><input autocomplete="off" name="response[example_value][]" class="form-control js_example_value" placeholder="非必填" value="{{$response->example_value}}"></td>
+                                                        <td><input autocomplete="off" name="response[remark][]" class="form-control js_remark" placeholder="非必填" value="{{$response->remark}}"></td>
 
                                                         <td>
                                                             <a onclick="deleteField(this)" href="javascript:;" class="btn btn-xs option-btn hidden-xs fa fa-fw fa-trash-o" data-toggle="tooltip" data-placement="bottom" data-title="删除参数"></a>
@@ -392,11 +388,6 @@
 
         // 表单验证
         $("form").validateForm({
-            'before':function (json) {
-                $(".js_headerJson").val(getTableJson('headerParamTable'));
-                $(".js_requestJson").val(getTableJson('requestParamTable'));
-                $(".js_responseJson").val(getTableJson('responseParamTable'));
-            },
             'success':function (json) {
                 window.location.href = json.callback;
             },

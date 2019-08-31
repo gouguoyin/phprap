@@ -27,9 +27,9 @@ class FieldController extends PublicController
 
             Yii::$app->response->format = Response::FORMAT_JSON;
 
-            if(!$model->load($request->post())){
-                return ['status' => 'error', 'message' => '数据加载失败'];
-            }
+            $model->header_fields   = $this->table2json($request->post('header'));
+            $model->request_fields  = $this->table2json($request->post('request'));
+            $model->response_fields = $this->table2json($request->post('response'));
 
             if($model->store()) {
                 $callback = url('home/api/show', ['id' => $model->api->encode_id, 'tab' => 'field']);
@@ -41,6 +41,23 @@ class FieldController extends PublicController
         }
 
         return $this->display('/home/field/' . $method, $data);
+    }
+
+    /**
+     * 表单转json
+     * @param $table
+     * @return false|string
+     */
+    private function table2json($table)
+    {
+        $array = [];
+        foreach ($table as $k => $v) {
+            foreach ($v as $k1 => $v1) {
+                $array[$k1][$k] = trim(Html::encode($v1));
+            }
+        }
+
+        return json_encode($array, JSON_UNESCAPED_UNICODE);
     }
 
 }
