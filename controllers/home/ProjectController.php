@@ -171,6 +171,10 @@ class ProjectController extends PublicController
 
             case 'env':
 
+                if(!$project->hasAuth(['env' => 'look'])) {
+                    return $this->error('抱歉，您无权查看');
+                }
+
                 $view = '/home/env/index';
 
                 break;
@@ -189,7 +193,7 @@ class ProjectController extends PublicController
 
             case 'history':
 
-                if(!$project->hasAuth(['member' => 'look'])) {
+                if(!$project->hasAuth(['project' => 'history'])) {
                     return $this->error('抱歉，您无权查看');
                 }
 
