@@ -17,7 +17,7 @@
                     <div class="opt-btn">
 
                         {{if $project->hasAuth(['api' => 'update'])}}
-                        <a href="javascript:void(0);" class="btn hidden-xs btn-sm btn-success" data-toggle="tooltip" data-placement="bottom" data-title="编辑接口" data-modal="#js_popModal" data-height="440" data-src="{{url('home/api/update', ['id' => $api->encode_id])}}"><i class="fa fa-fw fa-edit"></i>编辑</a>
+                        <a href="javascript:void(0);" class="btn hidden-xs btn-sm btn-success" data-toggle="tooltip" data-placement="bottom" data-title="编辑接口" data-modal="#js_popModal" data-height="500" data-src="{{url('home/api/update', ['id' => $api->encode_id])}}"><i class="fa fa-fw fa-edit"></i>编辑</a>
                         {{/if}}
 
                         <a href="javascript:void(0);" class="btn hidden-xs btn-sm btn-info js_copyUrl" data-clipboard-text="{{$api->getUrl(true)}}"  data-toggle="tooltip" data-title="复制接口地址" data-placement="bottom"><i class="fa fa-fw fa-link"></i>复制</a>

@@ -13,7 +13,7 @@
                     {{$module->title}}
 
                     {{if $project->hasAuth(['api' => 'create'])}}
-                    <i class="fa hidden-xs fa-fw fa-plus option-btn pull-right mt-0" data-toggle="tooltip" data-placement="bottom" data-modal="#js_popModal" data-title="添加接口" data-height="440" data-src="{{url('home/api/create', ['module_id' => $module->encode_id])}}"></i>
+                    <i class="fa hidden-xs fa-fw fa-plus option-btn pull-right mt-0" data-toggle="tooltip" data-placement="bottom" data-modal="#js_popModal" data-title="添加接口" data-height="500" data-src="{{url('home/api/create', ['module_id' => $module->encode_id])}}"></i>
                     {{/if}}
 
                     {{if $project->hasAuth(['module' => 'delete'])}}
@@ -35,7 +35,7 @@
                             {{/if}}
 
                             {{if $project->hasAuth(['api' => 'update'])}}
-                            <i class="fa hidden-xs fa-fw fa-pencil option-btn pull-right mt-1" data-toggle="tooltip" data-placement="bottom" data-modal="#js_popModal" data-title="编辑接口" data-height="440" data-src="{{url('home/api/update', ['id' => $v->encode_id])}}"></i>
+                            <i class="fa hidden-xs fa-fw fa-pencil option-btn pull-right mt-1" data-toggle="tooltip" data-placement="bottom" data-modal="#js_popModal" data-title="编辑接口" data-height="500" data-src="{{url('home/api/update', ['id' => $v->encode_id])}}"></i>
                             {{/if}}
 
                         </a>
