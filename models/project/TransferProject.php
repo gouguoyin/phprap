@@ -21,7 +21,7 @@ class TransferProject extends Project
             ['user_id', 'required', 'message'  => '请选择成员'],
             ['password', 'required', 'message' => '登录密码不可以为空'],
             ['password', 'validatePassword'],
-            ['user_id', 'validateJoiner'],
+            ['user_id', 'validateAuth'],
         ];
     }
 
@@ -43,7 +43,7 @@ class TransferProject extends Project
      * 验证选择用户是不是项目成员
      * @param $attribute
      */
-    public function validateJoiner($attribute)
+    public function validateAuth($attribute)
     {
         if($this->hasAuth(['project' => 'transfer'])) {
             $this->addError($attribute, '抱歉，您没有操作权限');
@@ -82,9 +82,11 @@ class TransferProject extends Project
 
         // 保存操作日志
         $log = new CreateLog();
-        $log->project_id = $project->id;
-        $log->type       = 'transfer';
-        $log->content    = '转让 项目 ' . '<code>' . $project->title . '</code>' . '给 成员 <code>' . $account->fullName . '</code>';
+        $log->project_id  = $project->id;
+        $log->object_name = 'project';
+        $log->object_id   = $project->id;
+        $log->type        = 'transfer';
+        $log->content     = '转让 项目 ' . '<code>' . $project->title . '</code>' . '给 成员 <code>' . $account->fullName . '</code>';
 
         if(!$log->store()){
             $this->addError($log->getErrorLabel(), $log->getErrorMessage());

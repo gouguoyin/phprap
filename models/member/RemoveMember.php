@@ -19,7 +19,7 @@ class RemoveMember extends Member
             ['password', 'required', 'message' => '登录密码不可以为空'],
 
             ['password', 'validatePassword'],
-            ['id', 'validateProject'],
+            ['id', 'validateAuth'],
         ];
     }
 
@@ -49,7 +49,7 @@ class RemoveMember extends Member
      * 验证是否有项目操作权限
      * @param $attribute
      */
-    public function validateProject($attribute)
+    public function validateAuth($attribute)
     {
         if(!$this->project->hasAuth(['member' => 'remove'])){
             $this->addError($attribute, '抱歉，您没有操作权限');
@@ -83,9 +83,11 @@ class RemoveMember extends Member
 
         // 保存操作日志
         $log = new CreateLog();
-        $log->project_id = $member->project_id;
-        $log->type       = 'remove';
-        $log->content    = '移除了 成员 ' . '<code>' . $member->account->fullName . '</code>';
+        $log->project_id  = $member->project_id;
+        $log->object_name = 'member';
+        $log->object_id   = $member->id;
+        $log->type        = 'remove';
+        $log->content     = '移除了 成员 ' . '<code>' . $member->account->fullName . '</code>';
 
         if(!$log->store()){
             $this->addError($log->getErrorLabel(), $log->getErrorMessage());

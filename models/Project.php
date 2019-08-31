@@ -182,7 +182,7 @@ class Project extends Model
     {
         $content = '';
 
-        foreach ($this->dirtyAttributes as $name => $value) {
+        foreach (array_filter($this->dirtyAttributes) as $name => $value) {
 
             $label = '<strong>' . $this->getAttributeLabel($name) . '</strong>';
 

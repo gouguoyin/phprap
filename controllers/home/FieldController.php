@@ -2,69 +2,66 @@
 namespace app\controllers\home;
 
 use Yii;
+use yii\helpers\Html;
 use yii\web\Response;
 use app\models\field\UpdateField;
 
 class FieldController extends PublicController
 {
     /**
-     * 更新字段(表单形式)
-     * @param $api_id 接口ID
+     * 更新字段
+     * @param $id
+     * @param string $method
      * @return array|string
      */
-    public function actionForm($api_id)
+    public function actionUpdate($id, $method = 'form')
     {
         $request = Yii::$app->request;
 
-        $api = UpdateField::findModel(['encode_id' => $api_id]);
+        $model = UpdateField::findModel(['encode_id' => $id]);
+
+        $data['project'] = $model->api->project;
+        $data['api']     = $model->api;
+        $data['field']   = $model;
 
         if($request->isPost){
 
             Yii::$app->response->format = Response::FORMAT_JSON;
 
-            if(!$api->load($request->post())){
-                return ['status' => 'error', 'message' => '数据加载失败'];
-            }
+            $model->header_fields   = $this->form2json($request->post('header'));
+            $model->request_fields  = $this->form2json($request->post('request'));
+            $model->response_fields = $this->form2json($request->post('response'));
 
-            if ($api->store()) {
-                $callback = url('home/api/show', ['id' => $api->encode_id]);
+            if($model->store()) {
+                $callback = url('home/api/show', ['id' => $model->api->encode_id, 'tab' => 'field']);
                 return ['status' => 'success', 'message' => '编辑成功', 'callback' => $callback];
             }
 
-            return ['status' => 'error', 'message' => $api->getErrorMessage(), 'label' => $api->getErrorLabel()];
+            return ['status' => 'error', 'message' => $model->getErrorMessage(), 'label' => $model->getErrorLabel()];
+
         }
 
-        return $this->display('/home/field/form', ['api' => $api, 'project' => $api->project]);
+        return $this->display('/home/field/' . $method, $data);
     }
 
     /**
-     * 更新字段(JSON形式)
-     * @param $api_id 接口ID
-     * @return array|string
+     * 表单过滤后转json
+     * @param $table
+     * @return false|string
      */
-    public function actionJson($api_id)
+    private function form2json($table)
     {
-        $request = Yii::$app->request;
-
-        $api = UpdateField::findModel(['encode_id' => $api_id]);
-
-        if($request->isPost){
-
-            Yii::$app->response->format = Response::FORMAT_JSON;
-
-            if(!$api->load($request->post())){
-                return ['status' => 'error', 'message' => '数据加载失败'];
+        if(!is_array($table) || !$table){
+            return;
+        }
+        $array = [];
+        foreach ($table as $k => $v) {
+            foreach ($v as $k1 => $v1) {
+                $array[$k1][$k] = trim(Html::encode($v1));
             }
-
-            if ($api->store()) {
-                $callback = url('home/api/show', ['id' => $api->encode_id]);
-                return ['status' => 'success', 'message' => '编辑成功', 'callback' => $callback];
-            }
-
-            return ['status' => 'error', 'message' => $api->getErrorMessage(), 'label' => $api->getErrorLabel()];
         }
 
-        return $this->display('/home/field/json', ['api' => $api, 'project' => $api->project]);
+        return json_encode($array, JSON_UNESCAPED_UNICODE);
     }
 
 }

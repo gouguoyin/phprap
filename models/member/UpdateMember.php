@@ -18,7 +18,7 @@ class UpdateMember extends Member
             [['project_id', 'user_id'], 'integer'],
             [['project_rule', 'module_rule', 'api_rule', 'member_rule', 'env_rule'], 'string', 'max' => 100],
 
-            ['id', 'validateProject'],
+            ['id', 'validateAuth'],
         ];
     }
 
@@ -26,7 +26,7 @@ class UpdateMember extends Member
      * 验证是否有项目操作权限
      * @param $attribute
      */
-    public function validateProject($attribute)
+    public function validateAuth($attribute)
     {
         if(!$this->project->hasAuth(['member' => 'update'])){
             $this->addError($attribute, '抱歉，您没有操作权限');
@@ -47,7 +47,6 @@ class UpdateMember extends Member
         // 开启事务
         $transaction = Yii::$app->db->beginTransaction();
 
-        // 保存成员
         $member = &$this;
 
         $member->project_rule = $this->project_rule;
@@ -56,8 +55,8 @@ class UpdateMember extends Member
         $member->api_rule     = $this->api_rule;
         $member->member_rule  = $this->member_rule;
         $member->updater_id   = Yii::$app->user->identity->id;
-        $member->updated_at   = date('Y-m-d H:i:s');
 
+        // 保存成员
         if(!$member->save()){
             $this->addError($member->getErrorLabel(), $member->getErrorMessage());
             $transaction->rollBack();
@@ -66,9 +65,11 @@ class UpdateMember extends Member
 
         // 保存操作日志
         $log = new CreateLog();
-        $log->project_id = $member->project_id;
-        $log->type       = 'update';
-        $log->content    = '更新了 成员 ' . '<code>' . $member->account->fullName . '</code> 操作权限';
+        $log->project_id  = $member->project_id;
+        $log->object_name = 'member';
+        $log->object_id   = $member->id;
+        $log->type        = 'update';
+        $log->content     = '更新了 成员 ' . '<code>' . $member->account->fullName . '</code> 操作权限';
 
         if(!$log->store()){
             $this->addError($log->getErrorLabel(), $log->getErrorMessage());

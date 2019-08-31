@@ -19,7 +19,7 @@ class CreateMember extends Member
             [['project_id', 'user_id'], 'integer'],
             [['project_rule', 'module_rule', 'api_rule', 'member_rule', 'env_rule'], 'string', 'max' => 100],
 
-            ['project_id', 'validateProject'],
+            ['project_id', 'validateAuth'],
         ];
     }
 
@@ -27,7 +27,7 @@ class CreateMember extends Member
      * 验证是否有项目操作权限
      * @param $attribute
      */
-    public function validateProject($attribute)
+    public function validateAuth($attribute)
     {
         if(!$this->project->hasAuth(['member' => 'create'])){
             $this->addError($attribute, '抱歉，您没有操作权限');
@@ -84,9 +84,11 @@ class CreateMember extends Member
 
         // 保存操作日志
         $log = new CreateLog();
-        $log->project_id = $member->project_id;
-        $log->type       = 'create';
-        $log->content    = '添加了 成员 ' . '<code>' . $member->account->fullName . '</code>';
+        $log->project_id  = $member->project_id;
+        $log->object_name = 'member';
+        $log->object_id   = $member->id;
+        $log->type        = 'create';
+        $log->content     = '添加了 成员 ' . '<code>' . $member->account->fullName . '</code>';
 
         if(!$log->store()){
             $this->addError($log->getErrorLabel(), $log->getErrorMessage());

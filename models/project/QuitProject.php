@@ -20,7 +20,7 @@ class QuitProject extends Project
             ['password', 'required', 'message' => '登录密码不可以为空'],
             
             ['password', 'validatePassword'],
-            ['id', 'validateProject'],
+            ['id', 'validateAuth'],
         ];
     }
 
@@ -50,7 +50,7 @@ class QuitProject extends Project
      * 验证是否有项目操作权限
      * @param $attribute
      */
-    public function validateProject($attribute)
+    public function validateAuth($attribute)
     {
         if(!$this->isJoiner()){
             $this->addError($attribute, '抱歉，您没有操作权限');
@@ -83,6 +83,8 @@ class QuitProject extends Project
         // 保存操作日志
         $log = new CreateLog();
         $log->project_id = $member->project->id;
+        $log->object_name = 'project';
+        $log->object_id   = $member->project->id;
         $log->type       = 'quit';
         $log->content    = '退出了 项目 ' . '<code>' . $member->project->title . '</code>';
 

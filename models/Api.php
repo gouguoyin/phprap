@@ -2,8 +2,8 @@
 namespace app\models;
 
 use Yii;
-use app\widgets\LinkPager;
 use yii\data\Pagination;
+use app\widgets\LinkPager;
 
 /**
  * This is the model class for table "doc_api".
@@ -15,12 +15,7 @@ use yii\data\Pagination;
  * @property string $title 接口名
  * @property string $request_method 请求方式
  * @property string $response_format 响应格式
- * @property string $uri 接口地址
- * @property string $header_field header字段，json格式
- * @property string $request_field 请求字段，json格式
- * @property string $response_field 响应字段，json格式
- * @property string $success_example 成功示例
- * @property string $error_example 失败示例
+ * @property string $uri 接口路径
  * @property string $remark 接口简介
  * @property int $status 接口状态
  * @property int $sort 接口排序
@@ -36,9 +31,9 @@ class Api extends Model
      * @var array
      */
     public $requestMethodLabels = [
-        'get' => 'GET',
-        'post' => 'POST',
-        'put' => 'PUT',
+        'get'    => 'GET',
+        'post'   => 'POST',
+        'put'    => 'PUT',
         'delete' => 'DELETE',
     ];
 
@@ -71,7 +66,6 @@ class Api extends Model
             [['project_id', 'module_id', 'status', 'sort', 'creater_id','updater_id'], 'integer'],
             [['encode_id', 'request_method', 'response_format'], 'string', 'max' => 20],
             [['title', 'uri', 'remark'], 'string', 'max' => 250],
-            [['header_field', 'request_field', 'response_field', 'success_example', 'error_example'], 'string'],
             [['encode_id'], 'unique'],
 
             [['created_at', 'updated_at'], 'safe'],
@@ -92,10 +86,7 @@ class Api extends Model
             'title' => '接口名',
             'request_method' => '请求方式',
             'response_format' => '响应格式',
-            'uri' => '接口地址',
-            'header_filed' => 'Header字段',
-            'request_field' => '请求字段',
-            'response_field' => '响应字段',
+            'uri' => '接口路径',
             'remark' => '接口简介',
             'status' => '接口状态',
             'sort' => '接口排序',
@@ -134,7 +125,7 @@ class Api extends Model
     }
 
     /**
-     * 获取所属项目
+     * 获取关联项目
      * @return \yii\db\ActiveQuery
      */
     public function getProject()
@@ -143,7 +134,7 @@ class Api extends Model
     }
 
     /**
-     * 获取所属模块
+     * 获取关联模块
      * @return \yii\db\ActiveQuery
      */
     public function getModule()
@@ -152,42 +143,24 @@ class Api extends Model
     }
 
     /**
-     * 获取header数组
-     * @return array
+     * 获取关联接口
+     * @return \yii\db\ActiveQuery
      */
-    public function getHeaderAttributes()
+    public function getField()
     {
-        return json_decode($this->header_field);
+        return $this->hasOne(Field::className(),['api_id'=>'id']);
     }
 
     /**
-     * 获取请求参数数组
-     * @return array
-     */
-    public function getRequestAttributes()
-    {
-        return json_decode($this->request_field);
-    }
-
-    /**
-     * 获取响应参数数组
-     * @return array
-     */
-    public function getResponseAttributes()
-    {
-        return json_decode($this->response_field);
-    }
-
-    /**
-     * 获取接口更新内容
+     * 获取更新内容
      * @return string
      */
     public function getUpdateContent()
     {
         $content = '';
-        foreach ($this->dirtyAttributes as $name => $value) {
+        foreach (array_filter($this->dirtyAttributes) as $name => $value) {
 
-            $label = '<strong>' .$this->module->title . '->' . $this->oldAttributes['title'] . '->' . $this->getAttributeLabel($name) . '</strong>';
+            $label = '<strong>' .  $this->getAttributeLabel($name) . '</strong>';
 
             if(isset($this->oldAttributes[$name])){
 
@@ -207,16 +180,6 @@ class Api extends Model
         }
 
         return trim($content, ',');
-    }
-    
-    /**
-     * 判断字段是否是复合类型
-     * @param $field
-     * @return bool
-     */
-    public function isCompositeType($type)
-    {
-        return in_array($type, ['array', 'object']) ? true : false;
     }
 
     /**
@@ -256,6 +219,8 @@ class Api extends Model
             ->all();
 
         $this->sql = $query->createCommand()->getRawSql();
+
+//        dump($this->sql);
 
         $this->pages = LinkPager::widget([
             'pagination' => $pagination,

@@ -19,7 +19,7 @@ class DeleteEnv extends Env
             ['password', 'required', 'message' => '登录密码不可以为空'],
 
             ['password', 'validatePassword'],
-            ['id', 'validateProject'],
+            ['id', 'validateAuth'],
         ];
     }
 
@@ -49,7 +49,7 @@ class DeleteEnv extends Env
      * 验证是否有项目操作权限
      * @param $attribute
      */
-    public function validateProject($attribute)
+    public function validateAuth($attribute)
     {
         if(!$this->project->hasAuth(['env' => 'delete'])){
             $this->addError($attribute, '抱歉，您没有操作权限');
@@ -78,7 +78,6 @@ class DeleteEnv extends Env
 
         $env->status     = Env::DELETED_STATUS;
         $env->updater_id = Yii::$app->user->identity->id;
-        $env->updated_at = date('Y-m-d H:i:s');
 
         if(!$env->save()){
             $this->addError($env->getErrorLabel(), $env->getErrorMessage());
@@ -88,9 +87,11 @@ class DeleteEnv extends Env
 
         // 保存操作日志
         $log = new CreateLog();
-        $log->project_id = $env->project_id;
-        $log->type       = 'create';
-        $log->content    = '删除了 环境 ' . '<code>' . $env->title . '(' . $env->name. ')' . '</code>';
+        $log->project_id  = $env->project_id;
+        $log->object_name = 'env';
+        $log->object_id   = $env->id;
+        $log->type        = 'create';
+        $log->content     = '删除了 环境 ' . '<code>' . $env->title . '(' . $env->name. ')' . '</code>';
 
         if(!$log->store()){
             $this->addError($log->getErrorLabel(), $log->getErrorMessage());

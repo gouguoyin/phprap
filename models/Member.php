@@ -160,12 +160,19 @@ class Member extends Model
      */
     public function search($params = [])
     {
-        $this->params = $params;
+        $this->params = array2object($params);
 
         $query = static::find()->joinWith('account');
 
         $query->andFilterWhere([
-            'project_id' => $this->params['project_id'],
+            'project_id' => $this->params->project_id,
+            'join_type'  => $this->params->join_type,
+        ]);
+
+        $query->andFilterWhere([
+            'or',
+            ['like','{{%user}}.name', $this->params->user->name],
+            ['like','{{%user}}.email', $this->params->user->name],
         ]);
 
         $pagination = new Pagination([

@@ -93,7 +93,7 @@ class Module extends Model
             'id'   => SORT_DESC
         ];
 
-        return $this->hasMany(Field::className(), ['module_id' => 'id'])->where($filter)->orderBy($sort);
+        return $this->hasMany(Api::className(), ['module_id' => 'id'])->where($filter)->orderBy($sort);
     }
 
     /**
@@ -103,7 +103,7 @@ class Module extends Model
     public function getUpdateContent()
     {
         $content = '';
-        foreach ($this->dirtyAttributes as $name => $value) {
+        foreach (array_filter($this->dirtyAttributes) as $name => $value) {
 
             $label = '<strong>' . $this->oldAttributes['title'] . '->' . $this->getAttributeLabel($name) . '</strong>';
 

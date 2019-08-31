@@ -65,7 +65,7 @@ class ProjectController extends PublicController
             return $this->redirect(['home/account/login']);
         }
 
-        $model = CreateProject::findModel();
+        $model = new CreateProject();
 
         if($request->isPost) {
 
@@ -144,6 +144,8 @@ class ProjectController extends PublicController
             }
         }
 
+        $params = Yii::$app->request->queryParams;
+
         $params['project_id'] = $project->id;
 
         $assign['project'] = $project;
@@ -169,6 +171,10 @@ class ProjectController extends PublicController
 
             case 'env':
 
+                if(!$project->hasAuth(['env' => 'look'])) {
+                    return $this->error('抱歉，您无权查看');
+                }
+
                 $view = '/home/env/index';
 
                 break;
@@ -187,8 +193,12 @@ class ProjectController extends PublicController
 
             case 'history':
 
-                if(!$project->hasAuth(['member' => 'look'])) {
+                if(!$project->hasAuth(['project' => 'history'])) {
                     return $this->error('抱歉，您无权查看');
+                }
+
+                if(empty($params['object_name'])){
+                    $params['object_name'] = 'project,env,member,module';
                 }
 
                 $assign['history'] = ProjectLog::findModel()->search($params);
@@ -300,9 +310,11 @@ class ProjectController extends PublicController
 
         // 记录操作日志
         $log = new CreateLog();
-        $log->project_id = $project->id;
-        $log->type       = 'export';
-        $log->content    = '导出了 ' . '<code>' . $file_name . '</code>';
+        $log->project_id  = $project->id;
+        $log->object_name = 'project';
+        $log->object_id   = $project->id;
+        $log->type        = 'export';
+        $log->content     = '导出了 ' . '<code>' . $file_name . '</code>';
 
         if(!$log->store()){
             return $this->error($log->getErrorMessage());

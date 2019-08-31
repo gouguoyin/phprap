@@ -3,5 +3,7 @@
     <li class="{{if $tab == 'home'}}active{{/if}}"><a href="{{url('home/api/show', ['id' => $api->encode_id, 'tab' => 'home'])}}">接口主页</a></li>
     <li class="{{if $tab == 'field'}}active{{/if}}"><a href="{{url('home/api/show', ['id' => $api->encode_id, 'tab' => 'field'])}}">接口字段</a></li>
     <!--<li class="hidden-xs {{if $tab == 'debug'}}active{{/if}}"><a href="{{url('home/api/show', ['id' => $api->encode_id, 'tab' => 'debug'])}}">接口调试</a></li>-->
-    <!--<li class="hidden-xs {{if $tab == 'log'}}active{{/if}}"><a href="{{url('home/api/show', ['id' => $api->encode_id, 'tab' => 'log'])}}">接口动态</a></li>-->
+    {{if $project->hasAuth(['api' => 'history'])}}
+    <li class="hidden-xs {{if $tab == 'history'}}active{{/if}}"><a href="{{url('home/api/show', ['id' => $api->encode_id, 'tab' => 'history'])}}">接口动态</a></li>
+    {{/if}}
 </ul>

@@ -18,7 +18,7 @@ class CreateApply extends Apply
             [['project_id', 'user_id', 'status'], 'integer'],
             [['created_at', 'updated_at'], 'safe'],
 
-            ['project_id', 'validateProject'],
+            ['project_id', 'validateAuth'],
             [['ip', 'location'], 'string', 'max' => 250],
         ];
     }
@@ -27,7 +27,7 @@ class CreateApply extends Apply
      * 验证申请是否唯一
      * @param $attribute
      */
-    public function validateProject($attribute)
+    public function validateAuth($attribute)
     {
         $project = Project::findModel($this->project_id);
 

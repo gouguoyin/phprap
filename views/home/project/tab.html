@@ -2,8 +2,10 @@
 <ul class="nav nav-tabs">
     <li class="{{if $tab == 'home'}}active{{/if}}"><a href="{{url('home/project/show', ['id' => $project->encode_id, 'tab' => 'home'])}}">项目主页</a></li>
 
+    {{if $project->hasAuth(['env' => 'look'])}}
     <li class="{{if $tab == 'env'}}active{{/if}}"><a href="{{url('home/project/show', ['id' => $project->encode_id, 'tab' => 'env'])}}">项目环境</a></li>
-    
+    {{/if}}
+
     {{if $project->hasAuth(['member' => 'look'])}}
     <li class="{{if $tab == 'member'}}active{{/if}}"><a href="{{url('home/project/show', ['id' => $project->encode_id, 'tab' => 'member'])}}">项目成员</a></li>
     {{/if}}

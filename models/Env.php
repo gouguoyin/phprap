@@ -134,7 +134,7 @@ class Env extends Model
     public function getUpdateContent()
     {
         $content = '';
-        foreach ($this->dirtyAttributes as $name => $value) {
+        foreach (array_filter($this->dirtyAttributes) as $name => $value) {
 
             $label = '<strong>' . $this->oldAttributes['title'] . '->' . $this->getAttributeLabel($name) . '</strong>';
 

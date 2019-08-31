@@ -22,7 +22,7 @@ class MemberController extends PublicController
 
         $project = Project::findModel(['encode_id' => $project_id]);
 
-        $model   = CreateMember::findModel();
+        $model   = new CreateMember();
 
         if($request->isPost){
 

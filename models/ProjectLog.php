@@ -11,6 +11,8 @@ use app\widgets\LinkPager;
  *
  * @property int $id
  * @property int $project_id 项目id
+ * @property string $object_name 操作对象
+ * @property int $object_id 操作对象ID
  * @property int $user_id 操作人id
  * @property string $type 操作类型
  * @property string $content 操作内容
@@ -34,10 +36,10 @@ class ProjectLog extends Model
     {
         return [
             [['project_id', 'user_id', 'type', 'content'], 'required'],
-            [['project_id', 'user_id'], 'integer'],
+            [['project_id', 'user_id', 'object_id'], 'integer'],
             [['content'], 'string'],
             [['created_at', 'updated_at'], 'safe'],
-            [['type'], 'string', 'max' => 10],
+            [['type', 'object_name'], 'string', 'max' => 10],
         ];
     }
 
@@ -49,6 +51,8 @@ class ProjectLog extends Model
         return [
             'id' => 'ID',
             'project_id' => '项目id',
+            'object_name' => '操作对象',
+            'object_id' => '操作对象ID',
             'user_id' => '操作人id',
             'type' => '操作类型',
             'content' => '操作内容',
@@ -58,20 +62,40 @@ class ProjectLog extends Model
     }
 
     /**
-     * 获取关联用户
-     * @return \yii\db\ActiveQuery
+     * 操作对象标签
      */
+    public function getObjectLabels()
+    {
+        return [
+            'project' => '项目',
+            'module' => '模块',
+            'env' => '环境',
+            'api' => '接口',
+            'member' => '成员',
+        ];
+    }
+
+    /**
+     * 操作类型标签
+     */
+    public function getTypeLabels()
+    {
+        return [
+            'create' => '创建',
+            'update' => '更新',
+            'delete' => '删除',
+            'export' => '导出',
+            'transfer' => '转移',
+            'remove' => '移除',
+            'quit' => '退出',
+        ];
+    }
+
     public function getAccount()
     {
         return $this->hasOne(Account::className(),['id'=>'user_id']);
     }
 
-    /**
-     * 搜索操作日志
-     * @param array $params
-     * @return $this
-     * @throws \Exception
-     */
     public function search($params = [])
     {
         $this->params = array2object($params);
@@ -79,12 +103,13 @@ class ProjectLog extends Model
         $query = self::find();
 
         $query->andFilterWhere([
-            'user_id' => $this->params->user_id,
+            'type'        => $this->params->type,
+            'object_id'   => $this->params->object_id,
+            'user_id'     => $this->params->user_id,
+            'project_id'  => $this->params->project_id,
         ]);
 
-        $query->andFilterWhere([
-            'project_id' => $this->params->project_id,
-        ]);
+        $query->andFilterWhere(['in', 'object_name', explode(',', $this->params->object_name)]);
 
         $this->count = $query->count();
 
@@ -114,6 +139,7 @@ class ProjectLog extends Model
         ]);
 
         return $this;
+
     }
 
 }

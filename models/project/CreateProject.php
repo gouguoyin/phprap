@@ -75,9 +75,11 @@ class CreateProject extends Project
 
         // 保存操作日志
         $log = new CreateLog();
-        $log->project_id = $project->id;
-        $log->type       = 'create';
-        $log->content    = '添加了 项目 ' . '<code>' . $project->title . '</code>';
+        $log->project_id  = $project->id;
+        $log->object_name = 'project';
+        $log->object_id   = $project->id;
+        $log->type        = 'create';
+        $log->content     = '创建了 项目 ' . '<code>' . $project->title . '</code>';
 
         if(!$log->store()){
             $this->addError($log->getErrorLabel(), $log->getErrorMessage());

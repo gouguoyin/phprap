@@ -46,16 +46,12 @@
                 </div>
             </div>
 
-            <div class="form-group hidden">
+            <div class="form-group">
                 <label class="control-label">响应格式</label>
                 <div class="form-group">
                     {{foreach $api->responseFormatLabels as $k => $v}}
                     <label class="radio-inline">
-                        {{if $k == 'json'}}
-                        <input type="radio" name="CreateApi[response_format]" checked value="{{$k}}"> {{$v}}
-                        {{else}}
-                        <input type="radio" name="CreateApi[response_format]" disabled value="{{$k}}"> {{$v}}(暂不支持)
-                        {{/if}}
+                        <input type="radio" name="CreateApi[response_format]" {{if $k == 'json'}}checked{{/if}} value="{{$k}}"> {{$v}}
                     </label>
                     {{/foreach}}
                 </div>

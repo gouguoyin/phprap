@@ -1,7 +1,24 @@
 <?php
+
 namespace app\models;
 
-class Field extends Api
+use Yii;
+
+/**
+ * This is the model class for table "doc_field".
+ *
+ * @property int $id
+ * @property string $encode_id 加密id
+ * @property int $api_id 接口ID
+ * @property string $header_fields header字段
+ * @property string $request_fields 请求字段
+ * @property string $response_fields 响应字段
+ * @property int $creater_id 创建者id
+ * @property int $updater_id 更新者id
+ * @property string $created_at 创建时间
+ * @property string $updated_at 更新时间
+ */
+class Field extends Model
 {
     /**
      * 字段类型标签
@@ -38,22 +55,47 @@ class Field extends Api
     ];
 
     /**
-     * 获取字段更新内容
-     * @return string
+     * 指定数据表
      */
-    public function getUpdateContent()
+    public static function tableName()
     {
-        $content = '';
-
-        foreach ($this->dirtyAttributes as $name => $value) {
-            if(in_array($name, ['header_field', 'request_field', 'response_field'])){
-                $content .= '<strong>' .$this->module->title . '->' . $this->title . '->接口字段->' . $this->getAttributeLabel($name). '</strong>,';
-            }
-        }
-
-        return '更新了 ' . trim($content, ',');
+        return '{{%field}}';
     }
-    
+
+    /**
+     * 验证规则
+     * @return array
+     */
+    public function rules()
+    {
+        return [
+            [['api_id', 'creater_id', 'updater_id'], 'integer'],
+            [['creater_id', 'updater_id', 'created_at'], 'required'],
+            [['header_fields', 'request_fields', 'response_fields'], 'string'],
+            [['encode_id'], 'unique'],
+            [['created_at', 'updated_at'], 'safe'],
+        ];
+    }
+
+    /**
+     * 字段字典
+     * @return array
+     */
+    public function attributeLabels()
+    {
+        return [
+            'id' => 'ID',
+            'api_id' => '接口ID',
+            'header_fields' => 'header字段',
+            'request_fields' => '请求字段',
+            'response_fields' => '响应字段',
+            'creater_id' => '创建者id',
+            'updater_id' => '更新者id',
+            'created_at' => '创建时间',
+            'updated_at' => '更新时间',
+        ];
+    }
+
     /**
      * 判断字段是否是复合类型
      * @param $field
@@ -62,6 +104,64 @@ class Field extends Api
     public function isCompositeType($type)
     {
         return in_array($type, ['array', 'object']) ? true : false;
+    }
+
+    /**
+     * 获取所属接口
+     * @return \yii\db\ActiveQuery
+     */
+    public function getApi()
+    {
+        return $this->hasOne(Api::className(),['id'=>'api_id']);
+    }
+
+    /**
+     * 获取header数组
+     * @return array
+     */
+    public function getHeaderAttributes()
+    {
+        return json_decode($this->header_fields);
+    }
+
+    /**
+     * 获取请求参数数组
+     * @return array
+     */
+    public function getRequestAttributes()
+    {
+        return json_decode($this->request_fields);
+    }
+
+    /**
+     * 获取响应参数数组
+     * @return array
+     */
+    public function getResponseAttributes()
+    {
+        return json_decode($this->response_fields);
+    }
+
+    /**
+     * 获取更新内容
+     * @return string
+     */
+    public function getUpdateContent()
+    {
+        $content = '';
+        foreach (array_filter($this->dirtyAttributes) as $name => $value) {
+
+            $label = '<strong>' .  $this->getAttributeLabel($name) . '</strong>';
+
+            if(isset($this->oldAttributes[$name])){
+                $content .= '更新了  ' . $label . ',';
+            }else{
+                $content .= '添加了  ' . $label . ',';
+            }
+
+        }
+
+        return trim($content, ',');
     }
 
 }

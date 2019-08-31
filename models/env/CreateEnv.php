@@ -21,7 +21,7 @@ class CreateEnv extends Env
             [['project_id', 'sort'], 'integer'],
 
             ['name', 'validateName'],
-            ['project_id', 'validateProject'],
+            ['project_id', 'validateAuth'],
         ];
     }
 
@@ -49,7 +49,7 @@ class CreateEnv extends Env
      * 验证是否有项目操作权限
      * @param $attribute
      */
-    public function validateProject($attribute)
+    public function validateAuth($attribute)
     {
         $project = Project::findModel($this->project_id);
 
@@ -93,9 +93,11 @@ class CreateEnv extends Env
 
         // 保存操作日志
         $log = new CreateLog();
-        $log->project_id = $env->project_id;
-        $log->type       = 'create';
-        $log->content    = '添加了 环境 ' . '<code>' . $env->title . '(' . $env->name. ')' . '</code>';
+        $log->project_id  = $env->project_id;
+        $log->object_name = 'env';
+        $log->object_id   = $env->id;
+        $log->type        = 'create';
+        $log->content     = '添加了 环境 ' . '<code>' . $env->title . '(' . $env->name. ')' . '</code>';
 
         if(!$log->store()){
             $this->addError($log->getErrorLabel(), $log->getErrorMessage());

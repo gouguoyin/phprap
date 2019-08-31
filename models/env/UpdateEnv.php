@@ -20,7 +20,7 @@ class UpdateEnv extends Env
             [['sort','id'], 'integer'],
 
             ['name', 'validateName'],
-            ['id', 'validateProject'],
+            ['id', 'validateAuth'],
         ];
     }
 
@@ -52,7 +52,7 @@ class UpdateEnv extends Env
      * 验证是否有项目操作权限
      * @param $attribute
      */
-    public function validateProject($attribute)
+    public function validateAuth($attribute)
     {
         if(!$this->project->hasAuth(['env' => 'update'])){
             $this->addError($attribute, '抱歉，您没有操作权限');
@@ -80,13 +80,15 @@ class UpdateEnv extends Env
         $env->name     = $this->name;
         $env->base_url = trim($this->base_url, '/') . '/';
 
-        if($env->dirtyAttributes) {
+        // 如果有更改，保存操作日志
+        if(array_filter($env->dirtyAttributes)) {
             $log = new CreateLog();
-            $log->project_id = $env->project->id;
-            $log->type       = 'update';
-            $log->content    = $env->getUpdateContent();
+            $log->project_id  = $env->project->id;
+            $log->object_name = 'env';
+            $log->object_id   = $env->id;
+            $log->type        = 'update';
+            $log->content     = $env->getUpdateContent();
 
-            // 保存操作日志
             if(!$log->store()){
                 $this->addError($log->getErrorLabel(), $log->getErrorMessage());
                 $transaction->rollBack();
@@ -94,9 +96,8 @@ class UpdateEnv extends Env
             }
         }
 
+        // 保存环境更新内容
         $env->updater_id = Yii::$app->user->identity->id;
-        $env->updated_at = date('Y-m-d H:i:s');
-
         if(!$env->save()){
             $this->addError($env->getErrorLabel(), $env->getErrorMessage());
             $transaction->rollBack();

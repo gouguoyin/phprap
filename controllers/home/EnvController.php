@@ -21,7 +21,7 @@ class EnvController extends PublicController
 
         $project = Project::findModel(['encode_id' => $project_id]);
 
-        $model   = CreateEnv::findModel();
+        $model   = new CreateEnv();
         $model->project_id = $project->id;
 
         if($request->isPost){
