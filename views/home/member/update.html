@@ -111,6 +111,9 @@
                     <input class="js_apiRule" type="checkbox" {{if $member->hasAuth(['api' => 'export'])}}checked{{/if}} value="export">导出接口
                 </label>
                 <label class="checkbox-inline">
+                    <input class="js_apiRule" type="checkbox" {{if $member->hasAuth(['api' => 'history'])}}checked{{/if}} value="history">接口动态
+                </label>
+                <label class="checkbox-inline">
                     <input class="js_apiRule" type="checkbox" {{if $member->hasAuth(['api' => 'delete'])}}checked{{/if}} value="delete">删除接口
                 </label>
             </div>
