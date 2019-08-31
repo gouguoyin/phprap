@@ -2,6 +2,7 @@
 namespace app\controllers\admin;
 
 use Yii;
+use yii\helpers\Html;
 use yii\web\Response;
 use app\models\Config;
 
@@ -22,7 +23,7 @@ class SettingController extends PublicController
 
             $response->format = Response::FORMAT_JSON;
 
-            $config->content = json_encode($request->post('Config'), JSON_UNESCAPED_UNICODE);
+            $config->content  = $this->form2json($request->post('Config'));
 
             if ($config->save()) {
                 return ['status' => 'success', 'message' => '保存成功'];
@@ -48,7 +49,7 @@ class SettingController extends PublicController
 
             $response->format = Response::FORMAT_JSON;
 
-            $config->content = json_encode($request->post('Config'), JSON_UNESCAPED_UNICODE);
+            $config->content = $this->form2json($request->post('Config'));
 
             if ($config->save()) {
                 return ['status' => 'success', 'message' => '保存成功'];
@@ -108,5 +109,22 @@ class SettingController extends PublicController
         return $this->display('safe', ['config' => $config]);
     }
 
+    /**
+     * 表单过滤后转json
+     * @param $table
+     * @return false|string
+     */
+    private function form2json($form)
+    {
+        if(!is_array($form) || !$form){
+            return;
+        }
+        $array = [];
+        foreach ($form as $k => $v) {
+            $array[$k] = trim(Html::encode($v));
+        }
+
+        return json_encode($array, JSON_UNESCAPED_UNICODE);
+    }
 
 }
