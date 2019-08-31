@@ -13,7 +13,7 @@ if(!is_writable($db_file)){
     exit($db_file . '没有可写权限');
 }
 
-defined('YII_DEBUG') or define('YII_DEBUG', true);
+defined('YII_DEBUG') or define('YII_DEBUG', false);
 
 require __DIR__ . '/vendor/autoload.php';
 require __DIR__ . '/vendor/yiisoft/yii2/Yii.php';
