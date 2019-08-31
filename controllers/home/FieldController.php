@@ -51,6 +51,9 @@ class FieldController extends PublicController
      */
     private function table2json($table)
     {
+        if(!is_array($table) || !$table){
+            return;
+        }
         $array = [];
         foreach ($table as $k => $v) {
             foreach ($v as $k1 => $v1) {
