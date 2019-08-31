@@ -155,8 +155,7 @@ CREATE TABLE `doc_field` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `encode_id` (`encode_id`) USING BTREE,
   UNIQUE KEY `api_id` (`id`),
-  KEY `creater_id` (`updater_id`)
-  KEY `creater_id` (`id`)
+  KEY `creater_id` (`creater_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COMMENT='接口字段表';
 
 -- ----------------------------
