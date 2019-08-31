@@ -99,8 +99,14 @@
 $(function(){
     // 表单验证
     $("form").validateForm({
+        'before':function () {
+            $("#js_submit").text('提交中').attr("disabled",true);
+        },
         'success':function (json) {
             window.location.href = json.callback;
+        },
+        'error':function () {
+            $("#js_submit").text('下一步').attr("disabled",false);
         }
     });
 })
