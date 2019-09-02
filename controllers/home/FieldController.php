@@ -20,9 +20,9 @@ class FieldController extends PublicController
 
         $model = UpdateField::findModel(['encode_id' => $id]);
 
-        $data['project'] = $model->api->project;
-        $data['api']     = $model->api;
-        $data['field']   = $model;
+        $assign['project'] = $model->api->project;
+        $assign['api']     = $model->api;
+        $assign['field']   = $model;
 
         if($request->isPost){
 
@@ -41,7 +41,7 @@ class FieldController extends PublicController
 
         }
 
-        return $this->display('/home/field/' . $method, $data);
+        return $this->display('/home/field/' . $method, $assign);
     }
 
     /**
