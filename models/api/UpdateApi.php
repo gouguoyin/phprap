@@ -14,11 +14,10 @@ class UpdateApi extends Api
     public function rules()
     {
         return [
-            [['title', 'uri', 'sort','project_id','module_id','request_method'], 'required'],
+            [['title', 'sort','project_id','module_id','request_method'], 'required'],
             [['request_method', 'response_format'], 'string', 'max' => 20],
             [['title', 'uri', 'remark'], 'string', 'max' => 250],
             [['sort', 'project_id', 'module_id'], 'integer'],
-
             ['id', 'validateAuth'],
         ];
     }
@@ -55,7 +54,7 @@ class UpdateApi extends Api
         $api->module_id  = $module->id;
         $api->title      = $this->title;
         $api->request_method = $this->request_method;
-        $api->uri    = $this->uri;
+        $api->uri        = '/' . ltrim($this->uri, '/');
         $api->remark = $this->remark;
         $api->status = (int)$this->status;
         $api->sort   = (int)$this->sort;

@@ -15,13 +15,10 @@ class CreateApi extends Api
     public function rules()
     {
         return [
-            [['module_id', 'title', 'uri', 'sort'], 'required'],
-
-            [['header_field', 'request_field', 'response_field'], 'string'],
+            [['module_id', 'title', 'sort'], 'required'],
             [['title', 'uri', 'remark'], 'string', 'max' => 250],
             [['request_method', 'response_format'], 'string', 'max' => 20],
             [['project_id', 'module_id','sort'], 'integer'],
-
             ['id', 'validateAuth'],
         ];
     }
@@ -61,7 +58,7 @@ class CreateApi extends Api
         $api->encode_id  = $this->createEncodeId();
         $api->project_id = $module->project_id;
         $api->module_id  = $module->id;
-        $api->uri        = trim($this->uri, '/');
+        $api->uri        = '/' . ltrim($this->uri, '/');
         $api->status     = Api::ACTIVE_STATUS;
         $api->creater_id = Yii::$app->user->identity->id;
         $api->created_at = $this->getNowTime();

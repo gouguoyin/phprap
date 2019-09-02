@@ -134,6 +134,14 @@ class ApiController extends PublicController
     {
         $api = Api::findModel(['encode_id' => $id]);
 
+        if(!$api->id){
+            return $this->error('抱歉，接口不存在或者已被删除');
+        }
+
+        if(!Yii::$app->user->identity->isAdmin && $api->status !== $api::ACTIVE_STATUS){
+            return $this->error('抱歉，接口已被禁用或已被删除');
+        }
+
         if($api->project->isPrivate()) {
 
             if(Yii::$app->user->isGuest) {
@@ -145,8 +153,8 @@ class ApiController extends PublicController
             }
         }
 
-        $data['project'] = $api->project;
-        $data['api'] = $api;
+        $assign['api'] = $api;
+        $assign['project'] = $api->project;
 
         $params = Yii::$app->request->queryParams;
 
@@ -155,24 +163,21 @@ class ApiController extends PublicController
                 $view  = '/home/api/home';
                 break;
             case 'field':
-                $data['field'] = $api->field;
+                $assign['field'] = $api->field;
                 $view  = '/home/field/home';
                 break;
             case 'history':
                 $params['object_name'] = 'api';
                 $params['object_id']   = $api->id;
-
-                $data['history'] = ProjectLog::findModel()->search($params);
-
+                $assign['history'] = ProjectLog::findModel()->search($params);
                 $view  = '/home/history/api';
-
                 break;
             default:
                 $view  = '/home/api/home';
                 break;
         }
 
-        return $this->display($view, $data);
+        return $this->display($view, $assign);
 
     }
 

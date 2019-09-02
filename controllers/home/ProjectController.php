@@ -1,10 +1,10 @@
 <?php
 namespace app\controllers\home;
 
-use app\models\Config;
 use Yii;
 use yii\helpers\Url;
 use yii\web\Response;
+use app\models\Config;
 use app\models\Project;
 use app\models\Template;
 use app\models\Member;
@@ -130,8 +130,12 @@ class ProjectController extends PublicController
     {
         $project = Project::findModel(['encode_id' => $id]);
 
-        if(!Yii::$app->user->identity->isAdmin && $project->status !== $project::ACTIVE_STATUS){
+        if(!$project->id){
             return $this->error('抱歉，项目不存在或者已被删除');
+        }
+
+        if(!Yii::$app->user->identity->isAdmin && $project->status !== $project::ACTIVE_STATUS){
+            return $this->error('抱歉，项目已被禁用或已被删除');
         }
 
         if($project->isPrivate()) {
@@ -144,11 +148,10 @@ class ProjectController extends PublicController
             }
         }
 
-        $params = Yii::$app->request->queryParams;
-
-        $params['project_id'] = $project->id;
-
         $assign['project'] = $project;
+
+        $params = Yii::$app->request->queryParams;
+        $params['project_id'] = $project->id;
 
         switch ($tab) {
             case 'home':
@@ -156,7 +159,6 @@ class ProjectController extends PublicController
                 $view  = '/home/project/home';
 
                 break;
-
             case 'template':
 
                 if(!$project->hasAuth(['template' => 'look'])) {
@@ -168,7 +170,6 @@ class ProjectController extends PublicController
                 $view  = '/home/template/home';
 
                 break;
-
             case 'env':
 
                 if(!$project->hasAuth(['env' => 'look'])) {
@@ -178,7 +179,6 @@ class ProjectController extends PublicController
                 $view = '/home/env/index';
 
                 break;
-
             case 'member':
 
                 if(!$project->hasAuth(['member' => 'look'])) {
@@ -190,7 +190,6 @@ class ProjectController extends PublicController
                 $view  = '/home/member/index';
 
                 break;
-
             case 'history':
 
                 if(!$project->hasAuth(['project' => 'history'])) {
