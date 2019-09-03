@@ -29,23 +29,6 @@ $config = [
             'identityCookie' => ['name' => 'identity-phprap', 'httpOnly' => true],
             'loginUrl'=>['account/login']
         ],
-        'mailer' => [
-            'class' => 'yii\swiftmailer\Mailer',
-            'useFileTransport' =>false,//这句一定有，false发送邮件，true只是生成邮件在runtime文件夹下，不发邮件
-            'transport' => [
-                'class' => 'Swift_SmtpTransport',
-                'host' => 'smtp.qq.com',  //每种邮箱的host配置不一样
-                'username' => '245629560@qq.com',
-                'password' => 'lei19880805',
-                'port' => '465',
-                'encryption' => 'ssl',
-
-            ],
-            'messageConfig'=>[
-                'charset'=>'UTF-8',
-                'from'   => ['245629560@qq.com'=>'招财猫数据推送失败通知']
-            ],
-        ],
         'view' => [
             'defaultExtension' => 'html',
             'renderers' => [
