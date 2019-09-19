@@ -107,6 +107,11 @@
                 <label class="checkbox-inline">
                     <input class="js_apiRule" type="checkbox" {{if $member->hasAuth(['api' => 'update'])}}checked{{/if}} value="update">编辑接口
                 </label>
+
+                <label class="checkbox-inline">
+                    <input class="js_apiRule" type="checkbox" {{if $member->hasAuth(['api' => 'debug'])}}checked{{/if}} value="debug">接口调试
+                </label>
+
                 <label class="checkbox-inline">
                     <input class="js_apiRule" type="checkbox" {{if $member->hasAuth(['api' => 'export'])}}checked{{/if}} value="export">导出接口
                 </label>

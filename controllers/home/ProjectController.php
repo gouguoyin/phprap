@@ -151,6 +151,7 @@ class ProjectController extends PublicController
         $assign['project'] = $project;
 
         $params = Yii::$app->request->queryParams;
+
         $params['project_id'] = $project->id;
 
         switch ($tab) {
@@ -165,7 +166,7 @@ class ProjectController extends PublicController
                     return $this->error('抱歉，您无权查看');
                 }
 
-                $assign['template'] = Template::findModel($params);
+                $assign['template'] = Template::findModel(['project_id' => $project->id]);
 
                 $view  = '/home/template/home';
 

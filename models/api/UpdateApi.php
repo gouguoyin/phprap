@@ -54,7 +54,7 @@ class UpdateApi extends Api
         $api->module_id  = $module->id;
         $api->title      = $this->title;
         $api->request_method = $this->request_method;
-        $api->uri        = '/' . ltrim($this->uri, '/');
+        $api->uri        = $this->uri ? '/' . ltrim($this->uri, '/') : $this->uri;
         $api->remark = $this->remark;
         $api->status = (int)$this->status;
         $api->sort   = (int)$this->sort;

@@ -18,7 +18,7 @@
 
                     <div class="opt-btn">
                         {{if $project->hasAuth(['member' => 'create'])}}
-                        <a href="javascript:void(0);" class="btn hidden-xs btn-sm btn-success" data-title='添加成员' data-modal="#js_popModal" data-width="660" data-height="300" data-src="{{url('member/create', ['project_id' => $project->encode_id])}}"><i class="fa fa-fw fa-plus"></i>添加</a>
+                        <a href="javascript:void(0);" class="btn hidden-xs btn-sm btn-success" data-title='添加成员' data-modal="#js_popModal" data-width="660" data-height="320" data-src="{{url('member/create', ['project_id' => $project->encode_id])}}"><i class="fa fa-fw fa-plus"></i>添加</a>
                         {{/if}}
                     </div>
                 </div>
@@ -106,9 +106,9 @@
                                     <td class="hidden-xs">
 
                                         {{if $project->hasAuth(['member' => 'update'])}}
-                                        <a type="button" class="btn btn-success btn-xs mr-1" data-toggle="tooltip" data-placement="top" data-title="编辑成员" data-modal="#js_popModal" data-width="660" data-height="330" data-src="{{url('home/member/update', ['id' => $model->encode_id])}}">编辑</a>
+                                        <a type="button" class="btn btn-success btn-xs mr-1" data-toggle="tooltip" data-placement="top" data-title="编辑成员" data-modal="#js_popModal" data-width="660" data-height="350" data-src="{{url('home/member/update', ['id' => $model->encode_id])}}">编辑</a>
                                         {{else}}
-                                        <a type="button" class="btn btn-success btn-xs mr-1" data-toggle="tooltip" data-placement="top" data-title="查看成员" data-modal="#js_popModal" data-width="660" data-height="330" data-ok-btn-show="false" data-src="{{url('home/member/show', ['id' => $model->encode_id])}}">查看</a>
+                                        <a type="button" class="btn btn-success btn-xs mr-1" data-toggle="tooltip" data-placement="top" data-title="查看成员" data-modal="#js_popModal" data-width="660" data-height="350" data-ok-btn-show="false" data-src="{{url('home/member/show', ['id' => $model->encode_id])}}">查看</a>
                                         {{/if}}
 
                                         {{if $project->hasAuth(['member' => 'remove'])}}

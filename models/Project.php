@@ -286,9 +286,9 @@ class Project extends Model
                 $data['modules'][$k1]['apis'][$k2]['request_url']       = $v2->url;
                 $data['modules'][$k1]['apis'][$k2]['status']            = $v2->status;
                 $data['modules'][$k1]['apis'][$k2]['remark']            = $v2->remark;
-                $data['modules'][$k1]['apis'][$k2]['header_fields'][]   = $v2->headerAttributes;
-                $data['modules'][$k1]['apis'][$k2]['request_fields'][]  = $v2->requestAttributes;
-                $data['modules'][$k1]['apis'][$k2]['response_fields'][] = $v2->responseAttributes;
+                $data['modules'][$k1]['apis'][$k2]['header_fields'][]   = $v2->field->headerAttributes;
+                $data['modules'][$k1]['apis'][$k2]['request_fields'][]  = $v2->field->requestAttributes;
+                $data['modules'][$k1]['apis'][$k2]['response_fields'][] = $v2->field->responseAttributes;
             }
         }
         return json_encode($data, JSON_UNESCAPED_UNICODE);
