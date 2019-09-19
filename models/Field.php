@@ -70,7 +70,7 @@ class Field extends Model
     {
         return [
             [['api_id', 'creater_id', 'updater_id'], 'integer'],
-            [['creater_id', 'updater_id', 'created_at'], 'required'],
+            [['creater_id', 'created_at'], 'required'],
             [['header_fields', 'request_fields', 'response_fields'], 'string'],
             [['encode_id'], 'unique'],
             [['created_at', 'updated_at'], 'safe'],
@@ -151,7 +151,7 @@ class Field extends Model
         $content = '';
         foreach (array_filter($this->dirtyAttributes) as $name => $value) {
 
-            $label = '<strong>' .  $this->getAttributeLabel($name) . '</strong>';
+            $label = '<code>' .  $this->getAttributeLabel($name) . '</code>';
 
             if(isset($this->oldAttributes[$name])){
                 $content .= '更新了  ' . $label . ',';

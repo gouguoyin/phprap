@@ -14,7 +14,7 @@ class UpdateField extends Field
     {
         return [
             ['id', 'validateAuth'],
-            [['header_fields', 'request_fields', 'response_fields'], 'validateJson'],
+            [['header_fields', 'request_fields', 'response_fields'], 'string'],
         ];
     }
 
@@ -26,20 +26,6 @@ class UpdateField extends Field
     {
         if(!$this->api->project->hasAuth(['api' => 'update'])){
             $this->addError($attribute, '抱歉，您没有操作权限');
-            return false;
-        }
-    }
-
-    /**
-     * 验证JSON是否合法
-     * @param $attribute
-     */
-    public function validateJson($attribute)
-    {
-        json_decode($this->$attribute);
-
-        if(json_last_error() != JSON_ERROR_NONE){
-            $this->addError($attribute,'非法JSON格式');
             return false;
         }
     }
@@ -62,6 +48,12 @@ class UpdateField extends Field
         $field->header_fields   = $this->header_fields;
         $field->request_fields  = $this->request_fields;
         $field->response_fields = $this->response_fields;
+
+        if(array_sum([strlen($this->header_fields), strlen($this->request_fields), strlen($this->response_fields)]) == 0){
+            $this->addError($field->getErrorLabel(), '至少填写一个字段');
+            $transaction->rollBack();
+            return false;
+        }
 
         // 如果有更改，保存操作日志
         if(array_filter($field->dirtyAttributes)) {

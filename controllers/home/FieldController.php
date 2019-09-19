@@ -4,17 +4,57 @@ namespace app\controllers\home;
 use Yii;
 use yii\helpers\Html;
 use yii\web\Response;
+use app\models\Api;
+use app\models\field\CreateField;
 use app\models\field\UpdateField;
 
 class FieldController extends PublicController
 {
+    /**
+     * 添加字段
+     * @param $id
+     * @param string $method
+     * @return array|string
+     */
+    public function actionCreate($api_id)
+    {
+        $request = Yii::$app->request;
+
+        $api = Api::findModel(['encode_id' => $api_id]);
+
+        $model = CreateField::findModel();
+
+        $assign['project'] = $api->project;
+        $assign['api']     = $api;
+        $assign['field']   = $model;
+
+        if($request->isPost){
+
+            Yii::$app->response->format = Response::FORMAT_JSON;
+            $model->api_id = $api->id;
+            $model->header_fields   = $this->form2json($request->post('header'));
+            $model->request_fields  = $this->form2json($request->post('request'));
+            $model->response_fields = $this->form2json($request->post('response'));
+
+            if($model->store()) {
+                $callback = url('home/api/show', ['id' => $api->encode_id, 'tab' => 'field']);
+                return ['status' => 'success', 'message' => '添加成功', 'callback' => $callback];
+            }
+
+            return ['status' => 'error', 'message' => $model->getErrorMessage(), 'label' => $model->getErrorLabel()];
+
+        }
+
+        return $this->display('/home/field/create', $assign);
+    }
+
     /**
      * 更新字段
      * @param $id
      * @param string $method
      * @return array|string
      */
-    public function actionUpdate($id, $method = 'form')
+    public function actionUpdate($id)
     {
         $request = Yii::$app->request;
 
@@ -41,7 +81,7 @@ class FieldController extends PublicController
 
         }
 
-        return $this->display('/home/field/' . $method, $assign);
+        return $this->display('/home/field/update', $assign);
     }
 
     /**

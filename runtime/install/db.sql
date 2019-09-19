@@ -30,10 +30,10 @@ CREATE TABLE `doc_api` (
 --
 
 INSERT INTO `doc_api` (`id`, `encode_id`, `project_id`, `module_id`, `title`, `request_method`, `response_format`, `uri`, `remark`, `status`, `sort`, `creater_id`, `updater_id`, `created_at`, `updated_at`) VALUES
-(1, '20198062957335', 1, 1, '用户注册', 'post', 'json', 'user/register.json', '用户注册接口', 10, 30, 1, 0, '2019-08-30 23:57:09', '2019-08-31 09:34:38'),
-(2, '20198196192530', 1, 1, '用户登录', 'post', 'json', 'user/login.json', '用户登录接口', 10, 20, 1, 0, '2019-08-31 00:19:21', '2019-08-31 09:34:43'),
-(3, '20198251327666', 1, 1, '获取会员信息', 'post', 'json', 'user/getUser.json', '获取会员信息', 10, 10, 1, 0, '2019-08-31 00:28:33', '2019-08-31 09:34:45'),
-(4, '20198334570253', 1, 1, '获取会员列表', 'post', 'json', 'user/getUsers.json', '基于JWT机制，token由登录接口返回，有效时长24小时', 10, 0, 1, 0, '2019-08-31 00:42:25', '2019-08-31 09:34:49');
+(1, '20198062957335', 1, 1, '用户注册', 'post', 'json', '/user/register.json', '用户注册接口', 10, 30, 1, 0, '2019-08-30 23:57:09', '2019-08-31 09:34:38'),
+(2, '20198196192530', 1, 1, '用户登录', 'post', 'json', '/user/login.json', '用户登录接口', 10, 20, 1, 0, '2019-08-31 00:19:21', '2019-08-31 09:34:43'),
+(3, '20198251327666', 1, 1, '获取会员信息', 'post', 'json', '/user/getUser.json', '获取会员信息', 10, 10, 1, 0, '2019-08-31 00:28:33', '2019-08-31 09:34:45'),
+(4, '20198334570253', 1, 1, '获取会员列表', 'post', 'json', '/user/getUsers.json', '基于JWT机制，token由登录接口返回，有效时长24小时', 10, 0, 1, 0, '2019-08-31 00:42:25', '2019-08-31 09:34:49');
 
 -- --------------------------------------------------------
 
@@ -102,9 +102,9 @@ CREATE TABLE `doc_env` (
 --
 
 INSERT INTO `doc_env` (`id`, `encode_id`, `project_id`, `title`, `name`, `base_url`, `sort`, `status`, `creater_id`, `updater_id`, `created_at`, `updated_at`) VALUES
-(1, '20197974781980', 1, '生产环境', 'product', 'http://api.phprap.com/rest/', 0, 10, 1, 0, '2019-08-30 23:42:27', '2019-08-30 15:44:44'),
-(2, '20197976030919', 1, '开发环境', 'develop', 'http://dev.api.phprap.com/rest/', 0, 10, 1, 0, '2019-08-30 23:42:40', '2019-08-30 15:44:49'),
-(3, '20197977260782', 1, '测试环境', 'test', 'http://test.api.phprap.com/rest/', 0, 10, 1, 0, '2019-08-30 23:42:52', '2019-08-30 15:44:51');
+(1, '20197974781980', 1, '生产环境', 'product', 'http://api.phprap.com/rest', 0, 10, 1, 0, '2019-08-30 23:42:27', '2019-08-30 15:44:44'),
+(2, '20197976030919', 1, '开发环境', 'develop', 'http://dev.api.phprap.com/rest', 0, 10, 1, 0, '2019-08-30 23:42:40', '2019-08-30 15:44:49'),
+(3, '20197977260782', 1, '测试环境', 'test', 'http://test.api.phprap.com/rest', 0, 10, 1, 0, '2019-08-30 23:42:52', '2019-08-30 15:44:51');
 
 -- --------------------------------------------------------
 
@@ -119,8 +119,8 @@ CREATE TABLE `doc_field` (
   `header_fields` text COMMENT 'header字段',
   `request_fields` text COMMENT '请求字段',
   `response_fields` text COMMENT '响应字段',
-  `creater_id` int(10) NOT NULL COMMENT '创建者id',
-  `updater_id` int(10) NOT NULL COMMENT '更新者id',
+  `creater_id` int(10) NOT NULL DEFAULT '0' COMMENT '创建者id',
+  `updater_id` int(10) NOT NULL DEFAULT '0' COMMENT '更新者id',
   `created_at` datetime NOT NULL COMMENT '创建时间',
   `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='接口字段表';
@@ -172,8 +172,8 @@ CREATE TABLE `doc_member` (
   `api_rule` varchar(100) NOT NULL DEFAULT '' COMMENT '接口权限',
   `member_rule` varchar(100) NOT NULL DEFAULT '' COMMENT '成员权限',
   `creater_id` int(10) NOT NULL DEFAULT '0' COMMENT '创建者id',
-  `created_at` datetime DEFAULT NULL COMMENT '创建时间',
   `updater_id` int(10) DEFAULT '0' COMMENT '更新者id',
+  `created_at` datetime DEFAULT NULL COMMENT '创建时间',
   `updated_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='项目成员表';
 
@@ -239,11 +239,11 @@ INSERT INTO `doc_project` (`id`, `encode_id`, `title`, `remark`, `sort`, `status
 
 CREATE TABLE `doc_project_log` (
   `id` int(1) NOT NULL,
-  `project_id` int(10) NOT NULL COMMENT '项目id',
+  `project_id` int(10) NOT NULL DEFAULT '0' COMMENT '项目id',
   `object_name` varchar(10) NOT NULL COMMENT '操作对象',
-  `object_id` int(10) NOT NULL COMMENT '操作对象id',
-  `user_id` int(10) NOT NULL COMMENT '操作人id',
-  `type` varchar(10) NOT NULL COMMENT '操作类型',
+  `object_id` int(10) NOT NULL DEFAULT '0'  COMMENT '操作对象id',
+  `user_id` int(10) NOT NULL DEFAULT '0'  COMMENT '操作人id',
+  `type` varchar(10) NOT NULL DEFAULT '0' COMMENT '操作类型',
   `content` text NOT NULL COMMENT '操作内容',
   `created_at` datetime DEFAULT NULL COMMENT '创建时间',
   `updated_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间'
@@ -281,8 +281,7 @@ CREATE TABLE `doc_template` (
   `header_fields` text COMMENT 'header参数，json格式',
   `request_fields` text COMMENT '请求参数，json格式',
   `response_field` text NOT NULL COMMENT '响应参数，json格式',
-  `status` tinyint(3) NOT NULL COMMENT '模板状态',
-  `type` tinyint(3) NOT NULL COMMENT '模板类型',
+  `status` tinyint(3) NOT NULL DEFAULT '0' COMMENT '模板状态',
   `creater_id` int(10) NOT NULL DEFAULT '0' COMMENT '创建者id',
   `updater_id` int(10) NOT NULL DEFAULT '0' COMMENT '更新者id',
   `created_at` datetime DEFAULT NULL COMMENT '创建时间',
@@ -437,8 +436,7 @@ ALTER TABLE `doc_template`
   ADD UNIQUE KEY `encode_id` (`encode_id`),
   ADD KEY `creater_id` (`creater_id`),
   ADD KEY `project_id` (`project_id`) USING BTREE,
-  ADD KEY `status` (`status`),
-  ADD KEY `type` (`type`);
+  ADD KEY `status` (`status`);
 
 --
 -- Indexes for table `doc_user`

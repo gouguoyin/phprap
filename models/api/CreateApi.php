@@ -56,25 +56,18 @@ class CreateApi extends Api
         $module = Module::findModel(['encode_id' => $this->module_id]);
 
         $api->encode_id  = $this->createEncodeId();
+        $api->title      = $this->title;
+        $api->request_method = $this->request_method;
         $api->project_id = $module->project_id;
         $api->module_id  = $module->id;
-        $api->uri        = '/' . ltrim($this->uri, '/');
+        $api->uri        = $this->uri ? '/' . ltrim($this->uri, '/') : $this->uri;
+        $api->remark     = $this->remark;
         $api->status     = Api::ACTIVE_STATUS;
         $api->creater_id = Yii::$app->user->identity->id;
         $api->created_at = $this->getNowTime();
 
         if(!$api->save()){
             $this->addError($api->getErrorLabel(), $api->getErrorMessage());
-            $transaction->rollBack();
-            return false;
-        }
-
-        // 添加空字段
-        $field = new CreateField();
-        $field->api_id = $api->id;
-
-        if(!$field->store()){
-            $this->addError($field->getErrorLabel(), $field->getErrorMessage());
             $transaction->rollBack();
             return false;
         }

@@ -125,7 +125,7 @@ class RegisterForm extends Account
         $member->project_rule = 'look,export,history';
         $member->env_rule     = 'look';
         $member->module_rule  = 'look';
-        $member->api_rule     = 'look,export';
+        $member->api_rule     = 'look,export,history,debug';
         $member->member_rule  = 'look';
         $member->creater_id   = 1;
         $member->created_at   = date('Y-m-d H:i:s');

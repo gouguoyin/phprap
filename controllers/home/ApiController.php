@@ -2,6 +2,7 @@
 namespace app\controllers\home;
 
 use Yii;
+use Curl\Curl;
 use yii\helpers\Url;
 use yii\web\Response;
 use app\models\Config;
@@ -17,16 +18,73 @@ class ApiController extends PublicController
 {
     public $checkLogin = false;
 
+    /**
+     * 在线调试
+     * @param $id
+     * @return array|string
+     */
     public function actionDebug($id)
     {
-        $api = Api::findModel($id);
+        $request = Yii::$app->request;
 
-        $project = $api->module->project;
+        $api = Api::findModel(['encode_id' => $id]);
 
-        // 获取当前版本
-        $project->current_version = $api->module->version;
+        if(!$api->id){
+            return $this->error('抱歉，接口不存在或者已被删除');
+        }
 
-        return $this->display('debug', ['project' => $project, 'api' => $api]);
+        $project = $api->project;
+
+        if(!count($project->envs)){
+            return $this->error('请先设置项目环境');
+        }
+
+        if($request->isPost){
+
+            Yii::$app->response->format = Response::FORMAT_JSON;
+
+            $api = $request->post('api');
+
+            $request_url = $api['request_url'];
+            $request_method = $api['request_method'];
+            $header_params  = $this->getHeaderParams($request->post('header'));
+            $request_params = $this->getRequestParams($request->post('request'));
+
+            $curl = new Curl();
+
+            $header_params && $curl->setHeaders($header_params);
+
+            switch ($request_method) {
+                case 'get':
+                    if(strpos($request_url, '?') !== false){
+                        $request_url .= '&';
+                    }else{
+                        $request_url .= '?';
+                    }
+
+                    $request_url .= http_build_query($request_params);
+
+                    $curl->get($request_url);
+                    break;
+                case 'post':
+                    $curl->post($request_url, $request_params);
+                    break;
+                case 'put':
+                    $curl->put($request_url, $request_params);
+                    break;
+                case 'delete':
+                    $curl->delete($request_url, $request_params);
+                    break;
+            }
+
+            if ($curl->error) {
+                return ['status' => 'error', 'code' => $curl->errorCode, 'message' => $curl->errorMessage];
+            }
+
+            return ['status' => 'success', 'body' => $curl->rawResponse, 'info' => $curl->getInfo()];
+
+        }
+
     }
 
     /**
@@ -166,7 +224,21 @@ class ApiController extends PublicController
                 $assign['field'] = $api->field;
                 $view  = '/home/field/home';
                 break;
+            case 'debug':
+
+                if(!$api->project->hasAuth(['api' => 'debug'])) {
+                    return $this->error('抱歉，您无权查看');
+                }
+
+                $assign['field'] = $api->field;
+                $view  = '/home/api/debug';
+                break;
             case 'history':
+
+                if(!$api->project->hasAuth(['api' => 'history'])) {
+                    return $this->error('抱歉，您无权查看');
+                }
+
                 $params['object_name'] = 'api';
                 $params['object_id']   = $api->id;
                 $assign['history'] = ProjectLog::findModel()->search($params);
@@ -230,5 +302,43 @@ class ApiController extends PublicController
         $cache_interval >0 && Yii::$app->cache->set($cache_key, time() + $cache_interval, $cache_interval);
 
         return $this->display('export', ['api' => $api]);
+    }
+
+    /**
+     * 获取header参数
+     * @param $header
+     * @return array
+     */
+    private function getHeaderParams($header)
+    {
+        if(!$header){
+            return [];
+        }
+        $params = [];
+        foreach ($header as $k => $v) {
+            foreach (array_filter($v) as $k1 => $v1) {
+                $params[$header['name'][$k1]] = $header['value'][$k1];
+            }
+        }
+        return $params;
+    }
+
+    /**
+     * 获取请求参数
+     * @param $request
+     * @return array
+     */
+    private function getRequestParams($request)
+    {
+        if(!$request){
+            return [];
+        }
+        $params = [];
+        foreach ($request as $k => $v) {
+            foreach (array_filter($v) as $k1 => $v1) {
+                $params[$request['name'][$k1]] = $request['example_value'][$k1];
+            }
+        }
+        return $params;
     }
 }

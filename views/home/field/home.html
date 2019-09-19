@@ -31,7 +31,11 @@
                     <div class="opt-btn">
 
                         {{if $project->hasAuth(['api' => 'update'])}}
-                        <a href="{{url('home/field/update', ['id' => $field->encode_id, 'method' => 'form'])}}" class="btn btn-sm hidden-xs btn-success"><i class="fa fa-fw fa-edit"></i>编辑</a>
+                            {{if $field->id}}
+                            <a href="{{url('home/field/update', ['id' => $field->encode_id])}}" class="btn btn-sm hidden-xs btn-warning"><i class="fa fa-fw fa-edit"></i>编辑</a>
+                            {{else}}
+                            <a href="{{url('home/field/create', ['api_id' => $api->encode_id])}}" class="btn btn-sm hidden-xs btn-success"><i class="fa fa-fw fa-edit"></i>添加</a>
+                            {{/if}}
                         {{/if}}
 
                     </div>
