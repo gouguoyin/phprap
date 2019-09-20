@@ -16,7 +16,7 @@ class UpdateMember extends Member
             [['project_id', 'user_id'], 'required'],
 
             [['project_id', 'user_id'], 'integer'],
-            [['project_rule', 'module_rule', 'api_rule', 'member_rule', 'env_rule'], 'string', 'max' => 100],
+            [['project_rule', 'module_rule', 'api_rule', 'member_rule', 'env_rule', 'template_rule'], 'string', 'max' => 100],
 
             ['id', 'validateAuth'],
         ];
@@ -51,6 +51,7 @@ class UpdateMember extends Member
 
         $member->project_rule = $this->project_rule;
         $member->env_rule     = $this->env_rule;
+        $member->template_rule = $this->template_rule;
         $member->module_rule  = $this->module_rule;
         $member->api_rule     = $this->api_rule;
         $member->member_rule  = $this->member_rule;

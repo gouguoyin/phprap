@@ -15,6 +15,7 @@ use yii\data\Pagination;
  * @property int $join_type 加入方式
  * @property string $project_rule 项目权限
  * @property string $env_rule 环境权限
+ * @property string $template_rule 模板权限
  * @property string $module_rule 模块权限
  * @property string $api_rule 接口权限
  * @property string $member_rule 成员权限
@@ -51,7 +52,7 @@ class Member extends Model
             [['project_id', 'user_id', 'join_type', 'creater_id', 'updater_id'], 'integer'],
             [['created_at', 'updated_at'], 'safe'],
             [['encode_id'], 'string', 'max' => 50],
-            [['project_rule', 'env_rule', 'module_rule', 'api_rule', 'member_rule'], 'string', 'max' => 100],
+            [['project_rule', 'env_rule', 'module_rule', 'api_rule', 'member_rule', 'template_rule'], 'string', 'max' => 100],
             [['encode_id'], 'unique'],
         ];
     }
@@ -70,6 +71,7 @@ class Member extends Model
             'join_type' => '加入方式',
             'project_rule' => '项目权限',
             'env_rule' => '环境权限',
+            'template_rule' => '模板权限',
             'module_rule' => '模块权限',
             'api_rule' => '接口权限',
             'member_rule' => '成员权限',

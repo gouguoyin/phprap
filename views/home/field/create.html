@@ -1,0 +1,403 @@
+{{include_file name='home/public/header' title='编辑字段'}}
+<style>
+    .table>thead>tr>th, .table>tbody>tr>th, .table>tfoot>tr>th, .table>thead>tr>td, .table>tbody>tr>td, .table>tfoot>tr>td {
+        padding: 8px 8px 8px 0;
+        line-height: 1.42857143;
+        vertical-align: top;
+        border-top: 1px solid #ddd;
+    }
+    .js_name{float: right}
+    .move-cursor{
+        cursor:move
+    }
+</style>
+</head>
+
+<body>
+
+<div id="wrapper">
+
+    <!-- Navigation -->
+    {{include_file name='home/public/nav' sidebar='home/project/sidebar'}}
+    <div id="page-wrapper">
+        <table class="clone-table hidden">
+
+            <tr class="js_headerClone">
+                <td class="hidden"><input name="header[id][]" class="form-control js_id" value="0"></td>
+                <td class="hidden"><input name="header[parent_id][]" class="form-control js_parent_id" value="0"></td>
+                <td class="hidden"><input name="header[level][]" class="form-control js_level" value="1"></td>
+
+                <td><input name="header[name][]" class="form-control js_name" placeholder="必填" datatype="*1-20" nullmsg="请填写参数名" value=""></td>
+                <td><input name="header[title][]" class="form-control js_title" placeholder="非必填" ignore="ignore" datatype="*1-50" nullmsg="请填写参数标题" value=""></td>
+                <td>
+                    <select onchange="selectType(this)" name="header[type][]" class="form-control js_type">
+                        {{foreach $field->fieldTypeLabels as $k => $v}}
+                        <option value="{{$k}}">{{$v}}</option>
+                        {{/foreach}}
+                    </select>
+                </td>
+                <td>
+                    <select name="header[required][]" class="form-control js_required">
+                        {{foreach $field->requiredLabels as $k => $v}}
+                        <option value="{{$k}}">{{$v}}</option>
+                        {{/foreach}}
+                    </select>
+                </td>
+                <td><input name="header[value][]" class="form-control js_value" placeholder="非必填" value=""></td>
+                <td><input name="header[remark][]" class="form-control js_remark" placeholder="非必填" value=""></td>
+                <td>
+                    <a onclick="deleteField(this)" href="javascript:;" class="btn btn-xs hidden-xs fa fa-fw fa-trash-o option-btn" title="删除参数"></a>
+                    <a onclick="addField(this, 'header')" href="javascript:;" class="btn btn-xs hidden-xs fa fa-fw fa-plus option-btn js_addField" title="添加子参数" disabled></a>
+                </td>
+            </tr>
+
+            <tr class="js_requestClone">
+                <td class="hidden"><input name="request[id][]" class="form-control js_id" value="0"></td>
+                <td class="hidden"><input name="request[parent_id][]" class="form-control js_parent_id" value="0"></td>
+                <td class="hidden"><input name="request[level][]" class="form-control js_level" value="1"></td>
+
+                <td><input name="request[name][]" class="form-control js_name" placeholder="必填" datatype="*1-20" nullmsg="请填写参数名" value=""></td>
+                <td><input name="request[title][]" class="form-control js_title" placeholder="必填" datatype="*1-50" nullmsg="请填写参数标题" value=""></td>
+                <td>
+                    <select onchange="selectType(this)" name="request[type][]" class="form-control js_type">
+                        {{foreach $field->fieldTypeLabels as $k => $v}}
+                        <option value="{{$k}}">{{$v}}</option>
+                        {{/foreach}}
+                    </select>
+                </td>
+                <td>
+                    <select name="request[required][]" class="form-control js_required">
+                        {{foreach $field->requiredLabels as $k => $v}}
+                        <option value="{{$k}}">{{$v}}</option>
+                        {{/foreach}}
+                    </select>
+                </td>
+                <td><input name="request[example_value][]" class="form-control js_example_value" placeholder="非必填" value=""></td>
+                <td><input name="request[remark][]" class="form-control js_remark" placeholder="非必填" value=""></td>
+                <td>
+                    <a onclick="deleteField(this)" href="javascript:;" class="btn btn-xs hidden-xs fa fa-fw fa-trash-o option-btn" title="删除参数"></a>
+                    <a onclick="addField(this, 'request')" href="javascript:;" class="btn btn-xs hidden-xs fa hidden-xs fa-fw fa-plus option-btn js_addField" title="添加子参数" disabled></a>
+                </td>
+
+            </tr>
+
+            <tr class="js_responseClone">
+
+                <td class="hidden"><input name="response[id][]" class="form-control js_id" value="0"></td>
+                <td class="hidden"><input name="response[parent_id][]" class="form-control js_parent_id" value="0"></td>
+                <td class="hidden"><input name="response[level][]" class="form-control js_level" value="1"></td>
+
+                <td><input name="response[name][]" class="form-control js_name" placeholder="必填" datatype="*1-20" nullmsg="请填写参数名" value=""></td>
+                <td><input name="response[title][]" class="form-control js_title" placeholder="必填" datatype="*1-50" nullmsg="请填写参数标题" value=""></td>
+                <td>
+                    <select onchange="selectType(this)" name="response[type][]" class="form-control js_type">
+                        {{foreach $field->fieldTypeLabels as $k => $v}}
+                        <option value="{{$k}}">{{$v}}</option>
+                        {{/foreach}}
+                    </select>
+                </td>
+
+                <td><input name="response[example_value][]" class="form-control js_example_value" placeholder="非必填" value=""></td>
+
+                <td><input name="response[remark][]" class="form-control js_remark" placeholder="非必填" value=""></td>
+
+                <td>
+
+                    <a onclick="deleteField(this)" href="javascript:;" class="btn btn-xs hidden-xs fa fa-fw fa-trash-o option-btn" title="删除参数"></a>
+
+                    <a onclick="addField(this, 'response')" href="javascript:;" class="btn btn-xs hidden-xs fa fa-fw fa-plus option-btn js_addField" title="添加子参数" disabled></a>
+                </td>
+
+            </tr>
+        </table>
+
+        <form role="form" action="{{url()}}" method="post">
+            <input type="hidden" name="csrf-phprap" value="{{csrf_token()}}" />
+
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="page-header">
+                        <h1>添加字段</h1>
+                        <div class="opt-btn">
+                            <a class="btn btn-sm btn-warning js_cancel" href="javascript:;" onclick="cancelSave()"><i class="fa fa-fw fa-reply"></i>取消</a>
+                            <a class="btn btn-sm btn-success ml-1" id="js_submit" href="javascript:void(0);"><i class="fa fa-fw fa-save"></i>保存</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+
+                <div class="col-lg-12">
+
+                    <div class="panel panel-default">
+
+                        {{include_file name='home/api/tab' tab='field'}}
+
+                        <div class="panel-body">
+
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="panel panel-default">
+                                        <div class="panel-heading">
+                                            Header参数
+                                            <a onclick="addField(this, 'header')" href="javascript:;" class="fa fa-plus ml-1" data-toggle="tooltip" data-title="添加参数" data-parent_id="0"></a>
+                                        </div>
+
+                                        <!-- /.panel-heading -->
+                                        <div class="panel-body">
+                                            <div class="table-responsive">
+                                                <table class="table" id="headerParamTable">
+                                                    <thead>
+                                                    <tr>
+                                                        <th width="150px">参数名</th>
+                                                        <th width="150px">参数标题</th>
+                                                        <th width="80px">参数类型</th>
+                                                        <th width="55px">必填</th>
+                                                        <th width="150px">参数值</th>
+                                                        <th>备注说明</th>
+                                                        <th width="50px"></th>
+                                                    </tr>
+                                                    </thead>
+                                                    <tbody>
+
+                                                    {{foreach $template->headerAttributes as $header}}
+                                                    <tr>
+                                                        <td class="hidden"><input name="header[id][]" class="form-control js_id" value="{{$header->id}}"></td>
+                                                        <td class="hidden"><input name="header[parent_id][]" class="form-control js_parent_id" value="{{$header->parent_id}}"></td>
+                                                        <td class="hidden"><input name="header[level][]" class="form-control js_level" value="{{$header->level}}"></td>
+                                                        <td>
+                                                            <input autocomplete="off" style="width: {{(10 - $header->level)*10}}%" name="header[name][]" class="form-control js_name" placeholder="必填" datatype="*1-20" nullmsg="请填写参数名"  value="{{$header->name}}">
+                                                        </td>
+
+
+                                                        <td><input name="header[title][]" class="form-control js_title" placeholder="非必填" ignore="ignore" datatype="*1-50" nullmsg="请填写参数标题" value="{{$header->title}}"></td>
+                                                        <td>
+                                                            <select onchange="selectType(this)" name="header[type][]" class="form-control js_type">
+                                                                {{foreach $field->fieldTypeLabels as $k => $v}}
+                                                                <option {{if $header->type == $k1}}selected{{/if}} value="{{$k}}">{{$v}}</option>
+                                                                {{/foreach}}
+                                                            </select>
+                                                        </td>
+
+                                                        <td>
+                                                            <select name="header[required][]" class="form-control">
+                                                                {{foreach $field->requiredLabels as $k => $v}}
+                                                                <option {{if $header->required == $k}}selected{{/if}} value="{{$k}}">{{$v}}</option>
+                                                                {{/foreach}}
+                                                            </select>
+                                                        </td>
+
+                                                        <td><input autocomplete="off" name="header[value][]" class="form-control js_value" placeholder="非必填" value="{{$header->value}}"></td>
+                                                        <td><input name="header[remark][]" class="form-control js_remark" placeholder="非必填" value="{{$header->remark}}"></td>
+                                                        <td>
+                                                            <a onclick="deleteField(this)" href="javascript:;" class="btn btn-xs hidden-xs fa fa-fw fa-trash-o option-btn" data-toggle="tooltip" data-placement="bottom" data-title="删除参数"></a>
+                                                            <a onclick="addField(this, 'header')" href="javascript:;" class="btn btn-xs hidden-xs fa fa-fw fa-plus option-btn js_addField" data-toggle="tooltip" data-placement="bottom" data-title="添加子参数" {{if !$field->isCompositeType($header->type)}}disabled{{/if}} data-parent_id="{{$header->id}}"></a>
+                                                        </td>
+
+                                                    </tr>
+
+                                                    {{/foreach}}
+                                                    </tbody>
+                                                </table>
+
+                                            </div>
+                                            <!-- /.table-responsive -->
+                                        </div>
+                                        <!-- /.panel-body -->
+                                    </div>
+                                    <!-- /.panel -->
+                                </div>
+                                <!-- /.col-lg-6 -->
+                            </div>
+
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="panel panel-default">
+                                        <div class="panel-heading">
+                                            请求参数
+                                            <a onclick="addField(this, 'request')" href="javascript:;" class="fa fa-plus ml-1" data-toggle="tooltip" data-title="添加参数" data-parent_id="0"></a>
+                                        </div>
+                                        <!-- /.panel-heading -->
+                                        <div class="panel-body">
+                                            <div class="table-responsive">
+                                                <table class="table" id="requestParamTable">
+                                                    <thead>
+                                                    <tr>
+                                                        <th width="150px">参数名</th>
+                                                        <th width="150px">参数标题</th>
+                                                        <th width="80px">参数类型</th>
+                                                        <th width="55px">必填</th>
+                                                        <th width="150px">示例值</th>
+                                                        <th>备注说明</th>
+                                                        <th width="50px"></th>
+                                                    </tr>
+                                                    </thead>
+                                                    <tbody>
+
+                                                    {{foreach $template->requestAttributes as $request}}
+                                                    <tr>
+
+                                                        <td class="hidden"><input name="request[id][]" class="form-control js_id" value="{{$request->id}}"></td>
+                                                        <td class="hidden"><input name="request[parent_id][]" class="form-control js_parent_id" value="{{$request->parent_id}}"></td>
+                                                        <td class="hidden"><input name="request[level][]" class="form-control js_level" value="{{$request->level}}"></td>
+
+                                                        <td>
+                                                            <input autocomplete="off" style="width: {{(10 - $request->level)*10}}%" name="request[name][]" class="form-control js_name" placeholder="必填" datatype="*1-20" nullmsg="请填写参数名"  value="{{$request->name}}">
+                                                        </td>
+
+                                                        <td><input name="request[title][]" class="form-control js_title" placeholder="必填" datatype="*1-50" nullmsg="请填写参数标题" value="{{$request->title}}"></td>
+                                                        <td>
+                                                            <select onchange="selectType(this)" name="request[type][]" class="form-control js_type">
+                                                                {{foreach $field->fieldTypeLabels as $k => $v}}
+                                                                <option {{if $request->type == $k}}selected{{/if}} value="{{$k}}">{{$v}}</option>
+                                                                {{/foreach}}
+                                                            </select>
+                                                        </td>
+                                                        <td>
+                                                            <select name="request[required][]" class="form-control">
+                                                                {{foreach $field->requiredLabels as $k => $v}}
+                                                                <option {{if $request->required == $k}}selected{{/if}} value="{{$k}}">{{$v}}</option>
+                                                                {{/foreach}}
+                                                            </select>
+                                                        </td>
+                                                        <td><input name="request[example_value][]" class="form-control js_example_value" placeholder="非必填" value="{{$request->example_value}}"></td>
+                                                        <td><input name="request[remark][]" class="form-control js_remark" placeholder="非必填" value="{{$request->remark}}"></td>
+                                                        <td>
+                                                            <a onclick="deleteField(this)" href="javascript:;" class="btn btn-xs hidden-xs fa fa-fw fa-trash-o option-btn" data-toggle="tooltip" data-placement="bottom" data-title="删除参数"></a>
+                                                            <a onclick="addField(this, 'request')" href="javascript:;" class="btn btn-xs hidden-xs fa fa-fw fa-plus option-btn js_addField" data-toggle="tooltip" data-placement="bottom" data-title="添加子参数" {{if !$field->isCompositeType($request->type)}}disabled{{/if}} data-parent_id="{{$request->id}}"></a>
+                                                        </td>
+
+                                                    </tr>
+                                                    {{/foreach}}
+
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                            <!-- /.table-responsive -->
+                                        </div>
+                                        <!-- /.panel-body -->
+                                    </div>
+                                    <!-- /.panel -->
+                                </div>
+                                <!-- /.col-lg-6 -->
+                            </div>
+
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="panel panel-default mb-0">
+                                        <div class="panel-heading">
+                                            响应参数
+                                            <a onclick="addField(this, 'response')" href="javascript:;" class="fa fa-plus ml-1" data-toggle="tooltip" data-title="添加参数" data-parent_id="0"></a>
+                                        </div>
+                                        <!-- /.panel-heading -->
+                                        <div class="panel-body">
+                                            <div class="table-responsive">
+                                                <table class="table" id="responseParamTable">
+                                                    <thead>
+                                                    <tr>
+                                                        <th width="150px">参数名</th>
+                                                        <th width="150px">参数标题</th>
+                                                        <th width="80px">参数类型</th>
+                                                        <th width="200px">示例值</th>
+                                                        <th>备注说明</th>
+                                                        <th width="50px"></th>
+                                                    </tr>
+                                                    </thead>
+                                                    <tbody>
+
+                                                    {{foreach $template->responseAttributes as $k=>$response}}
+                                                    <tr>
+                                                        <td class="hidden"><input name="response[id][]" class="form-control js_id" value="{{$response->id}}"></td>
+                                                        <td class="hidden"><input name="response[parent_id][]" class="form-control js_parent_id" value="{{$response->parent_id}}"></td>
+                                                        <td class="hidden"><input name="response[level][]" class="form-control js_level" value="{{$response->level}}"></td>
+
+                                                        <td>
+                                                            <input autocomplete="off" style="width: {{(10 - $response->level)*10}}%" name="response[name][]" class="form-control js_name" placeholder="必填" datatype="*1-20" nullmsg="请填写参数名"  value="{{$response->name}}">
+                                                        </td>
+                                                        <td><input autocomplete="off" name="response[title][]" class="form-control js_title" placeholder="必填" datatype="*1-50" nullmsg="请填写参数标题"  value="{{$response->title}}"></td>
+                                                        <td>
+                                                            <select onchange="selectType(this)" name="response[type][]" class="form-control js_type">
+                                                                {{foreach $field->fieldTypeLabels as $k => $v}}
+                                                                <option {{if $response->type == $k}}selected{{/if}} value="{{$k}}">{{$v}}</option>
+                                                                {{/foreach}}
+                                                            </select>
+                                                        </td>
+
+                                                        <td><input autocomplete="off" name="response[example_value][]" class="form-control js_example_value" placeholder="非必填" value="{{$response->example_value}}"></td>
+                                                        <td><input autocomplete="off" name="response[remark][]" class="form-control js_remark" placeholder="非必填" value="{{$response->remark}}"></td>
+
+                                                        <td>
+                                                            <a onclick="deleteField(this)" href="javascript:;" class="btn btn-xs option-btn hidden-xs fa fa-fw fa-trash-o" data-toggle="tooltip" data-placement="bottom" data-title="删除参数"></a>
+                                                            <a onclick="addField(this, 'response')" href="javascript:;" class="btn btn-xs hidden-xs fa fa-fw fa-plus option-btn js_addField" data-toggle="tooltip" data-placement="bottom" data-title="添加子参数" {{if !$field->isCompositeType($response->type)}}disabled{{/if}} data-parent_id="{{$response->id}}"></a>
+                                                        </td>
+
+                                                    </tr>
+                                                    {{/foreach}}
+                                                    </tbody>
+                                                </table>
+
+                                            </div>
+                                            <!-- /.table-responsive -->
+                                        </div>
+                                        <!-- /.panel-body -->
+                                    </div>
+                                    <!-- /.panel -->
+                                </div>
+                                <!-- /.col-lg-6 -->
+                            </div>
+
+                        </div>
+
+                        <!-- /.panel-body -->
+                    </div>
+
+                </div>
+
+            </div>
+        </form>
+
+    </div>
+
+    <!-- /#page-wrapper -->
+
+</div>
+
+<!-- /#wrapper -->
+{{include_file name='home/public/copyright'}}
+
+<script src="{{STATIC_URL}}/js/field.min.js?v={{STATIC_VERSION}}"></script>
+<script src="{{STATIC_URL}}/plugins/bootstrap/js/typeahead.min.js"></script>
+
+<script>
+
+    // 取消保存
+    function cancelSave() {
+        confirm('您编辑的内容还没有保存，确定要退出吗？', function () {
+            window.history.go(-1);
+        });
+    }
+
+    $(function(){
+        {{if Yii::$app->request->queryParams['from'] != 'template'}}
+        confirm('是否需要导入项目模板字段？', function(){
+            window.location.href = "{{url('', ['from' => 'template'])}}";
+        });
+        {{/if}}
+
+        // 初始化change
+        $('.js_type').trigger("change");
+
+        //选择header
+        selectHeader({{json_encode($field->defaultHeaderParams)}});
+
+        // 表单验证
+        $("form").validateForm({
+            'success':function (json) {
+                window.location.href = json.callback;
+            },
+        });
+    });
+
+</script>
+{{include_file name='home/public/footer'}}

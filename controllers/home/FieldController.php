@@ -20,6 +20,8 @@ class FieldController extends PublicController
     {
         $request = Yii::$app->request;
 
+        $params  = Yii::$app->request->queryParams;
+
         $api = Api::findModel(['encode_id' => $api_id]);
 
         $model = CreateField::findModel();
@@ -27,6 +29,10 @@ class FieldController extends PublicController
         $assign['project'] = $api->project;
         $assign['api']     = $api;
         $assign['field']   = $model;
+
+        if($params['from'] == 'template'){
+            $assign['template'] = $api->project->template;
+        }
 
         if($request->isPost){
 

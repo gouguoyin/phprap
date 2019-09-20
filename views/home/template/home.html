@@ -28,8 +28,10 @@
                 <div class="page-header">
                     <h1>项目模板 </h1>
                     <div class="opt-btn">
-                        {{if $project->hasAuth(['template' => 'look'])}}
-                        <a href="javascript:;" class="btn btn-sm btn-success js_editApiBtn" data-url="{{url('home/template/form', ['project_id' => $project->encode_id])}}"><i class="fa fa-fw fa-edit"></i>编辑</a>
+                        {{if $project->template->id}}
+                        <a href="{{url('home/template/update', ['id' => $template->encode_id])}}" class="btn hidden-xs btn-sm btn-warning"><i class="fa fa-fw fa-plus"></i>编辑</a>
+                        {{else}}
+                        <a href="{{url('home/template/create', ['project_id' => $project->encode_id])}}" class="btn hidden-xs btn-sm btn-success"><i class="fa fa-fw fa-plus"></i>添加</a>
                         {{/if}}
                     </div>
                 </div>
@@ -63,16 +65,28 @@
                                                 <thead>
                                                 <tr>
                                                     <th width="200px">参数名</th>
-                                                    <th width="150px">参数类型</th>
-                                                    <th width="320px">参数值</th>
+                                                    <th width="200px">参数标题</th>
+                                                    <th width="100px">参数类型</th>
+                                                    <th width="60px">必填</th>
+                                                    <th width="90px">参数值</th>
                                                     <th>备注说明</th>
                                                 </tr>
                                                 </thead>
                                                 <tbody>
-                                                {{foreach $api->headerAttributes as $header}}
-                                                <tr>
-                                                    <td>{{$header->name}}</td>
-                                                    <td>{{$api->field->typeLabels[$header->type]}}</td>
+                                                {{foreach $template->headerAttributes as $header}}
+                                                <tr class="level{{$header->level}}">
+                                                    <td>
+                                                        {{if $header->level}}
+                                                        {{str_repeat('&nbsp;&nbsp;&nbsp;', $header->level)}}
+                                                        <i class="fa fa-fw fa-angle-right fa-1" aria-hidden="true"></i>
+                                                        {{/if}}
+                                                        {{$header->name}}
+                                                    </td>
+                                                    <td>{{$header->title}}</td>
+
+                                                    <td>{{$field->fieldTypeLabels[$header->type]}}</td>
+                                                    <td>{{$field->requiredLabels[$header->required]}}</td>
+
                                                     <td>{{$header->value}}</td>
                                                     <td>{{$header->remark}}</td>
                                                 </tr>
@@ -111,12 +125,18 @@
                                                 </tr>
                                                 </thead>
                                                 <tbody>
-                                                {{foreach $api->requestAttributes as $request}}
-                                                <tr class="">
-                                                    <td>{{$request->name}}</td>
+                                                {{foreach $template->requestAttributes as $request}}
+                                                <tr class="level{{$request->level}}">
+                                                    <td>
+                                                        {{if $request->level}}
+                                                        {{str_repeat('&nbsp;&nbsp;&nbsp;', $request->level)}}
+                                                        <i class="fa fa-fw fa-angle-right fa-1" aria-hidden="true"></i>
+                                                        {{/if}}
+                                                        {{$request->name}}
+                                                    </td>
                                                     <td>{{$request->title}}</td>
-                                                    <td>{{$api->field->typeLabels[$request->type]}}</td>
-                                                    <td>{{$api->field->requiredLabels[$request->required]}}</td>
+                                                    <td>{{$field->fieldTypeLabels[$request->type]}}</td>
+                                                    <td>{{$field->requiredLabels[$request->required]}}</td>
                                                     <td>{{$request->default}}</td>
                                                     <td>{{$request->remark}}</td>
                                                 </tr>
@@ -153,7 +173,7 @@
                                                 </tr>
                                                 </thead>
                                                 <tbody>
-                                                {{foreach $api->responseAttributes as $response}}
+                                                {{foreach $template->responseAttributes as $response}}
                                                 <tr class="level{{$response->level}}">
                                                     <td>
                                                         {{if $response->level}}
@@ -163,7 +183,7 @@
                                                         {{$response->name}}
                                                     </td>
                                                     <td>{{$response->title}}</td>
-                                                    <td>{{$api->field->typeLabels[$response->type]}}</td>
+                                                    <td>{{$field->fieldTypeLabels[$response->type]}}</td>
                                                     <td>{{$response->mock}}</td>
                                                     <td>{{$response->description}}</td>
                                                 </tr>
@@ -194,21 +214,16 @@
 </div>
 
 <!-- /#wrapper -->
-<hr>
-<p class="text-center">{{config('app.copyright')}}</p>
+{{include_file name='home/public/copyright'}}
 
 <script>
     $(function () {
-        $(".js_editApiBtn").on('click', function () {
-            var thisObj = $(this);
-            var url = thisObj.data('url');
-            thisObj.attr("disabled", "disabled");
-            $("body").load(url, function (response, status) {
-                if (status == "success"){
-                    thisObj.removeAttr("disabled");
-                }
-            });
+        // 未设置环境弹框提示
+        {{if $project->getEnvs()->count() == 0}}
+        confirm('项目至少需要设置一个环境，请立即设置', function(){
+            window.location.href = "{{url('project/show', ['id' => $project->encode_id, 'tab' => 'env'])}}";
         });
+        {{/if}}
     });
 </script>
 {{include_file name='home/public/footer'}}

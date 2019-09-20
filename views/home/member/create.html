@@ -86,6 +86,20 @@
             </div>
 
             <div class="form-group">
+                <label>模板权限</label>
+                <input type="hidden" class="js_templateRule" name="CreateMember[template_rule]">
+                <label class="checkbox-inline">
+                    <input class="js_templateRule" checked type="checkbox" value="look">查看模板
+                </label>
+                <label class="checkbox-inline">
+                    <input class="js_templateRule" type="checkbox" value="create">新增模板
+                </label>
+                <label class="checkbox-inline">
+                    <input class="js_templateRule" type="checkbox" value="update">编辑模板
+                </label>
+            </div>
+
+            <div class="form-group">
                 <label>模块权限</label>
                 <input type="hidden" class="js_moduleRule" name="CreateMember[module_rule]">
                 <label class="checkbox-inline">
@@ -208,6 +222,13 @@ $(function(){
             });
             $(".js_envRule:hidden").val(envRule.join(','));
 
+            // 模板权限
+            var templateRule =[];
+            $(".js_templateRule:checkbox:checked").each(function(){
+                templateRule.push($(this).val());
+            });
+            $(".js_templateRule:hidden").val(templateRule.join(','));
+
             // 模块权限
             var moduleRule =[];
             $(".js_moduleRule:checkbox:checked").each(function(){
@@ -228,6 +249,7 @@ $(function(){
                 memberRule.push($(this).val());
             });
             $(".js_memberRule:hidden").val(memberRule.join(','));
+
         },
     });
 });
