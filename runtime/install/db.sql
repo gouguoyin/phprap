@@ -168,6 +168,7 @@ CREATE TABLE `doc_member` (
   `join_type` tinyint(3) NOT NULL COMMENT '加入方式',
   `project_rule` varchar(100) NOT NULL DEFAULT '' COMMENT '项目权限',
   `env_rule` varchar(100) NOT NULL COMMENT '环境权限',
+  `template_rule` varchar(100) NOT NULL COMMENT '模板权限',
   `module_rule` varchar(100) NOT NULL DEFAULT '' COMMENT '模块权限',
   `api_rule` varchar(100) NOT NULL DEFAULT '' COMMENT '接口权限',
   `member_rule` varchar(100) NOT NULL DEFAULT '' COMMENT '成员权限',
@@ -280,13 +281,26 @@ CREATE TABLE `doc_template` (
   `project_id` int(10) NOT NULL COMMENT '项目id',
   `header_fields` text COMMENT 'header参数，json格式',
   `request_fields` text COMMENT '请求参数，json格式',
-  `response_field` text NOT NULL COMMENT '响应参数，json格式',
+  `response_fields` text NOT NULL COMMENT '响应参数，json格式',
   `status` tinyint(3) NOT NULL DEFAULT '0' COMMENT '模板状态',
   `creater_id` int(10) NOT NULL DEFAULT '0' COMMENT '创建者id',
   `updater_id` int(10) NOT NULL DEFAULT '0' COMMENT '更新者id',
   `created_at` datetime DEFAULT NULL COMMENT '创建时间',
   `updated_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- 转存表中的数据 `doc_template`
+--
+
+INSERT INTO `doc_template` (`id`, `encode_id`, `project_id`, `header_fields`, `request_fields`, `response_fields`, `status`, `creater_id`, `updater_id`, `created_at`, `updated_at`) VALUES
+(1, '2019064870', 1, '[{\"id\":\"2\",\"parent_id\":\"0\",\"level\":\"0\",\"name\":\"Content-Type\",\"title\":\"\",\"type\":\"string\",\"required\":\"10\",\"value\":\"application\\/json\",\"remark\":\"\"}]', NULL, '[{\"id\":\"2\",\"parent_id\":\"0\",\"level\":\"0\",\"name\":\"status\",\"title\":\"请求状态\",\"type\":\"string\",\"example_value\":\"success\",\"remark\":\"success代表请求成功,error代表请求失败\"},{\"id\":\"3\",\"parent_id\":\"0\",\"level\":\"0\",\"name\":\"code\",\"title\":\"状态码\",\"type\":\"string\",\"example_value\":\"200\",\"remark\":\"200代表成功\"},{\"id\":\"4\",\"parent_id\":\"0\",\"level\":\"0\",\"name\":\"message\",\"title\":\"返回信息\",\"type\":\"string\",\"example_value\":\"\",\"remark\":\"\"}]', 10, 2, 2, '2019-09-19 23:21:27', '2019-09-20 03:42:01');
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `doc_user`
+--
 
 -- --------------------------------------------------------
 
@@ -434,8 +448,8 @@ ALTER TABLE `doc_project_log`
 ALTER TABLE `doc_template`
   ADD PRIMARY KEY (`id`,`encode_id`),
   ADD UNIQUE KEY `encode_id` (`encode_id`),
+  ADD UNIQUE KEY `project_id` (`project_id`) USING BTREE,
   ADD KEY `creater_id` (`creater_id`),
-  ADD KEY `project_id` (`project_id`) USING BTREE,
   ADD KEY `status` (`status`);
 
 --

@@ -93,6 +93,11 @@ class Project extends Model
         return $this->typeLabels[$this->type];
     }
 
+    public function getTemplate()
+    {
+        return $this->hasOne(Template::className(),['project_id'=>'id']);
+    }
+
     /**
      * 获取项目环境
      * @return \yii\db\ActiveQuery
