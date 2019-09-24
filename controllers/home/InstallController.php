@@ -137,17 +137,13 @@ class InstallController extends PublicController
 
             $step3 = $request->post('Step3');
 
-            try {
-                // 开启事务
-                $transaction = Yii::$app->db->beginTransaction();
+            // 开启事务
+            $transaction = Yii::$app->db->beginTransaction();
 
+            try {
                 // 数据库初始化
                 $init_sql = $this->getInitSql();
-
-                if(Yii::$app->db->createCommand($init_sql)->execute() === false){
-                    $transaction->rollBack();
-                    return ['status' => 'error', 'message' => '数据库初始化安装失败，请检查 configs/db.php 文件是否完整'];
-                }
+                Yii::$app->db->createCommand($init_sql)->execute();
 
                 // 插入管理员
                 $account = new Account();
@@ -175,10 +171,11 @@ class InstallController extends PublicController
                 $member->user_id      = $account->id;
                 $member->join_type    = $member::PASSIVE_JOIN_TYPE;
                 $member->project_rule = 'look,export,history';
-                $member->env_rule     = 'look';
-                $member->module_rule  = 'look';
-                $member->api_rule     = 'look,export';
-                $member->member_rule  = 'look';
+                $member->env_rule     = 'look,create,update,delete';
+                $member->module_rule  = 'look,create,update';
+                $member->api_rule     = 'look,create,update,export,debug,history';
+                $member->member_rule  = 'look,create,update';
+                $member->template_rule  = 'look,create,update';
                 $member->creater_id   = 1;
                 $member->created_at   = date('Y-m-d H:i:s');
 
@@ -210,9 +207,15 @@ class InstallController extends PublicController
                 Yii::$app->cache->set('step', 3);
 
                 return ['status' => 'success', 'callback' => url('home/install/step4')];
-                
-            } catch (Exception $e) {
 
+            } catch (\Exception $e) {
+
+                $transaction->rollBack();
+                return ['status' => 'error', 'message' => '数据库初始化安装失败，' . $e->getMessage()];
+
+            } catch (\Throwable $e) {
+
+                $transaction->rollBack();
                 return ['status' => 'error', 'message' => '数据库初始化安装失败，' . $e->getMessage()];
 
             }
