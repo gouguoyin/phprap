@@ -298,5 +298,5 @@
 ## 捐献
 - 如果觉得还不错，请作者喝杯咖啡吧，开源不易，您的支持是我前进的动力！
 
-![微信](http://www.phprap.com/static/images/site/wxpay.jpg)
-![支付宝](http://www.phprap.com/static/images/site/alipay.jpg)
+![微信](https://images.gitee.com/uploads/images/2019/1224/114958_fced31b8_544375.jpeg "wxpay.jpg")
+![支付宝](https://images.gitee.com/uploads/images/2019/1224/115034_8a947574_544375.jpeg "alipay.jpg")
