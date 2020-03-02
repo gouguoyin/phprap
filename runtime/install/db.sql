@@ -278,7 +278,7 @@ INSERT INTO `doc_project_log` (`id`, `project_id`, `object_name`, `object_id`, `
 
 CREATE TABLE `doc_template` (
   `id` int(10) NOT NULL,
-  `encode_id` varchar(10) NOT NULL COMMENT '加密id',
+  `encode_id` varchar(50) NOT NULL COMMENT '加密id',
   `project_id` int(10) NOT NULL COMMENT '项目id',
   `post_method` tinyint(3) DEFAULT '0' COMMENT 'post请求方式',
   `header_fields` text COMMENT 'header参数，json格式',
@@ -339,7 +339,7 @@ INSERT INTO `doc_user` (`id`, `email`, `name`, `password_hash`, `auth_key`, `typ
 
 CREATE TABLE `doc_version` (
   `id` int(10) NOT NULL,
-  `encode_id` varchar(10) NOT NULL COMMENT '加密id',
+  `encode_id` varchar(50) NOT NULL COMMENT '加密id',
   `project_id` int(10) NOT NULL DEFAULT '0' COMMENT '项目id',
   `parent_id` int(10) NOT NULL DEFAULT '0' COMMENT '父级版本id',
   `name` varchar(10) NOT NULL COMMENT '版本号',
