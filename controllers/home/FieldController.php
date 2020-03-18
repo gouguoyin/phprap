@@ -134,7 +134,7 @@ class FieldController extends PublicController
                 'parent_id' => strval($pid),
                 'name'      => $key,
                 'title'     => $key,
-                'type'      => $recurrence ? (isset($recurrence[0]) ? 'array' : 'object') : $type,
+                'type'      => $recurrence ? (isset($item[0]) ? 'array' : 'object') : $type,
                 'required'  => '10',
                 'remark'    => '',
                 'example_value' => $recurrence ? '' : $item
