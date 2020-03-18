@@ -1,6 +1,6 @@
 <?php
 return
-array (
-  'class' => 'yii\\db\\Connection',
-)
+    array (
+        'class' => 'yii\\db\\Connection',
+    )
 ?>

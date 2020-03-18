@@ -1,0 +1,68 @@
+<nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="javascript:void(0);">
+            {{if $project->id}}当前项目:{{$project->title}}{{else}}{{config('app.name')}}{{/if}}
+        </a>
+    </div>
+    <!-- /.navbar-header -->
+    <ul class="nav navbar-top-links navbar-right">
+        {{if $account->id}}
+        <li class="dropdown">
+            <a class="dropdown-toggle" href="{{url('home/project/select')}}">
+                <i class="fa fa fa-random fa-fw"></i> 切换项目
+            </a>
+        </li>
+        {{/if}}
+
+        <li class="dropdown hidden-xs">
+            <a class="dropdown-toggle" href="{{url('home/project/search')}}">
+                <i class="fa fa fa-search fa-fw"></i> 搜索项目
+            </a>
+        </li>
+
+        <li class="dropdown js_notifyDropdown">
+            <a class="dropdown-toggle" href="{{url('home/apply/index')}}">
+                <i class="fa fa-bell fa-fw"></i>(<span id="notify-count">{{$notify->count|default:0}}</span>)
+            </a>
+        </li>
+
+        <!-- /.dropdown -->
+        <li class="dropdown">
+            <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                <i class="fa fa-user"></i>
+                {{$account->name}}
+                <i class="fa fa-caret-down"></i>
+            </a>
+            <ul class="dropdown-menu dropdown-user">
+                {{if $account->id}}
+                <li><a href="{{url('home/account/home')}}"><i class="fa fa-user fa-fw"></i> 个人主页</a></li>
+                <li><a href="javascript:;" data-modal="#js_popModal" data-height="280" data-title='修改密码' data-src="{{url('home/account/password')}}"><i class="fa fa-key fa-fw"></i> 修改密码</a></li>
+                {{else}}
+                <li><a href="{{url('home/account/register')}}"><i class="fa fa-user fa-fw"></i> 用户注册</a></li>
+                <li><a href="{{url('home/account/login', ['callback' => url('')])}}"><i class="fa fa-sign-in fa-fw"></i> 用户登录</a></li>
+                {{/if}}
+
+                {{if $account->isAdmin}}
+                <li><a href="{{url('admin/home/index')}}"><i class="fa fa-gear fa-fw"></i> 管理中心</a></li>
+                {{/if}}
+
+                <li><a target="_blank" href="http://www.phprap.com/wiki/index.html"><i class="fa fa-file-text fa-fw"></i> 帮助文档</a></li>
+
+                {{if $account->id}}
+                <li class="divider"></li>
+                <li><a class="js_logoutBtn" href="{{url('home/account/logout')}}"><i class="fa fa-sign-out fa-fw"></i> 退出登录</a></li>
+                {{/if}}
+
+            </ul>
+
+        </li>
+
+    </ul>
+    {{if isset($sidebar)}} {{include_file name="{{$sidebar}}"}} {{/if}}
+</nav>

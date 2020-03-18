@@ -20,27 +20,38 @@
 
 </div>
 
-<!-- jQuery -->
-<script src="https://cdn.staticfile.org/jquery/3.1.0/jquery.min.js"></script>
-
 <!-- Bootstrap Core JavaScript -->
-<script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<!-- Latest compiled and minified JavaScript -->
 
-<!-- Datatable Plugin JavaScript -->
-<script src="https://cdn.datatables.net/v/bs/jq-3.3.1/dt-1.10.20/fh-3.1.6/r-2.2.3/datatables.min.js"></script>
+<script src="{{STATIC_URL}}/plugins/bootstrap/js/bootstrap.min.js"></script>
+<script src="{{STATIC_URL}}/plugins/layer/layer.min.js"></script>
+<script src="{{STATIC_URL}}/plugins/metismenu/js/metisMenu.min.js"></script>
 
-<!-- Metis Menu Plugin JavaScript -->
-<script src="https://cdn.staticfile.org/metisMenu/3.0.5/metisMenu.min.js"></script>
-
-<!-- Custom JavaScript -->
-<script src="//cdn.staticfile.org/layer/2.3/layer.js"></script>
-<script src="//cdn.staticfile.org/artDialog/7.0.0/dialog-plus.js"></script>
+<script src="{{STATIC_URL}}/plugins/artdialog/js/dialog.min.js"></script>
 
 <script src="{{STATIC_URL}}/plugins/validform/datatype.min.js?v={{STATIC_VERSION}}"></script>
 
 <!-- Custom Theme JavaScript -->
 <script src="{{STATIC_URL}}/js/app.js?v={{STATIC_VERSION}}"></script>
 
+<script>
+$(function () {
+    {{if $account->id && config('app.is_push')}}
+
+    var url  = "{{url('home/apply/notify')}}";
+    var time = "{{config('app.push_time')}}";
+    setInterval(function(){
+
+        $.get(url, function (json) {
+            $("#notify-count").text(json.count);
+        });
+
+    }, time*1000);
+
+
+    {{/if}}
+});
+</script>
 </body>
 
 </html>
