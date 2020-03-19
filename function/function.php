@@ -86,7 +86,12 @@ if (!function_exists('array2object')){
 }
 
 
-
+if (!function_exists('rand_id')) {
+    function rand_id()
+    {
+        return md5(microtime() . mt_rand(1,10000));
+    }
+}
 
 
 
