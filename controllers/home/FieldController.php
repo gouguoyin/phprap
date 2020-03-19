@@ -129,7 +129,7 @@ class FieldController extends PublicController
             $recurrence = ($type == 'array' or $type == 'object');
 
             $field_array[] = [
-                'id'        => '',
+                'id'        => $id,
                 'level'     => strval($level),
                 'parent_id' => strval($pid),
                 'name'      => $key,
