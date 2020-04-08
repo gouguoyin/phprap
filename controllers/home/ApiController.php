@@ -1,6 +1,8 @@
 <?php
+
 namespace app\controllers\home;
 
+use app\models\Field;
 use Yii;
 use Curl\Curl;
 use yii\helpers\Url;
@@ -27,19 +29,20 @@ class ApiController extends PublicController
     {
         $request = Yii::$app->request;
 
+        /** @var Api $api */
         $api = Api::findModel(['encode_id' => $id]);
 
-        if(!$api->id){
+        if (!$api->id) {
             return $this->error('抱歉，接口不存在或者已被删除');
         }
 
         $project = $api->project;
 
-        if(!count($project->envs)){
+        if (!count($project->envs)) {
             return $this->error('请先设置项目环境');
         }
 
-        if($request->isPost){
+        if ($request->isPost) {
 
             Yii::$app->response->format = Response::FORMAT_JSON;
 
@@ -47,7 +50,7 @@ class ApiController extends PublicController
 
             $request_url = $api['request_url'];
             $request_method = $api['request_method'];
-            $header_params  = $this->getHeaderParams($request->post('header'));
+            $header_params = $this->getHeaderParams($request->post('header'));
             $request_params = $this->getRequestParams($request->post('request'));
 
             $curl = new Curl();
@@ -56,9 +59,9 @@ class ApiController extends PublicController
 
             switch ($request_method) {
                 case 'get':
-                    if(strpos($request_url, '?') !== false){
+                    if (strpos($request_url, '?') !== false) {
                         $request_url .= '&';
-                    }else{
+                    } else {
                         $request_url .= '?';
                     }
 
@@ -81,6 +84,14 @@ class ApiController extends PublicController
                 return ['status' => 'error', 'code' => $curl->errorCode, 'message' => $curl->errorMessage];
             }
 
+            if ($api->response_format == 'json') {
+                /** @var Field $field */
+                $field = Field::findModel(['api_id' => $api->id]);
+                if ($field) {
+                    $field->response_fields = Field::json2SaveJson($curl->rawResponse);
+                    $field->save();
+                }
+            }
             return ['status' => 'success', 'body' => $curl->rawResponse, 'info' => $curl->getInfo()];
 
         }
@@ -100,15 +111,15 @@ class ApiController extends PublicController
 
         $api = new CreateApi();
 
-        if($request->isPost){
+        if ($request->isPost) {
 
             Yii::$app->response->format = Response::FORMAT_JSON;
 
-            if(!$api->load($request->post())){
+            if (!$api->load($request->post())) {
                 return ['status' => 'error', 'message' => '数据加载失败'];
             }
 
-            if(!$api->store()){
+            if (!$api->store()) {
                 return ['status' => 'error', 'message' => $api->getErrorMessage(), 'label' => $api->getErrorLabel()];
             }
 
@@ -132,11 +143,11 @@ class ApiController extends PublicController
 
         $api = UpdateApi::findModel(['encode_id' => $id]);
 
-        if($request->isPost){
+        if ($request->isPost) {
 
             Yii::$app->response->format = Response::FORMAT_JSON;
 
-            if(!$api->load($request->post())){
+            if (!$api->load($request->post())) {
                 return ['status' => 'error', 'message' => '数据加载失败'];
             }
 
@@ -151,7 +162,7 @@ class ApiController extends PublicController
 
         return $this->display('update', ['api' => $api]);
     }
-    
+
     /**
      * 删除接口
      * @param $id 接口ID
@@ -163,11 +174,11 @@ class ApiController extends PublicController
 
         $api = DeleteApi::findModel(['encode_id' => $id]);
 
-        if($request->isPost){
+        if ($request->isPost) {
 
             Yii::$app->response->format = Response::FORMAT_JSON;
 
-            if(!$api->load($request->post())){
+            if (!$api->load($request->post())) {
                 return ['status' => 'error', 'message' => '加载数据失败'];
             }
 
@@ -192,21 +203,21 @@ class ApiController extends PublicController
     {
         $api = Api::findModel(['encode_id' => $id]);
 
-        if(!$api->id){
+        if (!$api->id) {
             return $this->error('抱歉，接口不存在或者已被删除');
         }
 
-        if(!Yii::$app->user->identity->isAdmin && $api->status !== $api::ACTIVE_STATUS){
+        if (!Yii::$app->user->identity->isAdmin && $api->status !== $api::ACTIVE_STATUS) {
             return $this->error('抱歉，接口已被禁用或已被删除');
         }
 
-        if($api->project->isPrivate()) {
+        if ($api->project->isPrivate()) {
 
-            if(Yii::$app->user->isGuest) {
-                return $this->redirect(['home/account/login','callback' => Url::current()]);
+            if (Yii::$app->user->isGuest) {
+                return $this->redirect(['home/account/login', 'callback' => Url::current()]);
             }
 
-            if(!$api->project->hasAuth(['project' => 'look'])) {
+            if (!$api->project->hasAuth(['project' => 'look'])) {
                 return $this->error('抱歉，您无权查看');
             }
         }
@@ -218,34 +229,34 @@ class ApiController extends PublicController
 
         switch ($tab) {
             case 'home':
-                $view  = '/home/api/home';
+                $view = '/home/api/home';
                 break;
             case 'field':
                 $assign['field'] = $api->field;
-                $view  = '/home/field/home';
+                $view = '/home/field/home';
                 break;
             case 'debug':
 
-                if(!$api->project->hasAuth(['api' => 'debug'])) {
+                if (!$api->project->hasAuth(['api' => 'debug'])) {
                     return $this->error('抱歉，您无权查看');
                 }
 
                 $assign['field'] = $api->field;
-                $view  = '/home/api/debug';
+                $view = '/home/api/debug';
                 break;
             case 'history':
 
-                if(!$api->project->hasAuth(['api' => 'history'])) {
+                if (!$api->project->hasAuth(['api' => 'history'])) {
                     return $this->error('抱歉，您无权查看');
                 }
 
                 $params['object_name'] = 'api';
-                $params['object_id']   = $api->id;
+                $params['object_id'] = $api->id;
                 $assign['history'] = ProjectLog::findModel()->search($params);
-                $view  = '/home/history/api';
+                $view = '/home/history/api';
                 break;
             default:
-                $view  = '/home/api/home';
+                $view = '/home/api/home';
                 break;
         }
 
@@ -262,21 +273,21 @@ class ApiController extends PublicController
     {
         $api = Api::findModel(['encode_id' => $id]);
 
-        if(!$api->project->hasAuth(['api' => 'export'])) {
+        if (!$api->project->hasAuth(['api' => 'export'])) {
             return $this->error('抱歉，您没有操作权限');
         }
 
         $account = Yii::$app->user->identity;
-        $cache   = Yii::$app->cache;
+        $cache = Yii::$app->cache;
 
         $config = Config::findOne(['type' => 'app']);
 
         $cache_key = 'api_' . $id . '_' . $account->id;
         $cache_interval = (int)$config->export_time;
 
-        if($cache_interval >0 && $cache->get($cache_key) !== false){
-            $remain_time = $cache->get($cache_key)  - time();
-            if($remain_time >0 && $remain_time < $cache_interval){
+        if ($cache_interval > 0 && $cache->get($cache_key) !== false) {
+            $remain_time = $cache->get($cache_key) - time();
+            if ($remain_time > 0 && $remain_time < $cache_interval) {
                 return $this->error("抱歉，导出太频繁，请{$remain_time}秒后再试!", 5);
             }
         }
@@ -285,21 +296,21 @@ class ApiController extends PublicController
 
         // 记录操作日志
         $log = new CreateLog();
-        $log->project_id  = $api->id;
+        $log->project_id = $api->id;
         $log->object_name = 'api';
-        $log->object_id   = $api->id;
-        $log->type        = 'export';
-        $log->content     = '导出了 ' . '<code>' . $file_name . '</code>';
+        $log->object_id = $api->id;
+        $log->type = 'export';
+        $log->content = '导出了 ' . '<code>' . $file_name . '</code>';
 
-        if(!$log->store()){
+        if (!$log->store()) {
             return $this->error($log->getErrorMessage());
         }
 
-        header ("Content-Type: application/force-download");
-        header ("Content-Disposition: attachment;filename=$file_name");
+        header("Content-Type: application/force-download");
+        header("Content-Disposition: attachment;filename=$file_name");
 
         // 限制导出频率, 60秒一次
-        $cache_interval >0 && Yii::$app->cache->set($cache_key, time() + $cache_interval, $cache_interval);
+        $cache_interval > 0 && Yii::$app->cache->set($cache_key, time() + $cache_interval, $cache_interval);
 
         return $this->display('export', ['api' => $api]);
     }
@@ -311,7 +322,7 @@ class ApiController extends PublicController
      */
     private function getHeaderParams($header)
     {
-        if(!$header){
+        if (!$header) {
             return [];
         }
         $params = [];
@@ -330,7 +341,7 @@ class ApiController extends PublicController
      */
     private function getRequestParams($request)
     {
-        if(!$request){
+        if (!$request) {
             return [];
         }
         $params = [];
