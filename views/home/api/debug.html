@@ -120,7 +120,7 @@
                                             </div>
                                             <input type="text" class="form-control js_envUrl" name="api[request_url]" placeholder="请输入请求地址" value="{{$project->envs[0]->base_url}}{{$api->uri}}" datatype="url" nullmsg="请输入请求地址" errormsg="请输入包含协议的合法链接">
                                             <div class="input-group-btn">
-                                                <button style="width: 80px;" type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span class="js_methodName">POST</span> <span class="caret"></span></button>
+                                                <button style="width: 80px;" type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span class="js_methodName">{{$api->request_method}}</span> <span class="caret"></span></button>
                                                 <input class="js_requestMethod" type="hidden" name="api[request_method]" value="{{$api->request_method}}">
                                                 <ul class="dropdown-menu">
                                                     {{foreach $api->requestMethodLabels as $k => $method}}

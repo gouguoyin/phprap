@@ -3,6 +3,7 @@
 namespace app\models;
 
 use Yii;
+use yii\helpers\Html;
 
 /**
  * This is the model class for table "doc_field".
@@ -164,4 +165,75 @@ class Field extends Model
         return trim($content, ',');
     }
 
+
+    /**
+     * 将用户提交json转化为内部json
+     * @param $string
+     * @return false|string
+     */
+    public static function json2SaveJson($string)
+    {
+        $array = json_decode($string, true);
+        $return_array = self::parseJson($array, 0, 0);
+        return json_encode($return_array, JSON_UNESCAPED_UNICODE);
+    }
+
+    /**
+     * 将用户提交json转化为内部json,递归
+     * @param $array
+     * @param int $level
+     * @param int $pid
+     * @return array
+     */
+    private static function parseJson($array, $level = 0, $pid = 0)
+    {
+        $field_array = [];
+        if (gettype($array) == 'object') {
+            $array = array($array);
+        }
+
+        foreach ($array as $key => $item) {
+            $id = rand_id();
+            $type = gettype($item);
+            $recurrence = ($type == 'array' or $type == 'object');
+
+            $field_array[] = [
+                'id'        => $id,
+                'level'     => strval($level),
+                'parent_id' => strval($pid),
+                'name'      => $key,
+                'title'     => $key,
+                'type'      => $recurrence ? (isset($item[0]) ? 'array' : 'object') : $type,
+                'required'  => '10',
+                'remark'    => '',
+                'example_value' => $recurrence ? '' : $item
+            ];
+
+            if ($recurrence) {
+                $field_array = array_merge($field_array, self::parseJson($item, $level + 1, $id));
+            }
+        }
+
+        return $field_array;
+    }
+
+    /**
+     * 表单过滤后转json
+     * @param $table
+     * @return false|string
+     */
+    public static function form2json($table)
+    {
+        if (!is_array($table) || !$table) {
+            return;
+        }
+        $array = [];
+        foreach ($table as $k => $v) {
+            foreach ($v as $k1 => $v1) {
+                $array[$k1][$k] = trim(Html::encode($v1));
+            }
+        }
+
+        return json_encode($array, JSON_UNESCAPED_UNICODE);
+    }
 }
