@@ -85,11 +85,23 @@ class ApiController extends PublicController
             }
 
             if ($api->response_format == 'json') {
+                //auto create
                 /** @var Field $field */
                 $field = Field::findModel(['api_id' => $api->id]);
                 if ($field) {
-                    $field->response_fields = Field::json2SaveJson($curl->rawResponse);
+                    if ($field->response_fields != "") {
+                        $field->response_fields = json_encode(Field::compareMergeResponseArray(json_decode($field->response_fields, true),
+                            json_decode($curl->rawResponse, true)));
+                    } else {
+                        $field->response_fields = Field::json2SaveJson($curl->rawResponse);
+                    }
                     $field->save();
+                } else {
+                    $field = new Field();
+                    $field->encode_id = $id;
+                    $field->response_fields = Field::json2SaveJson($curl->rawResponse);
+                    $field->api_id = $api->id;
+                    $field->save(false);
                 }
             }
             return ['status' => 'success', 'body' => $curl->rawResponse, 'info' => $curl->getInfo()];
@@ -344,12 +356,62 @@ class ApiController extends PublicController
         if (!$request) {
             return [];
         }
+
         $params = [];
-        foreach ($request as $k => $v) {
-            foreach (array_filter($v) as $k1 => $v1) {
-                $params[$request['name'][$k1]] = $request['example_value'][$k1];
+        if (isset($request['level']) and isset($request['name']) and isset($request['parent_id']) and isset($request['id']) and isset($request['example_value']) and isset($request['type'])) {
+            foreach ($request['id'] as $index => $id) {
+                switch ($request['type'][$index]) {
+                    case 'object':
+                        $params[$request['name'][$index]] = new \stdClass();
+                        break;
+                    case 'array':
+                        $params[$request['name'][$index]] = [];
+                        break;
+                    case 'string':
+                        $value = strval($request['example_value'][$index]);
+                        $this->getValueFromRequest($request, $params, $index, $value);
+                        break;
+                    case 'integer':
+                        $value = intval($request['example_value'][$index]);
+                        $this->getValueFromRequest($request, $params, $index, $value);
+                        break;
+                    case 'float':
+                        $value = floatval($request['example_value'][$index]);
+                        $this->getValueFromRequest($request, $params, $index, $value);
+                        break;
+                    case 'boolean':
+                        $value = boolval($request['example_value'][$index]);
+                        $this->getValueFromRequest($request, $params, $index, $value);
+                        break;
+
+                }
             }
         }
+
+//        foreach ($request as $k => $v) {
+//            foreach (array_filter($v) as $k1 => $v1) {
+//                $params[$request['name'][$k1]] = $request['example_value'][$k1];
+//            }
+//        }
+
         return $params;
+    }
+
+    private function getValueFromRequest(array $request, array &$params, $index, $value)
+    {
+        if ($request['parent_id'][$index] != 0) {
+            foreach ($request['id'] as $pos => $parent_id) {
+                if ($parent_id == $request['parent_id'][$index]) {
+                    if (is_object($params[$request['name'][$pos]])) {
+                        $params[$request['name'][$pos]]->{$request['name'][$index]} = $value;
+                    } else {
+                        //$request['name'][$index]
+                        $params[$request['name'][$pos]][] = $value;
+                    }
+                }
+            }
+        } else {
+            $params[$request['name'][$index]] = $value;
+        }
     }
 }
