@@ -245,15 +245,14 @@ class Field extends Model
                 $old[$key] = $item;
             }
 
-            if ($old[$key]['type'] != $new['type']) {
+            if ($old[$key]['type'] != $item['type']) {
                 //只有当没有手动修改过response的才会替换覆盖
                 if ($old[$key]['title'] == $old[$key]['name']) {
                     //储存最新的调试结果
-                    $old[$key] = $new;
+                    $old[$key] = $item;
                 }
             }
         }
-
         return $old;
     }
 }
