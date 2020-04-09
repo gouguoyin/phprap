@@ -90,8 +90,13 @@ class ApiController extends PublicController
                 $field = Field::findModel(['api_id' => $api->id]);
                 if ($field) {
                     if ($field->response_fields != "") {
-                        $field->response_fields = json_encode(Field::compareMergeResponseArray(json_decode($field->response_fields, true),
-                            json_decode($curl->rawResponse, true)));
+                        $save = json_decode($field->response_fields, true);
+                        $post =  json_decode(Field::json2SaveJson($curl->rawResponse), true);
+                        $res = Field::compareMergeResponseArray(
+                            is_array($post) ? $post : [],
+                            is_array($save) ? $save : []
+                        );
+                        $field->response_fields = json_encode($res);
                     } else {
                         $field->response_fields = Field::json2SaveJson($curl->rawResponse);
                     }
