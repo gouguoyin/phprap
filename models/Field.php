@@ -240,7 +240,6 @@ class Field extends Model
 
     public static function compareMergeResponseArray(array $new, array $old): array
     {
-        var_dump($new);
         foreach ($new as $key => $item) {
             if (!isset($old[$key])) {
                 $old[$key] = $item;
@@ -254,7 +253,6 @@ class Field extends Model
                 }
             }
         }
-        var_dump($old);
         return $old;
     }
 }
