@@ -28,10 +28,10 @@ class Field extends Model
     public $fieldTypeLabels = [
         'string' => '字符串',
         'integer' => '整数',
-        'float'   => '小数',
+        'float' => '小数',
         'boolean' => '布尔',
-        'object'  => '对象',
-        'array'   => '数组',
+        'object' => '对象',
+        'array' => '数组',
     ];
 
     /**
@@ -48,11 +48,11 @@ class Field extends Model
      * @var array
      */
     public $defaultHeaderParams = [
-        'Accept','Accept-Charset','Accept-Encoding','Accept-Language','Accept-Datetime','Accept-Ranges','Authorization',
-        'Cache-Control','Connection','Cookie','Content-Disposition','Content-Length','Content-Type','Content-MD5',
+        'Accept', 'Accept-Charset', 'Accept-Encoding', 'Accept-Language', 'Accept-Datetime', 'Accept-Ranges', 'Authorization',
+        'Cache-Control', 'Connection', 'Cookie', 'Content-Disposition', 'Content-Length', 'Content-Type', 'Content-MD5',
         'Referer',
         'User-Agent',
-        'X-Requested-With','X-Forwarded-For','X-Forwarded-Host','X-Csrf-Token'
+        'X-Requested-With', 'X-Forwarded-For', 'X-Forwarded-Host', 'X-Csrf-Token'
     ];
 
     /**
@@ -113,7 +113,7 @@ class Field extends Model
      */
     public function getApi()
     {
-        return $this->hasOne(Api::className(),['id'=>'api_id']);
+        return $this->hasOne(Api::className(), ['id' => 'api_id']);
     }
 
     /**
@@ -152,11 +152,11 @@ class Field extends Model
         $content = '';
         foreach (array_filter($this->dirtyAttributes) as $name => $value) {
 
-            $label = '<code>' .  $this->getAttributeLabel($name) . '</code>';
+            $label = '<code>' . $this->getAttributeLabel($name) . '</code>';
 
-            if(isset($this->oldAttributes[$name])){
+            if (isset($this->oldAttributes[$name])) {
                 $content .= '更新了  ' . $label . ',';
-            }else{
+            } else {
                 $content .= '添加了  ' . $label . ',';
             }
 
@@ -198,14 +198,14 @@ class Field extends Model
             $recurrence = ($type == 'array' or $type == 'object');
 
             $field_array[] = [
-                'id'        => $id,
-                'level'     => strval($level),
+                'id' => $id,
+                'level' => strval($level),
                 'parent_id' => strval($pid),
-                'name'      => $key,
-                'title'     => $key,
-                'type'      => $recurrence ? (isset($item[0]) ? 'array' : 'object') : $type,
-                'required'  => '10',
-                'remark'    => '',
+                'name' => $key,
+                'title' => $key,
+                'type' => $recurrence ? (isset($item[0]) ? 'array' : 'object') : $type,
+                'required' => '10',
+                'remark' => '',
                 'example_value' => $recurrence ? '' : $item
             ];
 
@@ -235,5 +235,25 @@ class Field extends Model
         }
 
         return json_encode($array, JSON_UNESCAPED_UNICODE);
+    }
+
+
+    public static function compareMergeResponseArray(array $new, array $old): array
+    {
+        foreach ($new as $key => $item) {
+            if (!isset($old[$key])) {
+                $old[$key] = $item;
+            }
+
+            if ($old[$key]['type'] != $new['type']) {
+                //只有当没有手动修改过response的才会替换覆盖
+                if ($old[$key]['title'] == $old[$key]['name']) {
+                    //储存最新的调试结果
+                    $old[$key] = $new;
+                }
+            }
+        }
+
+        return $old;
     }
 }
