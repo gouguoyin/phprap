@@ -2,8 +2,8 @@
 
 namespace app\controllers\home;
 
+use app\models\Field;
 use Yii;
-use yii\helpers\Html;
 use yii\web\Response;
 use app\models\Api;
 use app\models\field\CreateField;
@@ -23,8 +23,10 @@ class FieldController extends PublicController
 
         $params = Yii::$app->request->queryParams;
 
+        /** @var Api $api */
         $api = Api::findModel(['encode_id' => $api_id]);
 
+        /** @var CreateField $model */
         $model = CreateField::findModel();
 
         $assign['project'] = $api->project;
@@ -39,9 +41,9 @@ class FieldController extends PublicController
 
             Yii::$app->response->format = Response::FORMAT_JSON;
             $model->api_id = $api->id;
-            $model->header_fields = $this->form2json($request->post('header'));
-            $model->request_fields = $this->form2json($request->post('request'));
-            $model->response_fields = $this->form2json($request->post('response'));
+            $model->header_fields = Field::form2json($request->post('header'));
+            $model->request_fields = Field::form2json($request->post('request'));
+            $model->response_fields = Field::form2json($request->post('response'));
 
             if ($model->store()) {
                 $callback = url('home/api/show', ['id' => $api->encode_id, 'tab' => 'field']);
@@ -65,6 +67,7 @@ class FieldController extends PublicController
     {
         $request = Yii::$app->request;
 
+        /** @var UpdateField $model */
         $model = UpdateField::findModel(['encode_id' => $id]);
 
         $assign['project'] = $model->api->project;
