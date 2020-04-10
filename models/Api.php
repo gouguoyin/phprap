@@ -15,6 +15,7 @@ use app\widgets\LinkPager;
  * @property string $title 接口名
  * @property string $request_method 请求方式
  * @property string $response_format 响应格式
+ * @property int $response_auto_parse 是否自动解析响应结果
  * @property string $uri 接口路径
  * @property string $remark 接口简介
  * @property int $status 接口状态

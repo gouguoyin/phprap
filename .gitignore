@@ -1,3 +1,5 @@
 .idea/
 /static/js/app.js
 /static/js/field.js
+
+runtime/smarty/*

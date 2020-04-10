@@ -554,3 +554,9 @@ ALTER TABLE `doc_user`
 ALTER TABLE `doc_version`
   MODIFY `id` int(10) NOT NULL AUTO_INCREMENT;
 COMMIT;
+
+--
+-- 增加自动解析结果字段
+--
+ALTER TABLE `doc_api`
+ADD COLUMN `response_auto_parse` tinyint(1) UNSIGNED NOT NULL DEFAULT 1 AFTER `response_format`;

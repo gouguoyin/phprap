@@ -84,7 +84,7 @@ class ApiController extends PublicController
                 return ['status' => 'error', 'code' => $curl->errorCode, 'message' => $curl->errorMessage];
             }
 
-            if ($api->response_format == 'json') {
+            if ($api->response_format == 'json' and $api->response_auto_parse == 1) {
                 //auto create
                 /** @var Field $field */
                 $field = Field::findModel(['api_id' => $api->id]);

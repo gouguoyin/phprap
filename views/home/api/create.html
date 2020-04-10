@@ -76,6 +76,20 @@
                 <input type="text" class="form-control js_sort" name="CreateApi[sort]" value="0" placeholder="排序数字越大越靠前" datatype="n" nullmsg="请输入排序数字" errormsg="必须是数字">
             </div>
 
+            <div class="form-group">
+                <label class="control-label">自动解析response<a data-toggle="tooltip" data-placement="right" class="btn-show-tips" data-title="开启后会在接口自动解析结果集到响应字段">
+                    <i class="fa fa-info-circle"></i>
+                </a></label>
+                <div class="form-group">
+                    <label class="radio-inline">
+                        <input type="radio" name="CreateApi[response_auto_parse]" checked value=1 > 开启
+                    </label>
+                    <label class="radio-inline">
+                        <input type="radio" name="CreateApi[response_auto_parse]" value=0> 关闭
+                    </label>
+                </div>
+            </div>
+
             <input type="hidden" id="js_submit" value="提交">
 
         </form>
