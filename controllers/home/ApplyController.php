@@ -94,6 +94,7 @@ class ApplyController extends PublicController
             $member->module_rule  = 'look';
             $member->api_rule     = 'look';
             $member->member_rule  = 'look';
+            $member->template_rule = 'look';
 
             if(!$member->store()){
                 $transaction->rollBack();
