@@ -9,6 +9,9 @@
         border-top: 1px solid #ddd;
     }
     .js_name{float: right}
+    a.json-toggle:before {
+        content: "";
+    }
 </style>
 </head>
 
@@ -357,7 +360,14 @@
                 // 跳到底部响应面板
                 $(document).scrollTop($(document).height());
                 $(".response-tip").removeClass('hidden');
-                $('.response-body').jsonViewer(JSON.parse(json.body));
+                var options = {
+                    collapsed: false,
+                    rootCollapsable: true,
+                    withQuotes: true,
+                    withLinks: true
+                };
+
+                $('.response-body').jsonViewer(JSON.parse(json.body),options);
 
                 $(".http-code").text(json.info.http_code);
                 $(".total-time").text(json.info.total_time);
