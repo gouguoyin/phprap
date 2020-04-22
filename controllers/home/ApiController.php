@@ -87,11 +87,13 @@ class ApiController extends PublicController
             if ($api->response_format == 'json' and $api->response_auto_parse == 1) {
                 //auto create
                 /** @var Field $field */
+//                $api->response_auto_parse = 0;
+//                $api->save(false);
                 $field = Field::findModel(['api_id' => $api->id]);
                 if ($field) {
                     if ($field->response_fields != "") {
                         $save = json_decode($field->response_fields, true);
-                        $post =  json_decode(Field::json2SaveJson($curl->rawResponse), true);
+                        $post = json_decode(Field::json2SaveJson($curl->rawResponse), true);
                         $res = Field::compareMergeResponseArray(
                             is_array($post) ? $post : [],
                             is_array($save) ? $save : []
@@ -363,7 +365,8 @@ class ApiController extends PublicController
         }
 
         $params = [];
-        if (isset($request['level']) and isset($request['name']) and isset($request['parent_id']) and isset($request['id']) and isset($request['example_value']) and isset($request['type'])) {
+        if (isset($request['level']) and isset($request['name']) and isset($request['parent_id'])
+            and isset($request['id']) and isset($request['example_value']) and isset($request['type'])) {
             foreach ($request['id'] as $index => $id) {
                 switch ($request['type'][$index]) {
                     case 'object':
@@ -392,7 +395,7 @@ class ApiController extends PublicController
                 }
             }
         }
-
+        //var_dump($params);
 //        foreach ($request as $k => $v) {
 //            foreach (array_filter($v) as $k1 => $v1) {
 //                $params[$request['name'][$k1]] = $request['example_value'][$k1];
@@ -404,10 +407,13 @@ class ApiController extends PublicController
 
     private function getValueFromRequest(array $request, array &$params, $index, $value)
     {
-        if ($request['parent_id'][$index] != 0) {
+        if ($request['parent_id'][$index] != '0') {
+
             foreach ($request['id'] as $pos => $parent_id) {
                 if ($parent_id == $request['parent_id'][$index]) {
+
                     if (is_object($params[$request['name'][$pos]])) {
+
                         $params[$request['name'][$pos]]->{$request['name'][$index]} = $value;
                     } else {
                         //$request['name'][$index]

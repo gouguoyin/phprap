@@ -255,4 +255,96 @@ class Field extends Model
         }
         return $old;
     }
+
+    public function getRequestJson(): string
+    {
+        //$this->request_fields = '[{"id":"2","parent_id":"0","level":"0","name":"retcode","title":"错误码","type":"string","example_value":"000000","remark":""},{"id":"3","parent_id":"0","level":"0","name":"desc","title":"接口信息","type":"string","example_value":"操作成功","remark":""},{"id":"4","parent_id":"0","level":"0","name":"biz","title":"返回主体内容","type":"object","example_value":"","remark":""},{"id":"10","parent_id":"4","level":"1","name":"settleDate","title":"结算日期","type":"string","example_value":"","remark":""},{"id":"6","parent_id":"4","level":"1","name":"records","title":"列表","type":"array","example_value":"","remark":""},{"id":"8","parent_id":"6","level":"2","name":"0","title":"key","type":"object","example_value":"","remark":""},{"id":"10","parent_id":"8","level":"3","name":"incomeTypeStr","title":"结算描述符","type":"string","example_value":"incomeTypeStr","remark":""},{"id":"10","parent_id":"8","level":"3","name":"incomeType","title":"结算类型","type":"integer","example_value":"1","remark":""},{"id":"9","parent_id":"8","level":"3","name":"amount","title":"结算金额","type":"string","example_value":"","remark":""},{"id":"5","parent_id":"4","level":"1","name":"totalAmount","title":"总数","type":"float","example_value":"","remark":""}]';
+        $req = json_decode($this->request_fields, true);
+        return json_encode($this->getRequestParams($req));
+    }
+
+    public function getResponseJson(): string
+    {
+        $req = json_decode($this->response_fields, true);
+
+        return json_encode($this->getRequestParams($req));
+    }
+
+
+    /**
+     * 获取请求参数
+     * @param $request
+     * @return array
+     */
+    private function getRequestParams($array): array
+    {
+        if (!$array) {
+            return [];
+        }
+        //  var_dump($array);
+        $params = [];
+        $values = [];
+       // var_dump($array);
+        foreach ($array as $index => $request) {
+            if (isset($request['level']) and isset($request['name']) and isset($request['parent_id']) and isset($request['id']) and isset($request['example_value']) and isset($request['type'])) {
+                switch ($request['type']) {
+                    case 'object':
+                        $value = new \stdClass();
+                        break;
+                    case 'array':
+                        $value = [];
+                        break;
+                    case 'integer':
+                        $value = intval($request['example_value']);
+                        break;
+                    case 'float':
+                        $value = floatval($request['example_value']);
+                        break;
+                    case 'boolean':
+                        $value = boolval($request['example_value']);
+                        break;
+                    case 'string':
+                    default:
+                        $value = strval($request['example_value']);
+                        break;
+                }
+
+                $values[$request['id']] = $value;
+                if(strval($request['parent_id']) == '0') {
+                    $params[$request['name']] = $value;
+                }
+                $this->dpJsonView($array, $values, $request, $params);
+            }
+        }
+
+        return $params;
+    }
+
+    private function dpJsonView($array, &$values, $request, &$params)
+    {
+        foreach ($array as $v) {
+            if ($v['id'] == $request['parent_id']) {
+                if (strval($v['parent_id']) != '0') {
+                    if (is_object($values[$v['id']])) {
+                        $values[$v['id']]->{$request['name']} = $values[$request['id']];
+                    } else {
+                        $values[$v['id']] = [$values[$request['id']]];
+                    }
+                    return $this->dpJsonView($array, $values, $v, $params);
+                } else {
+
+                    if (is_object($params[$v['name']])) {
+                        $params[$v['name']]->{$request['name']} = $values[$request['id']];
+                    } else {
+                        $params[$v['name']][] = $values[$request['id']];
+                    }
+                    return;
+                }
+
+            }
+        }
+
+        return;
+    }
 }
+

@@ -287,6 +287,18 @@
 
                             <div class="panel panel-default">
                                 <div class="panel-heading">
+                                    请求示例
+                                </div>
+
+                                <div class="panel-body json-view-request-hidden" style="display: none;">
+                                    {{$api->field->requestJson}}
+                                </div>
+                                <div class="panel-body json-view-request-show">
+                                </div>
+                            </div>
+
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
                                     响应参数
                                 </div>
                                 <!-- /.panel-heading -->
@@ -323,9 +335,23 @@
                                     </div>
                                     <!-- /.table-responsive -->
                                 </div>
+
+
                                 <!-- /.panel-body -->
                             </div>
 
+                        </div>
+
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                响应示例
+                            </div>
+
+                            <div class="panel-body json-view-response-hidden" style="display: none;">
+                                {{$api->field->responseJson}}
+                            </div>
+                            <div class="panel-body json-view-response-show">
+                            </div>
                         </div>
                         <!-- #info -->
                         <!-- #sandbox -->
@@ -346,7 +372,17 @@
 <!-- /container -->
 <script src="https://cdn.staticfile.org/jquery/2.1.0-rc1/jquery.min.js"></script>
 <script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.1/js/bootstrap.min.js"></script>
-
+<link href="https://cdn.bootcss.com/jquery-jsonview/1.2.3/jquery.jsonview.min.css" rel="stylesheet">
+<script src="https://cdn.bootcss.com/jquery-jsonview/1.2.3/jquery.jsonview.min.js"></script>
+<style>
+    .collapser{
+        display:none;
+    }
+    .jsonview .q{
+        width: auto;
+        color: #0b7500;
+    }
+</style>
 <script type="text/javascript">
 
 
@@ -360,6 +396,34 @@
 
     $(function () {
 
+        $(".json-view-response-hidden").each(function () {
+            var val = $(this).html().trim();
+            var options = {
+                collapsed: false,
+                nl2br: false,
+                recursive_collapser: false,
+                escape: false,
+                withQuotes: true
+            };
+            if(val != ""){
+
+                $('.json-view-response-show').JSONView(JSON.parse(val),options);
+            }
+        });
+        $(".json-view-request-hidden").each(function () {
+            var val = $(this).html().trim();
+            var options = {
+                collapsed: false,
+                nl2br: false,
+                recursive_collapser: false,
+                escape: false,
+                withQuotes: true
+            };
+            if(val != ""){
+
+                $('.json-view-request-show').JSONView(JSON.parse(val),options);
+            }
+        });
         $(".home-parent").on('click',function () {
             $(".home-child").trigger('click');
         });
