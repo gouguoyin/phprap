@@ -298,12 +298,12 @@ class ProjectController extends PublicController
         $cache_key      = 'project_' . $id . '_' . $account->id;
         $cache_interval = (int)$config->export_time;
 
-        if($cache_interval >0 && $cache->get($cache_key) !== false){
-            $remain_time = $cache->get($cache_key)  - time();
-            if($remain_time >0 && $remain_time < $cache_interval){
-                return $this->error("抱歉，导出太频繁，请{$remain_time}秒后再试!", 5);
-            }
-        }
+//        if($cache_interval >0 && $cache->get($cache_key) !== false){
+//            $remain_time = $cache->get($cache_key)  - time();
+//            if($remain_time >0 && $remain_time < $cache_interval){
+//                return $this->error("抱歉，导出太频繁，请{$remain_time}秒后再试!", 5);
+//            }
+//        }
 
         // 限制导出频率, 60秒一次
         $cache_interval >0 && Yii::$app->cache->set($cache_key, time() + $cache_interval, $cache_interval);
