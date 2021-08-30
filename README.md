@@ -8,6 +8,7 @@
  - 官方网站：[www.phprap.com](http://www.phprap.com)
  - 演示网站：[demo.phprap.com](http://demo.phprap.com)
  - 使用文档：[www.phprap.com/wiki](http://www.phprap.com/wiki/index.html)
+ - robeeask社区：[http://phprap.robeeask.com](https://phprap.robeeask.com/)
  
 ## 特性
 
